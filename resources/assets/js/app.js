@@ -12,6 +12,7 @@ window.Vue = require('vue');
 import iview from 'iview';
 import 'iview/dist/styles/iview.css';
 import axios from 'axios';
+import router from './router';
 
 Vue.use(iview);
 
@@ -26,5 +27,5 @@ Vue.prototype.$ajax = axios;
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 const app = new Vue({
-    el: '#app',
-});
+    router
+}).$mount('#app');
