@@ -13,6 +13,7 @@ import iview from 'iview';
 import 'iview/dist/styles/iview.css';
 import axios from 'axios';
 import router from './router';
+import App from './App.vue'
 
 Vue.use(iview);
 
@@ -24,8 +25,17 @@ Vue.prototype.$ajax = axios;
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+router.beforeEach((to, from, next) => {
+    iview.LoadingBar.start();
+    next();
+})
 
-const app = new Vue({
-    router
-}).$mount('#app');
+router.afterEach((to) => {
+    iview.LoadingBar.finish();
+})
+
+new Vue({
+    el: '#app',
+    router,
+    render: h => h(App),
+});
