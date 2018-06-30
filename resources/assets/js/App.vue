@@ -11,11 +11,5 @@
 
             };
         },
-        mounted: {
-
-        },
-        methods: {
-
-        }
     }
 </script>
