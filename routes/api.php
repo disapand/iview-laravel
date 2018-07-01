@@ -13,6 +13,20 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', [], function ($api) {
+    $api->get('version', function () {
+        return response()->json([['version' => 'v1', 'statue' => 'done'],['version' => 'v2', 'statue' => 'fail']]);
+    });
+});
+
+$api->version('v2', function ($api) {
+    $api->get('version', function () {
+        return response() -> json('this is version v2');
+    });
 });

@@ -12177,6 +12177,8 @@ Vue.prototype.$ajax = __WEBPACK_IMPORTED_MODULE_2_axios___default.a;
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+__WEBPACK_IMPORTED_MODULE_2_axios___default.a.defaults.headers['Accept'] = 'application/prs.iview-laravel.v2+json';
+
 __WEBPACK_IMPORTED_MODULE_3__router__["a" /* default */].beforeEach(function (to, from, next) {
     __WEBPACK_IMPORTED_MODULE_0_iview___default.a.LoadingBar.start();
     next();
@@ -85243,7 +85245,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -85251,17 +85252,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        tt: function tt() {
-            alert('111');
-        },
         changeMenu: function changeMenu(name) {
-            alert(name);
             switch (name) {
                 case '1-1':
                     this.$router.push('/b');
                     break;
                 case '1-2':
                     this.$router.push('/');
+                    break;
+                case '1-3':
+                    this.$refs.ss.toggleCollapse();
             }
         }
     }
@@ -85279,82 +85279,70 @@ var render = function() {
     "div",
     { staticClass: "layout" },
     [
-      _c("h1", [_vm._v("A")]),
-      _vm._v(" "),
       _c(
         "Layout",
         [
           _c(
             "Header",
             [
-              _c(
-                "Menu",
-                {
-                  attrs: {
-                    mode: "horizontal",
-                    theme: "dark",
-                    "active-name": "1"
-                  }
-                },
-                [
-                  _c("div", { staticClass: "layout-logo" }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "layout-nav" },
-                    [
-                      _c(
-                        "MenuItem",
-                        { attrs: { name: "1" } },
-                        [
-                          _c("Icon", { attrs: { type: "ios-navigate" } }),
-                          _vm._v(
-                            "\n                        Item 1\n                    "
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "MenuItem",
-                        { attrs: { name: "2" } },
-                        [
-                          _c("Icon", { attrs: { type: "ios-keypad" } }),
-                          _vm._v(
-                            "\n                        Item 2\n                    "
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "MenuItem",
-                        { attrs: { name: "3" } },
-                        [
-                          _c("Icon", { attrs: { type: "ios-analytics" } }),
-                          _vm._v(
-                            "\n                        Item 3\n                    "
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "MenuItem",
-                        { attrs: { name: "4" } },
-                        [
-                          _c("Icon", { attrs: { type: "ios-paper" } }),
-                          _vm._v(
-                            "\n                        Item 4\n                    "
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ]
-              )
+              _c("Menu", { attrs: { mode: "horizontal", theme: "dark" } }, [
+                _c("div", { staticClass: "layout-logo" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "layout-nav" },
+                  [
+                    _c(
+                      "MenuItem",
+                      { attrs: { name: "1" } },
+                      [
+                        _c("Icon", { attrs: { type: "ios-navigate" } }),
+                        _vm._v(
+                          "\n                        Item 1\n                    "
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "MenuItem",
+                      { attrs: { name: "2" } },
+                      [
+                        _c("Icon", { attrs: { type: "ios-keypad" } }),
+                        _vm._v(
+                          "\n                        Item 2\n                    "
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "MenuItem",
+                      { attrs: { name: "3" } },
+                      [
+                        _c("Icon", { attrs: { type: "ios-analytics" } }),
+                        _vm._v(
+                          "\n                        Item 3\n                    "
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "MenuItem",
+                      { attrs: { name: "4" } },
+                      [
+                        _c("Icon", { attrs: { type: "ios-paper" } }),
+                        _vm._v(
+                          "\n                        Item 4\n                    "
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ])
             ],
             1
           ),
@@ -85365,8 +85353,9 @@ var render = function() {
               _c(
                 "Sider",
                 {
+                  ref: "ss",
                   style: { background: "#fff" },
-                  attrs: { "hide-trigger": "" }
+                  attrs: { "hide-trigger": "", collapsible: "" }
                 },
                 [
                   _c(
@@ -85581,8 +85570,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    methods: {
+        getVersion: function getVersion() {
+            /*this.$ajax.get('http://iview-laravel.test/api/version').then(function (response) {
+                alert(response.data)
+                console.log(response)
+            }).catch(function (error) {
+                console.log(error)
+            })*/
+            this.$ajax({
+                url: 'http://iview-laravel.test/api/version',
+                headers: {
+                    'Accept': 'application/prs.iview-laravel.v1+json'
+                }
+            }).then(function (response) {
+                alert(response.data);
+                console.log(response);
+            });
+        },
+        getVersion2: function getVersion2() {
+            /*this.$ajax.get('http://iview-laravel.test/api/version').then(function (response) {
+                alert(response.data)
+                console.log(response)
+            }).catch(function (error) {
+                console.log(error)
+            })*/
+            this.$ajax({
+                url: 'http://iview-laravel.test/api/version',
+                headers: {
+                    'Accept': 'application/prs.iview-laravel.v2+json'
+                }
+            }).then(function (response) {
+                alert(response.data);
+                console.log(response);
+            });
+        }
+    }
+});
 
 /***/ }),
 /* 61 */
@@ -85592,7 +85621,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("B")])
+  return _c(
+    "div",
+    [
+      _c(
+        "i-button",
+        { attrs: { type: "primary" }, on: { click: _vm.getVersion } },
+        [_vm._v("primary")]
+      ),
+      _vm._v(" "),
+      _c(
+        "i-button",
+        { attrs: { type: "primary" }, on: { click: _vm.getVersion2 } },
+        [_vm._v("v2")]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -85660,15 +85705,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {};
-    }
-});
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 /* 64 */
@@ -85678,11 +85716,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [_c("h1", [_vm._v("render函数")]), _vm._v(" "), _c("router-view")],
-    1
-  )
+  return _c("router-view")
 }
 var staticRenderFns = []
 render._withStripped = true

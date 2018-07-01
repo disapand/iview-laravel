@@ -24,10 +24,9 @@
 </style>
 <template>
     <div class="layout">
-        <h1>A</h1>
         <Layout>
             <Header>
-                <Menu mode="horizontal" theme="dark" active-name="1">
+                <Menu mode="horizontal" theme="dark">
                     <div class="layout-logo"></div>
                     <div class="layout-nav">
                         <MenuItem name="1">
@@ -50,7 +49,7 @@
                 </Menu>
             </Header>
             <Layout>
-                <Sider hide-trigger :style="{background: '#fff'}">
+                <Sider :style="{background: '#fff'}" ref="ss" hide-trigger collapsible>
                     <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']" @on-select="changeMenu">
                         <Submenu name="1">
                             <template slot="title">
@@ -101,17 +100,16 @@
             };
         },
         methods: {
-            tt() {
-                alert('111')
-            },
             changeMenu(name) {
-                alert(name)
                 switch (name){
                     case '1-1':
                         this.$router.push('/b');
                         break;
                     case '1-2':
                         this.$router.push('/');
+                        break;
+                    case '1-3':
+                        this.$refs.ss.toggleCollapse()
                 }
 
 
