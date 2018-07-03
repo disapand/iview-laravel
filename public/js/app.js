@@ -12177,7 +12177,10 @@ Vue.prototype.$ajax = __WEBPACK_IMPORTED_MODULE_2_axios___default.a;
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-__WEBPACK_IMPORTED_MODULE_2_axios___default.a.defaults.headers['Accept'] = 'application/prs.iview-laravel.v2+json';
+/*
+*  设置api的版本，默认为版本v1
+* */
+// axios.defaults.headers['Accept'] = 'application/prs.iview-laravel.v2+json';
 
 __WEBPACK_IMPORTED_MODULE_3__router__["a" /* default */].beforeEach(function (to, from, next) {
     __WEBPACK_IMPORTED_MODULE_0_iview___default.a.LoadingBar.start();
@@ -84879,7 +84882,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n.layout[data-v-5a9d2e4c]{\n    border: 1px solid #d7dde4;\n    background: #f5f7f9;\n    position: relative;\n    border-radius: 4px;\n    overflow: hidden;\n}\n.layout-logo[data-v-5a9d2e4c]{\n    width: 100px;\n    height: 30px;\n    background: #5b6270;\n    border-radius: 3px;\n    float: left;\n    position: relative;\n    top: 15px;\n    left: 20px;\n}\n.layout-nav[data-v-5a9d2e4c]{\n    width: 420px;\n    margin: 0 auto;\n    margin-right: 20px;\n}\n", ""]);
+exports.push([module.i, "\n.layout[data-v-5a9d2e4c]{\n    border: 1px solid #d7dde4;\n    background: #f5f7f9;\n    position: relative;\n    border-radius: 4px;\n    overflow: hidden;\n    height: 100%;\n}\n.layout-logo[data-v-5a9d2e4c]{\n    width: 100px;\n    height: 30px;\n    background: #5b6270;\n    border-radius: 3px;\n    float: left;\n    position: relative;\n    top: 15px;\n    left: 20px;\n}\n.ivu-layout[data-v-5a9d2e4c] {\n    height: 100%;\n}\n.layout-nav[data-v-5a9d2e4c]{\n    width: 420px;\n    margin: 0 auto;\n    margin-right: 20px;\n}\n", ""]);
 
 // exports
 
@@ -85245,6 +85248,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -85332,9 +85355,44 @@ var render = function() {
                       "MenuItem",
                       { attrs: { name: "4" } },
                       [
-                        _c("Icon", { attrs: { type: "ios-paper" } }),
-                        _vm._v(
-                          "\n                        Item 4\n                    "
+                        _c(
+                          "Dropdown",
+                          [
+                            _c("avatar", {
+                              attrs: { icon: "person", src: "" }
+                            }),
+                            _vm._v(" "),
+                            _c("span", [_vm._v("用户名")]),
+                            _vm._v(" "),
+                            _c(
+                              "DropdownMenu",
+                              { attrs: { slot: "list" }, slot: "list" },
+                              [
+                                _c(
+                                  "DropdownItem",
+                                  [
+                                    _c("router-link", { attrs: { to: "/b" } }, [
+                                      _vm._v("用户信息")
+                                    ])
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "DropdownItem",
+                                  { attrs: { divided: "" } },
+                                  [
+                                    _c("router-link", { attrs: { to: "" } }, [
+                                      _vm._v("退出登录")
+                                    ])
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
                         )
                       ],
                       1
@@ -85378,81 +85436,75 @@ var render = function() {
                             "template",
                             { slot: "title" },
                             [
-                              _c("Icon", { attrs: { type: "ios-navigate" } }),
+                              _c("Icon", { attrs: { type: "easel" } }),
                               _vm._v(
-                                "\n                            Item 1\n                        "
+                                "\n                            资源管理\n                        "
                               )
                             ],
                             1
                           ),
                           _vm._v(" "),
                           _c("MenuItem", { attrs: { name: "1-1" } }, [
-                            _vm._v("Option 1")
+                            _vm._v("电视资源")
                           ]),
                           _vm._v(" "),
                           _c("MenuItem", { attrs: { name: "1-2" } }, [
-                            _vm._v("Option 2")
+                            _vm._v("户外资源")
                           ]),
                           _vm._v(" "),
                           _c("MenuItem", { attrs: { name: "1-3" } }, [
-                            _vm._v("Option 3")
+                            _vm._v("交通资源")
+                          ]),
+                          _vm._v(" "),
+                          _c("MenuItem", { attrs: { name: "1-4" } }, [
+                            _vm._v("网红资源")
+                          ]),
+                          _vm._v(" "),
+                          _c("MenuItem", { attrs: { name: "1-5" } }, [
+                            _vm._v("线上资源")
+                          ]),
+                          _vm._v(" "),
+                          _c("MenuItem", { attrs: { name: "1-6" } }, [
+                            _vm._v("纸媒资源")
                           ])
                         ],
                         2
                       ),
                       _vm._v(" "),
                       _c(
-                        "Submenu",
+                        "MenuItem",
                         { attrs: { name: "2" } },
                         [
-                          _c(
-                            "template",
-                            { slot: "title" },
-                            [
-                              _c("Icon", { attrs: { type: "ios-keypad" } }),
-                              _vm._v(
-                                "\n                            Item 2\n                        "
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("MenuItem", { attrs: { name: "2-1" } }, [
-                            _vm._v("Option 1")
-                          ]),
-                          _vm._v(" "),
-                          _c("MenuItem", { attrs: { name: "2-2" } }, [
-                            _vm._v("Option 2")
-                          ])
+                          _c("Icon", { attrs: { type: "podium" } }),
+                          _vm._v(
+                            "\n                        案例管理\n                    "
+                          )
                         ],
-                        2
+                        1
                       ),
                       _vm._v(" "),
                       _c(
-                        "Submenu",
+                        "MenuItem",
                         { attrs: { name: "3" } },
                         [
-                          _c(
-                            "template",
-                            { slot: "title" },
-                            [
-                              _c("Icon", { attrs: { type: "ios-analytics" } }),
-                              _vm._v(
-                                "\n                            Item 3\n                        "
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("MenuItem", { attrs: { name: "3-1" } }, [
-                            _vm._v("Option 1")
-                          ]),
-                          _vm._v(" "),
-                          _c("MenuItem", { attrs: { name: "3-2" } }, [
-                            _vm._v("Option 2")
-                          ])
+                          _c("Icon", { attrs: { type: "planet" } }),
+                          _vm._v(
+                            "\n                        洞察管理\n                    "
+                          )
                         ],
-                        2
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "MenuItem",
+                        { attrs: { name: "4" } },
+                        [
+                          _c("Icon", { attrs: { type: "ios-pie" } }),
+                          _vm._v(
+                            "\n                        动态管理\n                    "
+                          )
+                        ],
+                        1
                       )
                     ],
                     1
@@ -85463,21 +85515,8 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "Layout",
-                { style: { padding: "0 24px 24px" } },
+                { style: { padding: "24px" } },
                 [
-                  _c(
-                    "Breadcrumb",
-                    { style: { margin: "24px 0" } },
-                    [
-                      _c("BreadcrumbItem", [_vm._v("Home")]),
-                      _vm._v(" "),
-                      _c("BreadcrumbItem", [_vm._v("Components")]),
-                      _vm._v(" "),
-                      _c("BreadcrumbItem", [_vm._v("Layout")])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
                   _c(
                     "Content",
                     {
@@ -85573,8 +85612,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            s1: '',
+            CList: '',
+            mess: ''
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        this.$ajax.get('http://iview-laravel.test/api/CList').then(function (response) {
+            console.log(response);
+            _this.CList = response.data;
+        }).catch(function (error) {
+            console.log('some errors has happend:', error);
+        });
+    },
+
     methods: {
         getVersion: function getVersion() {
             /*this.$ajax.get('http://iview-laravel.test/api/version').then(function (response) {
@@ -85634,7 +85695,30 @@ var render = function() {
         "i-button",
         { attrs: { type: "primary" }, on: { click: _vm.getVersion2 } },
         [_vm._v("v2")]
-      )
+      ),
+      _vm._v(" "),
+      _c(
+        "i-select",
+        {
+          staticStyle: { width: "200px" },
+          attrs: { clearable: "", multiple: "" },
+          model: {
+            value: _vm.s1,
+            callback: function($$v) {
+              _vm.s1 = $$v
+            },
+            expression: "s1"
+          }
+        },
+        _vm._l(_vm.CList, function(item) {
+          return _c(
+            "i-option",
+            { key: item.value, attrs: { value: item.value } },
+            [_vm._v(_vm._s(item.label))]
+          )
+        })
+      ),
+      _vm._v("\n    " + _vm._s(_vm.s1) + "\n")
     ],
     1
   )

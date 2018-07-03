@@ -25,7 +25,10 @@ Vue.prototype.$ajax = axios;
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-axios.defaults.headers['Accept'] = 'application/prs.iview-laravel.v2+json';
+/*
+*  设置api的版本，默认为版本v1
+* */
+// axios.defaults.headers['Accept'] = 'application/prs.iview-laravel.v2+json';
 
 router.beforeEach((to, from, next) => {
     iview.LoadingBar.start();
