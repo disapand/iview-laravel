@@ -19,28 +19,14 @@ use Illuminate\Http\Request;
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', [], function ($api) {
+$api->version('v1', [
+    'namespace' => 'App\Http\Controllers\Api',
+    'middleware' => 'serializer:array',
+], function ($api) {
     $api->get('version', function () {
         return response()->json([['version' => 'v1', 'statue' => 'done'],['version' => 'v2', 'statue' => 'fail']]);
     });
-    $api->get('CList', function () {
-        $Clist = [
-            [
-                'value' => 'v1',
-                'label' => '第一版'
-            ],
-            [
-                'value' => 'v2',
-                'label' => '第二版'
-            ],
-            [
-                'value' => 'v3',
-                'label' => '第三版'
-            ],
-        ];
-
-        return response()->json($Clist);
-    });
+    $api->get('tv', 'TelevisionResourcesController@index')->name('api.tv.index');
 });
 
 $api->version('v2', function ($api) {

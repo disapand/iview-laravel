@@ -19,7 +19,7 @@
             }
         },
         mounted(){
-            this.$ajax.get('http://iview-laravel.test/api/CList').then((response) => {
+            this.$ajax.get('http://iview-laravel.test/api/tv').then((response) => {
                console.log(response);
                this.CList = response.data
             }).catch((error) => {
