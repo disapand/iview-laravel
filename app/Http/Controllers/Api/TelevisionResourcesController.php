@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\televisionResources;
+use App\Transformers\televisionResourcesTransformer;
 use Illuminate\Http\Request;
 
 class TelevisionResourcesController extends Controller
@@ -24,4 +26,14 @@ class TelevisionResourcesController extends Controller
 
         return $this->response->array($selector);
     }
+
+    public function tv() {
+        $tv = televisionResources::all();
+        return $this->response->collection($tv, new televisionResourcesTransformer());
+    }
+
+    public function getTv(televisionResources $tv) {
+        return $this->response->item($tv, new televisionResourcesTransformer());
+    }
+
 }

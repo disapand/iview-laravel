@@ -1,11 +1,8 @@
 <template>
     <div>
-        <i-button type="primary" @click="getVersion">primary</i-button>
-        <i-button type="primary" @click="getVersion2">v2</i-button>
-        <i-select v-model="s1" style="width:200px" clearable multiple >
-            <i-option v-for="item in CList" :value="item.value" :key="item.value">{{ item.label }}</i-option>
-        </i-select>
-        {{ s1 }}
+        <div>
+            <i-table border :columns="col" :data="tvs" stripe highlight-row @on-row-click="tv_item"></i-table>
+        </div>
     </div>
 </template>
 
@@ -13,53 +10,104 @@
     export default {
         data(){
             return {
-                s1: '',
-                CList: '',
-                mess: '',
+                loading: 'false',
+                col: [
+                    {
+                        'title': 'id',
+                        'key': 'id',
+                        'width': 60,
+                        'align': 'center'
+                    },
+                    {
+                        'title': '电视频道',
+                        'key': 'channel'
+                    },
+                    {
+                        'title': '形式',
+                        'key': 'form'
+                    },
+                    {
+                        'title': '频道介绍',
+                        'key': 'detail'
+                    },
+                    {
+                        'title': '覆盖地区',
+                        'key': 'area'
+                    },
+                    {
+                        'title': '操作',
+                        'key': 'action',
+                        render: (h, params) => {
+                            return h('div', [
+                                h('i-button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small',
+                                    },
+                                    style: {
+
+                                    },
+                                    on: {
+                                        click: () => {
+                                            event.stopPropagation()
+                                            this.show(params.index)
+                                        }
+                                    }
+                                }, '查看'),
+                                h('i-button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small',
+                                    },
+                                    style: {
+
+                                    },
+                                    on: {
+                                        click: () => {
+                                            event.stopPropagation()
+                                            this.remove(params.index)
+                                        }
+                                    }
+                                }, '删除')
+                            ])
+                        },
+                    },
+                ],
+                tvs:[],
             }
         },
-        mounted(){
+        created(){
             this.$ajax.get('http://iview-laravel.test/api/tv').then((response) => {
-               console.log(response);
-               this.CList = response.data
+               console.log(response.data);
+               let arr = [];
+               this.tvs = response.data.data
             }).catch((error) => {
                 console.log('some errors has happend:',  error);
             })
         },
+        mounted() {
+        },
         methods: {
-            getVersion() {
-                /*this.$ajax.get('http://iview-laravel.test/api/version').then(function (response) {
-                    alert(response.data)
-                    console.log(response)
-                }).catch(function (error) {
-                    console.log(error)
-                })*/
-                this.$ajax({
-                    url: 'http://iview-laravel.test/api/version',
-                    headers: {
-                        'Accept': 'application/prs.iview-laravel.v1+json',
-                    }
-                }).then(function (response) {
-                    alert(response.data)
-                    console.log(response)
+            tv_item(row ,index) {
+                this.$router.push({'name': 'tv_item', params:{id: row.id}})
+                this.$ajax.get('http://iview-laravel.test/api/tv/' + row.id).then((response) => {
+
+                }).catch((error) => {
+
                 })
             },
-            getVersion2() {
-                /*this.$ajax.get('http://iview-laravel.test/api/version').then(function (response) {
-                    alert(response.data)
-                    console.log(response)
-                }).catch(function (error) {
-                    console.log(error)
-                })*/
-                this.$ajax({
-                    url: 'http://iview-laravel.test/api/version',
-                    headers: {
-                        'Accept': 'application/prs.iview-laravel.v2+json',
-                    }
-                }).then(function (response) {
-                    alert(response.data)
-                    console.log(response)
+            info(row, index) {
+                console.log(index)
+                this.$Message.info(row.id.toString())
+            },
+            show(index) {
+                this.$Modal.info({
+                    title: '测试标题',
+                    content: index
                 })
+            },
+            remove(index) {
+                this.$Message.info('确定删除吗')
             }
         }
     }

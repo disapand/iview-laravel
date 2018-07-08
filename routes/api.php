@@ -21,12 +21,14 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api',
-    'middleware' => 'serializer:array',
+    'middleware' => ['serializer:array', 'bindings'],
 ], function ($api) {
     $api->get('version', function () {
         return response()->json([['version' => 'v1', 'statue' => 'done'],['version' => 'v2', 'statue' => 'fail']]);
     });
-    $api->get('tv', 'TelevisionResourcesController@index')->name('api.tv.index');
+    $api->get('index', 'TelevisionResourcesController@index')->name('api.tv.index');
+    $api->get('tv', 'TelevisionResourcesController@tv')->name('api.tv.tv');
+    $api->get('tv/{tv}', 'TelevisionResourcesController@getTv')->name('api.tv.get');
 });
 
 $api->version('v2', function ($api) {
