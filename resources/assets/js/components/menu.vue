@@ -73,7 +73,7 @@
                 ---- 左侧菜单栏
                 -->
                 <Sider :style="{background: '#fff'}" ref="ss" hide-trigger collapsible>
-                    <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']" @on-select="changeMenu">
+                    <Menu active-name="1-1" theme="light" width="auto" :open-names="['1']" @on-select="changeMenu">
                         <Submenu name="1">
                             <template slot="title">
                                 <Icon type="easel"></Icon>
@@ -104,7 +104,7 @@
                 ---- 内容部分
                 -->
                 <Layout :style="{padding: '24px'}">
-                    <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+                    <Content :style="{padding: '24px', background: '#fff'}">
                         <router-view></router-view>
                     </Content>
                 </Layout>
@@ -123,7 +123,7 @@
             changeMenu(name) {
                 switch (name){
                     case '1-1':
-                        this.$router.push('/b');
+                        this.$router.push('/television');
                         break;
                     case '1-2':
                         this.$router.push('/');

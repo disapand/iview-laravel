@@ -30,7 +30,6 @@ class CreateTelevisionResourcesTable extends Migration
             $table->string('price', 20)->default('0')->comment('价格区间（美金）');
             $table->string('country', 50)->default('中国')->comment('国家或地区');
             $table->string('program', 1000)->default('热门节目')->comment('热门节目');
-            $table->string('image')->default('null')->comment('频道logo、热门节目截图等图片（图片格式可多种）');
             $table->string('requirements')->default('null')->comment('上刊要求，如：无法刊登的产品类型、需要提前多久预定等');
             $table->boolean('isuse')->default(true)->comment('是否有效');
             $table->softDeletes();

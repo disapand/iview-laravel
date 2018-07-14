@@ -1,132 +1,176 @@
 <template>
     <div class="spin-container">
-        <Row>
-            <Col span="18" offset="3">
-                <Card>
-                    <Row>
-                        <Col span="12" offset="6">
-                            <i-form :model="tv" :label-width="160">
 
-                                <form-item label="频道名称">
-                                    <i-input v-model="tv.channel" placeholder="" />
-                                </form-item>
+        <i-form :model="tv" label-position="left">
+            <!--
+            -
+            -   基本信息编辑部分
+            -
+            --->
+            <Card style="width: 600px; display: inline-block; margin-right: 20px;">
+                <p slot="title">
+                    <Icon type="clipboard"></Icon>
+                    基本信息
+                </p>
 
-                                <form-item label="展现形式">
-                                    <i-input v-model="tv.form" placeholder="" />
-                                </form-item>
+                <form-item label="电视频道">
+                    <i-input v-model="tv.channel" placeholder="" clearable />
+                </form-item>
 
-                                <form-item label="频道介绍">
-                                    <i-input v-model="tv.detail" placeholder="" />
-                                </form-item>
+                <form-item label="展现形式">
+                    <i-input v-model="tv.form" placeholder="" clearable />
+                </form-item>
 
-                                <form-item label="覆盖地区">
-                                    <i-input v-model="tv.area" placeholder="" />
-                                </form-item>
+                <form-item label="覆盖地区">
+                    <i-input v-model="tv.area" placeholder="" clearable/>
+                </form-item>
 
-                                <form-item label="语言">
-                                    <i-input v-model="tv.language" placeholder="" />
-                                </form-item>
+                <form-item label="语言">
+                    <i-input v-model="tv.language" placeholder="" clearable/>
+                </form-item>
 
-                                <form-item label="类别">
-                                    <i-select v-model="tv.category" style="width:120px;">
-                                        <i-option value="综合" label="综合"></i-option>
-                                        <i-option value="新闻" label="新闻"></i-option>
-                                        <i-option value="财经" label="财经"></i-option>
-                                        <i-option value="体育" label="体育"></i-option>
-                                        <i-option value="娱乐" label="娱乐"></i-option>
-                                        <i-option value="时尚" label="时尚"></i-option>
-                                        <i-option value="科技" label="科技"></i-option>
-                                        <i-option value="生活" label="生活"></i-option>
-                                        <i-option value="文史" label="文史"></i-option>
-                                        <i-option value="军事" label="军事"></i-option>
-                                        <i-option value="旅游" label="旅游"></i-option>
-                                        <i-option value="八卦" label="八卦"></i-option>
-                                        <i-option value="音乐" label="音乐"></i-option>
-                                        <i-option value="电影" label="电影"></i-option>
-                                        <i-option value="少儿" label="少儿"></i-option>
-                                        <i-option value="艺术" label="艺术"></i-option>
-                                        <i-option value="汽车" label="汽车"></i-option>
-                                        <i-option value="健康" label="健康"></i-option>
-                                        <i-option value="其他" label="其他"></i-option>
-                                    </i-select>
-                                </form-item>
+                <form-item label="类别">
+                    <radio-group v-model="tv.category" type="button">
+                        <radio label="综合"></radio>
+                        <radio label="新闻"></radio>
+                        <radio label="财经"></radio>
+                        <radio label="体育"></radio>
+                        <radio label="娱乐"></radio>
+                        <radio label="时尚"></radio>
+                        <radio label="科技"></radio>
+                        <radio label="生活"></radio>
+                        <radio label="文史"></radio>
+                        <radio label="军事"></radio>
+                        <radio label="旅游"></radio>
+                        <radio label="八卦"></radio>
+                        <radio label="音乐"></radio>
+                        <radio label="电影"></radio>
+                        <radio label="少儿"></radio>
+                        <radio label="艺术"></radio>
+                        <radio label="汽车"></radio>
+                        <radio label="健康"></radio>
+                        <radio label="其他"></radio>
+                    </radio-group>
+                </form-item>
 
-                                <form-item label="所属电视台">
-                                    <i-input v-model="tv.station" placeholder="" />
-                                </form-item>
+                <form-item label="所属电视台">
+                    <i-input v-model="tv.station" placeholder="" clearable />
+                </form-item>
 
-                                <form-item label="最小采购金额或周期">
-                                    <i-input v-model="tv.minimum_buy" placeholder="" />
-                                </form-item>
+                <form-item label="广告时长">
+                    <radio-group v-model="tv.time" type="button">
+                        <radio label="5"></radio>
+                        <radio label="10"></radio>
+                        <radio label="15"></radio>
+                        <radio label="20"></radio>
+                        <radio label="25"></radio>
+                        <radio label="30"></radio>
+                        <radio label="45"></radio>
+                        <radio label="60"></radio>
+                        <radio label="120"></radio>
+                    </radio-group>
+                </form-item>
 
-                                <form-item label="广告时长">
-                                    <radio-group v-model="tv.time" type="button">
-                                        <radio value="5" label="5秒"></radio>
-                                        <radio value="10" label="10秒"></radio>
-                                        <radio value="15" label="15秒"></radio>
-                                        <radio value="20" label="20秒"></radio>
-                                        <radio value="25" label="25秒"></radio>
-                                        <radio value="30" label="30秒"></radio>
-                                        <radio value="45" label="45秒"></radio>
-                                        <radio value="60" label="60秒"></radio>
-                                        <radio value="120" label="120秒"></radio>
-                                    </radio-group>
-                                    <!--<i-select v-model="tv.time" style="width:120px;">
-                                        <i-option value="5" label="5秒"></i-option>
-                                        <i-option value="10" label="10秒"></i-option>
-                                        <i-option value="15" label="15秒"></i-option>
-                                        <i-option value="20" label="20秒"></i-option>
-                                        <i-option value="25" label="25秒"></i-option>
-                                        <i-option value="30" label="30秒"></i-option>
-                                        <i-option value="45" label="45秒"></i-option>
-                                        <i-option value="60" label="60秒"></i-option>
-                                        <i-option value="120" label="120秒"></i-option>
-                                    </i-select>-->
-                                </form-item>
+                <form-item label="国家或地区">
+                    <i-input v-model="tv.country" placeholder="" clearable/>
+                </form-item>
 
-                                <form-item label="媒体所属公司或集团">
-                                    <i-input v-model="tv.company" placeholder="" />
-                                </form-item>
+                <form-item label="热门节目">
+                    <i-input type="textarea" v-model="tv.program" placeholder="" :autosize="{minRows: 5}" />
+                </form-item>
 
-                                <form-item label="媒介开发者">
-                                    <i-input v-model="tv.contributor" placeholder="" />
-                                </form-item>
+                <form-item label="是否有效">
+                    <i-switch v-model="tv.isuse" size="large">
+                        <span slot="open">有效</span>
+                        <span slot="close">无效</span>
+                    </i-switch>
+                </form-item>
 
-                                <form-item label="价格区间(美金)">
-                                    <i-input v-model="tv.price" placeholder="" />
-                                </form-item>
+            </Card>
 
-                                <form-item label="国家或地区">
-                                    <i-input v-model="tv.country" placeholder="" />
-                                </form-item>
+            <!--
+            -
+            -   扩展信息编辑部分
+            -
+            --->
+            <Card style="width: 550px; display: inline-block; position: absolute; top: 0;">
+                <p slot="title">
+                    <Icon type="compose"></Icon>
+                    附加信息
+                </p>
 
-                                <form-item label="热门节目">
-                                    <i-input v-model="tv.program" placeholder="" />
-                                </form-item>
+                <form-item label="最小采购金额或周期">
+                    <i-input v-model="tv.minimum_buy" placeholder="" clearable style="width: 100px;"/>
+                </form-item>
 
-                                <form-item label="图片">
-                                    <i-input v-model="tv.image" placeholder="" />
-                                </form-item>
+                <form-item label="媒体所属公司或集团">
+                    <i-input v-model="tv.company" placeholder="" clearable/>
+                </form-item>
 
-                                <form-item label="上刊要求">
-                                    <i-input v-model="tv.requirements" placeholder="" />
-                                </form-item>
+                <form-item label="媒介开发者">
+                    <i-input v-model="tv.contributor" placeholder="" clearable />
+                </form-item>
 
-                                <form-item label="是否有效">
-                                    <i-switch v-model="tv.isuse" size="large" @on-change="tt">
-                                        <span slot="open">有效</span>
-                                        <span slot="close">无效</span>
-                                    </i-switch>
-                                </form-item>
+                <form-item label="价格区间(美金)">
+                    <i-input v-model="tv.price" placeholder="" style="width: 100px;">
+                    <span slot="append">
+                        <Icon type="social-usd"></Icon>
+                    </span>
+                    </i-input>
+                </form-item>
 
-                            </i-form>
-                        </Col>
-                    </Row>
-                </Card>
-            </Col>
-        </Row>
+                <form-item label="频道介绍">
+                    <i-input type="textarea" v-model="tv.detail" placeholder="" :autosize="{minRows: 5}"/>
+                </form-item>
+
+                <form-item label="上刊要求">
+                    <i-input type="textarea" v-model="tv.requirements" placeholder="" :autosize="{minRows: 5}" />
+                </form-item>
+
+            </Card>
+
+            <!--
+            -
+            -   图片编辑部分
+            -
+            --->
+            <Card style="width: 400px; display: inline-block; position: absolute; top: 0; left: 1190px">
+                <p slot="title">
+                    <Icon type="image"></Icon>
+                    图片信息
+                </p>
+
+                <form-item>
+                    <upload multiple type="drag" action="">
+                        <div style="width: 360px; height: 120px">
+                            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff;margin-top: 20px"></Icon>
+                            <p>点击或者拖拽图片到此上传</p>
+                        </div>
+                    </upload>
+                </form-item>
+
+                <template v-for="img in imgList">
+                    <div class="img-list">
+                        <img :src="img.url" alt="">
+                        <div class="img-list-cover">
+                            <Icon type="ios-trash" @click.native="deleteImg(img.id)"></Icon>
+                            <Icon type="upload" @click.native="updateImg(img.id)"></Icon>
+                        </div>
+                    </div>
+                </template>
+
+            </Card>
+
+            <div style="margin: 30px;padding-left: 50%;transform: translateX(-12%)">
+                <i-button icon="ios-arrow-back" @click="back" >返回资源列表</i-button>
+                <i-button icon="ios-checkmark-empty" type="success" >{{ edit }}</i-button>
+                <poptip confirm v-if="canDel" title="您确定要删除该资源吗？删除后不可恢复" @on-ok="deleteTv(tv.id)">
+                    <i-button icon="ios-trash" type="error">删除资源</i-button>
+                </poptip>
+            </div>
+
+        </i-form>
         <Spin size="large" fix v-if="spinShow"></Spin>
-        <i-button @click="show_tv">更改后的文字</i-button>
     </div>
 </template>
 <script>
@@ -134,33 +178,162 @@
         data() {
             return {
                 tv: {
+                    isuse: true,
                 },
                 spinShow: true,
+                imgList: '',
+                edit: '创建资源',
+                canDel: true,
             }
         },
         methods: {
-            show_tv() {
-                console.log('show tv:', this.tv)
+            /*
+            *   返回上一页的方法
+            * */
+            back() {
+                this.$router.go(-1)
             },
-            tt() {
-                alert(this.tv.isuse)
-            }
+            /*
+            *   删除图片的方法，需要传入删除图的id，同时从后台返回数据更新imgList
+            * */
+            deleteImg(id) {
+                this.$Modal.confirm({
+                    title: '删除图片',
+                    content: '确定要删除这张图片吗？',
+                    /*
+                    *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
+                    * */
+                    onOk: () => {
+                        this.$ajax.delete('http://iview-laravel.test/api/img/' + id).then((response) => {
+                            console.log(response)
+                            this.imgList = response.data.data
+                        }).catch((error) => {
+                            console.log('删除图片出错：', error)
+                            this.$Message.error('图片删除失败')
+                        })
+                    }
+                })
+            },
+            /*
+            *   更新图片或者上传图片的方法
+            * */
+            updateImg(id) {
+                this.$Modal.info({
+                    title: '上传图片',
+                    okText: '取消',
+                    render: (h, id) => {
+                      return h('div', [
+                          h('upload', {
+                              props: {
+                                  action: '',//图片上传的url
+                                  type: 'drag',
+                                  multiple: 'multiple'
+                              },
+                              style: {
+                                  paddingTop: '50px',
+                              }
+                          }, [
+                              h('div', [
+                                  h('icon', {
+                                      props: {
+                                          type: 'ios-cloud-upload',
+                                          size: 52
+                                      },
+                                      style: {
+                                          paddingTop: '20px'
+                                      }
+                                  }),
+                                  h('p', {
+                                      style: {
+                                          paddingBottom: '20px'
+                                      }
+                                  },'点击或者拖拽图片到此上传')
+                              ])
+                          ]),
+                      ],)
+                    },
+                });
+            },
+            /*
+            *   根据当前电视的id删除电视资源，删除完成后返回上一页
+            * */
+            deletTv(id) {
+
+            },
         },
-        created(){
-            this.$ajax.get('http://iview-laravel.test/api/tv/' + this.$route.params.id).then((response) => {
-                console.log(response)
-                this.tv = response.data
+        created() {
+            /*
+            *   根据传过来的id获取对应的televisionResources
+            * */
+            if( this.$route.params.id ) {
+                this.$ajax.get('http://iview-laravel.test/api/tv/' + this.$route.params.id + '?include=televisionResourcesImgs').then((response) => {
+                    console.log(response)
+                    this.imgList = response.data.televisionResourcesImgs.data
+                    this.tv = response.data
+                    this.spinShow = false
+                    this.edit = '提交修改'
+                }).catch((error) => {
+                    this.$Message.error('电视资源未找到')
+                })
+            } else {
                 this.spinShow = false
-            }).catch((error) => {
-                this.$Message.error('出错了')
-            })
+                this.canDel = false
+            }
         },
         mounted() {
         },
     }
 </script>
-<style lang="scss">
+<style scoped lang="scss">
     .spin-container {
-        position:relative;
+        position: relative;
     }
+
+    .img-list {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        width: 360px;
+        height: 240px;
+        line-height: 240px;
+        vertical-align: middle;
+        border-radius: 5px;
+        border: 1px rgba(0,0,0,.1) dashed;
+        overflow: hidden;
+    }
+
+    .img-list-cover {
+        display: none;
+        position: absolute;
+        height: 240px;
+        line-height: 240px;
+        vertical-align: middle;
+        background: rgba(0, 0, 0, .6);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .img-list:hover .img-list-cover {
+        display: inline-block;
+    }
+
+    .img-list-cover .ivu-icon {
+        font-size: 3em;
+        margin-left: 25px;
+        color: #fff;
+        margin-top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+
+    .ivu-radio-group-button .ivu-radio-wrapper {
+        margin: 3px 0;
+    }
+
+    .customPop{
+        text-align: left;
+    }
+
 </style>

@@ -3,6 +3,7 @@
 use Faker\Generator as Faker;
 
 $factory->define(\App\Models\televisionResources::class, function (Faker $faker) {
+
     return [
         'channel' => $faker->word,
         'form' => $faker->word,
@@ -19,7 +20,6 @@ $factory->define(\App\Models\televisionResources::class, function (Faker $faker)
         'price' => random_int(0, 1000),
         'country' => $faker->word,
         'program' => $faker->paragraph,
-        'image' => random_int(1, 50),
         'requirements' => $faker->sentence,
         'isuse' => $faker->randomElement([true, false]),
         'created_at' => \Carbon\Carbon::now()->toDateTimeString(),

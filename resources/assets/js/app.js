@@ -32,6 +32,9 @@ Vue.prototype.$ajax = axios;
 
 router.beforeEach((to, from, next) => {
     iview.LoadingBar.start();
+    if(to.meta.title){
+        document.title = to.meta.title
+    }
     next();
 })
 

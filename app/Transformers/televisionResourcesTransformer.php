@@ -8,6 +8,8 @@ use League\Fractal\TransformerAbstract;
 class televisionResourcesTransformer extends TransformerAbstract
 {
 
+    protected $availableIncludes = ['televisionResourcesImgs'];
+
     public function transform(televisionResources $tv) {
         return [
             'id' => $tv->id,
@@ -25,13 +27,16 @@ class televisionResourcesTransformer extends TransformerAbstract
             'price' => $tv->price,
             'country' => $tv->country,
             'program' => $tv->program,
-            'image' => $tv->image,
             'requirements' => $tv->requirements,
             'isuse' => $tv->isuse ? true : false,
             'created_at' => $tv->created_at->toDateTimeString(),
             'updated_at' => $tv->updated_at->toDateTimeString(),
             'deleted_at' => $tv->deleted_at ? $tv->deleted_at->toDateTimeString() : '',
         ];
+    }
+
+    public function includeTelevisionResourcesImgs(televisionResources $tv) {
+        return $this->collection($tv->televisionResourcesImgs, new televisionResourcesImgTransformer());
     }
 
 }

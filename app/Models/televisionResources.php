@@ -56,6 +56,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\televisionResources withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\televisionResources withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\televisionResourcesImg[] $televisionResourcesImgs
  */
 class televisionResources extends Model
 {
@@ -69,4 +70,10 @@ class televisionResources extends Model
         'channel', 'form', 'detail', 'area', 'language', 'category', 'station', 'minimum_buy', 'time', 'company',
         'contributor', 'price', 'country', 'program', 'image', 'requirements', 'isuse',
     ];
+
+    public function televisionResourcesImgs()
+    {
+        return $this->hasMany('App\Models\televisionResourcesImg', 'television_resources_id', 'id');
+    }
+
 }

@@ -11,8 +11,6 @@ class televisionResourcesTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = app(Faker\Generator::class);
-
         $televisionResource = factory(\App\Models\televisionResources::class)->times(10)->make();
 
         \App\Models\televisionResources::insert($televisionResource->toArray());

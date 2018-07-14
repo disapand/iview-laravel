@@ -23,11 +23,10 @@ $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api',
     'middleware' => ['serializer:array', 'bindings'],
 ], function ($api) {
-    $api->get('version', function () {
-        return response()->json([['version' => 'v1', 'statue' => 'done'],['version' => 'v2', 'statue' => 'fail']]);
-    });
     $api->get('index', 'TelevisionResourcesController@index')->name('api.tv.index');
     $api->get('tv', 'TelevisionResourcesController@tv')->name('api.tv.tv');
+    $api->get('img', 'TelevisionResourcesImgsController@index')->name('api.tv.img');
+    $api->delete('img/{img}', 'TelevisionResourcesImgsController@delete')->name('api.tv.img.delete');
     $api->get('tv/{tv}', 'TelevisionResourcesController@getTv')->name('api.tv.get');
 });
 
