@@ -21,13 +21,15 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api',
-    'middleware' => ['serializer:array', 'bindings'],
+    'middleware' => ['serializer:array', 'bindings', 'cors'],
 ], function ($api) {
     $api->get('index', 'TelevisionResourcesController@index')->name('api.tv.index');
     $api->get('tv', 'TelevisionResourcesController@tv')->name('api.tv.tv');
     $api->get('img', 'TelevisionResourcesImgsController@index')->name('api.tv.img');
     $api->delete('img/{img}', 'TelevisionResourcesImgsController@delete')->name('api.tv.img.delete');
     $api->get('tv/{tv}', 'TelevisionResourcesController@getTv')->name('api.tv.get');
+    $api->post('tv', 'TelevisionResourcesController@store')->name('api.tv');
+    $api->delete('tv/{tv}', 'TelevisionResourcesController@delete')->name('api.tv.delete');
 });
 
 $api->version('v2', function ($api) {
