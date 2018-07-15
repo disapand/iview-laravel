@@ -20,12 +20,15 @@ use Illuminate\Http\Request;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
-    'namespace' => 'App\Http\Controllers\Api'
+    'namespace' => 'App\Http\Controllers\Api',
+    'middleware' => ['serializer:array', 'bindings'],
 ], function ($api) {
     $api->get('version', function () {
         return response()->json([['version' => 'v1', 'statue' => 'done'],['version' => 'v2', 'statue' => 'fail']]);
     });
     $api->get('car', 'CarsController@index')->name('api.car.index');
+    $api->get('car/{car}', 'CarsController@get')->name('api.car.get');
+    $api->post('car', 'CarsController@store')->name('api.car.store');
 });
 
 $api->version('v2', function ($api) {

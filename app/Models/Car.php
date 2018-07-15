@@ -21,5 +21,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Car extends Model
 {
-    //
+    protected $fillable = [
+        'car_id', 'model'
+    ];
+
+    public function oilCard() {
+        return $this->hasOne(oilCard::class, 'car_id', 'id')->withDefault();
+    }
+
 }
