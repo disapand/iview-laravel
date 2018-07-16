@@ -1,7 +1,7 @@
 <template>
     <div class="spin-container">
 
-        <i-form :model="tv" label-position="left">
+        <i-form :model="tv" ref="tv" :rules="tvRules">
             <!--
             -
             -   基本信息编辑部分
@@ -13,23 +13,23 @@
                     基本信息
                 </p>
 
-                <form-item label="电视频道">
+                <form-item label="电视频道" prop="channel">
                     <i-input v-model="tv.channel" placeholder="" clearable />
                 </form-item>
 
-                <form-item label="展现形式">
+                <form-item label="展现形式" prop="form">
                     <i-input v-model="tv.form" placeholder="" clearable />
                 </form-item>
 
-                <form-item label="覆盖地区">
+                <form-item label="覆盖地区" prop="area">
                     <i-input v-model="tv.area" placeholder="" clearable/>
                 </form-item>
 
-                <form-item label="语言">
+                <form-item label="语言" prop="language">
                     <i-input v-model="tv.language" placeholder="" clearable/>
                 </form-item>
 
-                <form-item label="类别">
+                <form-item label="类别" prop="category">
                     <radio-group v-model="tv.category" type="button">
                         <radio label="综合"></radio>
                         <radio label="新闻"></radio>
@@ -53,11 +53,11 @@
                     </radio-group>
                 </form-item>
 
-                <form-item label="所属电视台">
+                <form-item label="所属电视台" prop="station">
                     <i-input v-model="tv.station" placeholder="" clearable />
                 </form-item>
 
-                <form-item label="广告时长">
+                <form-item label="广告时长(s)" prop="time">
                     <radio-group v-model="tv.time" type="button">
                         <radio label="5"></radio>
                         <radio label="10"></radio>
@@ -71,11 +71,11 @@
                     </radio-group>
                 </form-item>
 
-                <form-item label="国家或地区">
+                <form-item label="国家或地区" prop="country">
                     <i-input v-model="tv.country" placeholder="" clearable/>
                 </form-item>
 
-                <form-item label="热门节目">
+                <form-item label="热门节目" prop="program">
                     <i-input type="textarea" v-model="tv.program" placeholder="" :autosize="{minRows: 5}" />
                 </form-item>
 
@@ -119,7 +119,7 @@
                     </i-input>
                 </form-item>
 
-                <form-item label="频道介绍">
+                <form-item label="频道介绍" prop="detail">
                     <i-input type="textarea" v-model="tv.detail" placeholder="" :autosize="{minRows: 5}"/>
                 </form-item>
 
@@ -149,8 +149,8 @@
                     </upload>
                 </form-item>
 
-                <template v-for="img in imgList">
-                    <div class="img-list">
+                <template v-for="img in tv.televisionResourcesImgs.data">
+                    <div class="img-list" v-if="img.url != ''">
                         <img :src="img.url" alt="">
                         <div class="img-list-cover">
                             <Icon type="ios-trash" @click.native="deleteImg(img.id)"></Icon>
@@ -161,10 +161,10 @@
 
             </Card>
 
-            <div style="margin: 30px;padding-left: 50%;transform: translateX(-12%)">
+            <div style="margin: 30px;text-align: center">
                 <i-button icon="ios-arrow-back" @click="back" >返回资源列表</i-button>
-                <i-button icon="ios-checkmark-empty" type="success" >{{ edit }}</i-button>
-                <poptip confirm v-if="canDel" title="您确定要删除该资源吗？删除后不可恢复" @on-ok="deleteTv(tv.id)">
+                <i-button icon="ios-checkmark-empty" type="success" @click="updateTv" >{{ edit }}</i-button>
+                <poptip confirm v-if="canDel" transfer title="您确定要删除该资源吗？删除后不可恢复" @on-ok="deleteTv(tv.id)">
                     <i-button icon="ios-trash" type="error">删除资源</i-button>
                 </poptip>
             </div>
@@ -178,10 +178,61 @@
         data() {
             return {
                 tv: {
+                    id: '',
+                    channel: '',
+                    form: '',
+                    detail: '',
+                    area: '',
+                    language: '',
+                    category: '',
+                    station: '',
+                    minimum_buy: '',
+                    time: '',
+                    company: '',
+                    contributor: '',
+                    price: '',
+                    country: '',
+                    program: '',
+                    requirements: '',
+                    televisionResourcesImgs: '',
                     isuse: true,
                 },
+                tvRules: {
+                    channel:[
+                        {required: true, message: '频道信息不能为空', trigger: 'blur'}
+                    ],
+                    form:[
+                        {required: true, message: '展现形式不能为空', trigger: 'blur'}
+                    ],
+                    detail:[
+                        {required: true, message: '频道介绍不能为空', trigger: 'blur'}
+                    ],
+                    area:[
+                        {required: true, message: '覆盖地区不能为空', trigger: 'blur'}
+                    ],
+                    language:[
+                        {required: true, message: '语言不能为空', trigger: 'blur'}
+                    ],
+                    category:[
+                        {required: true, message: '类别不能为空', trigger: 'blur'}
+                    ],
+                    station:[
+                        {required: true, message: '所属电视台不能为空', trigger: 'blur'}
+                    ],
+                    time:[
+                        {required: true, message: '广告时长不能为空', trigger: 'blur'}
+                    ],
+                    country:[
+                        {required: true, message: '国家和地区不能为空', trigger: 'blur'}
+                    ],
+                    program:[
+                        {required: true, message: '热门节目不能为空', trigger: 'blur'}
+                    ],
+                    detail:[
+                        {required: true, message: '频道介绍不能为空', trigger: 'blur'}
+                    ],
+                },
                 spinShow: true,
-                imgList: '',
                 edit: '创建资源',
                 canDel: true,
             }
@@ -206,7 +257,8 @@
                     onOk: () => {
                         this.$ajax.delete('http://iview-laravel.test/api/img/' + id).then((response) => {
                             console.log(response)
-                            this.imgList = response.data.data
+                            this.$Message.info('图片删除完成')
+                            this.tv.televisionResourcesImgs.data = response.data.data
                         }).catch((error) => {
                             console.log('删除图片出错：', error)
                             this.$Message.error('图片删除失败')
@@ -257,9 +309,34 @@
             /*
             *   根据当前电视的id删除电视资源，删除完成后返回上一页
             * */
-            deletTv(id) {
-
+            deleteTv(id) {
+                this.$ajax.delete('http://iview-laravel.test/api/tv/' + id).then( (response) => {
+                    this.$Message.info('删除资源成功')
+                    this.$router.go(-1)
+                }).catch( (error) => {
+                    this.$Message.info('删除资源出错')
+                    console.log('删除资源出错', error)
+                })
             },
+            /*
+            *   更新或者新建电视资源
+            * */
+            updateTv() {
+                this.$refs['tv'].validate( (valid) => {
+                    if (valid) {
+                        console.log('submit', this.tv)
+                        this.$ajax.post('http://iview-laravel.test/api/tv', this.tv).then( (response) => {
+                            console.log(response.data)
+                            this.$Message.info('资源编辑成功')
+                        }).catch( (error) => {
+                            this.$Message.error('资源编辑失败')
+                            console.log('资源编辑失败：', error)
+                        })
+                    }else {
+                        this.$Message.warning('请填写必须信息')
+                    }
+                })
+            }
         },
         created() {
             /*
@@ -267,8 +344,6 @@
             * */
             if( this.$route.params.id ) {
                 this.$ajax.get('http://iview-laravel.test/api/tv/' + this.$route.params.id + '?include=televisionResourcesImgs').then((response) => {
-                    console.log(response)
-                    this.imgList = response.data.televisionResourcesImgs.data
                     this.tv = response.data
                     this.spinShow = false
                     this.edit = '提交修改'
@@ -284,6 +359,7 @@
         },
     }
 </script>
+
 <style scoped lang="scss">
     .spin-container {
         position: relative;

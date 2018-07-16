@@ -12409,6 +12409,10 @@ Vue.prototype.$ajax = __WEBPACK_IMPORTED_MODULE_2_axios___default.a;
 *  设置api的版本，默认为版本v1
 * */
 // axios.defaults.headers['Accept'] = 'application/prs.iview-laravel.v2+json';
+/*
+*   设置axios发送数据的格式为application/x-www-form-urlencoded，axios默认为application/json
+* */
+// axios.defaults.headers['Content-type'] = 'application/x-www-form-urlencoded';
 
 __WEBPACK_IMPORTED_MODULE_3__router__["a" /* default */].beforeEach(function (to, from, next) {
     __WEBPACK_IMPORTED_MODULE_0_iview___default.a.LoadingBar.start();
@@ -82369,9 +82373,9 @@ module.exports = function (css) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_menu_vue__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_menu_vue__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_menu_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_menu_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_television_vue__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_television_vue__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_television_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_television_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_tv_item_vue__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_tv_item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_tv_item_vue__);
@@ -85038,1145 +85042,19 @@ if (inBrowser && window.Vue) {
 
 
 /***/ }),
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
-
-/***/ }),
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(65)
+  __webpack_require__(54)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(67)
+var __vue_script__ = __webpack_require__(57)
 /* template */
-var __vue_template__ = __webpack_require__(68)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-3aec82e9"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/tv_item.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3aec82e9", Component.options)
-  } else {
-    hotAPI.reload("data-v-3aec82e9", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(66);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(6)("277ef6f6", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3aec82e9\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./tv_item.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3aec82e9\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./tv_item.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.spin-container[data-v-3aec82e9] {\n  position: relative;\n}\n.img-list[data-v-3aec82e9] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list-cover[data-v-3aec82e9] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-3aec82e9] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-3aec82e9] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-3aec82e9] {\n  margin: 3px 0;\n}\n.customPop[data-v-3aec82e9] {\n  text-align: left;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 67 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            tv: {
-                isuse: true
-            },
-            spinShow: true,
-            imgList: '',
-            edit: '创建资源',
-            canDel: true
-        };
-    },
-
-    methods: {
-        /*
-        *   返回上一页的方法
-        * */
-        back: function back() {
-            this.$router.go(-1);
-        },
-
-        /*
-        *   删除图片的方法，需要传入删除图的id，同时从后台返回数据更新imgList
-        * */
-        deleteImg: function deleteImg(id) {
-            var _this = this;
-
-            this.$Modal.confirm({
-                title: '删除图片',
-                content: '确定要删除这张图片吗？',
-                /*
-                *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
-                * */
-                onOk: function onOk() {
-                    _this.$ajax.delete('http://iview-laravel.test/api/img/' + id).then(function (response) {
-                        console.log(response);
-                        _this.imgList = response.data.data;
-                    }).catch(function (error) {
-                        console.log('删除图片出错：', error);
-                        _this.$Message.error('图片删除失败');
-                    });
-                }
-            });
-        },
-
-        /*
-        *   更新图片或者上传图片的方法
-        * */
-        updateImg: function updateImg(id) {
-            this.$Modal.info({
-                title: '上传图片',
-                okText: '取消',
-                render: function render(h, id) {
-                    return h('div', [h('upload', {
-                        props: {
-                            action: '', //图片上传的url
-                            type: 'drag',
-                            multiple: 'multiple'
-                        },
-                        style: {
-                            paddingTop: '50px'
-                        }
-                    }, [h('div', [h('icon', {
-                        props: {
-                            type: 'ios-cloud-upload',
-                            size: 52
-                        },
-                        style: {
-                            paddingTop: '20px'
-                        }
-                    }), h('p', {
-                        style: {
-                            paddingBottom: '20px'
-                        }
-                    }, '点击或者拖拽图片到此上传')])])]);
-                }
-            });
-        },
-
-        /*
-        *   根据当前电视的id删除电视资源，删除完成后返回上一页
-        * */
-        deletTv: function deletTv(id) {}
-    },
-    created: function created() {
-        var _this2 = this;
-
-        /*
-        *   根据传过来的id获取对应的televisionResources
-        * */
-        if (this.$route.params.id) {
-            this.$ajax.get('http://iview-laravel.test/api/tv/' + this.$route.params.id + '?include=televisionResourcesImgs').then(function (response) {
-                console.log(response);
-                _this2.imgList = response.data.televisionResourcesImgs.data;
-                _this2.tv = response.data;
-                _this2.spinShow = false;
-                _this2.edit = '提交修改';
-            }).catch(function (error) {
-                _this2.$Message.error('电视资源未找到');
-            });
-        } else {
-            this.spinShow = false;
-            this.canDel = false;
-        }
-    },
-    mounted: function mounted() {}
-});
-
-/***/ }),
-/* 68 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "spin-container" },
-    [
-      _c(
-        "i-form",
-        { attrs: { model: _vm.tv, "label-position": "left" } },
-        [
-          _c(
-            "Card",
-            {
-              staticStyle: {
-                width: "600px",
-                display: "inline-block",
-                "margin-right": "20px"
-              }
-            },
-            [
-              _c(
-                "p",
-                { attrs: { slot: "title" }, slot: "title" },
-                [
-                  _c("Icon", { attrs: { type: "clipboard" } }),
-                  _vm._v("\n                基本信息\n            ")
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "电视频道" } },
-                [
-                  _c("i-input", {
-                    attrs: { placeholder: "", clearable: "" },
-                    model: {
-                      value: _vm.tv.channel,
-                      callback: function($$v) {
-                        _vm.$set(_vm.tv, "channel", $$v)
-                      },
-                      expression: "tv.channel"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "展现形式" } },
-                [
-                  _c("i-input", {
-                    attrs: { placeholder: "", clearable: "" },
-                    model: {
-                      value: _vm.tv.form,
-                      callback: function($$v) {
-                        _vm.$set(_vm.tv, "form", $$v)
-                      },
-                      expression: "tv.form"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "覆盖地区" } },
-                [
-                  _c("i-input", {
-                    attrs: { placeholder: "", clearable: "" },
-                    model: {
-                      value: _vm.tv.area,
-                      callback: function($$v) {
-                        _vm.$set(_vm.tv, "area", $$v)
-                      },
-                      expression: "tv.area"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "语言" } },
-                [
-                  _c("i-input", {
-                    attrs: { placeholder: "", clearable: "" },
-                    model: {
-                      value: _vm.tv.language,
-                      callback: function($$v) {
-                        _vm.$set(_vm.tv, "language", $$v)
-                      },
-                      expression: "tv.language"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "类别" } },
-                [
-                  _c(
-                    "radio-group",
-                    {
-                      attrs: { type: "button" },
-                      model: {
-                        value: _vm.tv.category,
-                        callback: function($$v) {
-                          _vm.$set(_vm.tv, "category", $$v)
-                        },
-                        expression: "tv.category"
-                      }
-                    },
-                    [
-                      _c("radio", { attrs: { label: "综合" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "新闻" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "财经" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "体育" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "娱乐" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "时尚" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "科技" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "生活" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "文史" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "军事" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "旅游" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "八卦" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "音乐" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "电影" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "少儿" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "艺术" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "汽车" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "健康" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "其他" } })
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "所属电视台" } },
-                [
-                  _c("i-input", {
-                    attrs: { placeholder: "", clearable: "" },
-                    model: {
-                      value: _vm.tv.station,
-                      callback: function($$v) {
-                        _vm.$set(_vm.tv, "station", $$v)
-                      },
-                      expression: "tv.station"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "广告时长" } },
-                [
-                  _c(
-                    "radio-group",
-                    {
-                      attrs: { type: "button" },
-                      model: {
-                        value: _vm.tv.time,
-                        callback: function($$v) {
-                          _vm.$set(_vm.tv, "time", $$v)
-                        },
-                        expression: "tv.time"
-                      }
-                    },
-                    [
-                      _c("radio", { attrs: { label: "5" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "10" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "15" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "20" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "25" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "30" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "45" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "60" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "120" } })
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "国家或地区" } },
-                [
-                  _c("i-input", {
-                    attrs: { placeholder: "", clearable: "" },
-                    model: {
-                      value: _vm.tv.country,
-                      callback: function($$v) {
-                        _vm.$set(_vm.tv, "country", $$v)
-                      },
-                      expression: "tv.country"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "热门节目" } },
-                [
-                  _c("i-input", {
-                    attrs: {
-                      type: "textarea",
-                      placeholder: "",
-                      autosize: { minRows: 5 }
-                    },
-                    model: {
-                      value: _vm.tv.program,
-                      callback: function($$v) {
-                        _vm.$set(_vm.tv, "program", $$v)
-                      },
-                      expression: "tv.program"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "是否有效" } },
-                [
-                  _c(
-                    "i-switch",
-                    {
-                      attrs: { size: "large" },
-                      model: {
-                        value: _vm.tv.isuse,
-                        callback: function($$v) {
-                          _vm.$set(_vm.tv, "isuse", $$v)
-                        },
-                        expression: "tv.isuse"
-                      }
-                    },
-                    [
-                      _c("span", { attrs: { slot: "open" }, slot: "open" }, [
-                        _vm._v("有效")
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { attrs: { slot: "close" }, slot: "close" }, [
-                        _vm._v("无效")
-                      ])
-                    ]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "Card",
-            {
-              staticStyle: {
-                width: "550px",
-                display: "inline-block",
-                position: "absolute",
-                top: "0"
-              }
-            },
-            [
-              _c(
-                "p",
-                { attrs: { slot: "title" }, slot: "title" },
-                [
-                  _c("Icon", { attrs: { type: "compose" } }),
-                  _vm._v("\n                附加信息\n            ")
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "最小采购金额或周期" } },
-                [
-                  _c("i-input", {
-                    staticStyle: { width: "100px" },
-                    attrs: { placeholder: "", clearable: "" },
-                    model: {
-                      value: _vm.tv.minimum_buy,
-                      callback: function($$v) {
-                        _vm.$set(_vm.tv, "minimum_buy", $$v)
-                      },
-                      expression: "tv.minimum_buy"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "媒体所属公司或集团" } },
-                [
-                  _c("i-input", {
-                    attrs: { placeholder: "", clearable: "" },
-                    model: {
-                      value: _vm.tv.company,
-                      callback: function($$v) {
-                        _vm.$set(_vm.tv, "company", $$v)
-                      },
-                      expression: "tv.company"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "媒介开发者" } },
-                [
-                  _c("i-input", {
-                    attrs: { placeholder: "", clearable: "" },
-                    model: {
-                      value: _vm.tv.contributor,
-                      callback: function($$v) {
-                        _vm.$set(_vm.tv, "contributor", $$v)
-                      },
-                      expression: "tv.contributor"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "价格区间(美金)" } },
-                [
-                  _c(
-                    "i-input",
-                    {
-                      staticStyle: { width: "100px" },
-                      attrs: { placeholder: "" },
-                      model: {
-                        value: _vm.tv.price,
-                        callback: function($$v) {
-                          _vm.$set(_vm.tv, "price", $$v)
-                        },
-                        expression: "tv.price"
-                      }
-                    },
-                    [
-                      _c(
-                        "span",
-                        { attrs: { slot: "append" }, slot: "append" },
-                        [_c("Icon", { attrs: { type: "social-usd" } })],
-                        1
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "频道介绍" } },
-                [
-                  _c("i-input", {
-                    attrs: {
-                      type: "textarea",
-                      placeholder: "",
-                      autosize: { minRows: 5 }
-                    },
-                    model: {
-                      value: _vm.tv.detail,
-                      callback: function($$v) {
-                        _vm.$set(_vm.tv, "detail", $$v)
-                      },
-                      expression: "tv.detail"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "上刊要求" } },
-                [
-                  _c("i-input", {
-                    attrs: {
-                      type: "textarea",
-                      placeholder: "",
-                      autosize: { minRows: 5 }
-                    },
-                    model: {
-                      value: _vm.tv.requirements,
-                      callback: function($$v) {
-                        _vm.$set(_vm.tv, "requirements", $$v)
-                      },
-                      expression: "tv.requirements"
-                    }
-                  })
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "Card",
-            {
-              staticStyle: {
-                width: "400px",
-                display: "inline-block",
-                position: "absolute",
-                top: "0",
-                left: "1190px"
-              }
-            },
-            [
-              _c(
-                "p",
-                { attrs: { slot: "title" }, slot: "title" },
-                [
-                  _c("Icon", { attrs: { type: "image" } }),
-                  _vm._v("\n                图片信息\n            ")
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                [
-                  _c(
-                    "upload",
-                    { attrs: { multiple: "", type: "drag", action: "" } },
-                    [
-                      _c(
-                        "div",
-                        { staticStyle: { width: "360px", height: "120px" } },
-                        [
-                          _c("Icon", {
-                            staticStyle: {
-                              color: "#3399ff",
-                              "margin-top": "20px"
-                            },
-                            attrs: { type: "ios-cloud-upload", size: "52" }
-                          }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("点击或者拖拽图片到此上传")])
-                        ],
-                        1
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm._l(_vm.imgList, function(img) {
-                return [
-                  _c("div", { staticClass: "img-list" }, [
-                    _c("img", { attrs: { src: img.url, alt: "" } }),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "img-list-cover" },
-                      [
-                        _c("Icon", {
-                          attrs: { type: "ios-trash" },
-                          nativeOn: {
-                            click: function($event) {
-                              _vm.deleteImg(img.id)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("Icon", {
-                          attrs: { type: "upload" },
-                          nativeOn: {
-                            click: function($event) {
-                              _vm.updateImg(img.id)
-                            }
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ])
-                ]
-              })
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticStyle: {
-                margin: "30px",
-                "padding-left": "50%",
-                transform: "translateX(-12%)"
-              }
-            },
-            [
-              _c(
-                "i-button",
-                { attrs: { icon: "ios-arrow-back" }, on: { click: _vm.back } },
-                [_vm._v("返回资源列表")]
-              ),
-              _vm._v(" "),
-              _c(
-                "i-button",
-                { attrs: { icon: "ios-checkmark-empty", type: "success" } },
-                [_vm._v(_vm._s(_vm.edit))]
-              ),
-              _vm._v(" "),
-              _vm.canDel
-                ? _c(
-                    "poptip",
-                    {
-                      attrs: {
-                        confirm: "",
-                        title: "您确定要删除该资源吗？删除后不可恢复"
-                      },
-                      on: {
-                        "on-ok": function($event) {
-                          _vm.deleteTv(_vm.tv.id)
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "i-button",
-                        { attrs: { icon: "ios-trash", type: "error" } },
-                        [_vm._v("删除资源")]
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e()
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm.spinShow
-        ? _c("Spin", { attrs: { size: "large", fix: "" } })
-        : _vm._e()
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3aec82e9", module.exports)
-  }
-}
-
-/***/ }),
-/* 69 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(70)
-/* template */
-var __vue_template__ = __webpack_require__(71)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/App.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-66ab2f82", Component.options)
-  } else {
-    hotAPI.reload("data-v-66ab2f82", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 70 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({});
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("router-view")
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-66ab2f82", module.exports)
-  }
-}
-
-/***/ }),
-/* 72 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(80)
-}
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(82)
-/* template */
-var __vue_template__ = __webpack_require__(83)
+var __vue_template__ = __webpack_require__(58)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -86215,13 +85093,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 80 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(81);
+var content = __webpack_require__(55);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -86241,7 +85119,7 @@ if(false) {
 }
 
 /***/ }),
-/* 81 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -86255,23 +85133,44 @@ exports.push([module.i, "\n.layout[data-v-7cc0eb14]{\n    border: 1px solid #d7d
 
 
 /***/ }),
-/* 82 */
+/* 56 */
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -86397,7 +85296,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 83 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -86423,43 +85322,7 @@ var render = function() {
                   [
                     _c(
                       "MenuItem",
-                      { attrs: { name: "1" } },
-                      [
-                        _c("Icon", { attrs: { type: "ios-navigate" } }),
-                        _vm._v(
-                          "\n                        Item 1\n                    "
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "MenuItem",
-                      { attrs: { name: "2" } },
-                      [
-                        _c("Icon", { attrs: { type: "ios-keypad" } }),
-                        _vm._v(
-                          "\n                        Item 2\n                    "
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "MenuItem",
-                      { attrs: { name: "3" } },
-                      [
-                        _c("Icon", { attrs: { type: "ios-analytics" } }),
-                        _vm._v(
-                          "\n                        Item 3\n                    "
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "MenuItem",
-                      { attrs: { name: "4" } },
+                      { staticStyle: { float: "right" }, attrs: { name: "4" } },
                       [
                         _c(
                           "Dropdown",
@@ -86653,19 +85516,19 @@ if (false) {
 }
 
 /***/ }),
-/* 84 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(85)
+  __webpack_require__(60)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(87)
+var __vue_script__ = __webpack_require__(62)
 /* template */
-var __vue_template__ = __webpack_require__(88)
+var __vue_template__ = __webpack_require__(63)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -86704,13 +85567,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 85 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(86);
+var content = __webpack_require__(61);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -86730,7 +85593,7 @@ if(false) {
 }
 
 /***/ }),
-/* 86 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -86744,11 +85607,12 @@ exports.push([module.i, "\n.page[data-v-1064e069] {\n    margin: 10px 0;\n}\n", 
 
 
 /***/ }),
-/* 87 */
+/* 62 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -86842,8 +85706,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             title: '确认删除这条资源吗？'
                         },
                         on: {
-                            ok: function ok() {
-                                alert(111);
+                            'on-ok': function onOk() {
                                 event.stopPropagation();
                                 _this.remove(params.row, params.index);
                             }
@@ -86894,24 +85757,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         show: function show(row, index) {
             this.$router.push({ 'name': 'tv_item', params: { id: row.id } });
         },
-        remove: function remove(row, index) {},
-        changePage: function changePage(index) {
+        remove: function remove(row, index) {
             var _this3 = this;
+
+            this.$ajax.delete('http://iview-laravel.test/api/tv/' + row.id).then(function (response) {
+                _this3.$Message.info('删除资源成功');
+                _this3.tvs.splice(index, 1);
+            }).catch(function (error) {
+                _this3.$Message.info('删除资源出错');
+                console.log('删除资源出错', error);
+            });
+        },
+        changePage: function changePage(index) {
+            var _this4 = this;
 
             this.currentPage = index;
             this.$ajax.get('http://iview-laravel.test/api/tv?page=' + index).then(function (response) {
                 console.log(response.data);
-                _this3.tvs = response.data.data;
-                _this3.loading = false;
+                _this4.tvs = response.data.data;
+                _this4.loading = false;
             }).catch(function (error) {
                 console.log('some errors has happend:', error);
             });
-        }
+        },
+        exportTv: function exportTv() {},
+        importTv: function importTv() {}
     }
 });
 
 /***/ }),
-/* 88 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -86957,10 +85832,19 @@ var render = function() {
               _c(
                 "i-button",
                 {
-                  attrs: { type: "warning", icon: "ios-upload" },
-                  on: { click: _vm.addTVItem }
+                  attrs: { type: "info", icon: "ios-download" },
+                  on: { click: _vm.exportTv }
                 },
-                [_vm._v("批量导入")]
+                [_vm._v("导出资源")]
+              ),
+              _vm._v(" "),
+              _c(
+                "i-button",
+                {
+                  attrs: { type: "warning", icon: "ios-upload" },
+                  on: { click: _vm.importTv }
+                },
+                [_vm._v("批量导入资源")]
               )
             ],
             1
@@ -87012,6 +85896,1144 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-1064e069", module.exports)
   }
 }
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(65)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(67)
+/* template */
+var __vue_template__ = __webpack_require__(68)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-3aec82e9"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/tv_item.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3aec82e9", Component.options)
+  } else {
+    hotAPI.reload("data-v-3aec82e9", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(66);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("277ef6f6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3aec82e9\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./tv_item.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3aec82e9\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./tv_item.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.spin-container[data-v-3aec82e9] {\n  position: relative;\n}\n.img-list[data-v-3aec82e9] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list-cover[data-v-3aec82e9] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-3aec82e9] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-3aec82e9] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-3aec82e9] {\n  margin: 3px 0;\n}\n.customPop[data-v-3aec82e9] {\n  text-align: left;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            tv: {
+                id: '',
+                channel: '',
+                form: '',
+                detail: '',
+                area: '',
+                language: '',
+                category: '',
+                station: '',
+                minimum_buy: '',
+                time: '',
+                company: '',
+                contributor: '',
+                price: '',
+                country: '',
+                program: '',
+                requirements: '',
+                televisionResourcesImgs: '',
+                isuse: true
+            },
+            tvRules: _defineProperty({
+                channel: [{ required: true, message: '频道信息不能为空', trigger: 'blur' }],
+                form: [{ required: true, message: '展现形式不能为空', trigger: 'blur' }],
+                detail: [{ required: true, message: '频道介绍不能为空', trigger: 'blur' }],
+                area: [{ required: true, message: '覆盖地区不能为空', trigger: 'blur' }],
+                language: [{ required: true, message: '语言不能为空', trigger: 'blur' }],
+                category: [{ required: true, message: '类别不能为空', trigger: 'blur' }],
+                station: [{ required: true, message: '所属电视台不能为空', trigger: 'blur' }],
+                time: [{ required: true, message: '广告时长不能为空', trigger: 'blur' }],
+                country: [{ required: true, message: '国家和地区不能为空', trigger: 'blur' }],
+                program: [{ required: true, message: '热门节目不能为空', trigger: 'blur' }]
+            }, 'detail', [{ required: true, message: '频道介绍不能为空', trigger: 'blur' }]),
+            spinShow: true,
+            edit: '创建资源',
+            canDel: true
+        };
+    },
+
+    methods: {
+        /*
+        *   返回上一页的方法
+        * */
+        back: function back() {
+            this.$router.go(-1);
+        },
+
+        /*
+        *   删除图片的方法，需要传入删除图的id，同时从后台返回数据更新imgList
+        * */
+        deleteImg: function deleteImg(id) {
+            var _this = this;
+
+            this.$Modal.confirm({
+                title: '删除图片',
+                content: '确定要删除这张图片吗？',
+                /*
+                *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
+                * */
+                onOk: function onOk() {
+                    _this.$ajax.delete('http://iview-laravel.test/api/img/' + id).then(function (response) {
+                        console.log(response);
+                        _this.$Message.info('图片删除完成');
+                        _this.tv.televisionResourcesImgs.data = response.data.data;
+                    }).catch(function (error) {
+                        console.log('删除图片出错：', error);
+                        _this.$Message.error('图片删除失败');
+                    });
+                }
+            });
+        },
+
+        /*
+        *   更新图片或者上传图片的方法
+        * */
+        updateImg: function updateImg(id) {
+            this.$Modal.info({
+                title: '上传图片',
+                okText: '取消',
+                render: function render(h, id) {
+                    return h('div', [h('upload', {
+                        props: {
+                            action: '', //图片上传的url
+                            type: 'drag',
+                            multiple: 'multiple'
+                        },
+                        style: {
+                            paddingTop: '50px'
+                        }
+                    }, [h('div', [h('icon', {
+                        props: {
+                            type: 'ios-cloud-upload',
+                            size: 52
+                        },
+                        style: {
+                            paddingTop: '20px'
+                        }
+                    }), h('p', {
+                        style: {
+                            paddingBottom: '20px'
+                        }
+                    }, '点击或者拖拽图片到此上传')])])]);
+                }
+            });
+        },
+
+        /*
+        *   根据当前电视的id删除电视资源，删除完成后返回上一页
+        * */
+        deleteTv: function deleteTv(id) {
+            var _this2 = this;
+
+            this.$ajax.delete('http://iview-laravel.test/api/tv/' + id).then(function (response) {
+                _this2.$Message.info('删除资源成功');
+                _this2.$router.go(-1);
+            }).catch(function (error) {
+                _this2.$Message.info('删除资源出错');
+                console.log('删除资源出错', error);
+            });
+        },
+
+        /*
+        *   更新或者新建电视资源
+        * */
+        updateTv: function updateTv() {
+            var _this3 = this;
+
+            this.$refs['tv'].validate(function (valid) {
+                if (valid) {
+                    console.log('submit', _this3.tv);
+                    _this3.$ajax.post('http://iview-laravel.test/api/tv', _this3.tv).then(function (response) {
+                        console.log(response.data);
+                        _this3.$Message.info('资源编辑成功');
+                    }).catch(function (error) {
+                        _this3.$Message.error('资源编辑失败');
+                        console.log('资源编辑失败：', error);
+                    });
+                } else {
+                    _this3.$Message.warning('请填写必须信息');
+                }
+            });
+        }
+    },
+    created: function created() {
+        var _this4 = this;
+
+        /*
+        *   根据传过来的id获取对应的televisionResources
+        * */
+        if (this.$route.params.id) {
+            this.$ajax.get('http://iview-laravel.test/api/tv/' + this.$route.params.id + '?include=televisionResourcesImgs').then(function (response) {
+                _this4.tv = response.data;
+                _this4.spinShow = false;
+                _this4.edit = '提交修改';
+            }).catch(function (error) {
+                _this4.$Message.error('电视资源未找到');
+            });
+        } else {
+            this.spinShow = false;
+            this.canDel = false;
+        }
+    },
+    mounted: function mounted() {}
+});
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "spin-container" },
+    [
+      _c(
+        "i-form",
+        { ref: "tv", attrs: { model: _vm.tv, rules: _vm.tvRules } },
+        [
+          _c(
+            "Card",
+            {
+              staticStyle: {
+                width: "600px",
+                display: "inline-block",
+                "margin-right": "20px"
+              }
+            },
+            [
+              _c(
+                "p",
+                { attrs: { slot: "title" }, slot: "title" },
+                [
+                  _c("Icon", { attrs: { type: "clipboard" } }),
+                  _vm._v("\n                基本信息\n            ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "电视频道", prop: "channel" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.tv.channel,
+                      callback: function($$v) {
+                        _vm.$set(_vm.tv, "channel", $$v)
+                      },
+                      expression: "tv.channel"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "展现形式", prop: "form" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.tv.form,
+                      callback: function($$v) {
+                        _vm.$set(_vm.tv, "form", $$v)
+                      },
+                      expression: "tv.form"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "覆盖地区", prop: "area" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.tv.area,
+                      callback: function($$v) {
+                        _vm.$set(_vm.tv, "area", $$v)
+                      },
+                      expression: "tv.area"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "语言", prop: "language" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.tv.language,
+                      callback: function($$v) {
+                        _vm.$set(_vm.tv, "language", $$v)
+                      },
+                      expression: "tv.language"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "类别", prop: "category" } },
+                [
+                  _c(
+                    "radio-group",
+                    {
+                      attrs: { type: "button" },
+                      model: {
+                        value: _vm.tv.category,
+                        callback: function($$v) {
+                          _vm.$set(_vm.tv, "category", $$v)
+                        },
+                        expression: "tv.category"
+                      }
+                    },
+                    [
+                      _c("radio", { attrs: { label: "综合" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "新闻" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "财经" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "体育" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "娱乐" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "时尚" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "科技" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "生活" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "文史" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "军事" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "旅游" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "八卦" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "音乐" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "电影" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "少儿" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "艺术" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "汽车" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "健康" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "其他" } })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "所属电视台", prop: "station" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.tv.station,
+                      callback: function($$v) {
+                        _vm.$set(_vm.tv, "station", $$v)
+                      },
+                      expression: "tv.station"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "广告时长(s)", prop: "time" } },
+                [
+                  _c(
+                    "radio-group",
+                    {
+                      attrs: { type: "button" },
+                      model: {
+                        value: _vm.tv.time,
+                        callback: function($$v) {
+                          _vm.$set(_vm.tv, "time", $$v)
+                        },
+                        expression: "tv.time"
+                      }
+                    },
+                    [
+                      _c("radio", { attrs: { label: "5" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "10" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "15" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "20" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "25" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "30" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "45" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "60" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "120" } })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "国家或地区", prop: "country" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.tv.country,
+                      callback: function($$v) {
+                        _vm.$set(_vm.tv, "country", $$v)
+                      },
+                      expression: "tv.country"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "热门节目", prop: "program" } },
+                [
+                  _c("i-input", {
+                    attrs: {
+                      type: "textarea",
+                      placeholder: "",
+                      autosize: { minRows: 5 }
+                    },
+                    model: {
+                      value: _vm.tv.program,
+                      callback: function($$v) {
+                        _vm.$set(_vm.tv, "program", $$v)
+                      },
+                      expression: "tv.program"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "是否有效" } },
+                [
+                  _c(
+                    "i-switch",
+                    {
+                      attrs: { size: "large" },
+                      model: {
+                        value: _vm.tv.isuse,
+                        callback: function($$v) {
+                          _vm.$set(_vm.tv, "isuse", $$v)
+                        },
+                        expression: "tv.isuse"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { slot: "open" }, slot: "open" }, [
+                        _vm._v("有效")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { attrs: { slot: "close" }, slot: "close" }, [
+                        _vm._v("无效")
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "Card",
+            {
+              staticStyle: {
+                width: "550px",
+                display: "inline-block",
+                position: "absolute",
+                top: "0"
+              }
+            },
+            [
+              _c(
+                "p",
+                { attrs: { slot: "title" }, slot: "title" },
+                [
+                  _c("Icon", { attrs: { type: "compose" } }),
+                  _vm._v("\n                附加信息\n            ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "最小采购金额或周期" } },
+                [
+                  _c("i-input", {
+                    staticStyle: { width: "100px" },
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.tv.minimum_buy,
+                      callback: function($$v) {
+                        _vm.$set(_vm.tv, "minimum_buy", $$v)
+                      },
+                      expression: "tv.minimum_buy"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "媒体所属公司或集团" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.tv.company,
+                      callback: function($$v) {
+                        _vm.$set(_vm.tv, "company", $$v)
+                      },
+                      expression: "tv.company"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "媒介开发者" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.tv.contributor,
+                      callback: function($$v) {
+                        _vm.$set(_vm.tv, "contributor", $$v)
+                      },
+                      expression: "tv.contributor"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "价格区间(美金)" } },
+                [
+                  _c(
+                    "i-input",
+                    {
+                      staticStyle: { width: "100px" },
+                      attrs: { placeholder: "" },
+                      model: {
+                        value: _vm.tv.price,
+                        callback: function($$v) {
+                          _vm.$set(_vm.tv, "price", $$v)
+                        },
+                        expression: "tv.price"
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        { attrs: { slot: "append" }, slot: "append" },
+                        [_c("Icon", { attrs: { type: "social-usd" } })],
+                        1
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "频道介绍", prop: "detail" } },
+                [
+                  _c("i-input", {
+                    attrs: {
+                      type: "textarea",
+                      placeholder: "",
+                      autosize: { minRows: 5 }
+                    },
+                    model: {
+                      value: _vm.tv.detail,
+                      callback: function($$v) {
+                        _vm.$set(_vm.tv, "detail", $$v)
+                      },
+                      expression: "tv.detail"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "上刊要求" } },
+                [
+                  _c("i-input", {
+                    attrs: {
+                      type: "textarea",
+                      placeholder: "",
+                      autosize: { minRows: 5 }
+                    },
+                    model: {
+                      value: _vm.tv.requirements,
+                      callback: function($$v) {
+                        _vm.$set(_vm.tv, "requirements", $$v)
+                      },
+                      expression: "tv.requirements"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "Card",
+            {
+              staticStyle: {
+                width: "400px",
+                display: "inline-block",
+                position: "absolute",
+                top: "0",
+                left: "1190px"
+              }
+            },
+            [
+              _c(
+                "p",
+                { attrs: { slot: "title" }, slot: "title" },
+                [
+                  _c("Icon", { attrs: { type: "image" } }),
+                  _vm._v("\n                图片信息\n            ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                [
+                  _c(
+                    "upload",
+                    { attrs: { multiple: "", type: "drag", action: "" } },
+                    [
+                      _c(
+                        "div",
+                        { staticStyle: { width: "360px", height: "120px" } },
+                        [
+                          _c("Icon", {
+                            staticStyle: {
+                              color: "#3399ff",
+                              "margin-top": "20px"
+                            },
+                            attrs: { type: "ios-cloud-upload", size: "52" }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("点击或者拖拽图片到此上传")])
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.tv.televisionResourcesImgs.data, function(img) {
+                return [
+                  img.url != ""
+                    ? _c("div", { staticClass: "img-list" }, [
+                        _c("img", { attrs: { src: img.url, alt: "" } }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "img-list-cover" },
+                          [
+                            _c("Icon", {
+                              attrs: { type: "ios-trash" },
+                              nativeOn: {
+                                click: function($event) {
+                                  _vm.deleteImg(img.id)
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("Icon", {
+                              attrs: { type: "upload" },
+                              nativeOn: {
+                                click: function($event) {
+                                  _vm.updateImg(img.id)
+                                }
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ])
+                    : _vm._e()
+                ]
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticStyle: { margin: "30px", "text-align": "center" } },
+            [
+              _c(
+                "i-button",
+                { attrs: { icon: "ios-arrow-back" }, on: { click: _vm.back } },
+                [_vm._v("返回资源列表")]
+              ),
+              _vm._v(" "),
+              _c(
+                "i-button",
+                {
+                  attrs: { icon: "ios-checkmark-empty", type: "success" },
+                  on: { click: _vm.updateTv }
+                },
+                [_vm._v(_vm._s(_vm.edit))]
+              ),
+              _vm._v(" "),
+              _vm.canDel
+                ? _c(
+                    "poptip",
+                    {
+                      attrs: {
+                        confirm: "",
+                        transfer: "",
+                        title: "您确定要删除该资源吗？删除后不可恢复"
+                      },
+                      on: {
+                        "on-ok": function($event) {
+                          _vm.deleteTv(_vm.tv.id)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "i-button",
+                        { attrs: { icon: "ios-trash", type: "error" } },
+                        [_vm._v("删除资源")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.spinShow
+        ? _c("Spin", { attrs: { size: "large", fix: "" } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3aec82e9", module.exports)
+  }
+}
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(70)
+/* template */
+var __vue_template__ = __webpack_require__(71)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/App.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-66ab2f82", Component.options)
+  } else {
+    hotAPI.reload("data-v-66ab2f82", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("router-view")
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-66ab2f82", module.exports)
+  }
+}
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\televisionResourcesImg
@@ -24,6 +25,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class televisionResourcesImg extends Model
 {
+    use SoftDeletes;
+
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'television_resource_id', 'url'

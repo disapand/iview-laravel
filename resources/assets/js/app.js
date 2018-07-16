@@ -29,6 +29,10 @@ Vue.prototype.$ajax = axios;
 *  设置api的版本，默认为版本v1
 * */
 // axios.defaults.headers['Accept'] = 'application/prs.iview-laravel.v2+json';
+/*
+*   设置axios发送数据的格式为application/x-www-form-urlencoded，axios默认为application/json
+* */
+// axios.defaults.headers['Content-type'] = 'application/x-www-form-urlencoded';
 
 router.beforeEach((to, from, next) => {
     iview.LoadingBar.start();
