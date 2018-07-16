@@ -21,7 +21,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api',
-    'middleware' => ['serializer:array', 'bindings', 'cors'],
+    'middleware' => ['serializer:array', 'bindings', ],
 ], function ($api) {
     $api->get('index', 'TelevisionResourcesController@index')->name('api.tv.index');
     $api->get('tv', 'TelevisionResourcesController@tv')->name('api.tv.tv');
