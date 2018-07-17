@@ -85862,7 +85862,7 @@ var render = function() {
               columns: _vm.col,
               data: _vm.tvs,
               stripe: "",
-              "highlight-row": "",
+              "highlight-row": false,
               loading: _vm.loading
             }
           })
@@ -86171,6 +86171,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -86209,7 +86214,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             }, 'detail', [{ required: true, message: '频道介绍不能为空', trigger: 'blur' }]),
             spinShow: true,
             edit: '创建资源',
-            canDel: true
+            canDel: true,
+            img: ''
         };
     },
 
@@ -86256,7 +86262,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 render: function render(h, id) {
                     return h('div', [h('upload', {
                         props: {
-                            action: '', //图片上传的url
+                            action: 'http://iview-laravel.test/api/img', //图片上传的url
                             type: 'drag',
                             multiple: 'multiple'
                         },
@@ -86315,6 +86321,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     _this3.$Message.warning('请填写必须信息');
                 }
             });
+        },
+
+        /*
+        *   图片上传成功的方法
+        * */
+        imgSuccess: function imgSuccess(response, file, fileList) {
+            this.$Message.info('图片上传成功');
+            this.tv.televisionResourcesImgs.data.push(response);
+            console.log(response);
+        },
+
+        /*
+        *   图片上传失败的方法
+        * */
+        imgError: function imgError() {
+            this.$Message.error('图片上传失败');
         }
     },
     created: function created() {
@@ -86820,7 +86842,17 @@ var render = function() {
                 [
                   _c(
                     "upload",
-                    { attrs: { multiple: "", type: "drag", action: "" } },
+                    {
+                      attrs: {
+                        multiple: "",
+                        type: "drag",
+                        name: "img",
+                        action: "http://iview-laravel.test/api/img",
+                        "on-success": _vm.imgSuccess,
+                        "on-error": _vm.imgError,
+                        "show-upload-list": false
+                      }
+                    },
                     [
                       _c(
                         "div",
@@ -86846,36 +86878,34 @@ var render = function() {
               _vm._v(" "),
               _vm._l(_vm.tv.televisionResourcesImgs.data, function(img) {
                 return [
-                  img.url != ""
-                    ? _c("div", { staticClass: "img-list" }, [
-                        _c("img", { attrs: { src: img.url, alt: "" } }),
+                  _c("div", { staticClass: "img-list" }, [
+                    _c("img", { attrs: { src: img.url, alt: "" } }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "img-list-cover" },
+                      [
+                        _c("Icon", {
+                          attrs: { type: "ios-trash" },
+                          nativeOn: {
+                            click: function($event) {
+                              _vm.deleteImg(img.id)
+                            }
+                          }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "img-list-cover" },
-                          [
-                            _c("Icon", {
-                              attrs: { type: "ios-trash" },
-                              nativeOn: {
-                                click: function($event) {
-                                  _vm.deleteImg(img.id)
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("Icon", {
-                              attrs: { type: "upload" },
-                              nativeOn: {
-                                click: function($event) {
-                                  _vm.updateImg(img.id)
-                                }
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ])
-                    : _vm._e()
+                        _c("Icon", {
+                          attrs: { type: "upload" },
+                          nativeOn: {
+                            click: function($event) {
+                              _vm.updateImg(img.id)
+                            }
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
                 ]
               })
             ],

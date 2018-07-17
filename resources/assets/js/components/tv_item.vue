@@ -141,7 +141,12 @@
                 </p>
 
                 <form-item>
-                    <upload multiple type="drag" action="">
+                    <upload multiple type="drag"
+                            name="img"
+                            action="http://iview-laravel.test/api/img"
+                            :on-success="imgSuccess"
+                            :on-error="imgError"
+                            :show-upload-list=false>
                         <div style="width: 360px; height: 120px">
                             <Icon type="ios-cloud-upload" size="52" style="color: #3399ff;margin-top: 20px"></Icon>
                             <p>点击或者拖拽图片到此上传</p>
@@ -150,7 +155,7 @@
                 </form-item>
 
                 <template v-for="img in tv.televisionResourcesImgs.data">
-                    <div class="img-list" v-if="img.url != ''">
+                    <div class="img-list">
                         <img :src="img.url" alt="">
                         <div class="img-list-cover">
                             <Icon type="ios-trash" @click.native="deleteImg(img.id)"></Icon>
@@ -235,6 +240,7 @@
                 spinShow: true,
                 edit: '创建资源',
                 canDel: true,
+                img: '',
             }
         },
         methods: {
@@ -277,13 +283,13 @@
                       return h('div', [
                           h('upload', {
                               props: {
-                                  action: '',//图片上传的url
+                                  action: 'http://iview-laravel.test/api/img',//图片上传的url
                                   type: 'drag',
                                   multiple: 'multiple'
                               },
                               style: {
                                   paddingTop: '50px',
-                              }
+                              },
                           }, [
                               h('div', [
                                   h('icon', {
@@ -336,6 +342,20 @@
                         this.$Message.warning('请填写必须信息')
                     }
                 })
+            },
+            /*
+            *   图片上传成功的方法
+            * */
+            imgSuccess(response, file, fileList) {
+                this.$Message.info('图片上传成功');
+                this.tv.televisionResourcesImgs.data.push(response)
+                console.log(response)
+            },
+            /*
+            *   图片上传失败的方法
+            * */
+            imgError() {
+                this.$Message.error('图片上传失败')
             }
         },
         created() {

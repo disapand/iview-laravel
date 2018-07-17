@@ -26,6 +26,7 @@ $api->version('v1', [
     $api->get('index', 'TelevisionResourcesController@index')->name('api.tv.index');
     $api->get('tv', 'TelevisionResourcesController@tv')->name('api.tv.tv');
     $api->get('img', 'TelevisionResourcesImgsController@index')->name('api.tv.img');
+    $api->post('img', 'TelevisionResourcesImgsController@store')->name('api.tv.img.store');
     $api->delete('img/{img}', 'TelevisionResourcesImgsController@delete')->name('api.tv.img.delete');
     $api->get('tv/{tv}', 'TelevisionResourcesController@getTv')->name('api.tv.get');
     $api->post('tv', 'TelevisionResourcesController@store')->name('api.tv');

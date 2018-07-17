@@ -15,7 +15,7 @@ class CreateTelevisionResourcesImgsTable extends Migration
     {
         Schema::create('television_resources_imgs', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('television_resources_id')->unsigned()->comment('电视资源的ID');
+            $table->tinyInteger('television_resources_id')->unsigned()->comment('电视资源的ID')->nullable();
             $table->string('url')->comment('图片的链接');
             $table->softDeletes();
             $table->timestamps();

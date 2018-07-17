@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\televisionResourcesImg;
 use App\Transformers\televisionResourcesImgTransformer;
 use Illuminate\Http\Request;
+use App\Handlers\ImageUploadHandler;
 
 class televisionResourcesImgsController extends Controller
 {
@@ -21,5 +22,13 @@ class televisionResourcesImgsController extends Controller
             $imgs = televisionResourcesImg::where('television_resources_id', $img->television_resources_id)->get();
             return $this->response->collection($imgs, new televisionResourcesImgTransformer());
         }
+    }
+
+    public function store(Request $request, ImageUploadHandler $uploader) {
+        $result = $uploader->save($request->img, 'television', 't');
+        $img = televisionResourcesImg::create([
+            'url' => $result['path'],
+        ]);
+        return $this->response->item($img, new televisionResourcesImgTransformer());
     }
 }

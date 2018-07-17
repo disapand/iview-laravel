@@ -16,7 +16,7 @@
             </button-group>
         </div>
         <div>
-            <i-table border :columns="col" :data="tvs" stripe highlight-row
+            <i-table border :columns="col" :data="tvs" stripe :highlight-row=false
                      :loading="loading"></i-table>
         </div>
         <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize" :class-name="pageClass" show-elevator v-if="cansee"></page>
