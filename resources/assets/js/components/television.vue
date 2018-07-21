@@ -159,6 +159,10 @@
                 this.$ajax.delete('http://iview-laravel.test/api/tv/' + row.id).then( (response) => {
                     this.$Message.info('删除资源成功')
                     this.tvs.splice(index, 1)
+                    this.total = response.data.meta.pagination.total
+                    if( this.total / this.pageSize > 1 ) {
+                        this.cansee = true
+                    }
                 }).catch( (error) => {
                     this.$Message.info('删除资源出错')
                     console.log('删除资源出错', error)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\televisionResources;
 use App\Models\televisionResourcesImg;
 use App\Transformers\televisionResourcesImgTransformer;
 use Illuminate\Http\Request;
@@ -19,16 +20,32 @@ class televisionResourcesImgsController extends Controller
          *  根据id删除图片，同时根据被删除图片的television_resources_id获取所有该资源的图片返回
          * */
         if( $img->delete()) {
-            $imgs = televisionResourcesImg::where('television_resources_id', $img->television_resources_id)->get();
-            return $this->response->collection($imgs, new televisionResourcesImgTransformer());
+            if (isset($img->television_resources_id)) {
+                $imgs = televisionResourcesImg::where('television_resources_id', $img->television_resources_id)->get();
+                return $this->response->collection($imgs, new televisionResourcesImgTransformer());
+            }
         }
     }
 
     public function store(Request $request, ImageUploadHandler $uploader) {
-        $result = $uploader->save($request->img, 'television', 't');
-        $img = televisionResourcesImg::create([
-            'url' => $result['path'],
-        ]);
-        return $this->response->item($img, new televisionResourcesImgTransformer());
+        $img = $request->img;
+        $result = $uploader->save($img, 'television', 't');
+        /*
+         *  同时提交了id和televisionResourcesImgs，表示需要新增图片
+         *  只提交了id，表示需要对图片进行更新
+         *  只提交了televisionResourcesImgs表示图片为新增的
+         * */
+        if (isset($request->id) && ! $request->has('televisionResourcesImgs')) {
+            $imgList = televisionResourcesImg::findOrFail($request->id);
+            $imgList->update([
+                'url' => $result['path']
+            ]);
+        } else {
+            $imgList = televisionResourcesImg::create([
+                'url' => $result['path'],
+                'television_resources_id' => $request->id,
+            ]);
+        }
+        return $this->response->item($imgList, new televisionResourcesImgTransformer());
     }
 }

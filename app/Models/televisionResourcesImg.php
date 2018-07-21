@@ -29,7 +29,7 @@ class televisionResourcesImg extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'television_resource_id', 'url'
+        'television_resources_id', 'url'
     ];
 
     public function televisionResources(){

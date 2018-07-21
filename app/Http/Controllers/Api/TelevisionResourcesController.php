@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\televisionResourcesRequest;
 use App\Models\televisionResources;
+use App\Models\televisionResourcesImg;
 use App\Transformers\televisionResourcesTransformer;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ class TelevisionResourcesController extends Controller
             foreach ($imgs as $img) {
                 $img->delete();
             }
-            return $this->response->array([]);
+            return $this->response->paginator(televisionResources::paginate(15), new televisionResourcesTransformer());
         }
     }
 
@@ -58,7 +59,12 @@ class TelevisionResourcesController extends Controller
             $tv->update($data);
         }else {
             $tv = new televisionResources();
-            $tv->create($data);
+            $t = $tv->create($data);
+            foreach ($request->televisionResourcesImgs['data'] as $img ) {
+                televisionResourcesImg::findOrFail($img['id'])->update([
+                    'television_resources_id' => $t -> id,
+                ]);
+            }
         }
 
         return $this->response->noContent();

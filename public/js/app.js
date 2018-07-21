@@ -85763,6 +85763,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$ajax.delete('http://iview-laravel.test/api/tv/' + row.id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.tvs.splice(index, 1);
+                _this3.total = response.data.meta.pagination.total;
+                if (_this3.total / _this3.pageSize > 1) {
+                    _this3.cansee = true;
+                }
             }).catch(function (error) {
                 _this3.$Message.info('删除资源出错');
                 console.log('删除资源出错', error);
@@ -85983,7 +85987,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.spin-container[data-v-3aec82e9] {\n  position: relative;\n}\n.img-list[data-v-3aec82e9] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list-cover[data-v-3aec82e9] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-3aec82e9] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-3aec82e9] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-3aec82e9] {\n  margin: 3px 0;\n}\n.customPop[data-v-3aec82e9] {\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.spin-container[data-v-3aec82e9] {\n  position: relative;\n}\n.img-list[data-v-3aec82e9] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-3aec82e9] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-3aec82e9] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-3aec82e9] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-3aec82e9] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-3aec82e9] {\n  margin: 3px 0;\n}\n.customPop[data-v-3aec82e9] {\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -85996,6 +86000,7 @@ exports.push([module.i, "\n.spin-container[data-v-3aec82e9] {\n  position: relat
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -86197,7 +86202,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 country: '',
                 program: '',
                 requirements: '',
-                televisionResourcesImgs: '',
+                televisionResourcesImgs: {
+                    data: []
+                },
                 isuse: true
             },
             tvRules: _defineProperty({
@@ -86243,7 +86250,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     _this.$ajax.delete('http://iview-laravel.test/api/img/' + id).then(function (response) {
                         console.log(response);
                         _this.$Message.info('图片删除完成');
-                        _this.tv.televisionResourcesImgs.data = response.data.data;
+                        if (response.data.data) {
+                            _this.tv.televisionResourcesImgs.data = response.data.data;
+                        } else {
+                            _this.tv.televisionResourcesImgs.data = [];
+                        }
                     }).catch(function (error) {
                         console.log('删除图片出错：', error);
                         _this.$Message.error('图片删除失败');
@@ -86255,16 +86266,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         /*
         *   更新图片或者上传图片的方法
         * */
-        updateImg: function updateImg(id) {
+        updateImg: function updateImg(img) {
+            var _this2 = this;
+
+            this.img = img;
             this.$Modal.info({
-                title: '上传图片',
+                title: '修改图片',
                 okText: '取消',
-                render: function render(h, id) {
+                render: function render(h) {
                     return h('div', [h('upload', {
                         props: {
-                            action: 'http://iview-laravel.test/api/img', //图片上传的url
+                            action: 'http://iview-laravel.test/api/img',
                             type: 'drag',
-                            multiple: 'multiple'
+                            name: 'img',
+                            data: _this2.img,
+                            'show-upload-list': false,
+                            'on-success': _this2.imgUpdateSuccess,
+                            'on-error': _this2.imgUpdateError
                         },
                         style: {
                             paddingTop: '50px'
@@ -86290,13 +86308,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         *   根据当前电视的id删除电视资源，删除完成后返回上一页
         * */
         deleteTv: function deleteTv(id) {
-            var _this2 = this;
+            var _this3 = this;
 
             this.$ajax.delete('http://iview-laravel.test/api/tv/' + id).then(function (response) {
-                _this2.$Message.info('删除资源成功');
-                _this2.$router.go(-1);
+                _this3.$Message.info('删除资源成功');
+                _this3.$router.go(-1);
             }).catch(function (error) {
-                _this2.$Message.info('删除资源出错');
+                _this3.$Message.info('删除资源出错');
                 console.log('删除资源出错', error);
             });
         },
@@ -86305,20 +86323,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         *   更新或者新建电视资源
         * */
         updateTv: function updateTv() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.$refs['tv'].validate(function (valid) {
                 if (valid) {
-                    console.log('submit', _this3.tv);
-                    _this3.$ajax.post('http://iview-laravel.test/api/tv', _this3.tv).then(function (response) {
+                    console.log('submit', _this4.tv);
+                    _this4.$ajax.post('http://iview-laravel.test/api/tv', _this4.tv).then(function (response) {
                         console.log(response.data);
-                        _this3.$Message.info('资源编辑成功');
+                        _this4.$Message.info('资源编辑成功');
                     }).catch(function (error) {
-                        _this3.$Message.error('资源编辑失败');
+                        _this4.$Message.error('资源编辑失败');
                         console.log('资源编辑失败：', error);
                     });
                 } else {
-                    _this3.$Message.warning('请填写必须信息');
+                    _this4.$Message.warning('请填写必须信息');
                 }
             });
         },
@@ -86333,25 +86351,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
 
         /*
+        *   图片更新成功的方法
+        * */
+        imgUpdateSuccess: function imgUpdateSuccess(response, file, fileList) {
+            this.$Message.info('图片上传成功');
+            this.tv.televisionResourcesImgs.data.forEach(function (item) {
+                if (item.id == response.id) {
+                    item.url = response.url;
+                }
+            });
+            this.$Modal.remove();
+        },
+
+        /*
         *   图片上传失败的方法
         * */
-        imgError: function imgError() {
+        imgError: function imgError(response, file, fileList) {
             this.$Message.error('图片上传失败');
+            console.log(response);
+        },
+
+        /*
+        *   图片更新失败的方法
+        * */
+        imgUpdateError: function imgUpdateError(response, file, fileList) {
+            this.imgError(response, file, fileList);
+            this.$Modal.remove();
         }
     },
     created: function created() {
-        var _this4 = this;
+        var _this5 = this;
 
         /*
         *   根据传过来的id获取对应的televisionResources
         * */
         if (this.$route.params.id) {
             this.$ajax.get('http://iview-laravel.test/api/tv/' + this.$route.params.id + '?include=televisionResourcesImgs').then(function (response) {
-                _this4.tv = response.data;
-                _this4.spinShow = false;
-                _this4.edit = '提交修改';
+                _this5.tv = response.data;
+                _this5.spinShow = false;
+                _this5.edit = '提交修改';
             }).catch(function (error) {
-                _this4.$Message.error('电视资源未找到');
+                _this5.$Message.error('电视资源未找到');
             });
         } else {
             this.spinShow = false;
@@ -86850,6 +86890,7 @@ var render = function() {
                         action: "http://iview-laravel.test/api/img",
                         "on-success": _vm.imgSuccess,
                         "on-error": _vm.imgError,
+                        data: _vm.tv,
                         "show-upload-list": false
                       }
                     },
@@ -86898,7 +86939,7 @@ var render = function() {
                           attrs: { type: "upload" },
                           nativeOn: {
                             click: function($event) {
-                              _vm.updateImg(img.id)
+                              _vm.updateImg(img)
                             }
                           }
                         })
