@@ -7,11 +7,17 @@
 <template>
     <div>
         <div style="margin: 30px 0">
-            <i-input v-model="search" placeholder="请输入关键词" style="width:50%;"/>
-            <Button type="ghost" shape="circle" icon="search"></Button>
+            <i-select v-model="condition" style="width:100px">
+                <i-option value="form" label="形式"></i-option>
+                <i-option value="category" label="类别"></i-option>
+                <i-option value="country" label="国家或地区"></i-option>
+            </i-select>
+            <i-input v-model="search" placeholder="请输入关键词" style="width:50%;"
+                     autofocus clearable @on-enter="searchTv"/>
+            <Button type="ghost" shape="circle" icon="search" @click="searchTv"></Button>
             <button-group style="float: right;">
                 <i-button type="success" icon="android-add-circle" @click="addTVItem">添加资源</i-button>
-                <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button>
+                <!--<i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button>-->
                 <i-button type="warning" icon="ios-upload" @click="importTv">批量导入资源</i-button>
             </button-group>
         </div>
@@ -19,7 +25,9 @@
             <i-table border :columns="col" :data="tvs" stripe :highlight-row=false
                      :loading="loading"></i-table>
         </div>
-        <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize" :class-name="pageClass" show-elevator v-if="cansee"></page>
+        <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize"
+              :class-name="pageClass" show-elevator v-if="cansee"></page>
+        <span v-if="! cansee" style="margin-top: 15px;display: block">共找到{{ total }}条记录</span>
     </div>
 </template>
 
@@ -33,6 +41,7 @@
                 pageSize: 15,
                 cansee: false,
                 pageClass: 'page',
+                condition: 'form',
                 search: '',
                 col: [
                     {
@@ -128,7 +137,7 @@
                 this.tvs = response.data.data
                 this.loading = false
                 this.total = response.data.meta.pagination.total
-                if( this.total / this.pageSize > 1 ) {
+                if (this.total / this.pageSize > 1) {
                     this.cansee = true
                 }
             }).catch((error) => {
@@ -146,7 +155,7 @@
                 this.$router.push({'name': 'tv_item', params: {id: row.id}})
             },*/
             addTVItem() {
-              this.$router.push('tv_item')
+                this.$router.push('tv_item')
             },
             info(row, index) {
                 console.log(index)
@@ -156,14 +165,14 @@
                 this.$router.push({'name': 'tv_item', params: {id: row.id}})
             },
             remove(row, index) {
-                this.$ajax.delete('http://iview-laravel.test/api/tv/' + row.id).then( (response) => {
+                this.$ajax.delete('http://iview-laravel.test/api/tv/' + row.id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.tvs.splice(index, 1)
                     this.total = response.data.meta.pagination.total
-                    if( this.total / this.pageSize > 1 ) {
+                    if (this.total / this.pageSize > 1) {
                         this.cansee = true
                     }
-                }).catch( (error) => {
+                }).catch((error) => {
                     this.$Message.info('删除资源出错')
                     console.log('删除资源出错', error)
                 })
@@ -176,6 +185,20 @@
                     this.loading = false
                 }).catch((error) => {
                     console.log('some errors has happend:', error);
+                })
+            },
+            searchTv() {
+                if (this.search == '') {
+                    this.$Message.error('请输入查询条件')
+                    return false
+                }
+                this.$ajax.get('http://iview-laravel.test/api/tv/' + this.condition + '/' + this.search).then((response) => {
+                    this.tvs = response.data.data
+                    this.total = response.data.data.length
+                    this.cansee = false
+                    console.log(response.data.data)
+                }).catch((error) => {
+                    console.log(error);
                 })
             },
             exportTv() {

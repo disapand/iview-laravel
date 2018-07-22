@@ -70,4 +70,10 @@ class TelevisionResourcesController extends Controller
         return $this->response->noContent();
     }
 
+    public function searchTv($condition, $query) {
+
+        $tvs = televisionResources::where($condition, 'like', "%$query%")->get();
+        return $this->response->collection($tvs, new televisionResourcesTransformer());
+    }
+
 }
