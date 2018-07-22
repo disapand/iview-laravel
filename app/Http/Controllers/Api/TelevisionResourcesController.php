@@ -83,12 +83,9 @@ class TelevisionResourcesController extends Controller
         $filename = time() . '_' . str_random(10) . '.' . $extension;
         $excel->move($upload_path, $filename);
 
-        Excel::load($base_path . '/' . $filename, function ($reader) {
-            $ss = $reader->all();
-            return $this->response->array([$ss]);
-        });
+        $data = Excel::load($base_path . '/' . $filename, function ($reader){})->get();
 
-//        return $this->response->array([$data]);
+        return $this->response->array([$data]);
     }
 
 }

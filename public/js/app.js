@@ -85798,8 +85798,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         exportTv: function exportTv() {},
-        importSuccess: function importSuccess(res, file) {
-            console.log(res);
+        importSuccess: function importSuccess(response, file, fileList) {
+            console.log(response, file);
         }
     }
 });

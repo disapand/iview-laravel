@@ -194,8 +194,8 @@
             exportTv() {
 
             },
-            importSuccess(res, file) {
-                console.log(res)
+            importSuccess(response, file, fileList) {
+                console.log(response, file)
             }
         }
     }
