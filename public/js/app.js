@@ -85744,6 +85744,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+<<<<<<< HEAD
+=======
+//
+//
+//
+//
+>>>>>>> 21e3826a11af87f83d7c8da30455e87b9842c236
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -85758,6 +85765,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             pageClass: 'page',
             condition: 'form',
             search: '',
+            isImport: false,
             col: [{
                 'title': '编号',
                 'key': 'id',
@@ -85909,7 +85917,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         exportTv: function exportTv() {},
-        importTv: function importTv() {}
+        importSuccess: function importSuccess(response, file, fileList) {
+            console.log(response, file);
+        }
     }
 });
 
@@ -85991,9 +86001,56 @@ var render = function() {
                 "i-button",
                 {
                   attrs: { type: "warning", icon: "ios-upload" },
-                  on: { click: _vm.importTv }
+                  on: {
+                    click: function($event) {
+                      _vm.isImport = true
+                    }
+                  }
                 },
                 [_vm._v("批量导入资源")]
+              ),
+              _vm._v(" "),
+              _c(
+                "Modal",
+                {
+                  attrs: { title: "选择上传的excel文件", okText: "完成" },
+                  model: {
+                    value: _vm.isImport,
+                    callback: function($$v) {
+                      _vm.isImport = $$v
+                    },
+                    expression: "isImport"
+                  }
+                },
+                [
+                  _c(
+                    "Upload",
+                    {
+                      attrs: {
+                        type: "drag",
+                        action: "http://iview-laravel.test/api/importTv",
+                        "on-success": _vm.importSuccess,
+                        name: "excel"
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticStyle: { padding: "20px 0" } },
+                        [
+                          _c("Icon", {
+                            staticStyle: { color: "#3399ff" },
+                            attrs: { type: "ios-cloud-upload", size: "52" }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("拖拽文件到此或者点击文件上传")])
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ],
+                1
               )
             ],
             1

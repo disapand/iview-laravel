@@ -8,6 +8,8 @@ use App\Models\televisionResourcesImg;
 use App\Transformers\televisionResourcesTransformer;
 use Illuminate\Http\Request;
 
+use Maatwebsite\Excel\Facades\Excel;
+
 class TelevisionResourcesController extends Controller
 {
     public function index() {
@@ -74,6 +76,22 @@ class TelevisionResourcesController extends Controller
 
         $tvs = televisionResources::where($condition, 'like', "%$query%")->get();
         return $this->response->collection($tvs, new televisionResourcesTransformer());
+    }
+    
+    public function importTv(Request $request) {
+        /*
+         *  上传excel文件，并保存到服务器
+         * */
+        $excel = $request->file('excel');
+        $extension = $excel->getClientOriginalExtension();
+        $base_path = 'uploads/excel/' . date('Ym/d', time());
+        $upload_path = public_path() . '/'. $base_path;
+        $filename = time() . '_' . str_random(10) . '.' . $extension;
+        $excel->move($upload_path, $filename);
+
+        $data = Excel::load($base_path . '/' . $filename, function ($reader){})->get();
+
+        return $this->response->array([$data]);
     }
 
 }
