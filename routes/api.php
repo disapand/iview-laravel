@@ -30,6 +30,7 @@ $api->version('v1', [
     $api->delete('img/{img}', 'TelevisionResourcesImgsController@delete')->name('api.tv.img.delete');
     $api->get('tv/{tv}', 'TelevisionResourcesController@getTv')->name('api.tv.get');
     $api->post('tv', 'TelevisionResourcesController@store')->name('api.tv');
+    $api->post('importTv', 'TelevisionResourcesController@importTv')->name('api.tv.import');
     $api->delete('tv/{tv}', 'TelevisionResourcesController@delete')->name('api.tv.delete');
 });
 

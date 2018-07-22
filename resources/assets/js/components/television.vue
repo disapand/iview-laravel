@@ -12,7 +12,19 @@
             <button-group style="float: right;">
                 <i-button type="success" icon="android-add-circle" @click="addTVItem">添加资源</i-button>
                 <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button>
-                <i-button type="warning" icon="ios-upload" @click="importTv">批量导入资源</i-button>
+                <i-button type="warning" icon="ios-upload" @click="isImport = true">批量导入资源</i-button>
+                <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
+                    <Upload
+                            type="drag"
+                            action="http://iview-laravel.test/api/importTv"
+                            :on-success="importSuccess"
+                            name="excel">
+                        <div style="padding: 20px 0">
+                            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+                            <p>拖拽文件到此或者点击文件上传</p>
+                        </div>
+                    </Upload>
+                </Modal>
             </button-group>
         </div>
         <div>
@@ -34,6 +46,7 @@
                 cansee: false,
                 pageClass: 'page',
                 search: '',
+                isImport: false,
                 col: [
                     {
                         'title': '编号',
@@ -181,8 +194,8 @@
             exportTv() {
 
             },
-            importTv() {
-
+            importSuccess(res, file) {
+                console.log(res)
             }
         }
     }
