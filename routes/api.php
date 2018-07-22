@@ -29,6 +29,7 @@ $api->version('v1', [
     $api->get('car', 'CarsController@index')->name('api.car.index');
     $api->get('car/{car}', 'CarsController@get')->name('api.car.get');
     $api->post('car', 'CarsController@store')->name('api.car.store');
+    $api->get('sqxm', 'sqxmController@index')->name('api.sqxm.list');
 });
 
 $api->version('v2', function ($api) {

@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Car whereModel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Car whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\oilCard $oilCard
  */
 class Car extends Model
 {
