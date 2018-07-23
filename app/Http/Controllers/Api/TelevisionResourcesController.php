@@ -91,6 +91,10 @@ class TelevisionResourcesController extends Controller
 
         $data = Excel::load($base_path . '/' . $filename, function ($reader){})->get();
 
+        foreach ($data as $d) {
+            televisionResources::create($d->toArray());
+        }
+
         return $this->response->array([$data]);
     }
 
