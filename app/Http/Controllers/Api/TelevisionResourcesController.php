@@ -89,13 +89,17 @@ class TelevisionResourcesController extends Controller
         $filename = time() . '_' . str_random(10) . '.' . $extension;
         $excel->move($upload_path, $filename);
 
+        /*
+         *  从上传的文件中获取数据
+         * */
         $data = Excel::load($base_path . '/' . $filename, function ($reader){})->get();
 
-        foreach ($data as $d) {
-            televisionResources::create($d->toArray());
-        }
+        /*
+         *  将获取到的数据存入数据库
+         * */
+        televisionResources::insert($data->toArray());
 
-        return $this->response->array([$data]);
+        return $this->response->paginator(televisionResources::paginate(15), new televisionResourcesTransformer());
     }
 
 }

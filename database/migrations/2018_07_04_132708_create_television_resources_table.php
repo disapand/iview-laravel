@@ -24,7 +24,7 @@ class CreateTelevisionResourcesTable extends Migration
                 '生活','文史','军事','旅游','八卦','音乐','电影','少儿','艺术','汽车','健康',])->default('其他')->comment('类别');
             $table->string('station', 50)->default('所属电视台')->comment('所属电视台');
             $table->string('minimum_buy', 50)->default('0')->comment('最小投放预算或最小投放周期');
-            $table->enum('time', ['5','10','15','20','25','30','45','60','120'])->default('10')->comment('广告时长');
+            $table->string('time', 3)->default('10')->comment('广告时长');
             $table->string('company', 100)->default('XX公司')->comment('媒体所属公司或集团名称');
             $table->string('contributor', 20)->default('负责人')->comment('资源上传负责人姓名');
             $table->string('price', 20)->default('0')->comment('价格区间（美金）');
