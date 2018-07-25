@@ -85675,7 +85675,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             col: [{
                 'title': '编号',
                 'key': 'id',
-                'width': 60,
+                'width': 80,
                 'align': 'center'
             }, {
                 'title': '电视频道',
@@ -85824,7 +85824,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         exportTv: function exportTv() {},
         importSuccess: function importSuccess(response, file, fileList) {
-            console.log(response, file);
+            console.log(response.data);
+            this.tvs = response.data;
+            this.total = response.meta.pagination.total;
+            if (this.total / this.pageSize > 1) {
+                this.cansee = true;
+            }
         }
     }
 });

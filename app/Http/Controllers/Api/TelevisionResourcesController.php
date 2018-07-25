@@ -8,6 +8,7 @@ use App\Models\televisionResourcesImg;
 use App\Transformers\televisionResourcesTransformer;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TelevisionResourcesController extends Controller
@@ -89,13 +90,22 @@ class TelevisionResourcesController extends Controller
         $filename = time() . '_' . str_random(10) . '.' . $extension;
         $excel->move($upload_path, $filename);
 
+        /*
+         *  从上传的文件中获取数据
+         * */
         $data = Excel::load($base_path . '/' . $filename, function ($reader){})->get();
 
-        foreach ($data as $d) {
-            return $d;
-        }
+        /*
+         *  将获取到的数据存入数据库
+         * */
+        televisionResources::insert($data->toArray());
 
-        return $this->response->array([$data]);
+        return $this->response->paginator(televisionResources::paginate(15), new televisionResourcesTransformer());
+    }
+
+    public function recommendTv() {
+        $tvs = televisionResources::where([])->orderBy('id', 'desc')->take(4)->get();
+        return $this->response->collection($tvs, new televisionResourcesTransformer());
     }
 
 }

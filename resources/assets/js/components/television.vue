@@ -60,7 +60,7 @@
                     {
                         'title': '编号',
                         'key': 'id',
-                        'width': 60,
+                        'width': 80,
                         'align': 'center'
                     },
                     {
@@ -218,7 +218,12 @@
 
             },
             importSuccess(response, file, fileList) {
-                console.log(response, file)
+                console.log(response.data)
+                this.tvs = response.data
+                this.total = response.meta.pagination.total
+                if (this.total / this.pageSize > 1) {
+                    this.cansee = true
+                }
             }
         }
     }
