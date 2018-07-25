@@ -31,6 +31,7 @@ $api->version('v1', [
     $api->get('tv/{tv}', 'TelevisionResourcesController@getTv')->name('api.tv.get');
     $api->get('tv/{condition}/{query}', 'TelevisionResourcesController@searchTv')->name('api.tv.get');
     $api->post('tv', 'TelevisionResourcesController@store')->name('api.tv');
+    $api->get('recommendTv', 'TelevisionResourcesController@recommendTv')->name('api.tv.recommend');
     $api->post('importTv', 'TelevisionResourcesController@importTv')->name('api.tv.import');
     $api->delete('tv/{tv}', 'TelevisionResourcesController@delete')->name('api.tv.delete');
 });
