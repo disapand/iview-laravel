@@ -399,12 +399,15 @@
                     this.tv = response.data
                     this.spinShow = false
                     this.edit = '提交修改'
+                    console.log('创建电视资源', response)
                 }).catch((error) => {
                     this.$Message.error('电视资源未找到')
+                    console.log('创建电视资源出错', error)
                 })
             } else {
                 this.spinShow = false
                 this.canDel = false
+                console.log('创建电视资源')
             }
         },
         mounted() {

@@ -85676,6 +85676,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'title': '编号',
                 'key': 'id',
                 'width': 80,
+                'sortable': true,
                 'align': 'center'
             }, {
                 'title': '电视频道',
@@ -85748,7 +85749,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this2 = this;
 
         this.$ajax.get('http://iview-laravel.test/api/tv').then(function (response) {
-            console.log(response.data);
+            console.log('拉取电视资源列表', response);
             _this2.tvs = response.data.data;
             _this2.loading = false;
             _this2.total = response.data.meta.pagination.total;
@@ -85772,10 +85773,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         addTVItem: function addTVItem() {
             this.$router.push('tv_item');
         },
-        info: function info(row, index) {
-            console.log(index);
-            this.$Message.info(row.id.toString());
-        },
         show: function show(row, index) {
             this.$router.push({ 'name': 'tv_item', params: { id: row.id } });
         },
@@ -85790,7 +85787,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this3.cansee = true;
                 }
             }).catch(function (error) {
-                _this3.$Message.info('删除资源出错');
+                _this3.$Message.error('删除资源出错');
                 console.log('删除资源出错', error);
             });
         },
@@ -85799,11 +85796,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.currentPage = index;
             this.$ajax.get('http://iview-laravel.test/api/tv?page=' + index).then(function (response) {
-                console.log(response.data);
+                console.log('换页', response);
                 _this4.tvs = response.data.data;
                 _this4.loading = false;
             }).catch(function (error) {
-                console.log('some errors has happend:', error);
+                console.log('换页出错', error);
             });
         },
         searchTv: function searchTv() {
@@ -85817,14 +85814,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this5.tvs = response.data.data;
                 _this5.total = response.data.data.length;
                 _this5.cansee = false;
-                console.log(response.data.data);
+                console.log('搜索', response);
             }).catch(function (error) {
-                console.log(error);
+                console.log('搜索出错', error);
             });
         },
         exportTv: function exportTv() {},
         importSuccess: function importSuccess(response, file, fileList) {
-            console.log(response.data);
+            console.log('批量导入', response);
             this.tvs = response.data;
             this.total = response.meta.pagination.total;
             if (this.total / this.pageSize > 1) {
@@ -86511,12 +86508,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this5.tv = response.data;
                 _this5.spinShow = false;
                 _this5.edit = '提交修改';
+                console.log('创建电视资源', response);
             }).catch(function (error) {
                 _this5.$Message.error('电视资源未找到');
+                console.log('创建电视资源出错', error);
             });
         } else {
             this.spinShow = false;
             this.canDel = false;
+            console.log('创建电视资源');
         }
     },
     mounted: function mounted() {}

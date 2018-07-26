@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTelevisionResourcesImgsTable extends Migration
+class CreateOutdoorResourceImgsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateTelevisionResourcesImgsTable extends Migration
      */
     public function up()
     {
-        Schema::create('television_resources_imgs', function (Blueprint $table) {
+        Schema::create('outdoor_resource_imgs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('television_resources_id')->unsigned()->comment('电视资源的ID')->nullable();
-            $table->string('url')->comment('图片的链接');
+            $table->integer('outdoor_resources_id')->nullable()->comment('对应的户外资源');
+            $table->string('url')->comment('图片的地址');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreateTelevisionResourcesImgsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('television_resources_imgs');
+        Schema::dropIfExists('outdoor_resource_imgs');
     }
 }

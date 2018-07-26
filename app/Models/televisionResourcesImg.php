@@ -22,6 +22,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\televisionResourcesImg whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\televisionResourcesImg whereUrl($value)
  * @mixin \Eloquent
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\televisionResourcesImg onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\televisionResourcesImg withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\televisionResourcesImg withoutTrashed()
  */
 class televisionResourcesImg extends Model
 {

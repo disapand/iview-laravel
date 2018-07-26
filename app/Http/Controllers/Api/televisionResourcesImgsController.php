@@ -28,6 +28,7 @@ class televisionResourcesImgsController extends Controller
     }
 
     public function store(Request $request, ImageUploadHandler $uploader) {
+
         $img = $request->img;
         $result = $uploader->save($img, 'television', 't');
         /*

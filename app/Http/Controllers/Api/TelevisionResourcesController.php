@@ -18,7 +18,7 @@ class TelevisionResourcesController extends Controller
     }
 
     public function tv() {
-        $tv = televisionResources::paginate(15);
+        $tv = televisionResources::where([])->orderBy('id', 'desc')->paginate(15);
         return $this->response->paginator($tv, new televisionResourcesTransformer());
     }
 
@@ -106,6 +106,14 @@ class TelevisionResourcesController extends Controller
     public function recommendTv() {
         $tvs = televisionResources::where([])->orderBy('id', 'desc')->take(4)->get();
         return $this->response->collection($tvs, new televisionResourcesTransformer());
+    }
+
+    public function search($country = '', $category = '', $form = '') {
+
+        $tvs = televisionResources::where(['country' => $country, 'category' => $category, 'form' => $form])
+            ->paginate(15);
+
+        return $this->response->paginator($tvs, new televisionResourcesTransformer());
     }
 
 }

@@ -61,6 +61,7 @@
                         'title': '编号',
                         'key': 'id',
                         'width': 80,
+                        'sortable': true,
                         'align': 'center'
                     },
                     {
@@ -146,7 +147,7 @@
         },
         created() {
             this.$ajax.get('http://iview-laravel.test/api/tv').then((response) => {
-                console.log(response.data);
+                console.log('拉取电视资源列表', response);
                 this.tvs = response.data.data
                 this.loading = false
                 this.total = response.data.meta.pagination.total
@@ -170,10 +171,6 @@
             addTVItem() {
                 this.$router.push('tv_item')
             },
-            info(row, index) {
-                console.log(index)
-                this.$Message.info(row.id.toString())
-            },
             show(row, index) {
                 this.$router.push({'name': 'tv_item', params: {id: row.id}})
             },
@@ -186,18 +183,18 @@
                         this.cansee = true
                     }
                 }).catch((error) => {
-                    this.$Message.info('删除资源出错')
+                    this.$Message.error('删除资源出错')
                     console.log('删除资源出错', error)
                 })
             },
             changePage(index) {
                 this.currentPage = index
                 this.$ajax.get('http://iview-laravel.test/api/tv?page=' + index).then((response) => {
-                    console.log(response.data);
+                    console.log('换页', response);
                     this.tvs = response.data.data
                     this.loading = false
                 }).catch((error) => {
-                    console.log('some errors has happend:', error);
+                    console.log('换页出错', error);
                 })
             },
             searchTv() {
@@ -209,16 +206,16 @@
                     this.tvs = response.data.data
                     this.total = response.data.data.length
                     this.cansee = false
-                    console.log(response.data.data)
+                    console.log('搜索', response)
                 }).catch((error) => {
-                    console.log(error);
+                    console.log('搜索出错', error);
                 })
             },
             exportTv() {
 
             },
             importSuccess(response, file, fileList) {
-                console.log(response.data)
+                console.log('批量导入', response)
                 this.tvs = response.data
                 this.total = response.meta.pagination.total
                 if (this.total / this.pageSize > 1) {
