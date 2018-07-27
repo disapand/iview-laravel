@@ -35,6 +35,14 @@ $api->version('v1', [
     $api->get('recommendTv', 'TelevisionResourcesController@recommendTv')->name('api.tv.recommend');
     $api->post('importTv', 'TelevisionResourcesController@importTv')->name('api.tv.import');
     $api->delete('tv/{tv}', 'TelevisionResourcesController@delete')->name('api.tv.delete');
+
+    $api->get('outdoor', 'outdoorResourceController@index')->name('api.outdoor.index');
+
+    $api->get('transform', 'transformController@index')->name('api.transform.index');
+
+    $api->get('newspaper', 'newspapperResourceController@index')->name('api.newspaper.index');
+
+    $api->get('online', 'onlineResourceController@index')->name('api.online.index');
 });
 
 $api->version('v2', function ($api) {

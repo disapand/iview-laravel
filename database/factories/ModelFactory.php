@@ -67,3 +67,117 @@ $factory->define(App\Models\televisionResourcesImg::class, function (Faker\Gener
     ];
 });
 
+$factory->define(App\Models\transformResource::class, function (Faker\Generator $faker) {
+    return [
+        'city' => $faker->city,
+        'form' => $faker->word,
+        'unit_num' => $faker->word,
+        'position' => $faker->word,
+        'language' => $faker->word,
+        'category' => $faker->word,
+        'area' => $faker->word,
+        'SOV' => $faker->word,
+        'visitor' => $faker->randomNumber(),
+        'traffic' => $faker->randomNumber(),
+        'minimum_buy' => $faker->randomNumber(),
+        'format' => $faker->word,
+        'number' => $faker->word,
+        'time' => $faker->word,
+        'media_price' => $faker->word,
+        'price' => $faker->word,
+        'total_num' => $faker->randomNumber(),
+        'company' => $faker->company,
+        'contributor' => $faker->word,
+        'detail' => $faker->word,
+        'country' => $faker->country,
+        'name' => $faker->name,
+        'requirements' => $faker->word,
+        'isuse' => $faker->boolean,
+    ];
+});
+
+$factory->define(App\Models\transformResourceImg::class, function (Faker\Generator $faker) {
+    return [
+        'transform_resources_id' => function () {
+             return factory(App\Models\transformResource::class)->create()->id;
+        },
+        'url' => $faker->url,
+    ];
+});
+
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'email' => $faker->safeEmail,
+        'password' => bcrypt($faker->password),
+        'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Models\newspaperResource::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'form' => $faker->word,
+        'ad_form' => $faker->word,
+        'detail' => $faker->word,
+        'area' => $faker->word,
+        'language' => $faker->word,
+        'category' => $faker->word,
+        'minimum_buy' => $faker->randomNumber(),
+        'format' => $faker->word,
+        'cycle' => $faker->word,
+        'media_price' => $faker->word,
+        'price' => $faker->word,
+        'circulation' => $faker->randomNumber(),
+        'page' => $faker->word,
+        'country' => $faker->country,
+        'version' => $faker->word,
+        'company' => $faker->company,
+        'contributor' => $faker->word,
+        'requirements' => $faker->word,
+        'isuse' => $faker->boolean,
+    ];
+});
+
+$factory->define(App\Models\newspaperResourceImg::class, function (Faker\Generator $faker) {
+    return [
+        'newspaper_resources_id' => function () {
+             return factory(App\Models\newspaperResource::class)->create()->id;
+        },
+        'url' => $faker->url,
+    ];
+});
+
+$factory->define(App\Models\onlineResource::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'category' => $faker->word,
+        'form' => $faker->word,
+        'detail' => $faker->word,
+        'area' => $faker->word,
+        'language' => $faker->word,
+        'platform' => $faker->word,
+        'company' => $faker->company,
+        'pv' => $faker->randomNumber(),
+        'uv' => $faker->randomNumber(),
+        'minimum_buy' => $faker->randomNumber(),
+        'format' => $faker->word,
+        'media_price' => $faker->word,
+        'price' => $faker->word,
+        'contributor' => $faker->word,
+        'link' => $faker->word,
+        'country' => $faker->country,
+        'requirements' => $faker->word,
+        'isuse' => $faker->boolean,
+    ];
+});
+
+$factory->define(App\Models\onlineResourceImgs::class, function (Faker\Generator $faker) {
+    return [
+        'online_resources_id' => function () {
+             return factory(App\Models\onlineResource::class)->create()->id;
+        },
+        'url' => $faker->url,
+    ];
+});
+
