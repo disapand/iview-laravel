@@ -181,3 +181,39 @@ $factory->define(App\Models\onlineResourceImgs::class, function (Faker\Generator
     ];
 });
 
+$factory->define(App\Models\internetcelebrityResource::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'platform' => $faker->word,
+        'ad_form' => $faker->word,
+        'detail' => $faker->word,
+        'area' => $faker->word,
+        'language' => $faker->word,
+        'fans' => $faker->randomNumber(),
+        'media_price' => $faker->word,
+        'price' => $faker->word,
+        'company' => $faker->company,
+        'contributor' => $faker->word,
+        'advantage' => $faker->word,
+        'country' => $faker->country,
+        'cooperation' => $faker->word,
+        'requirements' => $faker->word,
+        'isuse' => $faker->boolean,
+    ];
+});
+
+$factory->define(App\Models\internetcelebrityResourceCategory::class, function (Faker\Generator $faker) {
+    return [
+        'internetcelebrity_resources_id' => $faker->randomNumber(),
+    ];
+});
+
+$factory->define(App\Models\internetcelebrityResourceImgs::class, function (Faker\Generator $faker) {
+    return [
+        'internetcelebrity_resources_id' => function () {
+             return factory(App\Models\internetcelebrityResource::class)->create()->id;
+        },
+        'url' => $faker->url,
+    ];
+});
+
