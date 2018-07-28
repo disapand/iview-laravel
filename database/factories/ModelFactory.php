@@ -217,3 +217,19 @@ $factory->define(App\Models\internetcelebrityResourceImgs::class, function (Fake
     ];
 });
 
+$factory->define(App\Models\ceshi::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'country' => $faker->country,
+    ];
+});
+
+$factory->define(App\Models\guanlian::class, function (Faker\Generator $faker) {
+    return [
+        'ceshi_id' => function () {
+             return factory(App\Models\ceshi::class)->create()->id;
+        },
+        'phone' => $faker->phoneNumber,
+    ];
+});
+

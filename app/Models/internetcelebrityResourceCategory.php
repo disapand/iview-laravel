@@ -38,7 +38,7 @@ class internetcelebrityResourceCategory extends Model
     ];
 
     public function internetcelerityResource() {
-        return $this->belongsToMany('App\Models\internetcelebrityResource', 'category_internetcelerities',
+        return $this->belongsToMany(internetcelebrityResource::class, 'category_internetcelerities',
             'internetcelebrity_resources_category_id', 'internetcelerity_resources_id');
     }
 }

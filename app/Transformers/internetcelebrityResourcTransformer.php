@@ -13,8 +13,8 @@ use League\Fractal\TransformerAbstract;
 class internetcelebrityResourcTransformer extends TransformerAbstract
 {
 
-//    protected $defaultIncludes = ['internetcelebrityResourceCategory'];
-    protected $availableIncludes = ['internetcelebrityResourceImgs'];
+    protected $defaultIncludes = ['categories'];
+    protected $availableIncludes = ['Imgs'];
 
     public function transform(internetcelebrityResource $internetcelebrity) {
         return [
@@ -41,8 +41,13 @@ class internetcelebrityResourcTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeInternetcelebrityResourceImgs(internetcelebrityResource $internetcelebrity) {
-        return $this->collection($internetcelebrity->internetcelerityResourcImgs,
+    public function includeCategories(internetcelebrityResource $internetcelebrity) {
+        return $this->collection($internetcelebrity->categories,
+            new internetcelebrityResourceCategoriesTransformer());
+    }
+
+    public function includeImgs(internetcelebrityResource $internetcelebrity) {
+        return $this->collection($internetcelebrity->Imgs,
             new internetcelebrityResourceImgsTransformer());
     }
 

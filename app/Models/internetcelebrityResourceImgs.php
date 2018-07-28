@@ -38,7 +38,7 @@ class internetcelebrityResourceImgs extends Model
         'id', 'created_at', 'updated_at', 'deleted_at'
     ];
 
-    public function internetbrityResouce() {
+    public function internetcelebrityResource() {
         return $this->belongsTo(internetcelebrityResource::class, 'internetcelebrity_resources_id', 'id');
     }
 }

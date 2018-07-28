@@ -67,8 +67,13 @@ class internetcelebrityResource extends Model
         'id', 'created_at', 'updated_at', 'deleted_at'
     ];
 
-    public function internetcelebrityResourceImgs() {
-        return $this->hasMany(internetcelebrityResourceImgs::class, 'internetcelebrit_resources_id', 'id');
+    public function Imgs() {
+        return $this->hasMany(internetcelebrityResourceImgs::class, 'internetcelebrity_resources_id', 'id');
+    }
+
+    public function categories() {
+        return $this->belongsToMany(internetcelebrityResourceCategory::class, 'category_internetcelerities',
+            'internetcelebrity_resources_id', 'internetcelebrity_resources_category_id');
     }
 
 }
