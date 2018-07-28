@@ -43,6 +43,8 @@ $api->version('v1', [
     $api->get('newspaper', 'newspapperResourceController@index')->name('api.newspaper.index');
 
     $api->get('online', 'onlineResourceController@index')->name('api.online.index');
+
+    $api->get('internetcelebrity', 'internetcelebrityController@index')->name('api.online.index');
 });
 
 $api->version('v2', function ($api) {
