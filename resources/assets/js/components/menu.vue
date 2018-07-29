@@ -61,7 +61,7 @@
                 ---- 左侧菜单栏
                 -->
                 <Sider :style="{background: '#fff'}" ref="ss" hide-trigger collapsible>
-                    <Menu active-name="1-1" theme="light" width="auto" :open-names="['1']" @on-select="changeMenu">
+                    <Menu theme="light" width="auto" :open-names="['1']" @on-select="changeMenu">
                         <Submenu name="1">
                             <template slot="title">
                                 <Icon type="easel"></Icon>
@@ -114,7 +114,7 @@
                         this.$router.push('/television');
                         break;
                     case '1-2':
-                        this.$router.push('/');
+                        this.$router.push('/outdoor');
                         break;
                     case '1-3':
                         this.$refs.ss.toggleCollapse()

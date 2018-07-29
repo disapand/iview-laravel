@@ -39,7 +39,7 @@ class newspaperResourceTransformer extends TransformerAbstract
             'company' => $newspaper->company,
             'contributor' => $newspaper->contributor,
             'requirements' => $newspaper->requirements,
-            'isuse' => $newspaper->isuse,
+            'isuse' => $newspaper->isuse ? true : false,
             'created_at' => $newspaper->created_at ? $newspaper->created_at->toDateTimeString() : '',
             'updated_at' => $newspaper->updated_at ? $newspaper->updated_at->toDateTimeString() : '',
             'deleted_at' => $newspaper->deleted_at ? $newspaper->deleted_at->toDateTimeString() : '',

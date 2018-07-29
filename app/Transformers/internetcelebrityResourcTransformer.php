@@ -34,7 +34,7 @@ class internetcelebrityResourcTransformer extends TransformerAbstract
             'country' => $internetcelebrity->country,
             'cooperation' => $internetcelebrity->cooperation,
             'requirements' => $internetcelebrity->requirements,
-            'isuse' => $internetcelebrity->isuse,
+            'isuse' => $internetcelebrity->isuse ? true : false,
             'created_at' => $internetcelebrity->created_at ? $internetcelebrity->created_at->toDateTimeString() : '',
             'updated_at' => $internetcelebrity->updated_at ? $internetcelebrity->updated_at->toDateTimeString() : '',
             'deleted_at' => $internetcelebrity->deleted_at ? $internetcelebrity->deleted_at->toDateTimeString() : '',

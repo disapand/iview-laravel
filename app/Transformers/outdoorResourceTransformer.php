@@ -39,7 +39,7 @@ class outdoorResourceTransformer extends TransformerAbstract {
             'country' => $outdoor->country,
             'name' => $outdoor->name,
             'requirements' => $outdoor->requirements,
-            'isuse' => $outdoor->isuse,
+            'isuse' => $outdoor->isuse ? true : false,
             'created_at' => $outdoor->created_at ? $outdoor->created_at->toDateTimeString() : '',
             'updated_at' => $outdoor->updated_at ? $outdoor->updated_at->toDateTimeString() : '',
             'deleted_at' => $outdoor->deleted_at ? $outdoor->deleted_at->toDateTimeString() : '',

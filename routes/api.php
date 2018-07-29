@@ -37,6 +37,13 @@ $api->version('v1', [
     $api->delete('tv/{tv}', 'TelevisionResourcesController@delete')->name('api.tv.delete');
 
     $api->get('outdoor', 'outdoorResourceController@index')->name('api.outdoor.index');
+    $api->get('outdoor/{outdoor}', 'outdoorResourceController@show')->name('api.outdoor.show');
+    $api->get('outdoor/{condition?}/{query?}', 'outdoorResourceController@query')->name('api.outdoor.query');
+    $api->post('outdoor', 'outdoorResourceController@update')->name('api.outdoor.update');
+    $api->delete('outdoor/{outdoor}', 'outdoorResourceController@delete')->name('api.outdoor.delete');
+    $api->post('outdoorImg', 'outdoorResourceImgController@store')->name('api.outdoorImg.store');
+    $api->delete('outdoorImg/{img}', 'outdoorResourceImgController@delete')->name('api.outdoorImg.delete');
+    $api->post('outdoorImgUpdate', 'outdoorResourceImgController@update')->name('api.outdoorImg.delete');
 
     $api->get('transform', 'transformController@index')->name('api.transform.index');
 

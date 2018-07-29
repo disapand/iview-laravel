@@ -36,7 +36,7 @@ class onlineResourceTransformer extends TransformerAbstract
             'link' => $online->link,
             'country' => $online->country,
             'requirements' => $online->requirements,
-            'isuse' => $online->isuse,
+            'isuse' => $online->isuse ? true : false,
             'created_at' => $online->created_at ? $online->created_at->toDateTimeString() : '',
             'updated_at' => $online->created_at ? $online->updated_at->toDateTimeString() : '',
             'deleted_at' => $online->deleted_at ? $online->deleted_at->toDateTimeString() : '',

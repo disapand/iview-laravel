@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\onlineResource;
 use App\Transformers\onlineResourceTransformer;
+use App\Transformers\outdoorResourceTransformer;
 use Illuminate\Http\Request;
 
 class onlineResourceController extends Controller
@@ -46,9 +47,9 @@ class onlineResourceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(onlineResource $online)
     {
-        //
+        return $this->response->item($online, new outdoorResourceTransformer());
     }
 
     /**

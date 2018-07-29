@@ -42,7 +42,7 @@ class transformResourceTransformer extends TransformerAbstract
             'country' => $transform->country,
             'name' => $transform->name,
             'requirements' => $transform->requirements,
-            'isuse' => $transform->isuse,
+            'isuse' => $transform->isuse ? true : false,
             'created_at' => $transform->created_at ? $transform->created_at->toDateTimeString() : '',
             'updated_at' => $transform->updated_at ? $transform->updated_at->toDateTimeString() : '',
             'deleted_at' => $transform->deleted_at ? $transform->deleted_at->toDateTimeString() : '',

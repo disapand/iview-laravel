@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Handlers\ExcelUploadHandler;
 use App\Http\Requests\Api\televisionResourcesRequest;
 use App\Models\televisionResources;
 use App\Models\televisionResourcesImg;
@@ -79,21 +80,17 @@ class TelevisionResourcesController extends Controller
         return $this->response->collection($tvs, new televisionResourcesTransformer());
     }
     
-    public function importTv(Request $request) {
+    public function importTv(Request $request, ExcelUploadHandler $uploader) {
         /*
          *  上传excel文件，并保存到服务器
          * */
         $excel = $request->file('excel');
-        $extension = $excel->getClientOriginalExtension();
-        $base_path = 'uploads/excel/' . date('Ym/d', time());
-        $upload_path = public_path() . '/'. $base_path;
-        $filename = time() . '_' . str_random(10) . '.' . $extension;
-        $excel->move($upload_path, $filename);
+        $result = $uploader->save($excel, 'television');
 
         /*
          *  从上传的文件中获取数据
          * */
-        $data = Excel::load($base_path . '/' . $filename, function ($reader){})->get();
+        $data = Excel::load($result['path'], function ($reader){})->get();
 
         /*
          *  将获取到的数据存入数据库
