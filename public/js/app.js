@@ -377,33 +377,6 @@ module.exports = {
 /* 1 */
 /***/ (function(module, exports) {
 
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
 /*
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
@@ -483,7 +456,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -592,7 +565,262 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
+
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+var listToStyles = __webpack_require__(56)
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
+  }
+*/}
+
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
+
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
+
+module.exports = function (parentId, list, _isProduction, _options) {
+  isProduction = _isProduction
+
+  options = _options || {}
+
+  var styles = listToStyles(parentId, list)
+  addStylesToDom(styles)
+
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
+    }
+    if (newList) {
+      styles = listToStyles(parentId, newList)
+      addStylesToDom(styles)
+    } else {
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
+    }
+  }
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
+}
+
+
+/***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -692,7 +920,7 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11655,235 +11883,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(40).setImmediate))
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-  Modified by Evan You @yyx990803
-*/
-
-var hasDocument = typeof document !== 'undefined'
-
-if (typeof DEBUG !== 'undefined' && DEBUG) {
-  if (!hasDocument) {
-    throw new Error(
-    'vue-style-loader cannot be used in a non-browser environment. ' +
-    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
-  ) }
-}
-
-var listToStyles = __webpack_require__(56)
-
-/*
-type StyleObject = {
-  id: number;
-  parts: Array<StyleObjectPart>
-}
-
-type StyleObjectPart = {
-  css: string;
-  media: string;
-  sourceMap: ?string
-}
-*/
-
-var stylesInDom = {/*
-  [id: number]: {
-    id: number,
-    refs: number,
-    parts: Array<(obj?: StyleObjectPart) => void>
-  }
-*/}
-
-var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
-var singletonElement = null
-var singletonCounter = 0
-var isProduction = false
-var noop = function () {}
-var options = null
-var ssrIdKey = 'data-vue-ssr-id'
-
-// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-// tags it will allow on a page
-var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
-
-module.exports = function (parentId, list, _isProduction, _options) {
-  isProduction = _isProduction
-
-  options = _options || {}
-
-  var styles = listToStyles(parentId, list)
-  addStylesToDom(styles)
-
-  return function update (newList) {
-    var mayRemove = []
-    for (var i = 0; i < styles.length; i++) {
-      var item = styles[i]
-      var domStyle = stylesInDom[item.id]
-      domStyle.refs--
-      mayRemove.push(domStyle)
-    }
-    if (newList) {
-      styles = listToStyles(parentId, newList)
-      addStylesToDom(styles)
-    } else {
-      styles = []
-    }
-    for (var i = 0; i < mayRemove.length; i++) {
-      var domStyle = mayRemove[i]
-      if (domStyle.refs === 0) {
-        for (var j = 0; j < domStyle.parts.length; j++) {
-          domStyle.parts[j]()
-        }
-        delete stylesInDom[domStyle.id]
-      }
-    }
-  }
-}
-
-function addStylesToDom (styles /* Array<StyleObject> */) {
-  for (var i = 0; i < styles.length; i++) {
-    var item = styles[i]
-    var domStyle = stylesInDom[item.id]
-    if (domStyle) {
-      domStyle.refs++
-      for (var j = 0; j < domStyle.parts.length; j++) {
-        domStyle.parts[j](item.parts[j])
-      }
-      for (; j < item.parts.length; j++) {
-        domStyle.parts.push(addStyle(item.parts[j]))
-      }
-      if (domStyle.parts.length > item.parts.length) {
-        domStyle.parts.length = item.parts.length
-      }
-    } else {
-      var parts = []
-      for (var j = 0; j < item.parts.length; j++) {
-        parts.push(addStyle(item.parts[j]))
-      }
-      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
-    }
-  }
-}
-
-function createStyleElement () {
-  var styleElement = document.createElement('style')
-  styleElement.type = 'text/css'
-  head.appendChild(styleElement)
-  return styleElement
-}
-
-function addStyle (obj /* StyleObjectPart */) {
-  var update, remove
-  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
-
-  if (styleElement) {
-    if (isProduction) {
-      // has SSR styles and in production mode.
-      // simply do nothing.
-      return noop
-    } else {
-      // has SSR styles but in dev mode.
-      // for some reason Chrome can't handle source map in server-rendered
-      // style tags - source maps in <style> only works if the style tag is
-      // created and inserted dynamically. So we remove the server rendered
-      // styles and inject new ones.
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  if (isOldIE) {
-    // use singleton mode for IE9.
-    var styleIndex = singletonCounter++
-    styleElement = singletonElement || (singletonElement = createStyleElement())
-    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
-    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
-  } else {
-    // use multi-style-tag mode in all other cases
-    styleElement = createStyleElement()
-    update = applyToTag.bind(null, styleElement)
-    remove = function () {
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  update(obj)
-
-  return function updateStyle (newObj /* StyleObjectPart */) {
-    if (newObj) {
-      if (newObj.css === obj.css &&
-          newObj.media === obj.media &&
-          newObj.sourceMap === obj.sourceMap) {
-        return
-      }
-      update(obj = newObj)
-    } else {
-      remove()
-    }
-  }
-}
-
-var replaceText = (function () {
-  var textStore = []
-
-  return function (index, replacement) {
-    textStore[index] = replacement
-    return textStore.filter(Boolean).join('\n')
-  }
-})()
-
-function applyToSingletonTag (styleElement, index, remove, obj) {
-  var css = remove ? '' : obj.css
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = replaceText(index, css)
-  } else {
-    var cssNode = document.createTextNode(css)
-    var childNodes = styleElement.childNodes
-    if (childNodes[index]) styleElement.removeChild(childNodes[index])
-    if (childNodes.length) {
-      styleElement.insertBefore(cssNode, childNodes[index])
-    } else {
-      styleElement.appendChild(cssNode)
-    }
-  }
-}
-
-function applyToTag (styleElement, obj) {
-  var css = obj.css
-  var media = obj.media
-  var sourceMap = obj.sourceMap
-
-  if (media) {
-    styleElement.setAttribute('media', media)
-  }
-  if (options.ssrId) {
-    styleElement.setAttribute(ssrIdKey, obj.id)
-  }
-
-  if (sourceMap) {
-    // https://developer.chrome.com/devtools/docs/javascript-debugging
-    // this makes source maps inside style tags work properly in Chrome
-    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
-    // http://stackoverflow.com/a/26603875
-    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
-  }
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = css
-  } else {
-    while (styleElement.firstChild) {
-      styleElement.removeChild(styleElement.firstChild)
-    }
-    styleElement.appendChild(document.createTextNode(css))
-  }
-}
-
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(40).setImmediate))
 
 /***/ }),
 /* 7 */
@@ -12360,7 +12360,7 @@ module.exports = "/fonts/vendor/iview/dist/styles/ionicons.eot?2c2ae068be3b089e0
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(16);
-module.exports = __webpack_require__(72);
+module.exports = __webpack_require__(92);
 
 
 /***/ }),
@@ -12376,7 +12376,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__App_vue__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__App_vue__ = __webpack_require__(89);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__App_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__App_vue__);
 
 /**
@@ -12387,7 +12387,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __webpack_require__(17);
 
-window.Vue = __webpack_require__(5);
+window.Vue = __webpack_require__(6);
 
 
 
@@ -29605,7 +29605,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(19)(module)))
 
 /***/ }),
 /* 19 */
@@ -42399,7 +42399,7 @@ if (typeof jQuery === 'undefined') {
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(8);
 var Axios = __webpack_require__(24);
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(5);
 
 /**
  * Create an instance of Axios
@@ -42482,7 +42482,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(5);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(33);
 var dispatchRequest = __webpack_require__(34);
@@ -43023,7 +43023,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(35);
 var isCancel = __webpack_require__(12);
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(5);
 var isAbsoluteURL = __webpack_require__(36);
 var combineURLs = __webpack_require__(37);
 
@@ -43341,7 +43341,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 /* 41 */
@@ -43534,7 +43534,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(9)))
 
 /***/ }),
 /* 42 */
@@ -43542,7 +43542,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
-		module.exports = factory(__webpack_require__(5));
+		module.exports = factory(__webpack_require__(6));
 	else if(typeof define === 'function' && define.amd)
 		define("iview", ["vue"], factory);
 	else if(typeof exports === 'object')
@@ -81861,7 +81861,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var escape = __webpack_require__(45);
-exports = module.exports = __webpack_require__(2)(false);
+exports = module.exports = __webpack_require__(1)(false);
 // imports
 
 
@@ -82370,7 +82370,7 @@ module.exports = function (css) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_menu_vue__ = __webpack_require__(53);
@@ -82379,10 +82379,16 @@ module.exports = function (css) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_television_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_television_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_tv_item_vue__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_tv_item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_tv_item_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_outdoor_vue__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_outdoor_vue__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_outdoor_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_outdoor_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_outdoor_item_vue__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_outdoor_item_vue__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_outdoor_item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_outdoor_item_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_transform_vue__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_transform_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_transform_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_transform_item_vue__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_transform_item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_transform_item_vue__);
+
+
 
 
 
@@ -82417,6 +82423,16 @@ var routes = [{
         name: 'outdoor_item',
         meta: { title: '户外资源详情' },
         component: __WEBPACK_IMPORTED_MODULE_6__components_outdoor_item_vue___default.a
+    }, {
+        path: 'transform',
+        name: 'transform',
+        meta: { title: '交通资源列表' },
+        component: __WEBPACK_IMPORTED_MODULE_7__components_transform_vue___default.a
+    }, {
+        path: 'transform_item/:id?',
+        name: 'transform_item',
+        meta: { title: '交通资源详情' },
+        component: __WEBPACK_IMPORTED_MODULE_8__components_transform_item_vue___default.a
     }]
 }];
 
@@ -85066,7 +85082,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(54)
 }
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(57)
 /* template */
@@ -85119,7 +85135,7 @@ var content = __webpack_require__(55);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("e0fc289e", content, false, {});
+var update = __webpack_require__(3)("e0fc289e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85138,7 +85154,7 @@ if(false) {
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(false);
+exports = module.exports = __webpack_require__(1)(false);
 // imports
 
 
@@ -85305,7 +85321,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     this.$router.push('/outdoor');
                     break;
                 case '1-3':
-                    this.$refs.ss.toggleCollapse();
+                    this.$router.push('/transform');
             }
         }
     }
@@ -85539,7 +85555,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(60)
 }
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(62)
 /* template */
@@ -85592,7 +85608,7 @@ var content = __webpack_require__(61);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("11c17f85", content, false, {});
+var update = __webpack_require__(3)("11c17f85", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85611,7 +85627,7 @@ if(false) {
 /* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(false);
+exports = module.exports = __webpack_require__(1)(false);
 // imports
 
 
@@ -86043,7 +86059,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(65)
 }
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(67)
 /* template */
@@ -86096,7 +86112,7 @@ var content = __webpack_require__(66);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("277ef6f6", content, false, {});
+var update = __webpack_require__(3)("277ef6f6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -86115,7 +86131,7 @@ if(false) {
 /* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(false);
+exports = module.exports = __webpack_require__(1)(false);
 // imports
 
 
@@ -87159,106 +87175,15 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(70)
-/* template */
-var __vue_template__ = __webpack_require__(71)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/App.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-66ab2f82", Component.options)
-  } else {
-    hotAPI.reload("data-v-66ab2f82", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 70 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({});
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("router-view")
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-66ab2f82", module.exports)
-  }
-}
-
-/***/ }),
-/* 72 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(80)
+  __webpack_require__(70)
 }
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(82)
+var __vue_script__ = __webpack_require__(72)
 /* template */
-var __vue_template__ = __webpack_require__(83)
+var __vue_template__ = __webpack_require__(73)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -87297,17 +87222,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 80 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(81);
+var content = __webpack_require__(71);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("0292bf13", content, false, {});
+var update = __webpack_require__(3)("0292bf13", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -87323,10 +87248,10 @@ if(false) {
 }
 
 /***/ }),
-/* 81 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(false);
+exports = module.exports = __webpack_require__(1)(false);
 // imports
 
 
@@ -87337,7 +87262,7 @@ exports.push([module.i, "\n.page[data-v-ed8adb96] {\n    margin: 10px 0;\n}\n", 
 
 
 /***/ }),
-/* 82 */
+/* 72 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87488,7 +87413,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this2.outdoor = response.data.data;
             _this2.loading = false;
             _this2.total = response.data.meta.pagination.total;
-            if (response.data.meta.pagination.total_pages == 1) {
+            if (response.data.meta.pagination.total_pages > 1) {
                 _this2.cansee = true;
             }
         }).catch(function (error) {
@@ -87567,7 +87492,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 83 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -87755,19 +87680,19 @@ if (false) {
 }
 
 /***/ }),
-/* 84 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(85)
+  __webpack_require__(75)
 }
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(87)
+var __vue_script__ = __webpack_require__(77)
 /* template */
-var __vue_template__ = __webpack_require__(88)
+var __vue_template__ = __webpack_require__(78)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -87806,17 +87731,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 85 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(86);
+var content = __webpack_require__(76);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("62f0074a", content, false, {});
+var update = __webpack_require__(3)("62f0074a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -87832,10 +87757,10 @@ if(false) {
 }
 
 /***/ }),
-/* 86 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(false);
+exports = module.exports = __webpack_require__(1)(false);
 // imports
 
 
@@ -87846,7 +87771,7 @@ exports.push([module.i, "\n.spin-container[data-v-d6480fe6] {\n  position: relat
 
 
 /***/ }),
-/* 87 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -88282,7 +88207,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 88 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -89014,6 +88939,1857 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-d6480fe6", module.exports)
   }
 }
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(80)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(82)
+/* template */
+var __vue_template__ = __webpack_require__(83)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-99c53536"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/transform.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-99c53536", Component.options)
+  } else {
+    hotAPI.reload("data-v-99c53536", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(81);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("4231ba42", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-99c53536\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./transform.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-99c53536\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./transform.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.page[data-v-99c53536] {\n    margin: 10px 0;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 82 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        var _this = this;
+
+        return {
+            loading: true,
+            total: 0,
+            currentPage: 1,
+            pageSize: 15,
+            cansee: false,
+            pageClass: 'page',
+            condition: 'form',
+            search: '',
+            isImport: false,
+            col: [{
+                'title': '编号',
+                'key': 'id',
+                'width': 80,
+                'sortable': true,
+                'align': 'center'
+            }, {
+                'title': '城市',
+                'key': 'city'
+            }, {
+                'title': '形式',
+                'key': 'form'
+            }, {
+                'title': '媒体具体位置',
+                'key': 'position'
+            }, {
+                'title': '类别',
+                'key': 'category',
+                width: 80
+            }, {
+                'title': '覆盖区域',
+                'key': 'area'
+            }, {
+                'title': 'SOV',
+                'key': 'SOV'
+            }, {
+                'title': '规格尺寸',
+                'key': 'format'
+            }, {
+                'title': '广告载体面数',
+                'key': 'number'
+            }, {
+                'title': '国家和地区',
+                'key': 'country'
+            }, {
+                'title': '名称',
+                'key': 'name'
+            }, {
+                'title': '是否有效',
+                'key': 'isuse',
+                width: 100
+            }, {
+                'title': '操作',
+                'key': 'action',
+                render: function render(h, params) {
+                    return h('div', [h('i-button', {
+                        props: {
+                            type: 'primary',
+                            size: 'small'
+                        },
+                        style: {
+                            marginRight: '8px'
+                        },
+                        on: {
+                            click: function click() {
+                                event.stopPropagation();
+                                _this.show(params.row, params.index);
+                            }
+                        }
+                    }, '查看详情'), h('poptip', {
+                        props: {
+                            confirm: true,
+                            title: '确认删除这条资源吗？'
+                        },
+                        on: {
+                            'on-ok': function onOk() {
+                                event.stopPropagation();
+                                _this.remove(params.row, params.index);
+                            }
+                        }
+                    }, [h('i-button', {
+                        props: {
+                            type: 'error',
+                            size: 'small'
+                        }
+                    }, '删除资源')])]);
+                }
+            }],
+            transform: []
+        };
+    },
+    created: function created() {
+        var _this2 = this;
+
+        this.$ajax.get('http://iview-laravel.test/api/transform').then(function (response) {
+            console.log('拉取交通资源列表', response);
+            _this2.transform = response.data.data;
+            _this2.loading = false;
+            _this2.total = response.data.meta.pagination.total;
+            if (response.data.meta.pagination.total_pages > 1) {
+                _this2.cansee = true;
+            }
+        }).catch(function (error) {
+            _this2.$Message.error('交通资源列表加载出错，请稍后重试');
+            console.log('交通资源列表加载出错:', error);
+        });
+    },
+    mounted: function mounted() {},
+
+    methods: {
+        addTransformItem: function addTransformItem() {
+            this.$router.push('transform_item');
+        },
+        show: function show(row, index) {
+            this.$router.push({ 'name': 'transform_item', params: { id: row.id } });
+        },
+        remove: function remove(row, index) {
+            var _this3 = this;
+
+            this.$ajax.delete('http://iview-laravel.test/api/transform/' + row.id).then(function (response) {
+                _this3.$Message.info('删除资源成功');
+                _this3.transform.splice(index, 1);
+                _this3.total = response.data.meta.pagination.total;
+                if (response.data.meta.pagination.total_pages == 1) {
+                    _this3.cansee = true;
+                }
+            }).catch(function (error) {
+                _this3.$Message.error('删除资源出错');
+                console.log('删除资源出错', error);
+            });
+        },
+        changePage: function changePage(index) {
+            var _this4 = this;
+
+            this.currentPage = index;
+            this.$ajax.get('http://iview-laravel.test/api/transform?page=' + index).then(function (response) {
+                console.log('换页', response);
+                _this4.transform = response.data.data;
+                _this4.loading = false;
+            }).catch(function (error) {
+                console.log('换页出错', error);
+            });
+        },
+        searchTransform: function searchTransform() {
+            var _this5 = this;
+
+            if (this.search == '') {
+                this.$Message.error('请输入查询条件');
+                return false;
+            }
+            this.$ajax.get('http://iview-laravel.test/api/transform/' + this.condition + '/' + this.search).then(function (response) {
+                _this5.transform = response.data.data;
+                _this5.total = response.data.data.length;
+                _this5.cansee = false;
+                console.log('搜索', response);
+            }).catch(function (error) {
+                console.log('搜索出错', error);
+            });
+        },
+        importSuccess: function importSuccess(response, file, fileList) {
+            console.log('批量导入', response);
+            this.transform = response.data;
+            this.total = response.meta.pagination.total;
+            if (this.total / this.pageSize > 1) {
+                this.cansee = true;
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        { staticStyle: { margin: "30px 0" } },
+        [
+          _c(
+            "i-select",
+            {
+              staticStyle: { width: "100px" },
+              model: {
+                value: _vm.condition,
+                callback: function($$v) {
+                  _vm.condition = $$v
+                },
+                expression: "condition"
+              }
+            },
+            [
+              _c("i-option", { attrs: { value: "form", label: "形式" } }),
+              _vm._v(" "),
+              _c("i-option", { attrs: { value: "category", label: "类别" } }),
+              _vm._v(" "),
+              _c("i-option", {
+                attrs: { value: "country", label: "国家或地区" }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("i-input", {
+            staticStyle: { width: "50%" },
+            attrs: {
+              placeholder: "请输入关键词",
+              autofocus: "",
+              clearable: ""
+            },
+            on: { "on-enter": _vm.searchTransform },
+            model: {
+              value: _vm.search,
+              callback: function($$v) {
+                _vm.search = $$v
+              },
+              expression: "search"
+            }
+          }),
+          _vm._v(" "),
+          _c("Button", {
+            attrs: { type: "ghost", shape: "circle", icon: "search" },
+            on: { click: _vm.searchTransform }
+          }),
+          _vm._v(" "),
+          _c(
+            "button-group",
+            { staticStyle: { float: "right" } },
+            [
+              _c(
+                "i-button",
+                {
+                  attrs: { type: "success", icon: "android-add-circle" },
+                  on: { click: _vm.addTransformItem }
+                },
+                [_vm._v("添加资源")]
+              ),
+              _vm._v(" "),
+              _c(
+                "i-button",
+                {
+                  attrs: { type: "warning", icon: "ios-upload" },
+                  on: {
+                    click: function($event) {
+                      _vm.isImport = true
+                    }
+                  }
+                },
+                [_vm._v("批量导入资源")]
+              ),
+              _vm._v(" "),
+              _c(
+                "Modal",
+                {
+                  attrs: { title: "选择上传的excel文件", okText: "完成" },
+                  model: {
+                    value: _vm.isImport,
+                    callback: function($$v) {
+                      _vm.isImport = $$v
+                    },
+                    expression: "isImport"
+                  }
+                },
+                [
+                  _c(
+                    "Upload",
+                    {
+                      attrs: {
+                        type: "drag",
+                        action: "http://iview-laravel.test/api/importTv",
+                        "on-success": _vm.importSuccess,
+                        name: "excel"
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticStyle: { padding: "20px 0" } },
+                        [
+                          _c("Icon", {
+                            staticStyle: { color: "#3399ff" },
+                            attrs: { type: "ios-cloud-upload", size: "52" }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("拖拽文件到此或者点击文件上传")])
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _c("i-table", {
+            attrs: {
+              border: "",
+              columns: _vm.col,
+              data: _vm.transform,
+              stripe: "",
+              "highlight-row": false,
+              loading: _vm.loading
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.cansee
+        ? _c("page", {
+            attrs: {
+              total: _vm.total,
+              "show-total": "",
+              current: _vm.currentPage,
+              "page-size": _vm.pageSize,
+              "class-name": _vm.pageClass,
+              "show-elevator": ""
+            },
+            on: { "on-change": _vm.changePage }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.cansee
+        ? _c(
+            "span",
+            { staticStyle: { "margin-top": "15px", display: "block" } },
+            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-99c53536", module.exports)
+  }
+}
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(85)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(87)
+/* template */
+var __vue_template__ = __webpack_require__(88)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-aea4ba46"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/transform_item.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-aea4ba46", Component.options)
+  } else {
+    hotAPI.reload("data-v-aea4ba46", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(86);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("6243b545", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-aea4ba46\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./transform_item.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-aea4ba46\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./transform_item.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.spin-container[data-v-aea4ba46] {\n  position: relative;\n}\n.img-list[data-v-aea4ba46] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-aea4ba46] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-aea4ba46] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-aea4ba46] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-aea4ba46] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-aea4ba46] {\n  margin: 3px 0;\n}\n.customPop[data-v-aea4ba46] {\n  text-align: left;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 87 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            transform: {
+                id: '',
+                city: '',
+                form: '',
+                category: '',
+                position: '',
+                area: '',
+                SOV: '',
+                format: '',
+                number: '',
+                country: '',
+                name: '',
+                unit_num: '',
+                language: '',
+                visitor: '',
+                traffic: '',
+                minimum_buy: '',
+                time: '',
+                media_price: '',
+                price: '',
+                total_num: '',
+                company: '',
+                contributor: '',
+                detail: '',
+                requirements: '',
+                transformResourceImgs: {
+                    data: []
+                },
+                isuse: true
+            },
+            transformRules: {
+                city: [{ required: true, message: '城市信息不能为空', trigger: 'blur' }],
+                form: [{ required: true, message: '展现形式不能为空', trigger: 'blur' }],
+                category: [{ required: true, message: '类别不能为空', trigger: 'blur' }],
+                position: [{ required: true, message: '媒体具体位置信息不能为空', trigger: 'blur' }],
+                area: [{ required: true, message: '覆盖区域信息不能为空', trigger: 'blur' }],
+                SOV: [{ required: true, message: 'SOV信息不能为空', trigger: 'blur' }],
+                format: [{ required: true, message: '规格尺寸不能为空', trigger: 'blur' }],
+                number: [{ required: true, message: '广告载体面数不能为空', trigger: 'blur' }],
+                name: [{ required: true, message: '名称不能为空', trigger: 'blur' }],
+                country: [{ required: true, message: '国家和地区不能为空', trigger: 'blur' }]
+            },
+            spinShow: true,
+            edit: '创建资源',
+            canDel: true,
+            img: ''
+        };
+    },
+
+    methods: {
+        /*
+        *   返回上一页的方法
+        * */
+        back: function back() {
+            this.$router.go(-1);
+        },
+
+        /*
+        *   删除图片的方法，需要传入删除图的id，同时从后台返回数据更新imgList
+        * */
+        deleteImg: function deleteImg(id) {
+            var _this = this;
+
+            this.$Modal.confirm({
+                title: '删除图片',
+                content: '确定要删除这张图片吗？',
+                /*
+                *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
+                * */
+                onOk: function onOk() {
+                    _this.$ajax.delete('http://iview-laravel.test/api/transformImg/' + id).then(function (response) {
+                        _this.$Message.info('图片删除完成');
+                        if (response.data.data) {
+                            _this.transform.transformResourceImgs.data = response.data.data;
+                        } else {
+                            _this.transform.transformResourceImgs.data = [];
+                        }
+                    }).catch(function (error) {
+                        console.log('删除图片出错：', error);
+                        _this.$Message.error('图片删除失败');
+                    });
+                }
+            });
+        },
+
+        /*
+        *   更新图片或者上传图片的方法
+        * */
+        updateImg: function updateImg(img) {
+            var _this2 = this;
+
+            this.img = img;
+            this.$Modal.info({
+                title: '修改图片',
+                okText: '取消',
+                render: function render(h) {
+                    return h('div', [h('upload', {
+                        props: {
+                            action: 'http://iview-laravel.test/api/transformImgUpdate',
+                            type: 'drag',
+                            name: 'img',
+                            data: _this2.img,
+                            'show-upload-list': false,
+                            'on-success': _this2.imgUpdateSuccess,
+                            'on-error': _this2.imgUpdateError
+                        },
+                        style: {
+                            paddingTop: '50px'
+                        }
+                    }, [h('div', [h('icon', {
+                        props: {
+                            type: 'ios-cloud-upload',
+                            size: 52
+                        },
+                        style: {
+                            paddingTop: '20px'
+                        }
+                    }), h('p', {
+                        style: {
+                            paddingBottom: '20px'
+                        }
+                    }, '点击或者拖拽图片到此上传')])])]);
+                }
+            });
+        },
+
+        /*
+        *   根据当前电视的id删除电视资源，删除完成后返回上一页
+        * */
+        deleteTransform: function deleteTransform(id) {
+            var _this3 = this;
+
+            this.$ajax.delete('http://iview-laravel.test/api/transform/' + id).then(function (response) {
+                _this3.$Message.info('删除交通资源成功');
+                _this3.$router.go(-1);
+            }).catch(function (error) {
+                _this3.$Message.info('删除交通资源出错');
+                console.log('删除交通资源出错', error);
+            });
+        },
+
+        /*
+        *   更新或者新建电视资源
+        * */
+        updateTransform: function updateTransform() {
+            var _this4 = this;
+
+            this.$refs['transform'].validate(function (valid) {
+                if (valid) {
+                    _this4.$ajax.post('http://iview-laravel.test/api/transform', _this4.transform).then(function (response) {
+                        console.log(response.data);
+                        _this4.$Message.info('交通资源编辑成功');
+                    }).catch(function (error) {
+                        _this4.$Message.error('交通资源编辑失败');
+                        console.log('交通资源编辑失败：', error);
+                    });
+                } else {
+                    _this4.$Message.warning('请填写必须信息');
+                }
+            });
+        },
+
+        /*
+        *   图片上传成功的方法
+        * */
+        imgSuccess: function imgSuccess(response, file, fileList) {
+            this.$Message.info('图片上传成功');
+            this.transform.transformResourceImgs.data.push(response);
+            console.log(response);
+        },
+
+        /*
+        *   图片更新成功的方法
+        * */
+        imgUpdateSuccess: function imgUpdateSuccess(response, file, fileList) {
+            this.$Message.info('图片上传成功');
+            this.transform.transformResourceImgs.data.forEach(function (item) {
+                if (item.id == response.id) {
+                    item.url = response.url;
+                }
+            });
+            this.$Modal.remove();
+        },
+
+        /*
+        *   图片上传失败的方法
+        * */
+        imgError: function imgError(response, file, fileList) {
+            this.$Message.error('图片上传失败');
+            console.log(response);
+        },
+
+        /*
+        *   图片更新失败的方法
+        * */
+        imgUpdateError: function imgUpdateError(response, file, fileList) {
+            this.imgError(response, file, fileList);
+            this.$Modal.remove();
+        }
+    },
+    created: function created() {
+        var _this5 = this;
+
+        /*
+        *   根据传过来的id获取对应的televisionResources
+        * */
+        if (this.$route.params.id) {
+            this.$ajax.get('http://iview-laravel.test/api/transform/' + this.$route.params.id + '?include=transformResourceImgs').then(function (response) {
+                _this5.transform = response.data;
+                _this5.spinShow = false;
+                _this5.edit = '提交修改';
+                console.log('编辑交通资源', response);
+            }).catch(function (error) {
+                _this5.$Message.error('交通资源未找到');
+                console.log('交通资源资源出错', error);
+            });
+        } else {
+            this.spinShow = false;
+            this.canDel = false;
+            console.log('创建交通资源');
+        }
+    },
+    mounted: function mounted() {}
+});
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "spin-container" },
+    [
+      _c(
+        "i-form",
+        {
+          ref: "transform",
+          attrs: { model: _vm.transform, rules: _vm.transformRules }
+        },
+        [
+          _c(
+            "Card",
+            {
+              staticStyle: {
+                width: "600px",
+                display: "inline-block",
+                "margin-right": "20px"
+              }
+            },
+            [
+              _c(
+                "p",
+                { attrs: { slot: "title" }, slot: "title" },
+                [
+                  _c("Icon", { attrs: { type: "clipboard" } }),
+                  _vm._v("\n                基本信息\n            ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "城市", prop: "city" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "", autofocus: "" },
+                    model: {
+                      value: _vm.transform.city,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "city", $$v)
+                      },
+                      expression: "transform.city"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "形式", prop: "form" } },
+                [
+                  _c(
+                    "radio-group",
+                    {
+                      attrs: { type: "button" },
+                      model: {
+                        value: _vm.transform.form,
+                        callback: function($$v) {
+                          _vm.$set(_vm.transform, "form", $$v)
+                        },
+                        expression: "transform.form"
+                      }
+                    },
+                    [
+                      _c("radio", { attrs: { label: "静态" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "灯箱" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "数码" } })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "媒体具体位置", prop: "position" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "", autofocus: "" },
+                    model: {
+                      value: _vm.transform.position,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "position", $$v)
+                      },
+                      expression: "transform.position"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "类别", prop: "category" } },
+                [
+                  _c(
+                    "radio-group",
+                    {
+                      attrs: { type: "button" },
+                      model: {
+                        value: _vm.transform.category,
+                        callback: function($$v) {
+                          _vm.$set(_vm.transform, "category", $$v)
+                        },
+                        expression: "transform.category"
+                      }
+                    },
+                    [
+                      _c("radio", { attrs: { label: "飞机" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "地铁" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "轻轨" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "巴士" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "出租车" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "船舶" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "其他" } })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "覆盖区域", prop: "area" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.area,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "area", $$v)
+                      },
+                      expression: "transform.area"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "SOV", prop: "SOV" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.SOV,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "SOV", $$v)
+                      },
+                      expression: "transform.SOV"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "规格尺寸", prop: "format" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.format,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "format", $$v)
+                      },
+                      expression: "transform.format"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "广告载体面数", prop: "number" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.number,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "number", $$v)
+                      },
+                      expression: "transform.number"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "国家或地区", prop: "country" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.country,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "country", $$v)
+                      },
+                      expression: "transform.country"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "名称", prop: "name" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.name,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "name", $$v)
+                      },
+                      expression: "transform.name"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "媒体的总数量" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.total_num,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "total_num", $$v)
+                      },
+                      expression: "transform.total_num"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "媒体细节" } },
+                [
+                  _c("i-input", {
+                    attrs: {
+                      type: "textarea",
+                      placeholder: "",
+                      autosize: { minRows: 5 }
+                    },
+                    model: {
+                      value: _vm.transform.detail,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "detail", $$v)
+                      },
+                      expression: "transform.detail"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "是否有效" } },
+                [
+                  _c(
+                    "i-switch",
+                    {
+                      attrs: { size: "large" },
+                      model: {
+                        value: _vm.transform.isuse,
+                        callback: function($$v) {
+                          _vm.$set(_vm.transform, "isuse", $$v)
+                        },
+                        expression: "transform.isuse"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { slot: "open" }, slot: "open" }, [
+                        _vm._v("有效")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { attrs: { slot: "close" }, slot: "close" }, [
+                        _vm._v("无效")
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "Card",
+            {
+              staticStyle: {
+                width: "550px",
+                display: "inline-block",
+                position: "absolute",
+                top: "0"
+              }
+            },
+            [
+              _c(
+                "p",
+                { attrs: { slot: "title" }, slot: "title" },
+                [
+                  _c("Icon", { attrs: { type: "compose" } }),
+                  _vm._v("\n                附加信息\n            ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "单位数量" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.unit_num,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "unit_num", $$v)
+                      },
+                      expression: "transform.unit_num"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "语言" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.language,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "language", $$v)
+                      },
+                      expression: "transform.language"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "人流量" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.visitor,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "visitor", $$v)
+                      },
+                      expression: "transform.visitor"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "车流量" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.traffic,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "traffic", $$v)
+                      },
+                      expression: "transform.traffic"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "最小采购周期或单位" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.minimum_buy,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "minimum_buy", $$v)
+                      },
+                      expression: "transform.minimum_buy"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "广告刊出时间" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.time,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "time", $$v)
+                      },
+                      expression: "transform.time"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "媒体报价（美元）" } },
+                [
+                  _c(
+                    "i-input",
+                    {
+                      attrs: { placeholder: "" },
+                      model: {
+                        value: _vm.transform.media_price,
+                        callback: function($$v) {
+                          _vm.$set(_vm.transform, "media_price", $$v)
+                        },
+                        expression: "transform.media_price"
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        { attrs: { slot: "append" }, slot: "append" },
+                        [_c("Icon", { attrs: { type: "social-usd" } })],
+                        1
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "执行价（美元）" } },
+                [
+                  _c(
+                    "i-input",
+                    {
+                      attrs: { placeholder: "" },
+                      model: {
+                        value: _vm.transform.price,
+                        callback: function($$v) {
+                          _vm.$set(_vm.transform, "price", $$v)
+                        },
+                        expression: "transform.price"
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        { attrs: { slot: "append" }, slot: "append" },
+                        [_c("Icon", { attrs: { type: "social-usd" } })],
+                        1
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "媒体所属公司或集团" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.company,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "company", $$v)
+                      },
+                      expression: "transform.company"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "媒介开发者" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "" },
+                    model: {
+                      value: _vm.transform.contributor,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "contributor", $$v)
+                      },
+                      expression: "transform.contributor"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "上刊要求" } },
+                [
+                  _c("i-input", {
+                    attrs: {
+                      type: "textarea",
+                      placeholder: "",
+                      autosize: { minRows: 5 }
+                    },
+                    model: {
+                      value: _vm.transform.requirements,
+                      callback: function($$v) {
+                        _vm.$set(_vm.transform, "requirements", $$v)
+                      },
+                      expression: "transform.requirements"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "Card",
+            {
+              staticStyle: {
+                width: "400px",
+                display: "inline-block",
+                position: "absolute",
+                top: "0",
+                left: "1190px"
+              }
+            },
+            [
+              _c(
+                "p",
+                { attrs: { slot: "title" }, slot: "title" },
+                [
+                  _c("Icon", { attrs: { type: "image" } }),
+                  _vm._v("\n                图片信息\n            ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                [
+                  _c(
+                    "upload",
+                    {
+                      attrs: {
+                        multiple: "",
+                        type: "drag",
+                        name: "img",
+                        action: "http://iview-laravel.test/api/transformImg",
+                        "on-success": _vm.imgSuccess,
+                        "on-error": _vm.imgError,
+                        data: _vm.transform,
+                        "show-upload-list": false
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticStyle: { width: "360px", height: "120px" } },
+                        [
+                          _c("Icon", {
+                            staticStyle: {
+                              color: "#3399ff",
+                              "margin-top": "20px"
+                            },
+                            attrs: { type: "ios-cloud-upload", size: "52" }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("点击或者拖拽图片到此上传")])
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.transform.transformResourceImgs.data, function(img) {
+                return [
+                  _c("div", { staticClass: "img-list" }, [
+                    _c("img", { attrs: { src: img.url, alt: "" } }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "img-list-cover" },
+                      [
+                        _c("Icon", {
+                          attrs: { type: "ios-trash" },
+                          nativeOn: {
+                            click: function($event) {
+                              _vm.deleteImg(img.id)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("Icon", {
+                          attrs: { type: "upload" },
+                          nativeOn: {
+                            click: function($event) {
+                              _vm.updateImg(img)
+                            }
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticStyle: { margin: "30px", "text-align": "center" } },
+            [
+              _c(
+                "i-button",
+                { attrs: { icon: "ios-arrow-back" }, on: { click: _vm.back } },
+                [_vm._v("返回资源列表")]
+              ),
+              _vm._v(" "),
+              _c(
+                "i-button",
+                {
+                  attrs: { icon: "ios-checkmark-empty", type: "success" },
+                  on: { click: _vm.updateTransform }
+                },
+                [_vm._v(_vm._s(_vm.edit))]
+              ),
+              _vm._v(" "),
+              _vm.canDel
+                ? _c(
+                    "poptip",
+                    {
+                      attrs: {
+                        confirm: "",
+                        transfer: "",
+                        title: "您确定要删除该资源吗？删除后不可恢复"
+                      },
+                      on: {
+                        "on-ok": function($event) {
+                          _vm.deleteTransform(_vm.transform.id)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "i-button",
+                        { attrs: { icon: "ios-trash", type: "error" } },
+                        [_vm._v("删除资源")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.spinShow
+        ? _c("Spin", { attrs: { size: "large", fix: "" } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-aea4ba46", module.exports)
+  }
+}
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(90)
+/* template */
+var __vue_template__ = __webpack_require__(91)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/App.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-66ab2f82", Component.options)
+  } else {
+    hotAPI.reload("data-v-66ab2f82", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 90 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("router-view")
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-66ab2f82", module.exports)
+  }
+}
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

@@ -5,6 +5,8 @@ import television from '../components/television.vue';
 import tv_item from '../components/tv_item.vue';
 import outdoor  from '../components/outdoor.vue';
 import outdoor_tiem  from '../components/outdoor_item.vue';
+import transform from '../components/transform.vue';
+import transform_item from '../components/transform_item.vue';
 
 Vue.use(vueRouter);
 
@@ -37,6 +39,18 @@ const routes = [
                 name: 'outdoor_item',
                 meta: {title: '户外资源详情'},
                 component: outdoor_tiem,
+            },
+            {
+                path: 'transform',
+                name: 'transform',
+                meta: {title: '交通资源列表'},
+                component: transform,
+            },
+            {
+                path: 'transform_item/:id?',
+                name: 'transform_item',
+                meta: {title: '交通资源详情'},
+                component: transform_item,
             },
         ]
     },

@@ -37,9 +37,8 @@ class outdoorResourceController extends Controller
     }
 
     public function delete(outdoorResource $outdoor) {
-        if ($outdoor->delete()) {
-
-        }
+        $outdoor->delete();
+        outdoorResourceImgs::whereOutdoorResourcesId($outdoor->id)->delete();
         return $this->response->paginator(outdoorResource::paginate(15), new outdoorResourceTransformer());
     }
 

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Handlers\ImageUploadHandler;
+use App\Models\transformResourceImg;
+use App\Transformers\transformResourceImgsTransform;
 use Illuminate\Http\Request;
 
 class transformImgsController extends Controller
@@ -21,9 +24,17 @@ class transformImgsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, ImageUploadHandler $uploader)
     {
-        //
+        $img = $request->img;
+        $result = $uploader->save($img, 'transform', 't');
+
+        $imgList = transformResourceImg::create([
+            'transform_resources_id' => $request->id,
+            'url' => $result['path'],
+        ]);
+
+        return $this->response->item($imgList, new transformResourceImgsTransform());
     }
 
     /**
@@ -66,9 +77,17 @@ class transformImgsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ImageUploadHandler $uploader)
     {
-        //
+        $img = $request->img;
+        $result = $uploader->save($img, 'transform', 't');
+
+        $tmp = transformResourceImg::findOrFail($request->id);
+        $tmp->update([
+            'url' => $result['path'],
+        ]);
+
+        return $this->response->item($tmp, new transformResourceImgsTransform());
     }
 
     /**
@@ -77,8 +96,10 @@ class transformImgsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(transformResourceImg $img)
     {
-        //
+        $img->delete();
+        $imgs = transformResourceImg::whereTransformResourcesId($img->transform_resources_id)->get();
+        return $this->response->collection($imgs, new transformResourceImgsTransform());
     }
 }

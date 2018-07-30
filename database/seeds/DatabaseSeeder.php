@@ -14,8 +14,11 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 //        $this->call(televisionResourcesTableSeeder::class);
 //        $this->call(televisionResourcesImgsSeeder::class);
-//        $this->call(outdoorResourceSeeder::class);
-//        $this->call(outdoorResourceImgsSeeder::class);
+        $this->call(onlineResourceImgsSeeder::class);
+        $this->call(outdoorResourceImgsSeeder::class);
         $this->call(transformResourceSeeder::class);
+        $this->call(internetcelebrityResourceCategoriesSeeder::class);
+        $this->call(internetcelebrityResourceSeeder::class);
+        $this->call(newspaperResourceImgsSeeder::class);
     }
 }

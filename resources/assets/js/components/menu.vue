@@ -117,7 +117,7 @@
                         this.$router.push('/outdoor');
                         break;
                     case '1-3':
-                        this.$refs.ss.toggleCollapse()
+                        this.$router.push('/transform');
                 }
 
 

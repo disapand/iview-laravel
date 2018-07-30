@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\transformResource;
+use App\Models\transformResourceImg;
 use App\Transformers\transformResourceTransformer;
 use Illuminate\Http\Request;
 
@@ -32,29 +33,42 @@ class transformController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->toArray();
+        $imgs = $data['transformResourceImgs'];
+        unset($data['transformResourceImgs'], $data['created_at'], $data['updated_at'], $data['deleted_at']);
+        if ($data['id']) {
+            transformResource::findOrFail($data['id'])->update($data);
+        } else {
+            $transform = transformResource::create($data);
+            foreach ($imgs['data'] as $img) {
+                transformResourceImg::findOrFail($img['id'])->update([
+                    'transform_resources_id' => $transform->id,
+                ]);
+            }
+        }
+        return $this->response->created();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  transformResource $transform
+     * @return \Dingo\Api\Http\Response
      */
-    public function show($id)
+    public function show(transformResource $transform)
     {
-        //
+        return $this->response->item($transform, new transformResourceTransformer());
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -65,8 +79,8 @@ class transformController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -77,11 +91,19 @@ class transformController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(transformResource $transform)
     {
-        //
+        $transform->delete();
+        transformResourceImg::whereTransformResourcesId($transform->id)->delete();
+        return $this->response->paginator(transformResource::paginate(15), new transformResourceTransformer());
     }
+
+    public function query($condition, $query) {
+        $transforms = transformResource::where($condition, 'like', "%$query%")->paginate(15);
+        return $this->response->paginator($transforms, new transformResourceTransformer());
+    }
+
 }

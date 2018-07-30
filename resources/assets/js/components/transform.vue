@@ -13,10 +13,10 @@
                 <i-option value="country" label="国家或地区"></i-option>
             </i-select>
             <i-input v-model="search" placeholder="请输入关键词" style="width:50%;"
-                     autofocus clearable @on-enter="searchOutdoor"/>
-            <Button type="ghost" shape="circle" icon="search" @click="searchOutdoor"></Button>
+                     autofocus clearable @on-enter="searchTransform"/>
+            <Button type="ghost" shape="circle" icon="search" @click="searchTransform"></Button>
             <button-group style="float: right;">
-                <i-button type="success" icon="android-add-circle" @click="addOutdoorItem">添加资源</i-button>
+                <i-button type="success" icon="android-add-circle" @click="addTransformItem">添加资源</i-button>
                 <!-- <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button> -->
                 <i-button type="warning" icon="ios-upload" @click="isImport = true">批量导入资源</i-button>
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
@@ -34,7 +34,7 @@
             </button-group>
         </div>
         <div>
-            <i-table border :columns="col" :data="outdoor" stripe :highlight-row=false
+            <i-table border :columns="col" :data="transform" stripe :highlight-row=false
                      :loading="loading"></i-table>
         </div>
         <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize"
@@ -73,13 +73,17 @@
                         'key': 'form'
                     },
                     {
+                        'title': '媒体具体位置',
+                        'key': 'position'
+                    },
+                    {
                         'title': '类别',
                         'key': 'category',
                         width: 80
                     },
                     {
-                        'title': '类别属性',
-                        'key': 'property'
+                        'title': '覆盖区域',
+                        'key': 'area'
                     },
                     {
                         'title': 'SOV',
@@ -149,42 +153,36 @@
                         },
                     },
                 ],
-                outdoor: [],
+                transform: [],
             }
         },
         created() {
-            this.$ajax.get('http://iview-laravel.test/api/outdoor').then((response) => {
-                console.log('拉取户外资源列表', response);
-                this.outdoor = response.data.data
+            this.$ajax.get('http://iview-laravel.test/api/transform').then((response) => {
+                console.log('拉取交通资源列表', response);
+                this.transform = response.data.data
                 this.loading = false
                 this.total = response.data.meta.pagination.total
                 if ( response.data.meta.pagination.total_pages > 1) {
                     this.cansee = true
                 }
             }).catch((error) => {
-                this.$Message.error('户外资源列表加载出错，请稍后重试');
-                console.log('户外资源列表加载出错:', error);
+                this.$Message.error('交通资源列表加载出错，请稍后重试');
+                console.log('交通资源列表加载出错:', error);
             })
         },
         mounted() {
         },
         methods: {
-            /*
-            *   点击当前行，跳转到对应行的详情，绑定于@on-row-click
-            * */
-            /*tv_item(row, index) {
-                this.$router.push({'name': 'tv_item', params: {id: row.id}})
-            },*/
-            addOutdoorItem() {
-                this.$router.push('outdoor_item')
+            addTransformItem() {
+                this.$router.push('transform_item')
             },
             show(row, index) {
-                this.$router.push({'name': 'outdoor_item', params: {id: row.id}})
+                this.$router.push({'name': 'transform_item', params: {id: row.id}})
             },
             remove(row, index) {
-                this.$ajax.delete('http://iview-laravel.test/api/outdoor/' + row.id).then((response) => {
+                this.$ajax.delete('http://iview-laravel.test/api/transform/' + row.id).then((response) => {
                     this.$Message.info('删除资源成功')
-                    this.tvs.splice(index, 1)
+                    this.transform.splice(index, 1)
                     this.total = response.data.meta.pagination.total
                     if (response.data.meta.pagination.total_pages == 1) {
                         this.cansee = true
@@ -196,21 +194,21 @@
             },
             changePage(index) {
                 this.currentPage = index
-                this.$ajax.get('http://iview-laravel.test/api/outdoor?page=' + index).then((response) => {
+                this.$ajax.get('http://iview-laravel.test/api/transform?page=' + index).then((response) => {
                     console.log('换页', response);
-                    this.outdoor = response.data.data
+                    this.transform = response.data.data
                     this.loading = false
                 }).catch((error) => {
                     console.log('换页出错', error);
                 })
             },
-            searchOutdoor() {
+            searchTransform() {
                 if (this.search == '') {
                     this.$Message.error('请输入查询条件')
                     return false
                 }
-                this.$ajax.get('http://iview-laravel.test/api/outdoor/' + this.condition + '/' + this.search).then((response) => {
-                    this.outdoor = response.data.data
+                this.$ajax.get('http://iview-laravel.test/api/transform/' + this.condition + '/' + this.search).then((response) => {
+                    this.transform = response.data.data
                     this.total = response.data.data.length
                     this.cansee = false
                     console.log('搜索', response)
@@ -218,12 +216,9 @@
                     console.log('搜索出错', error);
                 })
             },
-            exportTv() {
-
-            },
             importSuccess(response, file, fileList) {
                 console.log('批量导入', response)
-                this.outdoor = response.data
+                this.transform = response.data
                 this.total = response.meta.pagination.total
                 if (this.total / this.pageSize > 1) {
                     this.cansee = true
