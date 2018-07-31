@@ -37,7 +37,22 @@ class newspapperResourceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $data = $request->toArray();
+        $imgs = $data['newspaperResourceImgs'];
+        unset($data['newspaperResourceImgs'], $data['created_at'], $data['updated_at'], $data['deleted_at']);
+        if ($data['id']) {
+            newspaperResource::findOrFail($data['id'])->update($data);
+        } else {
+            $newspaper = newspaperResource::create($data);
+            foreach ($imgs['data'] as $img) {
+                newspaperResourceImg::whereNewspaperResourcesId($img['id'])->update([
+                    'newspaper_resources_id' => $newspaper->id,
+                ]);
+            }
+        }
+
+        return $this->response->created();
     }
 
     /**
@@ -46,9 +61,9 @@ class newspapperResourceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(newspaperResource $newspaper)
     {
-        //
+        return $this->response->item($newspaper, new newspaperResourceTransformer());
     }
 
     /**

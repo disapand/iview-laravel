@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\newspaperResource;
+use App\Models\newspaperResourceImg;
+use App\Transformers\newspaperResourceTransformer;
 use Illuminate\Http\Request;
 
 class newspapperResourceImsController extends Controller
@@ -13,7 +16,8 @@ class newspapperResourceImsController extends Controller
      */
     public function index()
     {
-        //
+        $news = newspaperResource::where([])->orderBy('id', 'desc')->paginate(15);
+        return $this->response->paginator($news, new newspaperResourceTransformer());
     }
 
     /**
@@ -34,18 +38,16 @@ class newspapperResourceImsController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  newspaperResource  $newspaper
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(newspaperResource $newspaper) {
+
     }
 
     /**

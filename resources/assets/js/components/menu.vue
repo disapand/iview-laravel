@@ -118,6 +118,8 @@
                         break;
                     case '1-3':
                         this.$router.push('/transform');
+                    case '1-6':
+                        this.$router.push('/newspaper');
                 }
 
 

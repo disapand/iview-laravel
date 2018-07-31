@@ -55,6 +55,8 @@ $api->version('v1', [
     $api->post('transformImgUpdate', 'transformImgsController@update')->name('api.transformImg.update');
 
     $api->get('newspaper', 'newspapperResourceController@index')->name('api.newspaper.index');
+    $api->post('newspaper', 'newspapperResourceController@store')->name('api.newspaper.store');
+    $api->get('newspaper/{newspaper}', 'newspapperResourceController@show')->name('api.newspaper.show');
 
     $api->get('online', 'onlineResourceController@index')->name('api.online.index');
 

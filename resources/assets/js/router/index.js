@@ -7,6 +7,8 @@ import outdoor  from '../components/outdoor.vue';
 import outdoor_tiem  from '../components/outdoor_item.vue';
 import transform from '../components/transform.vue';
 import transform_item from '../components/transform_item.vue';
+import newspaper from '../components/newspaper.vue';
+import newspaper_item from '../components/newspaper_item.vue';
 
 Vue.use(vueRouter);
 
@@ -51,6 +53,18 @@ const routes = [
                 name: 'transform_item',
                 meta: {title: '交通资源详情'},
                 component: transform_item,
+            },
+            {
+                path: 'newspaper',
+                name: 'newspaper',
+                meta: {title: '纸媒资源列表'},
+                component: newspaper,
+            },
+            {
+                path: 'newspaper_item/:id?',
+                name: 'newspaper_item',
+                meta: {title: '纸媒资源详情'},
+                component: newspaper_item,
             },
         ]
     },
