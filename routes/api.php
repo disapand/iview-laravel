@@ -57,6 +57,11 @@ $api->version('v1', [
     $api->get('newspaper', 'newspapperResourceController@index')->name('api.newspaper.index');
     $api->post('newspaper', 'newspapperResourceController@store')->name('api.newspaper.store');
     $api->get('newspaper/{newspaper}', 'newspapperResourceController@show')->name('api.newspaper.show');
+    $api->get('newspaper/{condition?}/{query?}', 'newspapperResourceController@query')->name('api.newspaper.query');
+    $api->delete('newspaper/{newspaper}', 'newspapperResourceController@destroy')->name('api.newspaper.destroy');
+    $api->post('newspaperImg', 'newspapperResourceImsController@store')->name('api.newspaperImg.store');
+    $api->post('newspaperImgUpdate', 'newspapperResourceImsController@update')->name('api.newspaperImg.update');
+    $api->delete('newspaperImg/{img}', 'newspapperResourceImsController@destroy')->name('api.newspaperImg.destroy');
 
     $api->get('online', 'onlineResourceController@index')->name('api.online.index');
 

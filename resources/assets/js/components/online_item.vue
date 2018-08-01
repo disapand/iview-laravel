@@ -1,7 +1,7 @@
 <template>
     <div class="spin-container">
 
-        <i-form :model="newspaper" ref="newspaper" :rules="newspaperRules">
+        <i-form :model="online" ref="online" :rules="onlineRules">
             <!--
             -
             -   基本信息编辑部分
@@ -14,75 +14,59 @@
                 </p>
 
                 <form-item label="媒体名称" prop="name">
-                    <i-input v-model="newspaper.name" placeholder="" clearable autofocus/>
+                    <i-input v-model="online.name" placeholder="" clearable autofocus/>
+                </form-item>
+
+                <form-item label="类别" prop="category">
+                    <radio-group v-model="online.category" type="button">
+                        <radio label="网站"></radio>
+                        <radio label="移动应用"></radio>
+                        <radio label="社交媒体"></radio>
+                    </radio-group>
                 </form-item>
 
                 <form-item label="形式" prop="form">
-                    <radio-group v-model="newspaper.form" type="button">
-                        <radio label="杂志"></radio>
-                        <radio label="报纸"></radio>
+                    <radio-group v-model="online.form" type="button">
+                        <radio label="横幅广告"></radio>
+                        <radio label="开屏广告"></radio>
+                        <radio label="弹出广告"></radio>
+                        <radio label="信息流广告"></radio>
+                        <radio label="图片广告"></radio>
+                        <radio label="视频广告"></radio>
+                        <radio label="轮播广告"></radio>
                     </radio-group>
                 </form-item>
 
                 <form-item label="覆盖地区" prop="area">
-                    <i-input v-model="newspaper.area" placeholder="" clearable autofocus/>
+                    <i-input v-model="online.area" placeholder="" clearable autofocus/>
                 </form-item>
 
                 <form-item label="语言" prop="language">
-                    <i-input v-model="newspaper.language" placeholder="" clearable autofocus/>
+                    <i-input v-model="online.language" placeholder="" clearable autofocus/>
                 </form-item>
 
-                <form-item label="类别" prop="category">
-                    <radio-group v-model="newspaper.category" type="button">
-                        <radio label="综合新闻"></radio>
-                        <radio label="财经"></radio>
-                        <radio label="体育"></radio>
-                        <radio label="时尚"></radio>
-                        <radio label="科技"></radio>
-                        <radio label="生活"></radio>
-                        <radio label="旅游"></radio>
-                        <radio label="八卦"></radio>
-                        <radio label="音乐"></radio>
-                        <radio label="影视"></radio>
-                        <radio label="艺术"></radio>
-                        <radio label="汽车"></radio>
-                        <radio label="健康"></radio>
-                        <radio label="漫画"></radio>
-                        <radio label="航空"></radio>
-                        <radio label="时政"></radio>
-                        <radio label="宠物"></radio>
-                        <radio label="亲子"></radio>
-                        <radio label="游戏"></radio>
-                        <radio label="其他"></radio>
-                    </radio-group>
-                </form-item>
-
-                <form-item label="规格尺寸" prop="format">
-                    <i-input v-model="newspaper.format" placeholder="" clearable/>
-                </form-item>
-
-                <form-item label="发行周期" prop="cycle">
-                    <i-input v-model="newspaper.cycle" placeholder="" clearable/>
-                </form-item>
-
-                <form-item label="发行量" prop="circulation">
-                    <i-input v-model.number="newspaper.circulation" placeholder="" clearable/>
-                </form-item>
-
-                <form-item label="版面" prop="page">
-                    <i-input v-model="newspaper.page" placeholder="" clearable/>
+                <form-item label="媒体内容属性类别" prop="platform">
+                    <i-input v-model="online.platform" placeholder="" clearable/>
                 </form-item>
 
                 <form-item label="国家或地区" prop="country">
-                    <i-input v-model="newspaper.country" placeholder="" clearable/>
+                    <i-input v-model="online.country" placeholder="" clearable/>
                 </form-item>
 
-                <form-item label="版本" prop="version">
-                    <i-input v-model="newspaper.version" placeholder="" clearable/>
+                <form-item label="PV">
+                    <i-input v-model="online.pv" placeholder="" clearable/>
+                </form-item>
+
+                <form-item label="UV">
+                    <i-input v-model="online.uv" placeholder="" clearable/>
+                </form-item>
+
+                <form-item label="Link">
+                    <i-input v-model="online.link" placeholder="" clearable/>
                 </form-item>
 
                 <form-item label="是否有效">
-                    <i-switch v-model="newspaper.isuse" size="large">
+                    <i-switch v-model="online.isuse" size="large">
                         <span slot="open">有效</span>
                         <span slot="close">无效</span>
                     </i-switch>
@@ -101,24 +85,24 @@
                     附加信息
                 </p>
 
-                <form-item label="广告形式">
-                    <i-input v-model="newspaper.ad_form" placeholder="" clearable/>
-                </form-item>
-
                 <form-item label="内容和特点">
-                    <i-input type="textarea" v-model="newspaper.detail" placeholder="" :autosize="{minRows: 5}"/>
+                    <i-input type="textarea" v-model="online.detail" placeholder="" :autosize="{minRows: 5}"/>
                 </form-item>
 
                 <form-item label="媒体所属公司或集团">
-                    <i-input v-model="newspaper.company" placeholder="" clearable/>
+                    <i-input v-model="online.company" placeholder="" clearable/>
+                </form-item>
+
+                <form-item label="尺寸">
+                    <i-input v-model="online.format" placeholder="" clearable/>
                 </form-item>
 
                 <form-item label="最小采购金额或周期">
-                    <i-input v-model="newspaper.minimum_buy" placeholder="" clearable/>
+                    <i-input v-model="online.minimum_buy" placeholder="" clearable/>
                 </form-item>
 
                 <form-item label="媒体报价（美元）">
-                    <i-input v-model="newspaper.media_price" placeholder="">
+                    <i-input v-model="online.media_price" placeholder="">
                         <span slot="append">
                             <Icon type="social-usd"></Icon>
                         </span>
@@ -126,7 +110,7 @@
                 </form-item>
 
                 <form-item label="执行价（美元）">
-                    <i-input v-model="newspaper.price" placeholder="">
+                    <i-input v-model="online.price" placeholder="">
                         <span slot="append">
                             <Icon type="social-usd"></Icon>
                         </span>
@@ -134,11 +118,11 @@
                 </form-item>
 
                 <form-item label="媒介开发者">
-                    <i-input v-model="newspaper.contributor" placeholder="" clearable/>
+                    <i-input v-model="online.contributor" placeholder="" clearable/>
                 </form-item>
 
                 <form-item label="上刊要求">
-                    <i-input type="textarea" v-model="newspaper.requirements" placeholder="" :autosize="{minRows: 5}"/>
+                    <i-input type="textarea" v-model="online.requirements" placeholder="" :autosize="{minRows: 5}"/>
                 </form-item>
 
             </Card>
@@ -157,10 +141,10 @@
                 <form-item>
                     <upload multiple type="drag"
                             name="img"
-                            action="http://iview-laravel.test/api/newspaperImg"
+                            action="http://iview-laravel.test/api/onlineImg"
                             :on-success="imgSuccess"
                             :on-error="imgError"
-                            :data="newspaper"
+                            :data="online"
                             :show-upload-list=false>
                         <div style="width: 360px; height: 120px">
                             <Icon type="ios-cloud-upload" size="52" style="color: #3399ff;margin-top: 20px"></Icon>
@@ -169,7 +153,7 @@
                     </upload>
                 </form-item>
 
-                <template v-for="img in newspaper.newspaperResourceImgs.data">
+                <template v-for="img in online.onlineResourceImgs.data">
                     <div class="img-list">
                         <img :src="img.url" alt="">
                         <div class="img-list-cover">
@@ -183,8 +167,8 @@
 
             <div style="margin: 30px;text-align: center">
                 <i-button icon="ios-arrow-back" @click="back">返回资源列表</i-button>
-                <i-button icon="ios-checkmark-empty" type="success" @click="updateNewspaper">{{ edit }}</i-button>
-                <poptip confirm v-if="canDel" transfer title="您确定要删除该资源吗？删除后不可恢复" @on-ok="deleteNewspaper(newspaper.id)">
+                <i-button icon="ios-checkmark-empty" type="success" @click="updateOnline">{{ edit }}</i-button>
+                <poptip confirm v-if="canDel" transfer title="您确定要删除该资源吗？删除后不可恢复" @on-ok="deleteOnline(online.id)">
                     <i-button icon="ios-trash" type="error">删除资源</i-button>
                 </poptip>
             </div>
@@ -197,35 +181,37 @@
     export default {
         data() {
             return {
-                newspaper: {
+                online: {
                     id: '',
                     name: '',
+                    category: '',
                     form: '',
                     area: '',
                     language: '',
-                    category: '',
-                    format: '',
-                    cycle: '',
-                    circulation: '',
-                    page: '',
+                    platform: '',
                     country: '',
-                    version: '',
-                    ad_form: '',
                     detail: '',
+                    company: '',
+                    pv: '',
+                    uv: '',
                     minimum_buy: '',
+                    format: '',
                     media_price: '',
                     price: '',
-                    company: '',
                     contributor: '',
+                    link: '',
                     requirements: '',
-                    newspaperResourceImgs: {
+                    onlineResourceImgs: {
                         data: []
                     },
                     isuse: true,
                 },
-                newspaperRules: {
+                onlineRules: {
                     name: [
                         {required: true, message: '媒体名称不能为空', trigger: 'blur'}
+                    ],
+                    category: [
+                        {required: true, message: '类别不能为空', trigger: 'blur'}
                     ],
                     form: [
                         {required: true, message: '展现形式不能为空', trigger: 'blur'}
@@ -236,26 +222,14 @@
                     language: [
                         {required: true, message: '语言信息不能为空', trigger: 'blur'}
                     ],
-                    category: [
-                        {required: true, message: '类别不能为空', trigger: 'blur'}
-                    ],
                     format: [
                         {required: true, message: '规格尺寸不能为空', trigger: 'blur'}
                     ],
-                    cycle: [
-                        {required: true, message: '发行周期不能为空', trigger: 'blur'}
-                    ],
-                    circulation: [
-                        {required: true, type: 'number', message: '发行量不能为空', trigger: 'blur'}
-                    ],
-                    page: [
-                        {required: true, message: '版面信息不能为空', trigger: 'blur'}
+                    platform: [
+                        {required: true, message: '媒体内容属性类别不能为空', trigger: 'blur'}
                     ],
                     country: [
                         {required: true, message: '国家和地区不能为空', trigger: 'blur'}
-                    ],
-                    version: [
-                        {required: true, message: '版本信息不能为空', trigger: 'blur'}
                     ],
                 },
                 spinShow: true,
@@ -282,12 +256,12 @@
                     *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                     * */
                     onOk: () => {
-                        this.$ajax.delete('http://iview-laravel.test/api/newspaperImg/' + id).then((response) => {
+                        this.$ajax.delete('http://iview-laravel.test/api/onlineImg/' + id).then((response) => {
                             this.$Message.info('图片删除完成')
                             if (response.data.data) {
-                                this.newspaper.newspaperResourceImgs.data = response.data.data
+                                this.online.onlineResourceImgs.data = response.data.data
                             } else {
-                                this.newspaper.newspaperResourceImgs.data = []
+                                this.online.onlineResourceImgs.data = []
                             }
                         }).catch((error) => {
                             console.log('删除图片出错：', error)
@@ -308,7 +282,7 @@
                         return h('div', [
                             h('upload', {
                                 props: {
-                                    action: 'http://iview-laravel.test/api/newspaperImgUpdate',
+                                    action: 'http://iview-laravel.test/api/onlineImgUpdate',
                                     type: 'drag',
                                     name: 'img',
                                     data: this.img,
@@ -344,8 +318,8 @@
             /*
             *   根据当前电视的id删除电视资源，删除完成后返回上一页
             * */
-            deleteNewspaper(id) {
-                this.$ajax.delete('http://iview-laravel.test/api/newspaper/' + id).then((response) => {
+            deleteOnline(id) {
+                this.$ajax.delete('http://iview-laravel.test/api/online/' + id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.$router.go(-1)
                 }).catch((error) => {
@@ -356,10 +330,10 @@
             /*
             *   更新或者新建电视资源
             * */
-            updateNewspaper() {
-                this.$refs['newspaper'].validate((valid) => {
+            updateOnline() {
+                this.$refs['online'].validate((valid) => {
                     if (valid) {
-                        this.$ajax.post('http://iview-laravel.test/api/newspaper', this.newspaper).then((response) => {
+                        this.$ajax.post('http://iview-laravel.test/api/online', this.online).then((response) => {
                             console.log(response.data)
                             this.$Message.info('资源编辑成功')
                         }).catch((error) => {
@@ -376,7 +350,7 @@
             * */
             imgSuccess(response, file, fileList) {
                 this.$Message.info('图片上传成功');
-                this.newspaper.newspaperResourceImgs.data.push(response)
+                this.online.onlineResourceImgs.data.push(response)
                 console.log(response)
             },
             /*
@@ -384,7 +358,7 @@
             * */
             imgUpdateSuccess(response, file, fileList) {
                 this.$Message.info('图片上传成功');
-                this.newspaper.newspaperResourceImgs.data.forEach(function (item) {
+                this.online.onlineResourceImgs.data.forEach(function (item) {
                     if (item.id == response.id) {
                         item.url = response.url
                     }
@@ -411,8 +385,8 @@
             *   根据传过来的id获取对应的televisionResources
             * */
             if (this.$route.params.id) {
-                this.$ajax.get('http://iview-laravel.test/api/newspaper/' + this.$route.params.id + '?include=newspaperResourceImgs').then((response) => {
-                    this.newspaper = response.data
+                this.$ajax.get('http://iview-laravel.test/api/online/' + this.$route.params.id + '?include=onlineResourceImgs').then((response) => {
+                    this.online = response.data
                     this.spinShow = false
                     this.edit = '提交修改'
                     console.log('编辑资源', response)

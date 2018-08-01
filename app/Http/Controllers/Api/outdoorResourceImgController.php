@@ -33,7 +33,7 @@ class outdoorResourceImgController extends Controller
     public function update(Request $request, ImageUploadHandler $uploader) {
 
         $img = $request->img;
-        $result = $uploader->save($img, 'outdoor', 'o');
+        $result = $uploader->save($img, 'outdoor', 'u');
 
         $tmp = outdoorResourceImgs::findOrFail($request->id);
         $tmp->update([

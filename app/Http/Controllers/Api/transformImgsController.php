@@ -80,7 +80,7 @@ class transformImgsController extends Controller
     public function update(Request $request, ImageUploadHandler $uploader)
     {
         $img = $request->img;
-        $result = $uploader->save($img, 'transform', 't');
+        $result = $uploader->save($img, 'transform', 'u');
 
         $tmp = transformResourceImg::findOrFail($request->id);
         $tmp->update([
@@ -91,10 +91,9 @@ class transformImgsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param transformResourceImg $img
+     * @return \Dingo\Api\Http\Response
+     * @throws \Exception
      */
     public function destroy(transformResourceImg $img)
     {
