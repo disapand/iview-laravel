@@ -7,6 +7,7 @@ use App\Http\Requests\Api\televisionResourcesRequest;
 use App\Models\televisionResources;
 use App\Models\televisionResourcesImg;
 use App\Transformers\televisionResourcesTransformer;
+use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -91,11 +92,14 @@ class TelevisionResourcesController extends Controller
          *  从上传的文件中获取数据
          * */
         $data = Excel::load($result['path'], function ($reader){})->get();
-
         /*
          *  将获取到的数据存入数据库
          * */
-        televisionResources::insert($data->toArray());
+        try {
+            televisionResources::insert($data->toArray());
+        } catch (\Exception $e) {
+            return $e;
+        }
 
         return $this->response->paginator(televisionResources::where([])->orderBy('id', 'desc')->paginate(15),
             new televisionResourcesTransformer());
