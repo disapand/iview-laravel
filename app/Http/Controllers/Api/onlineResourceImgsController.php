@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Handlers\ImageUploadHandler;
+use App\Models\onlineResourceImgs;
+use App\Transformers\onlineResourceImgsTransfomer;
+use App\Transformers\onlineResourceTransformer;
 use Illuminate\Http\Request;
 
 class onlineResourceImgsController extends Controller
@@ -32,9 +36,17 @@ class onlineResourceImgsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ImageUploadHandler $uploader)
     {
-        //
+        $img = $request->img;
+        $result = $uploader->save($img, 'online', 'o');
+
+        $imgList = onlineResourceImgs::create([
+            'url' => $result['path'],
+            'online_resources_id' => $request->id,
+        ]);
+
+        return $this->response->item($imgList, new onlineResourceImgsTransfomer());
     }
 
     /**
@@ -66,19 +78,28 @@ class onlineResourceImgsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ImageUploadHandler $uploader)
     {
-        //
+        $img = $request->img;
+        $result = $uploader->save($img, 'online', 'u');
+
+        $imgList = onlineResourceImgs::findOrFail($request->id);
+        $imgList->update([
+            'url' => $result['path'],
+        ]);
+
+        return $this->response->item($imgList, new onlineResourceImgsTransfomer());
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param onlineResourceImgs $img
+     * @return \Dingo\Api\Http\Response
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(onlineResourceImgs $img)
     {
-        //
+        $img->delete();
+        $imgs = onlineResourceImgs::whereOnlineResourcesId($img->online_resources_id)->get();
+        return $this->response->collection($imgs, new onlineResourceImgsTransfomer());
     }
 }

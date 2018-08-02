@@ -64,6 +64,13 @@ $api->version('v1', [
     $api->delete('newspaperImg/{img}', 'newspapperResourceImsController@destroy')->name('api.newspaperImg.destroy');
 
     $api->get('online', 'onlineResourceController@index')->name('api.online.index');
+    $api->post('online', 'onlineResourceController@store')->name('api.online.store');
+    $api->get('online/{online}', 'onlineResourceController@show')->name('api.online.show');
+    $api->get('online/{condition?}/{query?}', 'onlineResourceController@query')->name('api.online.query');
+    $api->delete('online/{online}', 'onlineResourceController@destroy')->name('api.online.destroy');
+    $api->post('onlineImg', 'onlineResourceImgsController@store')->name('api.online.store');
+    $api->post('onlineImgUpdate', 'onlineResourceImgsController@update')->name('api.online.update');
+    $api->delete('onlineImg/{img}', 'onlineResourceImgsController@destroy')->name('api.online.destroy');
 
     $api->get('internetcelebrity', 'internetcelebrityController@index')->name('api.online.index');
 });
