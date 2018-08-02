@@ -97,7 +97,8 @@ class TelevisionResourcesController extends Controller
          * */
         televisionResources::insert($data->toArray());
 
-        return $this->response->paginator(televisionResources::paginate(15), new televisionResourcesTransformer());
+        return $this->response->paginator(televisionResources::where([])->orderBy('id', 'desc')->paginate(15),
+            new televisionResourcesTransformer());
     }
 
     public function recommendTv() {

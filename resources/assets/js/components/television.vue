@@ -211,12 +211,11 @@
                     console.log('搜索出错', error);
                 })
             },
-            exportTv() {
-
-            },
             importSuccess(response, file, fileList) {
                 console.log('批量导入', response)
                 this.tvs = response.data
+                this.$Modal.remove();
+                this.$Message.success('批量导入完成');
                 this.total = response.meta.pagination.total
                 if (this.total / this.pageSize > 1) {
                     this.cansee = true
