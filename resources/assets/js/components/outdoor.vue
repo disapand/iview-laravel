@@ -17,12 +17,11 @@
             <Button type="ghost" shape="circle" icon="search" @click="searchOutdoor"></Button>
             <button-group style="float: right;">
                 <i-button type="success" icon="android-add-circle" @click="addOutdoorItem">添加资源</i-button>
-                <!-- <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button> -->
                 <i-button type="warning" icon="ios-upload" @click="isImport = true">批量导入资源</i-button>
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
                     <Upload
                             type="drag"
-                            action="http://iview-laravel.test/api/importTv"
+                            action="http://iview-laravel.test/api/importOutdoor"
                             :on-success="importSuccess"
                             name="excel">
                         <div style="padding: 20px 0">
@@ -224,6 +223,8 @@
             importSuccess(response, file, fileList) {
                 console.log('批量导入', response)
                 this.outdoor = response.data
+                this.isImport = false
+                this.$Message.info('导入完成')
                 this.total = response.meta.pagination.total
                 if (this.total / this.pageSize > 1) {
                     this.cansee = true

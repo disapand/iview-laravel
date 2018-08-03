@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Handlers\ExcelUploadHandler;
 use App\Models\outdoorResource;
 use App\Models\outdoorResourceImgs;
+use App\Transformers\outdoorResourceImgsTransformer;
 use App\Transformers\outdoorResourceTransformer;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class outdoorResourceController extends Controller
 {
@@ -45,6 +48,21 @@ class outdoorResourceController extends Controller
     public function query($condition, $query) {
         $outdoors = outdoorResource::where($condition, 'like', '%' . $query . '%')->paginate(15);
         return $this->response->paginator($outdoors, new outdoorResourceTransformer());
+    }
+
+    public function importOutdoor(Request $request, ExcelUploadHandler $uploader){
+        try{
+            $excel = $request->file('excel');
+            $result = $uploader->save($excel, 'outdoor');
+
+            $data = Excel::load($result['path'])->get();
+
+            outdoorResource::insert($data->toArray());
+            return $this->response->paginator(outdoorResource::where([])->orderBy('id', 'desc')->paginate(15),
+                new outdoorResourceTransformer());
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
 }

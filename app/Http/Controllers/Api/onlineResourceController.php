@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Handlers\ExcelUploadHandler;
 use App\Models\onlineResource;
 use App\Models\onlineResourceImgs;
 use App\Transformers\onlineResourceTransformer;
 use App\Transformers\outdoorResourceTransformer;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class onlineResourceController extends Controller
 {
@@ -104,6 +106,20 @@ class onlineResourceController extends Controller
     public function query($condition, $query) {
         $online = onlineResource::where($condition, 'like', "%$query%")->paginate(15);
         return $this->response->paginator($online, new onlineResourceTransformer());
+    }
+
+    public function importOnline(Request $request, ExcelUploadHandler $uploader) {
+        try {
+            $excel = $request->file('excel');
+            $result = $uploader->save($excel, 'online');
+
+            $data = Excel::load($result['path'], function ($reader){})->get();
+            onlineResource::insert($data->toArray());
+            return $this->response->paginator(onlineResource::where([])->orderBy('id', 'desc')->paginate(15),
+                new onlineResourceTransformer());
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
 }

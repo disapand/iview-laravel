@@ -7,10 +7,8 @@ use App\Http\Requests\Api\televisionResourcesRequest;
 use App\Models\televisionResources;
 use App\Models\televisionResourcesImg;
 use App\Transformers\televisionResourcesTransformer;
-use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TelevisionResourcesController extends Controller

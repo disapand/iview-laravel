@@ -22,7 +22,7 @@
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
                     <Upload
                             type="drag"
-                            action="http://iview-laravel.test/api/importTv"
+                            action="http://iview-laravel.test/api/importTransform"
                             :on-success="importSuccess"
                             name="excel">
                         <div style="padding: 20px 0">
@@ -219,6 +219,8 @@
             importSuccess(response, file, fileList) {
                 console.log('批量导入', response)
                 this.transform = response.data
+                this.isImport = false
+                this.$Message.info('导入成功')
                 this.total = response.meta.pagination.total
                 if (this.total / this.pageSize > 1) {
                     this.cansee = true
