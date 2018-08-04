@@ -118,8 +118,16 @@
                         break;
                     case '1-3':
                         this.$router.push('/transform');
+                        break;
+                    case '1-4':
+                        this.$router.push('/internet');
+                        break;
+                    case '1-5':
+                        this.$router.push('/online');
+                        break;
                     case '1-6':
                         this.$router.push('/newspaper');
+                        break;
                 }
 
 

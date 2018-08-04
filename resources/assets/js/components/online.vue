@@ -13,16 +13,16 @@
                 <i-option value="country" label="国家或地区"></i-option>
             </i-select>
             <i-input v-model="search" placeholder="请输入关键词" style="width:50%;"
-                     autofocus clearable @on-enter="searchNewspaper"/>
-            <Button type="ghost" shape="circle" icon="search" @click="searchNewspaper"></Button>
+                     autofocus clearable @on-enter="searchOnline"/>
+            <Button type="ghost" shape="circle" icon="search" @click="searchOnline"></Button>
             <button-group style="float: right;">
-                <i-button type="success" icon="android-add-circle" @click="addNewspaperItem">添加资源</i-button>
+                <i-button type="success" icon="android-add-circle" @click="addOnlineItem">添加资源</i-button>
                 <!-- <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button> -->
                 <i-button type="warning" icon="ios-upload" @click="isImport = true">批量导入资源</i-button>
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
                     <Upload
                             type="drag"
-                            action="http://iview-laravel.test/api/importNewspaper"
+                            action="http://iview-laravel.test/api/importOnline"
                             :on-success="importSuccess"
                             name="excel">
                         <div style="padding: 20px 0">
@@ -34,7 +34,7 @@
             </button-group>
         </div>
         <div>
-            <i-table border :columns="col" :data="newspaper" stripe :highlight-row=false
+            <i-table border :columns="col" :data="online" stripe :highlight-row=false
                      :loading="loading"></i-table>
         </div>
         <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize"
@@ -69,7 +69,12 @@
                         'key': 'name',
                     },
                     {
-                        'title': '媒体形式',
+                        'title': '类别',
+                        'key': 'category',
+                        width: 100
+                    },
+                    {
+                        'title': '形式',
                         'key': 'form'
                     },
                     {
@@ -81,33 +86,12 @@
                         'key': 'language'
                     },
                     {
-                        'title': '类别',
-                        'key': 'category',
-                        width: 100
-                    },
-                    {
-                        'title': '规格尺寸',
-                        'key': 'format',
-                    },
-                    {
-                        'title': '发行周期',
-                        'key': 'cycle'
-                    },
-                    {
-                        'title': '发行量',
-                        'key': 'circulation'
-                    },
-                    {
-                        'title': '版面',
-                        'key': 'page'
+                        'title': '媒体内容属性类别',
+                        'key': 'platform',
                     },
                     {
                         'title': '国家和地区',
                         'key': 'country'
-                    },
-                    {
-                        'title': '版本',
-                        'key': 'version'
                     },
                     {
                         'title': '是否有效',
@@ -157,13 +141,13 @@
                         },
                     },
                 ],
-                newspaper: [],
+                online: [],
             }
         },
         created() {
-            this.$ajax.get('http://iview-laravel.test/api/newspaper').then((response) => {
+            this.$ajax.get('http://iview-laravel.test/api/online').then((response) => {
                 console.log('拉取资源列表', response);
-                this.newspaper = response.data.data
+                this.online = response.data.data
                 this.loading = false
                 this.total = response.data.meta.pagination.total
                 if ( response.data.meta.pagination.total_pages > 1) {
@@ -177,16 +161,16 @@
         mounted() {
         },
         methods: {
-            addNewspaperItem() {
-                this.$router.push('newspaper_item')
+            addOnlineItem() {
+                this.$router.push('online_item')
             },
             show(row, index) {
-                this.$router.push({'name': 'newspaper_item', params: {id: row.id}})
+                this.$router.push({'name': 'online_item', params: {id: row.id}})
             },
             remove(row, index) {
-                this.$ajax.delete('http://iview-laravel.test/api/newspaper/' + row.id).then((response) => {
+                this.$ajax.delete('http://iview-laravel.test/api/online/' + row.id).then((response) => {
                     this.$Message.info('删除资源成功')
-                    this.newspaper.splice(index, 1)
+                    this.online.splice(index, 1)
                     this.total = response.data.meta.pagination.total
                     if (response.data.meta.pagination.total_pages == 1) {
                         this.cansee = true
@@ -198,21 +182,21 @@
             },
             changePage(index) {
                 this.currentPage = index
-                this.$ajax.get('http://iview-laravel.test/api/newspaper?page=' + index).then((response) => {
+                this.$ajax.get('http://iview-laravel.test/api/online?page=' + index).then((response) => {
                     console.log('换页', response);
-                    this.newspaper = response.data.data
+                    this.online = response.data.data
                     this.loading = false
                 }).catch((error) => {
                     console.log('换页出错', error);
                 })
             },
-            searchNewspaper() {
+            searchOnline() {
                 if (this.search == '') {
                     this.$Message.error('请输入查询条件')
                     return false
                 }
-                this.$ajax.get('http://iview-laravel.test/api/newspaper/' + this.condition + '/' + this.search).then((response) => {
-                    this.newspaper = response.data.data
+                this.$ajax.get('http://iview-laravel.test/api/online/' + this.condition + '/' + this.search).then((response) => {
+                    this.online = response.data.data
                     this.total = response.data.data.length
                     this.cansee = false
                     console.log('搜索', response)
@@ -222,9 +206,9 @@
             },
             importSuccess(response, file, fileList) {
                 console.log('批量导入', response)
-                this.newspaper = response.data
+                this.online = response.data
                 this.isImport = false
-                this.$Message.info('导入完成');
+                this.$Message.info('导入完成')
                 this.total = response.meta.pagination.total
                 if (this.total / this.pageSize > 1) {
                     this.cansee = true

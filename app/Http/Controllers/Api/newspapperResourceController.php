@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Handlers\ExcelUploadHandler;
 use App\Models\newspaperResource;
+use App\Models\newspaperResourceImg;
 use App\Transformers\newspaperResourceTransformer;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class newspapperResourceController extends Controller
 {
@@ -37,7 +40,6 @@ class newspapperResourceController extends Controller
      */
     public function store(Request $request)
     {
-
         $data = $request->toArray();
         $imgs = $data['newspaperResourceImgs'];
         unset($data['newspaperResourceImgs'], $data['created_at'], $data['updated_at'], $data['deleted_at']);
@@ -46,7 +48,7 @@ class newspapperResourceController extends Controller
         } else {
             $newspaper = newspaperResource::create($data);
             foreach ($imgs['data'] as $img) {
-                newspaperResourceImg::whereNewspaperResourcesId($img['id'])->update([
+                newspaperResourceImg::findOrFail($img['id'])->update([
                     'newspaper_resources_id' => $newspaper->id,
                 ]);
             }
@@ -90,13 +92,35 @@ class newspapperResourceController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param newspaperResource $newspaper
+     * @return \Dingo\Api\Http\Response
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(newspaperResource $newspaper)
     {
-        //
+        $newspaper->delete();
+        newspaperResourceImg::whereNewspaperResourcesId($newspaper->id)->delete();
+        return $this->response->paginator(newspaperResource::where([])->paginate(15), new newspaperResourceTransformer());
     }
+
+    public function query($condition, $query) {
+        $newspapers = newspaperResource::where($condition, 'like', "%$query%")->paginate(15);
+        return $this->response->paginator($newspapers, new newspaperResourceTransformer());
+    }
+
+    public function importNewspaper(Request $request, ExcelUploadHandler $uploader) {
+        try {
+            $excel = $request->file('excel');
+            $result = $uploader->save($excel, 'newspaper');
+
+            $data = Excel::load($result['path'], function ($reader){})->get();
+            newspaperResource::insert($data->toArray());
+            return $this->response->paginator(newspaperResource::where([])->orderBy('id', 'desc')->paginate(15),
+                new newspaperResourceTransformer());
+        } catch (\Exception $e) {
+            return $e;
+        }
+
+    }
+
 }

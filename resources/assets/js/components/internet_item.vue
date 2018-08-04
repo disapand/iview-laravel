@@ -1,7 +1,7 @@
 <template>
     <div class="spin-container">
 
-        <i-form :model="newspaper" ref="newspaper" :rules="newspaperRules">
+        <i-form :model="internet" ref="internet" :rules="internetRules">
             <!--
             -
             -   基本信息编辑部分
@@ -13,76 +13,73 @@
                     基本信息
                 </p>
 
-                <form-item label="媒体名称" prop="name">
-                    <i-input v-model="newspaper.name" placeholder="" clearable autofocus/>
+                <form-item label="KOL名称" prop="name">
+                    <i-input v-model="internet.name" placeholder="" clearable autofocus/>
                 </form-item>
 
-                <form-item label="形式" prop="form">
-                    <radio-group v-model="newspaper.form" type="button">
-                        <radio label="杂志"></radio>
-                        <radio label="报纸"></radio>
+                <form-item label="平台" prop="platform">
+                    <radio-group v-model="internet.platform" type="button">
+                        <radio label="Fackbook"></radio>
+                        <radio label="Youtube"></radio>
+                        <radio label="Instagram"></radio>
+                        <radio label="Twitter"></radio>
+                        <radio label="Vk"></radio>
+                        <radio label="Pinterest"></radio>
+                        <radio label="Blog"></radio>
                     </radio-group>
                 </form-item>
 
                 <form-item label="覆盖地区" prop="area">
-                    <i-input v-model="newspaper.area" placeholder="" clearable autofocus/>
+                    <i-input v-model="internet.area" placeholder="" clearable autofocus/>
                 </form-item>
 
                 <form-item label="语言" prop="language">
-                    <i-input v-model="newspaper.language" placeholder="" clearable autofocus/>
+                    <i-input v-model="internet.language" placeholder="" clearable autofocus/>
                 </form-item>
 
                 <form-item label="类别" prop="category">
-                    <radio-group v-model="newspaper.category" type="button">
-                        <radio label="综合新闻"></radio>
-                        <radio label="财经"></radio>
-                        <radio label="体育"></radio>
-                        <radio label="时尚"></radio>
-                        <radio label="科技"></radio>
-                        <radio label="生活"></radio>
-                        <radio label="旅游"></radio>
-                        <radio label="八卦"></radio>
-                        <radio label="音乐"></radio>
-                        <radio label="影视"></radio>
-                        <radio label="艺术"></radio>
-                        <radio label="汽车"></radio>
-                        <radio label="健康"></radio>
-                        <radio label="漫画"></radio>
-                        <radio label="航空"></radio>
-                        <radio label="时政"></radio>
-                        <radio label="宠物"></radio>
-                        <radio label="亲子"></radio>
-                        <radio label="游戏"></radio>
-                        <radio label="其他"></radio>
-                    </radio-group>
+                    <checkbox-group v-model="internet.category">
+                        <checkbox label="财经"></checkbox>
+                        <checkbox label="体育"></checkbox>
+                        <checkbox label="时尚"></checkbox>
+                        <checkbox label="科技"></checkbox>
+                        <checkbox label="生活"></checkbox>
+                        <checkbox label="旅游"></checkbox>
+                        <checkbox label="八卦"></checkbox>
+                        <checkbox label="音乐"></checkbox>
+                        <checkbox label="影视"></checkbox>
+                        <checkbox label="艺术"></checkbox>
+                        <checkbox label="汽车"></checkbox>
+                        <checkbox label="健康"></checkbox>
+                        <checkbox label="漫画"></checkbox>
+                        <checkbox label="搞笑"></checkbox>
+                        <checkbox label="美食"></checkbox>
+                        <checkbox label="游戏"></checkbox>
+                        <checkbox label="亲子"></checkbox>
+                        <checkbox label="宠物"></checkbox>
+                        <checkbox label="其他"></checkbox>
+                    </checkbox-group>
                 </form-item>
 
-                <form-item label="规格尺寸" prop="format">
-                    <i-input v-model="newspaper.format" placeholder="" clearable/>
-                </form-item>
-
-                <form-item label="发行周期" prop="cycle">
-                    <i-input v-model="newspaper.cycle" placeholder="" clearable/>
-                </form-item>
-
-                <form-item label="发行量" prop="circulation">
-                    <i-input v-model.number="newspaper.circulation" placeholder="" clearable/>
-                </form-item>
-
-                <form-item label="版面" prop="page">
-                    <i-input v-model="newspaper.page" placeholder="" clearable/>
+                <form-item label="粉丝量" prop="fans">
+                    <i-input v-model.number="internet.fans" placeholder="" clearable/>
                 </form-item>
 
                 <form-item label="国家或地区" prop="country">
-                    <i-input v-model="newspaper.country" placeholder="" clearable/>
+                    <i-input v-model="internet.country" placeholder="" clearable/>
                 </form-item>
 
-                <form-item label="版本" prop="version">
-                    <i-input v-model="newspaper.version" placeholder="" clearable/>
+                <form-item label="合作品牌" prop="cooperation">
+                    <i-input v-model="internet.cooperation" placeholder="" clearable/>
                 </form-item>
+
+                <form-item label="KOL特点">
+                    <i-input type="textarea" v-model="internet.detail" placeholder="" :autosize="{minRows: 5}"/>
+                </form-item>
+
 
                 <form-item label="是否有效">
-                    <i-switch v-model="newspaper.isuse" size="large">
+                    <i-switch v-model="internet.isuse" size="large">
                         <span slot="open">有效</span>
                         <span slot="close">无效</span>
                     </i-switch>
@@ -102,23 +99,11 @@
                 </p>
 
                 <form-item label="广告形式">
-                    <i-input v-model="newspaper.ad_form" placeholder="" clearable/>
-                </form-item>
-
-                <form-item label="内容和特点">
-                    <i-input type="textarea" v-model="newspaper.detail" placeholder="" :autosize="{minRows: 5}"/>
-                </form-item>
-
-                <form-item label="媒体所属公司或集团">
-                    <i-input v-model="newspaper.company" placeholder="" clearable/>
-                </form-item>
-
-                <form-item label="最小采购金额或周期">
-                    <i-input v-model="newspaper.minimum_buy" placeholder="" clearable/>
+                    <i-input v-model="internet.ad_form" placeholder="" clearable/>
                 </form-item>
 
                 <form-item label="媒体报价（美元）">
-                    <i-input v-model="newspaper.media_price" placeholder="">
+                    <i-input v-model="internet.media_price" placeholder="">
                         <span slot="append">
                             <Icon type="social-usd"></Icon>
                         </span>
@@ -126,19 +111,27 @@
                 </form-item>
 
                 <form-item label="执行价（美元）">
-                    <i-input v-model="newspaper.price" placeholder="">
+                    <i-input v-model="internet.price" placeholder="">
                         <span slot="append">
                             <Icon type="social-usd"></Icon>
                         </span>
                     </i-input>
                 </form-item>
 
+                <form-item label="KOL所属公司或集团">
+                    <i-input v-model="internet.company" placeholder="" clearable/>
+                </form-item>
+
                 <form-item label="媒介开发者">
-                    <i-input v-model="newspaper.contributor" placeholder="" clearable/>
+                    <i-input v-model="internet.contributor" placeholder="" clearable/>
+                </form-item>
+
+                <form-item label="擅长的推广方式">
+                    <i-input type="textarea" v-model="internet.advantage" placeholder="" :autosize="{minRows: 5}"/>
                 </form-item>
 
                 <form-item label="上刊要求">
-                    <i-input type="textarea" v-model="newspaper.requirements" placeholder="" :autosize="{minRows: 5}"/>
+                    <i-input type="textarea" v-model="internet.requirements" placeholder="" :autosize="{minRows: 5}"/>
                 </form-item>
 
             </Card>
@@ -157,10 +150,10 @@
                 <form-item>
                     <upload multiple type="drag"
                             name="img"
-                            action="http://iview-laravel.test/api/newspaperImg"
+                            action="http://iview-laravel.test/api/internetImg"
                             :on-success="imgSuccess"
                             :on-error="imgError"
-                            :data="newspaper"
+                            :data="internet"
                             :show-upload-list=false>
                         <div style="width: 360px; height: 120px">
                             <Icon type="ios-cloud-upload" size="52" style="color: #3399ff;margin-top: 20px"></Icon>
@@ -169,7 +162,7 @@
                     </upload>
                 </form-item>
 
-                <template v-for="img in newspaper.newspaperResourceImgs.data">
+                <template v-for="img in internet.internetResourceImgs.data">
                     <div class="img-list">
                         <img :src="img.url" alt="">
                         <div class="img-list-cover">
@@ -183,8 +176,8 @@
 
             <div style="margin: 30px;text-align: center">
                 <i-button icon="ios-arrow-back" @click="back">返回资源列表</i-button>
-                <i-button icon="ios-checkmark-empty" type="success" @click="updateNewspaper">{{ edit }}</i-button>
-                <poptip confirm v-if="canDel" transfer title="您确定要删除该资源吗？删除后不可恢复" @on-ok="deleteNewspaper(newspaper.id)">
+                <i-button icon="ios-checkmark-empty" type="success" @click="updateInternet">{{ edit }}</i-button>
+                <poptip confirm v-if="canDel" transfer title="您确定要删除该资源吗？删除后不可恢复" @on-ok="deleteInternet(internet.id)">
                     <i-button icon="ios-trash" type="error">删除资源</i-button>
                 </poptip>
             </div>
@@ -197,33 +190,30 @@
     export default {
         data() {
             return {
-                newspaper: {
+                internet: {
                     id: '',
                     name: '',
-                    form: '',
+                    platform: '',
                     area: '',
                     language: '',
-                    category: '',
-                    format: '',
-                    cycle: '',
-                    circulation: '',
-                    page: '',
+                    category: [],
+                    fans: '',
                     country: '',
-                    version: '',
+                    cooperation: '',
                     ad_form: '',
                     detail: '',
-                    minimum_buy: '',
                     media_price: '',
                     price: '',
                     company: '',
                     contributor: '',
+                    advantage: '',
                     requirements: '',
-                    newspaperResourceImgs: {
+                    internetResourceImgs: {
                         data: []
                     },
                     isuse: true,
                 },
-                newspaperRules: {
+                internetRules: {
                     name: [
                         {required: true, message: '媒体名称不能为空', trigger: 'blur'}
                     ],
@@ -282,12 +272,12 @@
                     *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                     * */
                     onOk: () => {
-                        this.$ajax.delete('http://iview-laravel.test/api/newspaperImg/' + id).then((response) => {
+                        this.$ajax.delete('http://iview-laravel.test/api/internetImg/' + id).then((response) => {
                             this.$Message.info('图片删除完成')
                             if (response.data.data) {
-                                this.newspaper.newspaperResourceImgs.data = response.data.data
+                                this.internet.internetResourceImgs.data = response.data.data
                             } else {
-                                this.newspaper.newspaperResourceImgs.data = []
+                                this.internet.internetResourceImgs.data = []
                             }
                         }).catch((error) => {
                             console.log('删除图片出错：', error)
@@ -308,7 +298,7 @@
                         return h('div', [
                             h('upload', {
                                 props: {
-                                    action: 'http://iview-laravel.test/api/newspaperImgUpdate',
+                                    action: 'http://iview-laravel.test/api/internetImgUpdate',
                                     type: 'drag',
                                     name: 'img',
                                     data: this.img,
@@ -344,8 +334,8 @@
             /*
             *   根据当前电视的id删除电视资源，删除完成后返回上一页
             * */
-            deleteNewspaper(id) {
-                this.$ajax.delete('http://iview-laravel.test/api/newspaper/' + id).then((response) => {
+            deleteInternet(id) {
+                this.$ajax.delete('http://iview-laravel.test/api/internet/' + id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.$router.go(-1)
                 }).catch((error) => {
@@ -356,10 +346,12 @@
             /*
             *   更新或者新建电视资源
             * */
-            updateNewspaper() {
-                this.$refs['newspaper'].validate((valid) => {
+            updateInternet() {
+                console.log(this.internet.category)
+                return false
+                this.$refs['internet'].validate((valid) => {
                     if (valid) {
-                        this.$ajax.post('http://iview-laravel.test/api/newspaper', this.newspaper).then((response) => {
+                        this.$ajax.post('http://iview-laravel.test/api/internet', this.internet).then((response) => {
                             console.log(response.data)
                             this.$Message.info('资源编辑成功')
                         }).catch((error) => {
@@ -376,7 +368,7 @@
             * */
             imgSuccess(response, file, fileList) {
                 this.$Message.info('图片上传成功');
-                this.newspaper.newspaperResourceImgs.data.push(response)
+                this.internet.internetResourceImgs.data.push(response)
                 console.log(response)
             },
             /*
@@ -384,7 +376,7 @@
             * */
             imgUpdateSuccess(response, file, fileList) {
                 this.$Message.info('图片上传成功');
-                this.newspaper.newspaperResourceImgs.data.forEach(function (item) {
+                this.internet.internetResourceImgs.data.forEach(function (item) {
                     if (item.id == response.id) {
                         item.url = response.url
                     }
@@ -411,8 +403,8 @@
             *   根据传过来的id获取对应的televisionResources
             * */
             if (this.$route.params.id) {
-                this.$ajax.get('http://iview-laravel.test/api/newspaper/' + this.$route.params.id + '?include=newspaperResourceImgs').then((response) => {
-                    this.newspaper = response.data
+                this.$ajax.get('http://iview-laravel.test/api/internet/' + this.$route.params.id + '?include=internetResourceImgs').then((response) => {
+                    this.internet = response.data
                     this.spinShow = false
                     this.edit = '提交修改'
                     console.log('编辑资源', response)

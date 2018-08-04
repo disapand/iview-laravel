@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Handlers\ImageUploadHandler;
 use App\Models\newspaperResource;
 use App\Models\newspaperResourceImg;
+use App\Transformers\newspaperResourceImgsTransformer;
 use App\Transformers\newspaperResourceTransformer;
 use Illuminate\Http\Request;
 
@@ -31,13 +33,21 @@ class newspapperResourceImsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param ImageUploadHandler $uploader
+     * @return \Dingo\Api\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ImageUploadHandler $uploader)
     {
+        $img = $request->img;
+        $result = $uploader->save($img, 'newspaper', 'n');
+
+        $imgList = newspaperResourceImg::create([
+            'newspaper_resources_id' => $request->id,
+            'url' => $result['path']
+        ]);
+
+        return $this->response->item($imgList, new newspaperResourceImgsTransformer());
     }
 
     /**
@@ -68,19 +78,28 @@ class newspapperResourceImsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ImageUploadHandler $uploader)
     {
-        //
+        $img = $request->img;
+        $result = $uploader->save($img, 'newspaper', 'u');
+
+        $imgList = newspaperResourceImg::findOrFail($request->id);
+        $imgList->update([
+            'url' => $result['path']
+        ]);
+
+        return $this->response->item($imgList, new newspaperResourceImgsTransformer());
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param newspaperResourceImg $img
+     * @return \Dingo\Api\Http\Response
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(newspaperResourceImg $img)
     {
-        //
+        $img->delete();
+        $imgs = newspaperResourceImg::whereNewspaperResourcesId($img->newspaper_resources_id)->get();
+        return $this->response->collection($imgs, new newspaperResourceImgsTransformer());
     }
 }

@@ -9,6 +9,10 @@ import transform from '../components/transform.vue';
 import transform_item from '../components/transform_item.vue';
 import newspaper from '../components/newspaper.vue';
 import newspaper_item from '../components/newspaper_item.vue';
+import online from '../components/online.vue';
+import online_item from '../components/online_item.vue';
+import internet from '../components/internet.vue'
+import internet_item from '../components/internet_item.vue'
 
 Vue.use(vueRouter);
 
@@ -65,6 +69,30 @@ const routes = [
                 name: 'newspaper_item',
                 meta: {title: '纸媒资源详情'},
                 component: newspaper_item,
+            },
+            {
+                path: 'online',
+                name: 'online',
+                meta: {title: '线上资源列表'},
+                component: online,
+            },
+            {
+                path: 'online_item/:id?',
+                name: 'online_item',
+                meta: {title: '线上资源详情'},
+                component: online_item,
+            },
+            {
+                path: 'internet',
+                name: 'internet',
+                meta: {title: '网红资源列表'},
+                component: internet,
+            },
+            {
+                path: 'internet_item/:id?',
+                name: 'internet_item',
+                meta: {title: '网红资源详情'},
+                component: internet_item,
             },
         ]
     },

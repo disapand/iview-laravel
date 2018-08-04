@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Handlers\ExcelUploadHandler;
 use App\Models\onlineResource;
+use App\Models\onlineResourceImgs;
 use App\Transformers\onlineResourceTransformer;
 use App\Transformers\outdoorResourceTransformer;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class onlineResourceController extends Controller
 {
@@ -38,18 +41,31 @@ class onlineResourceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->toArray();
+        $imgs = $data['onlineResourceImgs'];
+        unset($data['onlineResourceImgs'], $data['created_at'], $data['updated_at'], $data['deleted_at']);
+
+        if ($data['id']) {
+            onlineResource::findOrFail($data['id'])->update($data);
+        } else {
+            $online = onlineResource::create($data);
+            foreach ($imgs['data'] as $img) {
+                onlineResourceImgs::findOrFail($img['id'])->update([
+                    'online_resources_id' => $online->id,
+                ]);
+            }
+        }
+
+        return $this->response->created();
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param onlineResource $online
+     * @return \Dingo\Api\Http\Response
      */
     public function show(onlineResource $online)
     {
-        return $this->response->item($online, new outdoorResourceTransformer());
+        return $this->response->item($online, new onlineResourceTransformer());
     }
 
     /**
@@ -76,13 +92,34 @@ class onlineResourceController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param onlineResource $online
+     * @return \Dingo\Api\Http\Response
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(onlineResource $online)
     {
-        //
+        $online->delete();
+        onlineResourceImgs::whereOnlineResourcesId($online->id)->delete();
+        return $this->response->paginator(onlineResource::where([])->paginate(15), new onlineResourceTransformer());
     }
+
+    public function query($condition, $query) {
+        $online = onlineResource::where($condition, 'like', "%$query%")->paginate(15);
+        return $this->response->paginator($online, new onlineResourceTransformer());
+    }
+
+    public function importOnline(Request $request, ExcelUploadHandler $uploader) {
+        try {
+            $excel = $request->file('excel');
+            $result = $uploader->save($excel, 'online');
+
+            $data = Excel::load($result['path'], function ($reader){})->get();
+            onlineResource::insert($data->toArray());
+            return $this->response->paginator(onlineResource::where([])->orderBy('id', 'desc')->paginate(15),
+                new onlineResourceTransformer());
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+
 }

@@ -17,10 +17,16 @@ class internetcelebrityResourcTransformer extends TransformerAbstract
     protected $availableIncludes = ['Imgs'];
 
     public function transform(internetcelebrityResource $internetcelebrity) {
+        $tmp = $internetcelebrity->categories;
+        $category = [];
+        foreach ($tmp as $t) {
+            array_push($category, $t->name);
+        }
         return [
             'id' => $internetcelebrity->id,
             'name' => $internetcelebrity->name,
             'platform' => $internetcelebrity->platform,
+            'category' => $category,
             'ad_form' => $internetcelebrity->ad_form,
             'detail' => $internetcelebrity->detail,
             'area' => $internetcelebrity->area,

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Handlers\ExcelUploadHandler;
 use App\Models\transformResource;
 use App\Models\transformResourceImg;
 use App\Transformers\transformResourceTransformer;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class transformController extends Controller
 {
@@ -89,10 +91,9 @@ class transformController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param transformResource $transform
+     * @return \Dingo\Api\Http\Response
+     * @throws \Exception
      */
     public function destroy(transformResource $transform)
     {
@@ -104,6 +105,21 @@ class transformController extends Controller
     public function query($condition, $query) {
         $transforms = transformResource::where($condition, 'like', "%$query%")->paginate(15);
         return $this->response->paginator($transforms, new transformResourceTransformer());
+    }
+
+    public function importTransform(Request $request, ExcelUploadHandler $uploader) {
+        try {
+            $excel = $request->file('excel');
+            $result = $uploader->save($excel, 'transform');
+
+            $data = Excel::load($result['path'])->get();
+            transformResource::insert($data->toArray());
+
+            return $this->response->paginator(transformResource::where([])->orderBy('id', 'desc')->paginate(15),
+                new transformResourceTransformer());
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
 }
