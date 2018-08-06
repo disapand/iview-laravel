@@ -208,7 +208,7 @@
                 }
                 this.$ajax.get('http://iview-laravel.test/api/internet/' + this.condition + '/' + this.search).then((response) => {
                     this.internet = response.data.data
-                    this.total = response.data.data.pagination.total
+                    this.total = response.data.meta.pagination.total
                     this.cansee = false
                     console.log('搜索', response)
                 }).catch((error) => {

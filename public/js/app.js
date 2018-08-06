@@ -94425,7 +94425,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             this.$ajax.get('http://iview-laravel.test/api/internet/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.internet = response.data.data;
-                _this5.total = response.data.data.pagination.total;
+                _this5.total = response.data.meta.pagination.total;
                 _this5.cansee = false;
                 console.log('搜索', response);
             }).catch(function (error) {
@@ -94444,17 +94444,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     computed: {
-        decodeCategories: function decodeCategories() {
+        /*decodeCategories: function() {
             if (this.internet.category) {
-                var t = void 0;
-                for (var i = 0; i < this.internet.category.length; i++) {
-                    t += this.internet.category[i];
+                let t
+                for ( let i = 0; i < this.internet.category.length; i ++) {
+                    t += this.internet.category[i]
                 }
                 return t;
-            } else {
+            }
+            else {
                 return '';
             }
-        }
+        }*/
     }
 });
 

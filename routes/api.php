@@ -81,6 +81,9 @@ $api->version('v1', [
     $api->get('internet/{internet}', 'internetcelebrityController@show')->name('api.internet.show');
     $api->get('internet/{condition?}/{query?}', 'internetcelebrityController@query')->name('api.internet.query');
     $api->delete('internet/{internet}', 'internetcelebrityController@destroy')->name('api.internet.destroy');
+    $api->post('internetImg', 'internetcelebrityResourceImgsController@store')->name('api.internetImg.store');
+    $api->post('internetImgUpdate', 'internetcelebrityResourceImgsController@update')->name('api.internetImg.update');
+    $api->delete('internetImg/{img}', 'internetcelebrityResourceImgsController@destroy')->name('api.internetImg.destroy');
 });
 
 $api->version('v2', function ($api) {
