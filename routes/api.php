@@ -77,9 +77,9 @@ $api->version('v1', [
     $api->post('importOnline', 'onlineResourceController@importOnline')->name('api.online.import');
 
     $api->get('internet', 'internetcelebrityController@index')->name('api.internet.index');
-    $api->get('internet/{condition?}/{query?}', 'internetcelebrityController@query')->name('api.internet.query');
     $api->post('internet', 'internetcelebrityController@store')->name('api.internet.store');
     $api->get('internet/{internet}', 'internetcelebrityController@show')->name('api.internet.show');
+    $api->get('internet/{condition?}/{query?}', 'internetcelebrityController@query')->name('api.internet.query');
     $api->delete('internet/{internet}', 'internetcelebrityController@destroy')->name('api.internet.destroy');
 });
 

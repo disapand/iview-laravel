@@ -94280,7 +94280,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             pageSize: 15,
             cansee: false,
             pageClass: 'page',
-            condition: 'form',
+            condition: 'platform',
             search: '',
             isImport: false,
             col: [{
@@ -94425,7 +94425,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             this.$ajax.get('http://iview-laravel.test/api/internet/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.internet = response.data.data;
-                _this5.total = response.data.data.length;
+                _this5.total = response.data.data.pagination.total;
                 _this5.cansee = false;
                 console.log('搜索', response);
             }).catch(function (error) {
@@ -94629,7 +94629,7 @@ var render = function() {
               }
             },
             [
-              _c("i-option", { attrs: { value: "form", label: "形式" } }),
+              _c("i-option", { attrs: { value: "platform", label: "平台" } }),
               _vm._v(" "),
               _c("i-option", { attrs: { value: "category", label: "类别" } }),
               _vm._v(" "),

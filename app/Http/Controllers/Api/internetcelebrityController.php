@@ -121,7 +121,13 @@ class internetcelebrityController extends Controller
 
     public function query($condition = '', $query = '') {
        try{
-           $internet = internetcelebrityResource::where($condition, 'like', "%$query%")->paginate(15);
+           if ($condition == 'category') {
+                $internet = internetcelebrityResource::whereHas('categories', function ($q) use ($query){
+                    $q->where('name', 'like', "%$query%");
+                })->paginate(15);
+           } else {
+               $internet = internetcelebrityResource::where($condition, 'like', "%$query%")->paginate(15);
+           }
            return $this->response->paginator($internet, new internetcelebrityResourcTransformer());
        } catch (\Exception $e) {
            return $e;

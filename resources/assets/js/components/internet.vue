@@ -8,7 +8,7 @@
     <div>
         <div style="margin: 30px 0">
             <i-select v-model="condition" style="width:100px">
-                <i-option value="form" label="形式"></i-option>
+                <i-option value="platform" label="平台"></i-option>
                 <i-option value="category" label="类别"></i-option>
                 <i-option value="country" label="国家或地区"></i-option>
             </i-select>
@@ -54,7 +54,7 @@
                 pageSize: 15,
                 cansee: false,
                 pageClass: 'page',
-                condition: 'form',
+                condition: 'platform',
                 search: '',
                 isImport: false,
                 col: [
@@ -208,7 +208,7 @@
                 }
                 this.$ajax.get('http://iview-laravel.test/api/internet/' + this.condition + '/' + this.search).then((response) => {
                     this.internet = response.data.data
-                    this.total = response.data.data.length
+                    this.total = response.data.data.pagination.total
                     this.cansee = false
                     console.log('搜索', response)
                 }).catch((error) => {
@@ -227,7 +227,7 @@
             }
         },
         computed: {
-            decodeCategories: function() {
+            /*decodeCategories: function() {
                 if (this.internet.category) {
                     let t
                     for ( let i = 0; i < this.internet.category.length; i ++) {
@@ -238,7 +238,7 @@
                 else {
                     return '';
                 }
-            }
+            }*/
         }
     }
 </script>
