@@ -162,7 +162,7 @@
                     </upload>
                 </form-item>
 
-                <template v-for="img in internet.internetResourceImgs.data">
+                <template v-for="img in internet.Imgs.data">
                     <div class="img-list">
                         <img :src="img.url" alt="">
                         <div class="img-list-cover">
@@ -208,7 +208,7 @@
                     contributor: '',
                     advantage: '',
                     requirements: '',
-                    internetResourceImgs: {
+                    Imgs: {
                         data: []
                     },
                     isuse: true,
@@ -217,8 +217,8 @@
                     name: [
                         {required: true, message: '媒体名称不能为空', trigger: 'blur'}
                     ],
-                    form: [
-                        {required: true, message: '展现形式不能为空', trigger: 'blur'}
+                    platform: [
+                        {required: true, message: '平台不能为空', trigger: 'blur'}
                     ],
                     area: [
                         {required: true, message: '覆盖区域信息不能为空', trigger: 'blur'}
@@ -229,23 +229,14 @@
                     category: [
                         {required: true, message: '类别不能为空', trigger: 'blur'}
                     ],
-                    format: [
-                        {required: true, message: '规格尺寸不能为空', trigger: 'blur'}
+                    fans: [
+                        {required: true, type: 'number', message: '粉丝数量不能为空', trigger: 'blur'}
                     ],
-                    cycle: [
-                        {required: true, message: '发行周期不能为空', trigger: 'blur'}
-                    ],
-                    circulation: [
-                        {required: true, type: 'number', message: '发行量不能为空', trigger: 'blur'}
-                    ],
-                    page: [
-                        {required: true, message: '版面信息不能为空', trigger: 'blur'}
+                    cooperation: [
+                        {required: true, message: '合作品牌信息不能为空', trigger: 'blur'}
                     ],
                     country: [
                         {required: true, message: '国家和地区不能为空', trigger: 'blur'}
-                    ],
-                    version: [
-                        {required: true, message: '版本信息不能为空', trigger: 'blur'}
                     ],
                 },
                 spinShow: true,
@@ -275,9 +266,9 @@
                         this.$ajax.delete('http://iview-laravel.test/api/internetImg/' + id).then((response) => {
                             this.$Message.info('图片删除完成')
                             if (response.data.data) {
-                                this.internet.internetResourceImgs.data = response.data.data
+                                this.internet.Imgs.data = response.data.data
                             } else {
-                                this.internet.internetResourceImgs.data = []
+                                this.internet.Imgs.data = []
                             }
                         }).catch((error) => {
                             console.log('删除图片出错：', error)
@@ -347,8 +338,6 @@
             *   更新或者新建电视资源
             * */
             updateInternet() {
-                console.log(this.internet.category)
-                return false
                 this.$refs['internet'].validate((valid) => {
                     if (valid) {
                         this.$ajax.post('http://iview-laravel.test/api/internet', this.internet).then((response) => {
@@ -368,7 +357,7 @@
             * */
             imgSuccess(response, file, fileList) {
                 this.$Message.info('图片上传成功');
-                this.internet.internetResourceImgs.data.push(response)
+                this.internet.Imgs.data.push(response)
                 console.log(response)
             },
             /*
@@ -376,7 +365,7 @@
             * */
             imgUpdateSuccess(response, file, fileList) {
                 this.$Message.info('图片上传成功');
-                this.internet.internetResourceImgs.data.forEach(function (item) {
+                this.internet.Imgs.data.forEach(function (item) {
                     if (item.id == response.id) {
                         item.url = response.url
                     }
@@ -403,7 +392,8 @@
             *   根据传过来的id获取对应的televisionResources
             * */
             if (this.$route.params.id) {
-                this.$ajax.get('http://iview-laravel.test/api/internet/' + this.$route.params.id + '?include=internetResourceImgs').then((response) => {
+                this.$ajax.get('http://iview-laravel.test/api/internet/' + this.$route.params.id + '?include=Imgs').then((response) => {
+                    console.log('获取资源', response)
                     this.internet = response.data
                     this.spinShow = false
                     this.edit = '提交修改'

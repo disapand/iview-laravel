@@ -77,6 +77,7 @@ $api->version('v1', [
     $api->post('importOnline', 'onlineResourceController@importOnline')->name('api.online.import');
 
     $api->get('internet', 'internetcelebrityController@index')->name('api.online.index');
+    $api->get('internet/{internet}', 'internetcelebrityController@show')->name('api.online.show');
 });
 
 $api->version('v2', function ($api) {
