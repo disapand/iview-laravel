@@ -95106,7 +95106,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 platform: [{ required: true, message: '平台不能为空', trigger: 'blur' }],
                 area: [{ required: true, message: '覆盖区域信息不能为空', trigger: 'blur' }],
                 language: [{ required: true, message: '语言信息不能为空', trigger: 'blur' }],
-                category: [{ required: true, message: '类别不能为空', trigger: 'blur' }],
+                category: [{ required: true, type: 'array', message: '类别不能为空', trigger: 'change' }],
                 fans: [{ required: true, type: 'number', message: '粉丝数量不能为空', trigger: 'blur' }],
                 cooperation: [{ required: true, message: '合作品牌信息不能为空', trigger: 'blur' }],
                 country: [{ required: true, message: '国家和地区不能为空', trigger: 'blur' }]
@@ -95281,7 +95281,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this5.internet = response.data;
                 _this5.spinShow = false;
                 _this5.edit = '提交修改';
-                console.log('编辑资源', response);
             }).catch(function (error) {
                 _this5.$Message.error('资源未找到');
                 console.log('编辑资源出错', error);

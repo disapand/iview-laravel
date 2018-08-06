@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\internetcelebrityResource;
+use App\Models\internetcelebrityResourceCategory;
+use App\Models\internetcelebrityResourceImgs;
 use App\Transformers\internetcelebrityResourcTransformer;
 use Illuminate\Http\Request;
 
@@ -37,7 +39,37 @@ class internetcelebrityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->toArray();
+        $imgs = $data['Imgs'];
+        $categories = $data['category'];
+        unset($data['Imgs'], $data['category'], $data['created_at'], $data['updated_at'], $data['deleted_at']);
+        try {
+            if ($data['id']) {
+                $internet = internetcelebrityResource::findOrFail($data['id']);
+                $internet->categories()->detach();
+                foreach ($categories as $category) {
+                    $internet->categories()->attach(internetcelebrityResourceCategory::whereName($category)
+                        ->get(['id'])->first()['id']);
+                }
+                $internet->update($data);
+            } else {
+                $internet = internetcelebrityResource::create($data);
+                foreach ($categories as $category) {
+                    $internet->categories()->attach(internetcelebrityResourceCategory::whereName($category)
+                        ->get(['id'])->first()['id']);
+                }
+                foreach ($imgs as $img) {
+                    internetcelebrityResourceImgs::findOrFail($img['id'])->update([
+                        'internetcelebrity_resources_id' => $internet->id,
+                    ]);
+                }
+            }
+
+            return $this->response->created();
+        } catch (\Exception $e) {
+            return $e;
+        }
+
     }
 
 
@@ -70,13 +102,29 @@ class internetcelebrityController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param internetcelebrityResource $internet
+     * @return \Dingo\Api\Http\Response
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(internetcelebrityResource $internet)
     {
-        //
+        try {
+            $internet->categories()->detach();
+            $internet->delete();
+            internetcelebrityResourceImgs::whereInternetcelebrityResourcesId($internet->id)->delete();
+            return $this->response->paginator(internetcelebrityResource::where([])->orderBy('id', 'desc')->paginate(15),
+                new internetcelebrityResourcTransformer());
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+
+    public function query($condition = '', $query = '') {
+       try{
+           $internet = internetcelebrityResource::where($condition, 'like', "%$query%")->paginate(15);
+           return $this->response->paginator($internet, new internetcelebrityResourcTransformer());
+       } catch (\Exception $e) {
+           return $e;
+       }
     }
 }

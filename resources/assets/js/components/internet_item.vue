@@ -227,7 +227,7 @@
                         {required: true, message: '语言信息不能为空', trigger: 'blur'}
                     ],
                     category: [
-                        {required: true, message: '类别不能为空', trigger: 'blur'}
+                        {required: true, type: 'array', message: '类别不能为空', trigger: 'change'}
                     ],
                     fans: [
                         {required: true, type: 'number', message: '粉丝数量不能为空', trigger: 'blur'}
@@ -397,7 +397,6 @@
                     this.internet = response.data
                     this.spinShow = false
                     this.edit = '提交修改'
-                    console.log('编辑资源', response)
                 }).catch((error) => {
                     this.$Message.error('资源未找到')
                     console.log('编辑资源出错', error)
