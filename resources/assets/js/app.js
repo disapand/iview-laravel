@@ -11,11 +11,18 @@ window.Vue = require('vue');
 
 import iview from 'iview';
 import 'iview/dist/styles/iview.css';
+
 import axios from 'axios';
 import router from './router';
 import App from './App.vue'
 
+import VueQuillEditor from 'vue-quill-editor';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
+
 Vue.use(iview);
+Vue.use(VueQuillEditor);
 
 Vue.prototype.$ajax = axios;
 

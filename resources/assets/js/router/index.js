@@ -13,6 +13,7 @@ import online from '../components/online.vue';
 import online_item from '../components/online_item.vue';
 import internet from '../components/internet.vue'
 import internet_item from '../components/internet_item.vue'
+import editor from '../components/editor.vue';
 
 Vue.use(vueRouter);
 
@@ -93,6 +94,12 @@ const routes = [
                 name: 'internet_item',
                 meta: {title: '网红资源详情'},
                 component: internet_item,
+            },
+            {
+                path: 'editor',
+                name: 'editor',
+                meta: {title: '富文本编辑器'},
+                component: editor,
             },
         ]
     },

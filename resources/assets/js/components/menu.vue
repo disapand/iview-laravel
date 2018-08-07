@@ -128,6 +128,9 @@
                     case '1-6':
                         this.$router.push('/newspaper');
                         break;
+                    case '2':
+                        this.$router.push('/editor');
+                        break;
                 }
 
 
