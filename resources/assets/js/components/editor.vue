@@ -1,12 +1,18 @@
 <template>
-    <quill-editor
-            v-model="content"
-            :options="option"
-            ref="Ueditor"
-
-            @focus="onEditorBlur($event)">
-
-    </quill-editor>
+    <div>
+        <upload
+                class="uploader"
+                :action="serverUrl"
+                :on-success="uploadSuccess">
+        </upload>
+        <quill-editor
+                style="width: 800px;"
+                v-model="content"
+                :options="option"
+                ref="Ueditor"
+                @focus="onEditorBlur($event)">
+        </quill-editor>
+    </div>
 </template>
 
 <script>
@@ -30,10 +36,20 @@
         ['clean']                                         // remove formatting button
     ]
     export default {
+        props: {
+            content: {
+                type: String,
+                default: '测试'
+            },
+            serverUrl: {
+                type: String,
+                default: '',
+            }
+        },
         data() {
             return {
-                content: '测试的类容',
                 option: {
+                    placeholder: '',
                     modules: {
                         toolbar: {
                             container: toolbarOptions,

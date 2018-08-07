@@ -109835,7 +109835,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -109846,6 +109846,12 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -109869,10 +109875,20 @@ var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled butt
 [{ 'font': [] }], [{ 'align': [] }], ['image'], ['clean'] // remove formatting button
 ];
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        content: {
+            type: String,
+            default: '测试'
+        },
+        serverUrl: {
+            type: String,
+            default: ''
+        }
+    },
     data: function data() {
         return {
-            content: '测试的类容',
             option: {
+                placeholder: '',
                 modules: {
                     toolbar: {
                         container: toolbarOptions,
@@ -109906,22 +109922,34 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("quill-editor", {
-    ref: "Ueditor",
-    attrs: { options: _vm.option },
-    on: {
-      focus: function($event) {
-        _vm.onEditorBlur($event)
-      }
-    },
-    model: {
-      value: _vm.content,
-      callback: function($$v) {
-        _vm.content = $$v
-      },
-      expression: "content"
-    }
-  })
+  return _c(
+    "div",
+    [
+      _c("upload", {
+        staticClass: "uploader",
+        attrs: { action: _vm.serverUrl, "on-success": _vm.uploadSuccess }
+      }),
+      _vm._v(" "),
+      _c("quill-editor", {
+        ref: "Ueditor",
+        staticStyle: { width: "800px" },
+        attrs: { options: _vm.option },
+        on: {
+          focus: function($event) {
+            _vm.onEditorBlur($event)
+          }
+        },
+        model: {
+          value: _vm.content,
+          callback: function($$v) {
+            _vm.content = $$v
+          },
+          expression: "content"
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
