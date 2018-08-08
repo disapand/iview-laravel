@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\internetcelebrityResourceImgs withoutTrashed()
  * @mixin \Eloquent
  * @property-read \App\Models\internetcelebrityResource|null $internetbrityResouce
+ * @property-read \App\Models\internetcelebrityResource|null $internetcelebrityResource
  */
 class internetcelebrityResourceImgs extends Model
 {

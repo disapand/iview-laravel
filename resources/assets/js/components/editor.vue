@@ -3,14 +3,17 @@
         <upload
                 class="uploader"
                 :action="serverUrl"
+                name="img"
+                :on-error="uploadError"
+                :show-upload-list="false"
                 :on-success="uploadSuccess">
         </upload>
         <quill-editor
-                style="width: 800px;"
-                v-model="content"
+                :value="content"
                 :options="option"
                 ref="Ueditor"
-                @focus="onEditorBlur($event)">
+                @input="handleInput"
+                @blur="onEditorBlur">
         </quill-editor>
     </div>
 </template>
@@ -37,9 +40,9 @@
     ]
     export default {
         props: {
-            content: {
+            value: {
                 type: String,
-                default: '测试'
+                default: ''
             },
             serverUrl: {
                 type: String,
@@ -48,6 +51,7 @@
         },
         data() {
             return {
+                content: this.value,
                 option: {
                     placeholder: '',
                     modules: {
@@ -57,6 +61,7 @@
                                 'image': function (value) {
                                     if (value) {
                                         alert(1)
+                                        document.querySelector('.ivu-upload input').click();
                                     } else {
                                         this.quill.format('image', false)
                                     }
@@ -68,8 +73,18 @@
             }
         },
         methods: {
-            onEditorBlur() {
-                console.log(this.$refs.Ueditor.quill.getSelection());
+            onEditorBlur(event) {
+                this.$emit('on-blur', '')
+            },
+            uploadSuccess(res, file) {
+
+            },
+            uploadError(res, file) {
+                this.$Message.error('图片上传出错')
+                console.log(res)
+            },
+            handleInput(event) {
+                this.$emit('input', event)
             }
         }
     }

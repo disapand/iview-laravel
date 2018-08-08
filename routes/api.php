@@ -84,6 +84,10 @@ $api->version('v1', [
     $api->post('internetImg', 'internetcelebrityResourceImgsController@store')->name('api.internetImg.store');
     $api->post('internetImgUpdate', 'internetcelebrityResourceImgsController@update')->name('api.internetImg.update');
     $api->delete('internetImg/{img}', 'internetcelebrityResourceImgsController@destroy')->name('api.internetImg.destroy');
+
+    $api->get('case', 'CaseController@index')->name('api.case.index');
+    $api->post('case', 'CaseController@store')->name('api.case.store');
+    $api->get('case/{caseResource}', 'CaseController@show')->name('api.case.show');
 });
 
 $api->version('v2', function ($api) {

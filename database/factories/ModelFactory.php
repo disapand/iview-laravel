@@ -233,3 +233,21 @@ $factory->define(App\Models\guanlian::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Models\CaseImg::class, function (Faker\Generator $faker) {
+    return [
+        'case_resources_id' => function () {
+             return factory(App\Models\CaseResource::class)->create()->id;
+        },
+        'url' => $faker->url,
+        'category' => $faker->word,
+    ];
+});
+
+$factory->define(App\Models\CaseResource::class, function (Faker\Generator $faker) {
+    return [
+        'category' => $faker->word,
+        'title' => $faker->word,
+        'content' => $faker->text,
+    ];
+});
+

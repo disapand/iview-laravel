@@ -57,6 +57,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\internetcelebrityResource withoutTrashed()
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\internetcelebrityResourceImgs[] $internetcelebrityResourceImgs
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\internetcelebrityResourceImgs[] $Imgs
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\internetcelebrityResourceCategory[] $categories
  */
 class internetcelebrityResource extends Model
 {
