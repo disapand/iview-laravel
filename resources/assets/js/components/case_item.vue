@@ -35,8 +35,6 @@
                     <Editor v-model="Case.content"></Editor>
                 </form-item>
 
-
-
             </Card>
 
             <!--
@@ -124,7 +122,7 @@
         },
         created() {
             if (this.$route.params.id) {
-                this.$ajax.get('http://iview-laravel.test/api/caseResource/' + this.$route.params.id + '?include=imgs').then((response) => {
+                this.$ajax.get('http://iview-laravel.test/api/case/' + this.$route.params.id + '?include=Imgs').then((response) => {
                     console.log('获取资源', response)
                     this.Case = response.data
                     this.spinShow = false

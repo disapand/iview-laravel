@@ -13,7 +13,8 @@ import online from '../components/online.vue';
 import online_item from '../components/online_item.vue';
 import internet from '../components/internet.vue'
 import internet_item from '../components/internet_item.vue'
-import Case from '../components/case_item.vue';
+import Case from '../components/case.vue';
+import Case_item from '../components/case_item.vue';
 
 Vue.use(vueRouter);
 
@@ -96,10 +97,16 @@ const routes = [
                 component: internet_item,
             },
             {
-                path: 'editor',
-                name: 'editor',
-                meta: {title: '富文本编辑器'},
+                path: 'case',
+                name: 'case',
+                meta: {title: '案例管理'},
                 component: Case,
+            },
+            {
+                path: 'case_item/:id?',
+                name: 'case_item',
+                meta: {title: '案例详情'},
+                component: Case_item,
             },
         ]
     },

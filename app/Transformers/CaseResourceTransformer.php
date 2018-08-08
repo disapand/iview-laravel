@@ -12,7 +12,7 @@ use League\Fractal\TransformerAbstract;
 
 class CaseResourceTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['imgs'];
+    protected $availableIncludes = ['Imgs'];
 
     public function transform(CaseResource $caseResource) {
         return [
@@ -27,6 +27,6 @@ class CaseResourceTransformer extends TransformerAbstract
     }
 
     public function includeImgs(CaseResource $caseResource) {
-        return $this->collection($caseResource->imgs, new CaseImgTransformer());
+        return $this->collection($caseResource->Imgs, new CaseImgTransformer());
     }
 }

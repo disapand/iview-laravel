@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\CaseResource withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\CaseResource withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CaseImg[] $Imgs
  */
 class CaseResource extends Model
 {
@@ -39,7 +40,7 @@ class CaseResource extends Model
         'id', 'created_at', 'updated_at', 'deleted_at'
     ];
 
-    public function imgs() {
+    public function Imgs() {
         return $this->hasMany(CaseImg::class, 'case_resources_id', 'id');
     }
 }

@@ -7,16 +7,16 @@
                 <i-option value="country" label="国家或地区"></i-option>
             </i-select>
             <i-input v-model="search" placeholder="请输入关键词" style="width:50%;"
-                     autofocus clearable @on-enter="searchNewspaper"/>
-            <Button type="ghost" shape="circle" icon="search" @click="searchNewspaper"></Button>
+                     autofocus clearable @on-enter="searchCase"/>
+            <Button type="ghost" shape="circle" icon="search" @click="searchCase"></Button>
             <button-group style="float: right;">
-                <i-button type="success" icon="android-add-circle" @click="addNewspaperItem">添加资源</i-button>
+                <i-button type="success" icon="android-add-circle" @click="addCaseItem">添加资源</i-button>
                 <!-- <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button> -->
                 <i-button type="warning" icon="ios-upload" @click="isImport = true">批量导入资源</i-button>
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
                     <Upload
                             type="drag"
-                            action="http://iview-laravel.test/api/importNewspaper"
+                            action="http://iview-laravel.test/api/importCase"
                             :on-success="importSuccess"
                             name="excel">
                         <div style="padding: 20px 0">
@@ -28,7 +28,7 @@
             </button-group>
         </div>
         <div>
-            <i-table border :columns="col" :data="newspaper" stripe :highlight-row=false
+            <i-table border :columns="col" :data="Case" stripe :highlight-row=false
                      :loading="loading"></i-table>
         </div>
         <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize"
@@ -39,10 +39,112 @@
 
 <script>
     export default {
-        name: "case"
+        data() {
+            return {
+                loading: true,
+                total: 0,
+                currentPage: 1,
+                pageSize: 15,
+                cansee: false,
+                pageClass: 'page',
+                condition: 'form',
+                search: '',
+                isImport: false,
+                col: [
+                    {
+                        'title': '编号',
+                        'key': 'id',
+                        'width': 80,
+                        'sortable': true,
+                        'align': 'center'
+                    },
+                    {
+                        'title': '标题',
+                        'key': 'title',
+                    },
+                    {
+                        'title': '分类',
+                        'key': 'category'
+                    },
+                    {
+                        'title': '内容',
+                        'key': 'content'
+                    },
+                    {
+                        'title': '操作',
+                        'key': 'action',
+                        'width': 200,
+                        'align': 'center',
+                        render: (h, params) => {
+                            return h('div', [
+                                h('i-button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small',
+                                    },
+                                    style: {
+                                        marginRight: '8px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            event.stopPropagation()
+                                            this.show(params.row, params.index)
+                                        }
+                                    }
+                                }, '查看详情'),
+                                h('poptip', {
+                                    props: {
+                                        confirm: true,
+                                        title: '确认删除这条资源吗？',
+                                    },
+                                    on: {
+                                        'on-ok': () => {
+                                            event.stopPropagation()
+                                            this.remove(params.row, params.index)
+                                        }
+                                    }
+                                }, [
+                                    h('i-button', {
+                                        props: {
+                                            type: 'error',
+                                            size: 'small'
+                                        }
+                                    }, '删除资源')
+                                ])
+                            ])
+                        },
+                    },
+                ],
+                Case: [],
+            }
+        },
+        created() {
+            this.$ajax.get('http://iview-laravel.test/api/case').then((response) => {
+                console.log('拉取资源列表', response);
+                this.Case = response.data.data
+                this.loading = false
+                this.total = response.data.meta.pagination.total
+                if ( response.data.meta.pagination.total_pages > 1) {
+                    this.cansee = true
+                }
+            }).catch((error) => {
+                this.$Message.error('资源列表加载出错，请稍后重试');
+                console.log('资源列表加载出错:', error);
+            })
+        },
+        methods: {
+            addCaseItem() {
+                this.$router.push('case_item')
+            },
+            show(row, index) {
+                this.$router.push({'name': 'case_item', params: {id: row.id}})
+            },
+        }
     }
 </script>
 
 <style scoped>
-
+    .page {
+        margin: 10px 0;
+    }
 </style>

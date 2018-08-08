@@ -12719,7 +12719,7 @@ module.exports = "/fonts/vendor/iview/dist/styles/ionicons.eot?2c2ae068be3b089e0
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(17);
-module.exports = __webpack_require__(144);
+module.exports = __webpack_require__(154);
 
 
 /***/ }),
@@ -12735,15 +12735,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__App_vue__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__App_vue__ = __webpack_require__(139);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__App_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__App_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_quill_editor__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_quill_editor__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_quill_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_quill_editor__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_quill_dist_quill_core_css__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_quill_dist_quill_core_css__ = __webpack_require__(148);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_quill_dist_quill_core_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_quill_dist_quill_core_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_quill_dist_quill_snow_css__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_quill_dist_quill_snow_css__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_quill_dist_quill_snow_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_quill_dist_quill_snow_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_quill_dist_quill_bubble_css__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_quill_dist_quill_bubble_css__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_quill_dist_quill_bubble_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_quill_dist_quill_bubble_css__);
 
 /**
@@ -82414,8 +82414,11 @@ module.exports = function (css) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_internet_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__components_internet_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_internet_item_vue__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_internet_item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__components_internet_item_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_case_item_vue__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_case_item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__components_case_item_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_case_vue__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_case_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__components_case_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_case_item_vue__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_case_item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__components_case_item_vue__);
+
 
 
 
@@ -82500,10 +82503,15 @@ var routes = [{
         meta: { title: '网红资源详情' },
         component: __WEBPACK_IMPORTED_MODULE_14__components_internet_item_vue___default.a
     }, {
-        path: 'editor',
-        name: 'editor',
-        meta: { title: '富文本编辑器' },
-        component: __WEBPACK_IMPORTED_MODULE_15__components_case_item_vue___default.a
+        path: 'case',
+        name: 'case',
+        meta: { title: '案例管理' },
+        component: __WEBPACK_IMPORTED_MODULE_15__components_case_vue___default.a
+    }, {
+        path: 'case_item/:id?',
+        name: 'case_item',
+        meta: { title: '案例详情' },
+        component: __WEBPACK_IMPORTED_MODULE_16__components_case_item_vue___default.a
     }]
 }];
 
@@ -85404,7 +85412,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     this.$router.push('/newspaper');
                     break;
                 case '2':
-                    this.$router.push('/editor');
+                    this.$router.push('/case');
                     break;
             }
         }
@@ -95985,6 +95993,794 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
+var __vue_scopeId__ = "data-v-323cc072"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/case.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-323cc072", Component.options)
+  } else {
+    hotAPI.reload("data-v-323cc072", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 125 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(126);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("537b09d6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-323cc072\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./case.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-323cc072\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./case.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.page[data-v-323cc072] {\n    margin: 10px 0;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 127 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        var _this = this;
+
+        return {
+            loading: true,
+            total: 0,
+            currentPage: 1,
+            pageSize: 15,
+            cansee: false,
+            pageClass: 'page',
+            condition: 'form',
+            search: '',
+            isImport: false,
+            col: [{
+                'title': '编号',
+                'key': 'id',
+                'width': 80,
+                'sortable': true,
+                'align': 'center'
+            }, {
+                'title': '标题',
+                'key': 'title'
+            }, {
+                'title': '分类',
+                'key': 'category'
+            }, {
+                'title': '内容',
+                'key': 'content'
+            }, {
+                'title': '操作',
+                'key': 'action',
+                'width': 200,
+                'align': 'center',
+                render: function render(h, params) {
+                    return h('div', [h('i-button', {
+                        props: {
+                            type: 'primary',
+                            size: 'small'
+                        },
+                        style: {
+                            marginRight: '8px'
+                        },
+                        on: {
+                            click: function click() {
+                                event.stopPropagation();
+                                _this.show(params.row, params.index);
+                            }
+                        }
+                    }, '查看详情'), h('poptip', {
+                        props: {
+                            confirm: true,
+                            title: '确认删除这条资源吗？'
+                        },
+                        on: {
+                            'on-ok': function onOk() {
+                                event.stopPropagation();
+                                _this.remove(params.row, params.index);
+                            }
+                        }
+                    }, [h('i-button', {
+                        props: {
+                            type: 'error',
+                            size: 'small'
+                        }
+                    }, '删除资源')])]);
+                }
+            }],
+            Case: []
+        };
+    },
+    created: function created() {
+        var _this2 = this;
+
+        this.$ajax.get('http://iview-laravel.test/api/case').then(function (response) {
+            console.log('拉取资源列表', response);
+            _this2.Case = response.data.data;
+            _this2.loading = false;
+            _this2.total = response.data.meta.pagination.total;
+            if (response.data.meta.pagination.total_pages > 1) {
+                _this2.cansee = true;
+            }
+        }).catch(function (error) {
+            _this2.$Message.error('资源列表加载出错，请稍后重试');
+            console.log('资源列表加载出错:', error);
+        });
+    },
+
+    methods: {
+        addCaseItem: function addCaseItem() {
+            this.$router.push('case_item');
+        },
+        show: function show(row, index) {
+            this.$router.push({ 'name': 'case_item', params: { id: row.id } });
+        }
+    }
+});
+
+/***/ }),
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        { staticStyle: { margin: "30px 0" } },
+        [
+          _c(
+            "i-select",
+            {
+              staticStyle: { width: "100px" },
+              model: {
+                value: _vm.condition,
+                callback: function($$v) {
+                  _vm.condition = $$v
+                },
+                expression: "condition"
+              }
+            },
+            [
+              _c("i-option", { attrs: { value: "form", label: "形式" } }),
+              _vm._v(" "),
+              _c("i-option", { attrs: { value: "category", label: "类别" } }),
+              _vm._v(" "),
+              _c("i-option", {
+                attrs: { value: "country", label: "国家或地区" }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("i-input", {
+            staticStyle: { width: "50%" },
+            attrs: {
+              placeholder: "请输入关键词",
+              autofocus: "",
+              clearable: ""
+            },
+            on: { "on-enter": _vm.searchCase },
+            model: {
+              value: _vm.search,
+              callback: function($$v) {
+                _vm.search = $$v
+              },
+              expression: "search"
+            }
+          }),
+          _vm._v(" "),
+          _c("Button", {
+            attrs: { type: "ghost", shape: "circle", icon: "search" },
+            on: { click: _vm.searchCase }
+          }),
+          _vm._v(" "),
+          _c(
+            "button-group",
+            { staticStyle: { float: "right" } },
+            [
+              _c(
+                "i-button",
+                {
+                  attrs: { type: "success", icon: "android-add-circle" },
+                  on: { click: _vm.addCaseItem }
+                },
+                [_vm._v("添加资源")]
+              ),
+              _vm._v(" "),
+              _c(
+                "i-button",
+                {
+                  attrs: { type: "warning", icon: "ios-upload" },
+                  on: {
+                    click: function($event) {
+                      _vm.isImport = true
+                    }
+                  }
+                },
+                [_vm._v("批量导入资源")]
+              ),
+              _vm._v(" "),
+              _c(
+                "Modal",
+                {
+                  attrs: { title: "选择上传的excel文件", okText: "完成" },
+                  model: {
+                    value: _vm.isImport,
+                    callback: function($$v) {
+                      _vm.isImport = $$v
+                    },
+                    expression: "isImport"
+                  }
+                },
+                [
+                  _c(
+                    "Upload",
+                    {
+                      attrs: {
+                        type: "drag",
+                        action: "http://iview-laravel.test/api/importCase",
+                        "on-success": _vm.importSuccess,
+                        name: "excel"
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticStyle: { padding: "20px 0" } },
+                        [
+                          _c("Icon", {
+                            staticStyle: { color: "#3399ff" },
+                            attrs: { type: "ios-cloud-upload", size: "52" }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("拖拽文件到此或者点击文件上传")])
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _c("i-table", {
+            attrs: {
+              border: "",
+              columns: _vm.col,
+              data: _vm.Case,
+              stripe: "",
+              "highlight-row": false,
+              loading: _vm.loading
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.cansee
+        ? _c("page", {
+            attrs: {
+              total: _vm.total,
+              "show-total": "",
+              current: _vm.currentPage,
+              "page-size": _vm.pageSize,
+              "class-name": _vm.pageClass,
+              "show-elevator": ""
+            },
+            on: { "on-change": _vm.changePage }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.cansee
+        ? _c(
+            "span",
+            { staticStyle: { "margin-top": "15px", display: "block" } },
+            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-323cc072", module.exports)
+  }
+}
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(130)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(132)
+/* template */
+var __vue_template__ = __webpack_require__(138)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-608ed48a"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/case_item.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-608ed48a", Component.options)
+  } else {
+    hotAPI.reload("data-v-608ed48a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(131);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("118b7436", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-608ed48a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./case_item.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-608ed48a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./case_item.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 132 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__editor__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: { Editor: __WEBPACK_IMPORTED_MODULE_0__editor___default.a },
+    data: function data() {
+        return {
+            edit: '编辑资源',
+            canDel: true,
+            spinShow: true,
+            Case: {
+                id: '',
+                title: '',
+                category: '',
+                content: '',
+                Imgs: {
+                    data: []
+                }
+            },
+            CaseRules: {
+                title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
+                category: [{ required: true, message: '请选择分类', trigger: 'change' }],
+                content: [{ required: true, message: '请输入内容', trigger: 'blur' }]
+            }
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        if (this.$route.params.id) {
+            this.$ajax.get('http://iview-laravel.test/api/case/' + this.$route.params.id + '?include=Imgs').then(function (response) {
+                console.log('获取资源', response);
+                _this.Case = response.data;
+                _this.spinShow = false;
+                _this.edit = '提交修改';
+            }).catch(function (error) {
+                _this.$Message.error('资源未找到');
+                console.log('编辑资源出错', error);
+            });
+        } else {
+            this.spinShow = false;
+            this.canDel = false;
+            console.log('创建资源');
+        }
+    },
+
+    methods: {
+        /*
+        *   返回上一页的方法
+        * */
+        back: function back() {
+            this.$router.go(-1);
+        },
+        deleteImg: function deleteImg(id) {
+            var _this2 = this;
+
+            this.$Modal.confirm({
+                title: '删除图片',
+                content: '确定要删除这张图片吗？',
+                /*
+                *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
+                * */
+                onOk: function onOk() {
+                    _this2.$ajax.delete('http://iview-laravel.test/api/internetImg/' + id).then(function (response) {
+                        _this2.$Message.info('图片删除完成');
+                        if (response.data.data) {
+                            _this2.internet.Imgs.data = response.data.data;
+                        } else {
+                            _this2.internet.Imgs.data = [];
+                        }
+                    }).catch(function (error) {
+                        console.log('删除图片出错：', error);
+                        _this2.$Message.error('图片删除失败');
+                    });
+                }
+            });
+        },
+
+        /*
+        *   更新图片或者上传图片的方法
+        * */
+        updateImg: function updateImg(img) {
+            var _this3 = this;
+
+            this.img = img;
+            this.$Modal.info({
+                title: '修改图片',
+                okText: '取消',
+                render: function render(h) {
+                    return h('div', [h('upload', {
+                        props: {
+                            action: 'http://iview-laravel.test/api/internetImgUpdate',
+                            type: 'drag',
+                            name: 'img',
+                            data: _this3.img,
+                            'show-upload-list': false,
+                            'on-success': _this3.imgUpdateSuccess,
+                            'on-error': _this3.imgUpdateError
+                        },
+                        style: {
+                            paddingTop: '50px'
+                        }
+                    }, [h('div', [h('icon', {
+                        props: {
+                            type: 'ios-cloud-upload',
+                            size: 52
+                        },
+                        style: {
+                            paddingTop: '20px'
+                        }
+                    }), h('p', {
+                        style: {
+                            paddingBottom: '20px'
+                        }
+                    }, '点击或者拖拽图片到此上传')])])]);
+                }
+            });
+        },
+
+        /*
+        *   图片上传成功的方法
+        * */
+        imgSuccess: function imgSuccess(response, file, fileList) {
+            this.$Message.info('图片上传成功');
+            this.internet.Imgs.data.push(response);
+            console.log(response);
+        },
+
+        /*
+        *   图片更新成功的方法
+        * */
+        imgUpdateSuccess: function imgUpdateSuccess(response, file, fileList) {
+            this.$Message.info('图片上传成功');
+            this.internet.Imgs.data.forEach(function (item) {
+                if (item.id == response.id) {
+                    item.url = response.url;
+                }
+            });
+            this.$Modal.remove();
+        },
+
+        /*
+        *   图片上传失败的方法
+        * */
+        imgError: function imgError(response, file, fileList) {
+            this.$Message.error('图片上传失败');
+            console.log(response);
+        },
+
+        /*
+        *   图片更新失败的方法
+        * */
+        imgUpdateError: function imgUpdateError(response, file, fileList) {
+            this.imgError(response, file, fileList);
+            this.$Modal.remove();
+        },
+        updateCase: function updateCase() {
+            var _this4 = this;
+
+            this.$refs['Case'].validate(function (valid) {
+                if (valid) {
+                    _this4.$ajax.post('http://iview-laravel.test/api/case', _this4.Case).then(function (response) {
+                        console.log(response.data);
+                        _this4.$Message.info('资源编辑成功');
+                    }).catch(function (error) {
+                        _this4.$Message.error('资源编辑失败');
+                        console.log('资源编辑失败', error);
+                    });
+                } else {
+                    _this4.$Message.warning('请填写必须信息');
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(134)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(136)
+/* template */
+var __vue_template__ = __webpack_require__(137)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
 var __vue_scopeId__ = "data-v-58c54878"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
@@ -96018,13 +96814,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 125 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(126);
+var content = __webpack_require__(135);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -96044,7 +96840,7 @@ if(false) {
 }
 
 /***/ }),
-/* 126 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -96058,7 +96854,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 127 */
+/* 136 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -96145,7 +96941,7 @@ var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled butt
 });
 
 /***/ }),
-/* 128 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -96186,15 +96982,291 @@ if (false) {
 }
 
 /***/ }),
-/* 129 */
+/* 138 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "spin-container" },
+    [
+      _c(
+        "i-form",
+        { ref: "Case", attrs: { model: _vm.Case, rules: _vm.CaseRules } },
+        [
+          _c(
+            "Card",
+            {
+              staticStyle: {
+                width: "1175px",
+                display: "inline-block",
+                "margin-right": "20px"
+              }
+            },
+            [
+              _c(
+                "p",
+                { attrs: { slot: "title" }, slot: "title" },
+                [
+                  _c("Icon", { attrs: { type: "clipboard" } }),
+                  _vm._v("\n                基本信息\n            ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "标题", prop: "title" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "", autofocus: "" },
+                    model: {
+                      value: _vm.Case.title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.Case, "title", $$v)
+                      },
+                      expression: "Case.title"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "分类", prop: "category" } },
+                [
+                  _c(
+                    "radio-group",
+                    {
+                      attrs: { type: "button" },
+                      model: {
+                        value: _vm.Case.category,
+                        callback: function($$v) {
+                          _vm.$set(_vm.Case, "category", $$v)
+                        },
+                        expression: "Case.category"
+                      }
+                    },
+                    [
+                      _c("radio", { attrs: { label: "全部" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "游戏" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "应用" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "电视" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "旅游" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "汽车" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "3C电子产品" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "快消品" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "其他" } })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "案例内容", prop: "content" } },
+                [
+                  _c("Editor", {
+                    model: {
+                      value: _vm.Case.content,
+                      callback: function($$v) {
+                        _vm.$set(_vm.Case, "content", $$v)
+                      },
+                      expression: "Case.content"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "Card",
+            {
+              staticStyle: {
+                width: "400px",
+                display: "inline-block",
+                position: "absolute",
+                top: "112px",
+                left: "1450px"
+              }
+            },
+            [
+              _c(
+                "p",
+                { attrs: { slot: "title" }, slot: "title" },
+                [
+                  _c("Icon", { attrs: { type: "image" } }),
+                  _vm._v("\n                图片信息\n            ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                [
+                  _c(
+                    "upload",
+                    {
+                      attrs: {
+                        multiple: "",
+                        type: "drag",
+                        name: "img",
+                        action: "http://iview-laravel.test/api/CaseImg",
+                        "on-success": _vm.imgSuccess,
+                        "on-error": _vm.imgError,
+                        data: _vm.Case,
+                        "show-upload-list": false
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticStyle: { width: "360px", height: "120px" } },
+                        [
+                          _c("Icon", {
+                            staticStyle: {
+                              color: "#3399ff",
+                              "margin-top": "20px"
+                            },
+                            attrs: { type: "ios-cloud-upload", size: "52" }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("点击或者拖拽图片到此上传")])
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.Case.Imgs.data, function(img) {
+                return [
+                  _c("div", { staticClass: "img-list" }, [
+                    _c("img", { attrs: { src: img.url, alt: "" } }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "img-list-cover" },
+                      [
+                        _c("Icon", {
+                          attrs: { type: "ios-trash" },
+                          nativeOn: {
+                            click: function($event) {
+                              _vm.deleteImg(img.id)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("Icon", {
+                          attrs: { type: "upload" },
+                          nativeOn: {
+                            click: function($event) {
+                              _vm.updateImg(img)
+                            }
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticStyle: { margin: "30px", "text-align": "center" } },
+            [
+              _c(
+                "i-button",
+                { attrs: { icon: "ios-arrow-back" }, on: { click: _vm.back } },
+                [_vm._v("返回资源列表")]
+              ),
+              _vm._v(" "),
+              _c(
+                "i-button",
+                {
+                  attrs: { icon: "ios-checkmark-empty", type: "success" },
+                  on: { click: _vm.updateCase }
+                },
+                [_vm._v(_vm._s(_vm.edit))]
+              ),
+              _vm._v(" "),
+              _vm.canDel
+                ? _c(
+                    "poptip",
+                    {
+                      attrs: {
+                        confirm: "",
+                        transfer: "",
+                        title: "您确定要删除该资源吗？删除后不可恢复"
+                      }
+                    },
+                    [
+                      _c(
+                        "i-button",
+                        { attrs: { icon: "ios-trash", type: "error" } },
+                        [_vm._v("删除资源")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.spinShow
+        ? _c("Spin", { attrs: { size: "large", fix: "" } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-608ed48a", module.exports)
+  }
+}
+
+/***/ }),
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(130)
+var __vue_script__ = __webpack_require__(140)
 /* template */
-var __vue_template__ = __webpack_require__(131)
+var __vue_template__ = __webpack_require__(141)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -96233,7 +97305,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 130 */
+/* 140 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -96245,7 +97317,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
-/* 131 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -96265,13 +97337,13 @@ if (false) {
 }
 
 /***/ }),
-/* 132 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
-!function(t,e){ true?module.exports=e(__webpack_require__(133)):"function"==typeof define&&define.amd?define(["quill"],e):"object"==typeof exports?exports.VueQuillEditor=e(require("quill")):t.VueQuillEditor=e(t.Quill)}(this,function(t){return function(t){function e(i){if(n[i])return n[i].exports;var l=n[i]={i:i,l:!1,exports:{}};return t[i].call(l.exports,l,l.exports,e),l.l=!0,l.exports}var n={};return e.m=t,e.c=n,e.i=function(t){return t},e.d=function(t,n,i){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:i})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="/",e(e.s=2)}([function(e,n){e.exports=t},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var i=n(4),l=n.n(i),o=n(6),r=n(5),u=r(l.a,o.a,!1,null,null,null);e.default=u.exports},function(t,e,n){"use strict";function i(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0}),e.install=e.quillEditor=e.Quill=void 0;var l=n(0),o=i(l),r=n(1),u=i(r),s=window.Quill||o.default,a=function(t,e){e&&(u.default.props.globalOptions.default=function(){return e}),t.component(u.default.name,u.default)},c={Quill:s,quillEditor:u.default,install:a};e.default=c,e.Quill=s,e.quillEditor=u.default,e.install=a},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default={theme:"snow",boundary:document.body,modules:{toolbar:[["bold","italic","underline","strike"],["blockquote","code-block"],[{header:1},{header:2}],[{list:"ordered"},{list:"bullet"}],[{script:"sub"},{script:"super"}],[{indent:"-1"},{indent:"+1"}],[{direction:"rtl"}],[{size:["small",!1,"large","huge"]}],[{header:[1,2,3,4,5,6,!1]}],[{color:[]},{background:[]}],[{font:[]}],[{align:[]}],["clean"],["link","image","video"]]},placeholder:"Insert text here ...",readOnly:!1}},function(t,e,n){"use strict";function i(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0});var l=n(0),o=i(l),r=n(3),u=i(r),s=window.Quill||o.default;"function"!=typeof Object.assign&&Object.defineProperty(Object,"assign",{value:function(t,e){if(null==t)throw new TypeError("Cannot convert undefined or null to object");for(var n=Object(t),i=1;i<arguments.length;i++){var l=arguments[i];if(null!=l)for(var o in l)Object.prototype.hasOwnProperty.call(l,o)&&(n[o]=l[o])}return n},writable:!0,configurable:!0}),e.default={name:"quill-editor",data:function(){return{_options:{},_content:"",defaultOptions:u.default}},props:{content:String,value:String,disabled:{type:Boolean,default:!1},options:{type:Object,required:!1,default:function(){return{}}},globalOptions:{type:Object,required:!1,default:function(){return{}}}},mounted:function(){this.initialize()},beforeDestroy:function(){this.quill=null,delete this.quill},methods:{initialize:function(){var t=this;this.$el&&(this._options=Object.assign({},this.defaultOptions,this.globalOptions,this.options),this.quill=new s(this.$refs.editor,this._options),this.quill.enable(!1),(this.value||this.content)&&this.quill.pasteHTML(this.value||this.content),this.disabled||this.quill.enable(!0),this.quill.on("selection-change",function(e){e?t.$emit("focus",t.quill):t.$emit("blur",t.quill)}),this.quill.on("text-change",function(e,n,i){var l=t.$refs.editor.children[0].innerHTML,o=t.quill,r=t.quill.getText();"<p><br></p>"===l&&(l=""),t._content=l,t.$emit("input",t._content),t.$emit("change",{html:l,text:r,quill:o})}),this.$emit("ready",this.quill))}},watch:{content:function(t,e){this.quill&&(t&&t!==this._content?(this._content=t,this.quill.pasteHTML(t)):t||this.quill.setText(""))},value:function(t,e){this.quill&&(t&&t!==this._content?(this._content=t,this.quill.pasteHTML(t)):t||this.quill.setText(""))},disabled:function(t,e){this.quill&&this.quill.enable(!t)}}}},function(t,e){t.exports=function(t,e,n,i,l,o){var r,u=t=t||{},s=typeof t.default;"object"!==s&&"function"!==s||(r=t,u=t.default);var a="function"==typeof u?u.options:u;e&&(a.render=e.render,a.staticRenderFns=e.staticRenderFns,a._compiled=!0),n&&(a.functional=!0),l&&(a._scopeId=l);var c;if(o?(c=function(t){t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,t||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),i&&i.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(o)},a._ssrRegister=c):i&&(c=i),c){var d=a.functional,f=d?a.render:a.beforeCreate;d?(a._injectStyles=c,a.render=function(t,e){return c.call(e),f(t,e)}):a.beforeCreate=f?[].concat(f,c):[c]}return{esModule:r,exports:u,options:a}}},function(t,e,n){"use strict";var i=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"quill-editor"},[t._t("toolbar"),t._v(" "),n("div",{ref:"editor"})],2)},l=[],o={render:i,staticRenderFns:l};e.a=o}])});
+!function(t,e){ true?module.exports=e(__webpack_require__(143)):"function"==typeof define&&define.amd?define(["quill"],e):"object"==typeof exports?exports.VueQuillEditor=e(require("quill")):t.VueQuillEditor=e(t.Quill)}(this,function(t){return function(t){function e(i){if(n[i])return n[i].exports;var l=n[i]={i:i,l:!1,exports:{}};return t[i].call(l.exports,l,l.exports,e),l.l=!0,l.exports}var n={};return e.m=t,e.c=n,e.i=function(t){return t},e.d=function(t,n,i){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:i})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="/",e(e.s=2)}([function(e,n){e.exports=t},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var i=n(4),l=n.n(i),o=n(6),r=n(5),u=r(l.a,o.a,!1,null,null,null);e.default=u.exports},function(t,e,n){"use strict";function i(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0}),e.install=e.quillEditor=e.Quill=void 0;var l=n(0),o=i(l),r=n(1),u=i(r),s=window.Quill||o.default,a=function(t,e){e&&(u.default.props.globalOptions.default=function(){return e}),t.component(u.default.name,u.default)},c={Quill:s,quillEditor:u.default,install:a};e.default=c,e.Quill=s,e.quillEditor=u.default,e.install=a},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default={theme:"snow",boundary:document.body,modules:{toolbar:[["bold","italic","underline","strike"],["blockquote","code-block"],[{header:1},{header:2}],[{list:"ordered"},{list:"bullet"}],[{script:"sub"},{script:"super"}],[{indent:"-1"},{indent:"+1"}],[{direction:"rtl"}],[{size:["small",!1,"large","huge"]}],[{header:[1,2,3,4,5,6,!1]}],[{color:[]},{background:[]}],[{font:[]}],[{align:[]}],["clean"],["link","image","video"]]},placeholder:"Insert text here ...",readOnly:!1}},function(t,e,n){"use strict";function i(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0});var l=n(0),o=i(l),r=n(3),u=i(r),s=window.Quill||o.default;"function"!=typeof Object.assign&&Object.defineProperty(Object,"assign",{value:function(t,e){if(null==t)throw new TypeError("Cannot convert undefined or null to object");for(var n=Object(t),i=1;i<arguments.length;i++){var l=arguments[i];if(null!=l)for(var o in l)Object.prototype.hasOwnProperty.call(l,o)&&(n[o]=l[o])}return n},writable:!0,configurable:!0}),e.default={name:"quill-editor",data:function(){return{_options:{},_content:"",defaultOptions:u.default}},props:{content:String,value:String,disabled:{type:Boolean,default:!1},options:{type:Object,required:!1,default:function(){return{}}},globalOptions:{type:Object,required:!1,default:function(){return{}}}},mounted:function(){this.initialize()},beforeDestroy:function(){this.quill=null,delete this.quill},methods:{initialize:function(){var t=this;this.$el&&(this._options=Object.assign({},this.defaultOptions,this.globalOptions,this.options),this.quill=new s(this.$refs.editor,this._options),this.quill.enable(!1),(this.value||this.content)&&this.quill.pasteHTML(this.value||this.content),this.disabled||this.quill.enable(!0),this.quill.on("selection-change",function(e){e?t.$emit("focus",t.quill):t.$emit("blur",t.quill)}),this.quill.on("text-change",function(e,n,i){var l=t.$refs.editor.children[0].innerHTML,o=t.quill,r=t.quill.getText();"<p><br></p>"===l&&(l=""),t._content=l,t.$emit("input",t._content),t.$emit("change",{html:l,text:r,quill:o})}),this.$emit("ready",this.quill))}},watch:{content:function(t,e){this.quill&&(t&&t!==this._content?(this._content=t,this.quill.pasteHTML(t)):t||this.quill.setText(""))},value:function(t,e){this.quill&&(t&&t!==this._content?(this._content=t,this.quill.pasteHTML(t)):t||this.quill.setText(""))},disabled:function(t,e){this.quill&&this.quill.enable(!t)}}}},function(t,e){t.exports=function(t,e,n,i,l,o){var r,u=t=t||{},s=typeof t.default;"object"!==s&&"function"!==s||(r=t,u=t.default);var a="function"==typeof u?u.options:u;e&&(a.render=e.render,a.staticRenderFns=e.staticRenderFns,a._compiled=!0),n&&(a.functional=!0),l&&(a._scopeId=l);var c;if(o?(c=function(t){t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,t||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),i&&i.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(o)},a._ssrRegister=c):i&&(c=i),c){var d=a.functional,f=d?a.render:a.beforeCreate;d?(a._injectStyles=c,a.render=function(t,e){return c.call(e),f(t,e)}):a.beforeCreate=f?[].concat(f,c):[c]}return{esModule:r,exports:u,options:a}}},function(t,e,n){"use strict";var i=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"quill-editor"},[t._t("toolbar"),t._v(" "),n("div",{ref:"editor"})],2)},l=[],o={render:i,staticRenderFns:l};e.a=o}])});
 
 /***/ }),
-/* 133 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*!
@@ -107763,10 +108835,10 @@ module.exports = __webpack_require__(63);
 /***/ })
 /******/ ])["default"];
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(134).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(144).Buffer))
 
 /***/ }),
-/* 134 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -107780,9 +108852,9 @@ module.exports = __webpack_require__(63);
 
 
 
-var base64 = __webpack_require__(135)
-var ieee754 = __webpack_require__(136)
-var isArray = __webpack_require__(137)
+var base64 = __webpack_require__(145)
+var ieee754 = __webpack_require__(146)
+var isArray = __webpack_require__(147)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -109563,7 +110635,7 @@ function isnan (val) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 135 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109721,7 +110793,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 136 */
+/* 146 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -109811,7 +110883,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 137 */
+/* 147 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -109822,13 +110894,13 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 138 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(139);
+var content = __webpack_require__(149);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -109853,7 +110925,7 @@ if(false) {
 }
 
 /***/ }),
-/* 139 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -109867,13 +110939,13 @@ exports.push([module.i, "/*!\n * Quill Editor v1.3.6\n * https://quilljs.com/\n 
 
 
 /***/ }),
-/* 140 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(141);
+var content = __webpack_require__(151);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -109898,7 +110970,7 @@ if(false) {
 }
 
 /***/ }),
-/* 141 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -109912,13 +110984,13 @@ exports.push([module.i, "/*!\n * Quill Editor v1.3.6\n * https://quilljs.com/\n 
 
 
 /***/ }),
-/* 142 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(143);
+var content = __webpack_require__(153);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -109943,7 +111015,7 @@ if(false) {
 }
 
 /***/ }),
-/* 143 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -109957,664 +111029,10 @@ exports.push([module.i, "/*!\n * Quill Editor v1.3.6\n * https://quilljs.com/\n 
 
 
 /***/ }),
-/* 144 */
+/* 154 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 145 */,
-/* 146 */,
-/* 147 */,
-/* 148 */,
-/* 149 */,
-/* 150 */,
-/* 151 */,
-/* 152 */,
-/* 153 */,
-/* 154 */,
-/* 155 */,
-/* 156 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(157)
-}
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(159)
-/* template */
-var __vue_template__ = __webpack_require__(160)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-608ed48a"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/case_item.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-608ed48a", Component.options)
-  } else {
-    hotAPI.reload("data-v-608ed48a", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 157 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(158);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(2)("118b7436", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-608ed48a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./case_item.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-608ed48a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./case_item.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 158 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 159 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor__ = __webpack_require__(124);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__editor__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    components: { Editor: __WEBPACK_IMPORTED_MODULE_0__editor___default.a },
-    data: function data() {
-        return {
-            edit: '编辑资源',
-            canDel: true,
-            spinShow: true,
-            Case: {
-                id: '',
-                title: '',
-                category: '',
-                content: '',
-                Imgs: {
-                    data: []
-                }
-            },
-            CaseRules: {
-                title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
-                category: [{ required: true, message: '请选择分类', trigger: 'change' }],
-                content: [{ required: true, message: '请输入内容', trigger: 'blur' }]
-            }
-        };
-    },
-    created: function created() {
-        var _this = this;
-
-        if (this.$route.params.id) {
-            this.$ajax.get('http://iview-laravel.test/api/caseResource/' + this.$route.params.id + '?include=imgs').then(function (response) {
-                console.log('获取资源', response);
-                _this.Case = response.data;
-                _this.spinShow = false;
-                _this.edit = '提交修改';
-            }).catch(function (error) {
-                _this.$Message.error('资源未找到');
-                console.log('编辑资源出错', error);
-            });
-        } else {
-            this.spinShow = false;
-            this.canDel = false;
-            console.log('创建资源');
-        }
-    },
-
-    methods: {
-        /*
-        *   返回上一页的方法
-        * */
-        back: function back() {
-            this.$router.go(-1);
-        },
-        deleteImg: function deleteImg(id) {
-            var _this2 = this;
-
-            this.$Modal.confirm({
-                title: '删除图片',
-                content: '确定要删除这张图片吗？',
-                /*
-                *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
-                * */
-                onOk: function onOk() {
-                    _this2.$ajax.delete('http://iview-laravel.test/api/internetImg/' + id).then(function (response) {
-                        _this2.$Message.info('图片删除完成');
-                        if (response.data.data) {
-                            _this2.internet.Imgs.data = response.data.data;
-                        } else {
-                            _this2.internet.Imgs.data = [];
-                        }
-                    }).catch(function (error) {
-                        console.log('删除图片出错：', error);
-                        _this2.$Message.error('图片删除失败');
-                    });
-                }
-            });
-        },
-
-        /*
-        *   更新图片或者上传图片的方法
-        * */
-        updateImg: function updateImg(img) {
-            var _this3 = this;
-
-            this.img = img;
-            this.$Modal.info({
-                title: '修改图片',
-                okText: '取消',
-                render: function render(h) {
-                    return h('div', [h('upload', {
-                        props: {
-                            action: 'http://iview-laravel.test/api/internetImgUpdate',
-                            type: 'drag',
-                            name: 'img',
-                            data: _this3.img,
-                            'show-upload-list': false,
-                            'on-success': _this3.imgUpdateSuccess,
-                            'on-error': _this3.imgUpdateError
-                        },
-                        style: {
-                            paddingTop: '50px'
-                        }
-                    }, [h('div', [h('icon', {
-                        props: {
-                            type: 'ios-cloud-upload',
-                            size: 52
-                        },
-                        style: {
-                            paddingTop: '20px'
-                        }
-                    }), h('p', {
-                        style: {
-                            paddingBottom: '20px'
-                        }
-                    }, '点击或者拖拽图片到此上传')])])]);
-                }
-            });
-        },
-
-        /*
-        *   图片上传成功的方法
-        * */
-        imgSuccess: function imgSuccess(response, file, fileList) {
-            this.$Message.info('图片上传成功');
-            this.internet.Imgs.data.push(response);
-            console.log(response);
-        },
-
-        /*
-        *   图片更新成功的方法
-        * */
-        imgUpdateSuccess: function imgUpdateSuccess(response, file, fileList) {
-            this.$Message.info('图片上传成功');
-            this.internet.Imgs.data.forEach(function (item) {
-                if (item.id == response.id) {
-                    item.url = response.url;
-                }
-            });
-            this.$Modal.remove();
-        },
-
-        /*
-        *   图片上传失败的方法
-        * */
-        imgError: function imgError(response, file, fileList) {
-            this.$Message.error('图片上传失败');
-            console.log(response);
-        },
-
-        /*
-        *   图片更新失败的方法
-        * */
-        imgUpdateError: function imgUpdateError(response, file, fileList) {
-            this.imgError(response, file, fileList);
-            this.$Modal.remove();
-        },
-        updateCase: function updateCase() {
-            var _this4 = this;
-
-            this.$refs['Case'].validate(function (valid) {
-                if (valid) {
-                    _this4.$ajax.post('http://iview-laravel.test/api/case', _this4.Case).then(function (response) {
-                        console.log(response.data);
-                        _this4.$Message.info('资源编辑成功');
-                    }).catch(function (error) {
-                        _this4.$Message.error('资源编辑失败');
-                        console.log('资源编辑失败', error);
-                    });
-                } else {
-                    _this4.$Message.warning('请填写必须信息');
-                }
-            });
-        }
-    }
-});
-
-/***/ }),
-/* 160 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "spin-container" },
-    [
-      _c(
-        "i-form",
-        { ref: "Case", attrs: { model: _vm.Case, rules: _vm.CaseRules } },
-        [
-          _c(
-            "Card",
-            {
-              staticStyle: {
-                width: "1175px",
-                display: "inline-block",
-                "margin-right": "20px"
-              }
-            },
-            [
-              _c(
-                "p",
-                { attrs: { slot: "title" }, slot: "title" },
-                [
-                  _c("Icon", { attrs: { type: "clipboard" } }),
-                  _vm._v("\n                基本信息\n            ")
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "标题", prop: "title" } },
-                [
-                  _c("i-input", {
-                    attrs: { placeholder: "", clearable: "", autofocus: "" },
-                    model: {
-                      value: _vm.Case.title,
-                      callback: function($$v) {
-                        _vm.$set(_vm.Case, "title", $$v)
-                      },
-                      expression: "Case.title"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "分类", prop: "category" } },
-                [
-                  _c(
-                    "radio-group",
-                    {
-                      attrs: { type: "button" },
-                      model: {
-                        value: _vm.Case.category,
-                        callback: function($$v) {
-                          _vm.$set(_vm.Case, "category", $$v)
-                        },
-                        expression: "Case.category"
-                      }
-                    },
-                    [
-                      _c("radio", { attrs: { label: "全部" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "游戏" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "应用" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "电视" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "旅游" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "汽车" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "3C电子产品" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "快消品" } }),
-                      _vm._v(" "),
-                      _c("radio", { attrs: { label: "其他" } })
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                { attrs: { label: "案例内容", prop: "content" } },
-                [
-                  _c("Editor", {
-                    model: {
-                      value: _vm.Case.content,
-                      callback: function($$v) {
-                        _vm.$set(_vm.Case, "content", $$v)
-                      },
-                      expression: "Case.content"
-                    }
-                  })
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "Card",
-            {
-              staticStyle: {
-                width: "400px",
-                display: "inline-block",
-                position: "absolute",
-                top: "112px",
-                left: "1450px"
-              }
-            },
-            [
-              _c(
-                "p",
-                { attrs: { slot: "title" }, slot: "title" },
-                [
-                  _c("Icon", { attrs: { type: "image" } }),
-                  _vm._v("\n                图片信息\n            ")
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "form-item",
-                [
-                  _c(
-                    "upload",
-                    {
-                      attrs: {
-                        multiple: "",
-                        type: "drag",
-                        name: "img",
-                        action: "http://iview-laravel.test/api/CaseImg",
-                        "on-success": _vm.imgSuccess,
-                        "on-error": _vm.imgError,
-                        data: _vm.Case,
-                        "show-upload-list": false
-                      }
-                    },
-                    [
-                      _c(
-                        "div",
-                        { staticStyle: { width: "360px", height: "120px" } },
-                        [
-                          _c("Icon", {
-                            staticStyle: {
-                              color: "#3399ff",
-                              "margin-top": "20px"
-                            },
-                            attrs: { type: "ios-cloud-upload", size: "52" }
-                          }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("点击或者拖拽图片到此上传")])
-                        ],
-                        1
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm._l(_vm.Case.Imgs.data, function(img) {
-                return [
-                  _c("div", { staticClass: "img-list" }, [
-                    _c("img", { attrs: { src: img.url, alt: "" } }),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "img-list-cover" },
-                      [
-                        _c("Icon", {
-                          attrs: { type: "ios-trash" },
-                          nativeOn: {
-                            click: function($event) {
-                              _vm.deleteImg(img.id)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("Icon", {
-                          attrs: { type: "upload" },
-                          nativeOn: {
-                            click: function($event) {
-                              _vm.updateImg(img)
-                            }
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ])
-                ]
-              })
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticStyle: { margin: "30px", "text-align": "center" } },
-            [
-              _c(
-                "i-button",
-                { attrs: { icon: "ios-arrow-back" }, on: { click: _vm.back } },
-                [_vm._v("返回资源列表")]
-              ),
-              _vm._v(" "),
-              _c(
-                "i-button",
-                {
-                  attrs: { icon: "ios-checkmark-empty", type: "success" },
-                  on: { click: _vm.updateCase }
-                },
-                [_vm._v(_vm._s(_vm.edit))]
-              ),
-              _vm._v(" "),
-              _vm.canDel
-                ? _c(
-                    "poptip",
-                    {
-                      attrs: {
-                        confirm: "",
-                        transfer: "",
-                        title: "您确定要删除该资源吗？删除后不可恢复"
-                      }
-                    },
-                    [
-                      _c(
-                        "i-button",
-                        { attrs: { icon: "ios-trash", type: "error" } },
-                        [_vm._v("删除资源")]
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e()
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm.spinShow
-        ? _c("Spin", { attrs: { size: "large", fix: "" } })
-        : _vm._e()
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-608ed48a", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);
