@@ -96483,7 +96483,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -96585,7 +96585,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -96596,6 +96595,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             edit: '编辑资源',
             canDel: true,
             spinShow: true,
+            content: '',
             Case: {
                 id: '',
                 title: '',
@@ -96637,6 +96637,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   返回上一页的方法
         * */
         back: function back() {
+            this.content = '411354123';
+            alert(this.content);
+            return false;
             this.$router.go(-1);
         },
         deleteImg: function deleteImg(id) {
@@ -96747,6 +96750,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['Case'].validate(function (valid) {
                 if (valid) {
+                    _this4.Case.content = _this4.content;
                     _this4.$ajax.post('http://iview-laravel.test/api/case', _this4.Case).then(function (response) {
                         console.log(response.data);
                         _this4.$Message.info('资源编辑成功');
@@ -96848,7 +96852,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -96859,7 +96863,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -96926,9 +96929,6 @@ var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled butt
     },
 
     methods: {
-        onEditorBlur: function onEditorBlur(event) {
-            this.$emit('on-blur', '');
-        },
         uploadSuccess: function uploadSuccess(res, file) {},
         uploadError: function uploadError(res, file) {
             this.$Message.error('图片上传出错');
@@ -96965,7 +96965,7 @@ var render = function() {
       _c("quill-editor", {
         ref: "Ueditor",
         attrs: { value: _vm.content, options: _vm.option },
-        on: { input: _vm.handleInput, blur: _vm.onEditorBlur }
+        on: { input: _vm.handleInput }
       })
     ],
     1
@@ -97082,11 +97082,11 @@ var render = function() {
                 [
                   _c("Editor", {
                     model: {
-                      value: _vm.Case.content,
+                      value: _vm.content,
                       callback: function($$v) {
-                        _vm.$set(_vm.Case, "content", $$v)
+                        _vm.content = $$v
                       },
-                      expression: "Case.content"
+                      expression: "content"
                     }
                   })
                 ],

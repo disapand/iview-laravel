@@ -12,8 +12,7 @@
                 :value="content"
                 :options="option"
                 ref="Ueditor"
-                @input="handleInput"
-                @blur="onEditorBlur">
+                @input="handleInput">
         </quill-editor>
     </div>
 </template>
@@ -73,9 +72,6 @@
             }
         },
         methods: {
-            onEditorBlur(event) {
-                this.$emit('on-blur', '')
-            },
             uploadSuccess(res, file) {
 
             },

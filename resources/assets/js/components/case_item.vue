@@ -32,9 +32,8 @@
                 </form-item>
 
                 <form-item label="案例内容" prop="content">
-                    <Editor v-model="Case.content"></Editor>
+                    <Editor v-model="content"></Editor>
                 </form-item>
-
             </Card>
 
             <!--
@@ -98,6 +97,7 @@
                 edit: '编辑资源',
                 canDel: true,
                 spinShow: true,
+                content: '',
                 Case: {
                     id: '',
                     title:'',
@@ -117,7 +117,7 @@
                     content:[
                         {required: true, message: '请输入内容', trigger: 'blur'}
                     ]
-                }
+                },
             }
         },
         created() {
@@ -142,6 +142,9 @@
             *   返回上一页的方法
             * */
             back() {
+                this.content = '411354123';
+                alert(this.content)
+                return false;
                 this.$router.go(-1)
             },
             deleteImg(id) {
@@ -248,6 +251,7 @@
             updateCase() {
                 this.$refs['Case'].validate((valid) => {
                     if (valid) {
+                        this.Case.content = this.content
                         this.$ajax.post('http://iview-laravel.test/api/case', this.Case).then((response) => {
                             console.log(response.data)
                             this.$Message.info('资源编辑成功')
