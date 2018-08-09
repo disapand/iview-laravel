@@ -12,6 +12,7 @@
                 :value="content"
                 :options="option"
                 ref="Ueditor"
+                @blur="handleBlur"
                 @input="handleInput">
         </quill-editor>
     </div>
@@ -32,7 +33,6 @@
         [{'header': [1, 2, 3, 4, 5, 6, false]}],
 
         [{'color': []}, {'background': []}],          // dropdown with defaults from theme
-        [{'font': []}],
         [{'align': []}],
         ['image',],
         ['clean']                                         // remove formatting button
@@ -59,11 +59,10 @@
                             handlers: {
                                 'image': function (value) {
                                     if (value) {
-                                        alert(1)
-                                        document.querySelector('.ivu-upload input').click();
+                                        document.querySelector('.uploader input').click();
                                     } else {
-                                        this.quill.format('image', false)
-                                    }
+                                        this.quill.format('image', )
+                                    }false
                                 }
                             }
                         }
@@ -79,8 +78,20 @@
                 this.$Message.error('图片上传出错')
                 console.log(res)
             },
+            handleBlur(event){
+                this.$emit('blur', event)
+            },
             handleInput(event) {
                 this.$emit('input', event)
+                this.setContent(event)
+            },
+            setContent(value) {
+                this.content = value
+            }
+        },
+        watch: {
+            value(val) {
+                this.setContent(val)
             }
         }
     }

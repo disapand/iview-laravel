@@ -88,6 +88,10 @@ $api->version('v1', [
     $api->get('case', 'CaseController@index')->name('api.case.index');
     $api->post('case', 'CaseController@store')->name('api.case.store');
     $api->get('case/{caseResource}', 'CaseController@show')->name('api.case.show');
+    $api->delete('case/{caseResource}', 'CaseController@destroy')->name('api.case.destroy');
+    $api->post('caseImg', 'CaseImgsController@store')->name('api.caseImg.store');
+    $api->delete('caseImg/{img}', 'CaseImgsController@destroy')->name('api.caseImg.destroy');
+    $api->post('caseImgUpdate', 'CaseImgsController@update')->name('api.caseImg.update');
 });
 
 $api->version('v2', function ($api) {

@@ -96133,13 +96133,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'align': 'center'
             }, {
                 'title': '标题',
-                'key': 'title'
+                'key': 'title',
+                'width': 800
             }, {
                 'title': '分类',
                 'key': 'category'
-            }, {
-                'title': '内容',
-                'key': 'content'
             }, {
                 'title': '操作',
                 'key': 'action',
@@ -96163,7 +96161,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }, '查看详情'), h('poptip', {
                         props: {
                             confirm: true,
-                            title: '确认删除这条资源吗？'
+                            title: '确认删除这条资源吗？',
+                            transfer: true
                         },
                         on: {
                             'on-ok': function onOk() {
@@ -96205,6 +96204,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         show: function show(row, index) {
             this.$router.push({ 'name': 'case_item', params: { id: row.id } });
+        },
+        remove: function remove(row, index) {
+            var _this3 = this;
+
+            this.$ajax.delete('http://iview-laravel.test/api/case/' + row.id).then(function (response) {
+                _this3.$Message.info('删除资源成功');
+                _this3.Case.splice(index, 1);
+                _this3.total = response.data.meta.pagination.total;
+                if (response.data.meta.pagination.total_pages == 1) {
+                    _this3.cansee = true;
+                }
+            }).catch(function (error) {
+                _this3.$Message.error('删除资源出错');
+                console.log('删除资源出错', error);
+            });
+        },
+        changePage: function changePage(index) {
+            var _this4 = this;
+
+            this.currentPage = index;
+            this.$ajax.get('http://iview-laravel.test/api/case?page=' + index).then(function (response) {
+                console.log('换页', response);
+                _this4.Case = response.data.data;
+                _this4.loading = false;
+            }).catch(function (error) {
+                console.log('换页出错', error);
+            });
+        },
+        searchCase: function searchCase() {
+            var _this5 = this;
+
+            if (this.search == '') {
+                this.$Message.error('请输入查询条件');
+                return false;
+            }
+            this.$ajax.get('http://iview-laravel.test/api/newspaper/' + this.condition + '/' + this.search).then(function (response) {
+                _this5.Case = response.data.data;
+                _this5.total = response.data.data.length;
+                _this5.cansee = false;
+                console.log('搜索', response);
+            }).catch(function (error) {
+                console.log('搜索出错', error);
+            });
+        },
+        importSuccess: function importSuccess(response, file, fileList) {
+            console.log('批量导入', response);
+            this.Case = response.data;
+            this.isImport = false;
+            this.$Message.info('导入完成');
+            this.total = response.meta.pagination.total;
+            if (this.total / this.pageSize > 1) {
+                this.cansee = true;
+            }
         }
     }
 });
@@ -96404,7 +96456,7 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(130)
+  __webpack_require__(161)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
@@ -96449,46 +96501,8 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 130 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(131);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(2)("118b7436", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-608ed48a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./case_item.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-608ed48a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./case_item.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 131 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 130 */,
+/* 131 */,
 /* 132 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -96637,7 +96651,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   返回上一页的方法
         * */
         back: function back() {
-            this.content = '411354123';
             alert(this.content);
             return false;
             this.$router.go(-1);
@@ -96652,12 +96665,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                 * */
                 onOk: function onOk() {
-                    _this2.$ajax.delete('http://iview-laravel.test/api/internetImg/' + id).then(function (response) {
+                    _this2.$ajax.delete('http://iview-laravel.test/api/caseImg/' + id).then(function (response) {
                         _this2.$Message.info('图片删除完成');
                         if (response.data.data) {
-                            _this2.internet.Imgs.data = response.data.data;
+                            _this2.Case.Imgs.data = response.data.data;
                         } else {
-                            _this2.internet.Imgs.data = [];
+                            _this2.Case.Imgs.data = [];
                         }
                     }).catch(function (error) {
                         console.log('删除图片出错：', error);
@@ -96680,7 +96693,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 render: function render(h) {
                     return h('div', [h('upload', {
                         props: {
-                            action: 'http://iview-laravel.test/api/internetImgUpdate',
+                            action: 'http://iview-laravel.test/api/caseImgUpdate',
                             type: 'drag',
                             name: 'img',
                             data: _this3.img,
@@ -96713,7 +96726,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         * */
         imgSuccess: function imgSuccess(response, file, fileList) {
             this.$Message.info('图片上传成功');
-            this.internet.Imgs.data.push(response);
+            this.Case.Imgs.data.push(response);
             console.log(response);
         },
 
@@ -96722,7 +96735,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         * */
         imgUpdateSuccess: function imgUpdateSuccess(response, file, fileList) {
             this.$Message.info('图片上传成功');
-            this.internet.Imgs.data.forEach(function (item) {
+            this.Case.Imgs.data.forEach(function (item) {
                 if (item.id == response.id) {
                     item.url = response.url;
                 }
@@ -96750,7 +96763,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['Case'].validate(function (valid) {
                 if (valid) {
-                    _this4.Case.content = _this4.content;
                     _this4.$ajax.post('http://iview-laravel.test/api/case', _this4.Case).then(function (response) {
                         console.log(response.data);
                         _this4.$Message.info('资源编辑成功');
@@ -96761,6 +96773,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 } else {
                     _this4.$Message.warning('请填写必须信息');
                 }
+            });
+        },
+
+        /*
+        *   根据当前电视的id删除电视资源，删除完成后返回上一页
+        * */
+        deleteCase: function deleteCase(id) {
+            var _this5 = this;
+
+            this.$ajax.delete('http://iview-laravel.test/api/case/' + id).then(function (response) {
+                _this5.$Message.info('删除资源成功');
+                _this5.$router.go(-1);
+            }).catch(function (error) {
+                _this5.$Message.info('删除资源出错');
+                console.log('删除资源出错', error);
             });
         }
     }
@@ -96852,7 +96879,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -96882,6 +96909,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled buttons
 ['blockquote', 'code-block'], [{ 'header': 1 }, { 'header': 2 }], // custom button values
@@ -96891,7 +96919,7 @@ var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled butt
 
 [{ 'size': ['small', false, 'large', 'huge'] }], // custom dropdown
 [{ 'header': [1, 2, 3, 4, 5, 6, false] }], [{ 'color': [] }, { 'background': [] }], // dropdown with defaults from theme
-[{ 'font': [] }], [{ 'align': [] }], ['image'], ['clean'] // remove formatting button
+[{ 'align': [] }], ['image'], ['clean'] // remove formatting button
 ];
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -96915,11 +96943,10 @@ var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled butt
                         handlers: {
                             'image': function image(value) {
                                 if (value) {
-                                    alert(1);
-                                    document.querySelector('.ivu-upload input').click();
+                                    document.querySelector('.uploader input').click();
                                 } else {
-                                    this.quill.format('image', false);
-                                }
+                                    this.quill.format('image');
+                                }false;
                             }
                         }
                     }
@@ -96934,8 +96961,20 @@ var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled butt
             this.$Message.error('图片上传出错');
             console.log(res);
         },
+        handleBlur: function handleBlur(event) {
+            this.$emit('blur', event);
+        },
         handleInput: function handleInput(event) {
             this.$emit('input', event);
+            this.setContent(event);
+        },
+        setContent: function setContent(value) {
+            this.content = value;
+        }
+    },
+    watch: {
+        value: function value(val) {
+            this.setContent(val);
         }
     }
 });
@@ -96965,7 +97004,7 @@ var render = function() {
       _c("quill-editor", {
         ref: "Ueditor",
         attrs: { value: _vm.content, options: _vm.option },
-        on: { input: _vm.handleInput }
+        on: { blur: _vm.handleBlur, input: _vm.handleInput }
       })
     ],
     1
@@ -97082,11 +97121,11 @@ var render = function() {
                 [
                   _c("Editor", {
                     model: {
-                      value: _vm.content,
+                      value: _vm.Case.content,
                       callback: function($$v) {
-                        _vm.content = $$v
+                        _vm.$set(_vm.Case, "content", $$v)
                       },
-                      expression: "content"
+                      expression: "Case.content"
                     }
                   })
                 ],
@@ -97102,9 +97141,7 @@ var render = function() {
               staticStyle: {
                 width: "400px",
                 display: "inline-block",
-                position: "absolute",
-                top: "112px",
-                left: "1450px"
+                position: "absolute"
               }
             },
             [
@@ -97128,7 +97165,7 @@ var render = function() {
                         multiple: "",
                         type: "drag",
                         name: "img",
-                        action: "http://iview-laravel.test/api/CaseImg",
+                        action: "http://iview-laravel.test/api/caseImg",
                         "on-success": _vm.imgSuccess,
                         "on-error": _vm.imgError,
                         data: _vm.Case,
@@ -97221,6 +97258,11 @@ var render = function() {
                         confirm: "",
                         transfer: "",
                         title: "您确定要删除该资源吗？删除后不可恢复"
+                      },
+                      on: {
+                        "on-ok": function($event) {
+                          _vm.deleteCase(_vm.Case.id)
+                        }
                       }
                     },
                     [
@@ -111033,6 +111075,52 @@ exports.push([module.i, "/*!\n * Quill Editor v1.3.6\n * https://quilljs.com/\n 
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(162);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("44b3434b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-608ed48a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./case_item.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-608ed48a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./case_item.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 162 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.spin-container[data-v-608ed48a] {\n  position: relative;\n}\n.img-list[data-v-608ed48a] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-608ed48a] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-608ed48a] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-608ed48a] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-608ed48a] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-608ed48a] {\n  margin: 3px 0;\n}\n.customPop[data-v-608ed48a] {\n  text-align: left;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

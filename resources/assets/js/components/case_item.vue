@@ -32,7 +32,7 @@
                 </form-item>
 
                 <form-item label="案例内容" prop="content">
-                    <Editor v-model="content"></Editor>
+                    <Editor v-model="Case.content"></Editor>
                 </form-item>
             </Card>
 
@@ -41,7 +41,7 @@
             -   图片编辑部分
             -
             --->
-            <Card style="width: 400px; display: inline-block; position: absolute; top: 112px; left: 1450px">
+            <Card style="width: 400px; display: inline-block; position: absolute;">
                 <p slot="title">
                     <Icon type="image"></Icon>
                     图片信息
@@ -50,7 +50,7 @@
                 <form-item>
                     <upload multiple type="drag"
                             name="img"
-                            action="http://iview-laravel.test/api/CaseImg"
+                            action="http://iview-laravel.test/api/caseImg"
                             :on-success="imgSuccess"
                             :on-error="imgError"
                             :data="Case"
@@ -77,7 +77,7 @@
             <div style="margin: 30px;text-align: center">
                 <i-button icon="ios-arrow-back" @click="back">返回资源列表</i-button>
                 <i-button icon="ios-checkmark-empty" type="success" @click="updateCase">{{ edit }}</i-button>
-                <poptip confirm v-if="canDel" transfer title="您确定要删除该资源吗？删除后不可恢复">
+                <poptip confirm v-if="canDel" transfer title="您确定要删除该资源吗？删除后不可恢复" @on-ok="deleteCase(Case.id)">
                     <i-button icon="ios-trash" type="error">删除资源</i-button>
                 </poptip>
             </div>
@@ -142,7 +142,6 @@
             *   返回上一页的方法
             * */
             back() {
-                this.content = '411354123';
                 alert(this.content)
                 return false;
                 this.$router.go(-1)
@@ -155,12 +154,12 @@
                     *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                     * */
                     onOk: () => {
-                        this.$ajax.delete('http://iview-laravel.test/api/internetImg/' + id).then((response) => {
+                        this.$ajax.delete('http://iview-laravel.test/api/caseImg/' + id).then((response) => {
                             this.$Message.info('图片删除完成')
                             if (response.data.data) {
-                                this.internet.Imgs.data = response.data.data
+                                this.Case.Imgs.data = response.data.data
                             } else {
-                                this.internet.Imgs.data = []
+                                this.Case.Imgs.data = []
                             }
                         }).catch((error) => {
                             console.log('删除图片出错：', error)
@@ -181,7 +180,7 @@
                         return h('div', [
                             h('upload', {
                                 props: {
-                                    action: 'http://iview-laravel.test/api/internetImgUpdate',
+                                    action: 'http://iview-laravel.test/api/caseImgUpdate',
                                     type: 'drag',
                                     name: 'img',
                                     data: this.img,
@@ -219,7 +218,7 @@
             * */
             imgSuccess(response, file, fileList) {
                 this.$Message.info('图片上传成功');
-                this.internet.Imgs.data.push(response)
+                this.Case.Imgs.data.push(response)
                 console.log(response)
             },
             /*
@@ -227,7 +226,7 @@
             * */
             imgUpdateSuccess(response, file, fileList) {
                 this.$Message.info('图片上传成功');
-                this.internet.Imgs.data.forEach(function (item) {
+                this.Case.Imgs.data.forEach(function (item) {
                     if (item.id == response.id) {
                         item.url = response.url
                     }
@@ -251,7 +250,6 @@
             updateCase() {
                 this.$refs['Case'].validate((valid) => {
                     if (valid) {
-                        this.Case.content = this.content
                         this.$ajax.post('http://iview-laravel.test/api/case', this.Case).then((response) => {
                             console.log(response.data)
                             this.$Message.info('资源编辑成功')
@@ -263,11 +261,77 @@
                         this.$Message.warning('请填写必须信息')
                     }
                 })
-            }
+            },
+            /*
+           *   根据当前电视的id删除电视资源，删除完成后返回上一页
+           * */
+            deleteCase(id) {
+                this.$ajax.delete('http://iview-laravel.test/api/case/' + id).then((response) => {
+                    this.$Message.info('删除资源成功')
+                    this.$router.go(-1)
+                }).catch((error) => {
+                    this.$Message.info('删除资源出错')
+                    console.log('删除资源出错', error)
+                })
+            },
         }
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    .spin-container {
+        position: relative;
+    }
+
+    .img-list {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        width: 360px;
+        height: 240px;
+        line-height: 240px;
+        vertical-align: middle;
+        border-radius: 5px;
+        border: 1px rgba(0, 0, 0, .1) dashed;
+        overflow: hidden;
+
+        img {
+            max-width: 100%;
+        }
+    }
+
+    .img-list-cover {
+        display: none;
+        position: absolute;
+        height: 240px;
+        line-height: 240px;
+        vertical-align: middle;
+        background: rgba(0, 0, 0, .6);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .img-list:hover .img-list-cover {
+        display: inline-block;
+    }
+
+    .img-list-cover .ivu-icon {
+        font-size: 3em;
+        margin-left: 25px;
+        color: #fff;
+        margin-top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+
+    .ivu-radio-group-button .ivu-radio-wrapper {
+        margin: 3px 0;
+    }
+
+    .customPop {
+        text-align: left;
+    }
 
 </style>

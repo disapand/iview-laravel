@@ -61,14 +61,11 @@
                     {
                         'title': '标题',
                         'key': 'title',
+                        'width': 800
                     },
                     {
                         'title': '分类',
                         'key': 'category'
-                    },
-                    {
-                        'title': '内容',
-                        'key': 'content'
                     },
                     {
                         'title': '操作',
@@ -96,6 +93,7 @@
                                     props: {
                                         confirm: true,
                                         title: '确认删除这条资源吗？',
+                                        transfer: true
                                     },
                                     on: {
                                         'on-ok': () => {
@@ -139,6 +137,53 @@
             show(row, index) {
                 this.$router.push({'name': 'case_item', params: {id: row.id}})
             },
+            remove(row, index) {
+                this.$ajax.delete('http://iview-laravel.test/api/case/' + row.id).then((response) => {
+                    this.$Message.info('删除资源成功')
+                    this.Case.splice(index, 1)
+                    this.total = response.data.meta.pagination.total
+                    if (response.data.meta.pagination.total_pages == 1) {
+                        this.cansee = true
+                    }
+                }).catch((error) => {
+                    this.$Message.error('删除资源出错')
+                    console.log('删除资源出错', error)
+                })
+            },
+            changePage(index) {
+                this.currentPage = index
+                this.$ajax.get('http://iview-laravel.test/api/case?page=' + index).then((response) => {
+                    console.log('换页', response);
+                    this.Case = response.data.data
+                    this.loading = false
+                }).catch((error) => {
+                    console.log('换页出错', error);
+                })
+            },
+            searchCase() {
+                if (this.search == '') {
+                    this.$Message.error('请输入查询条件')
+                    return false
+                }
+                this.$ajax.get('http://iview-laravel.test/api/newspaper/' + this.condition + '/' + this.search).then((response) => {
+                    this.Case = response.data.data
+                    this.total = response.data.data.length
+                    this.cansee = false
+                    console.log('搜索', response)
+                }).catch((error) => {
+                    console.log('搜索出错', error);
+                })
+            },
+            importSuccess(response, file, fileList) {
+                console.log('批量导入', response)
+                this.Case = response.data
+                this.isImport = false
+                this.$Message.info('导入完成');
+                this.total = response.meta.pagination.total
+                if (this.total / this.pageSize > 1) {
+                    this.cansee = true
+                }
+            }
         }
     }
 </script>
