@@ -108,4 +108,9 @@ class CaseController extends Controller
             return $e;
         }
     }
+
+    public function query($condition, $query) {
+        $cases = CaseResource::where($condition, 'like', "%$query%")->orderBy('id', 'desc')->paginate(15);
+        return $this->response->paginator($cases, new CaseResourceTransformer());
+    }
 }

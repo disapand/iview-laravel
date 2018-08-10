@@ -15,6 +15,10 @@ import internet from '../components/internet.vue'
 import internet_item from '../components/internet_item.vue'
 import Case from '../components/case.vue';
 import Case_item from '../components/case_item.vue';
+import insight from '../components/insight.vue';
+import insight_item from '../components/insight_item.vue';
+import dynamic from '../components/dynamic.vue';
+import dynamic_item from '../components/dynamic_item.vue';
 
 Vue.use(vueRouter);
 
@@ -107,6 +111,30 @@ const routes = [
                 name: 'case_item',
                 meta: {title: '案例详情'},
                 component: Case_item,
+            },
+            {
+                path: 'insight',
+                name: 'insight',
+                meta: {title: '洞察管理'},
+                component: insight,
+            },
+            {
+                path: 'insight_item/:id?',
+                name: 'insight_item',
+                meta: {title: '洞察详情'},
+                component: insight_item,
+            },
+            {
+                path: 'dynamic',
+                name: 'dynamic',
+                meta: {title: '动态管理'},
+                component: dynamic,
+            },
+            {
+                path: 'dynamic_item/:id?',
+                name: 'dynamic_item',
+                meta: {title: '动态详情'},
+                component: dynamic_item,
             },
         ]
     },

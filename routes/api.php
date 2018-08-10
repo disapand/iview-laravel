@@ -88,10 +88,23 @@ $api->version('v1', [
     $api->get('case', 'CaseController@index')->name('api.case.index');
     $api->post('case', 'CaseController@store')->name('api.case.store');
     $api->get('case/{caseResource}', 'CaseController@show')->name('api.case.show');
+    $api->get('case/{condition}/{query}', 'CaseController@query')->name('api.case.query');
     $api->delete('case/{caseResource}', 'CaseController@destroy')->name('api.case.destroy');
     $api->post('caseImg', 'CaseImgsController@store')->name('api.caseImg.store');
     $api->delete('caseImg/{img}', 'CaseImgsController@destroy')->name('api.caseImg.destroy');
     $api->post('caseImgUpdate', 'CaseImgsController@update')->name('api.caseImg.update');
+
+    $api->get('insight', 'insightController@index')->name('api.insight.index');
+    $api->post('insight', 'insightController@store')->name('api.insight.store');
+    $api->get('insight/{insight}', 'insightController@show')->name('api.insight.show');
+    $api->get('insight/{condition}/{query}', 'insightController@query')->name('api.insight.query');
+    $api->delete('insight/{insight}', 'insightController@destroy')->name('api.insight.destroy');
+
+    $api->get('dynamic', 'dynamicController@index')->name('api.dynamic.index');
+    $api->get('dynamic/{dynamic}', 'dynamicController@show')->name('api.dynamic.show');
+    $api->delete('dynamic/{dynamic}', 'dynamicController@destroy')->name('api.dynamic.destroy');
+
+    $api->post('otherImg', 'ImgsController@store')->name('api.img.store');
 });
 
 $api->version('v2', function ($api) {

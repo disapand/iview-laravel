@@ -251,3 +251,25 @@ $factory->define(App\Models\CaseResource::class, function (Faker\Generator $fake
     ];
 });
 
+$factory->define(App\Models\dynamic::class, function (Faker\Generator $faker) {
+    return [
+        'tag' => $faker->word,
+        'title' => $faker->word,
+        'content' => $faker->text,
+    ];
+});
+
+$factory->define(App\Models\Img::class, function (Faker\Generator $faker) {
+    return [
+        'url' => $faker->url,
+    ];
+});
+
+$factory->define(App\Models\insight::class, function (Faker\Generator $faker) {
+    return [
+        'category' => $faker->word,
+        'title' => $faker->word,
+        'content' => $faker->text,
+    ];
+});
+

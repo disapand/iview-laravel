@@ -45,7 +45,7 @@
             },
             serverUrl: {
                 type: String,
-                default: '',
+                default: 'http://iview-laravel.test/api/otherImg',
             }
         },
         data() {
@@ -72,7 +72,15 @@
         },
         methods: {
             uploadSuccess(res, file) {
-
+                let quill = this.$refs.Ueditor.quill;
+                if (res['path'] ) {
+                    let len = quill.getSelection().index
+                    quill.insertEmbed(len, 'image', res['path'])
+                    quill.setSelection(len + 1)
+                } else {
+                    console.log(res)
+                    this.$Message.error('图片插入失败');
+                }
             },
             uploadError(res, file) {
                 this.$Message.error('图片上传出错')

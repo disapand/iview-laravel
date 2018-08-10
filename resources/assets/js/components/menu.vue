@@ -131,6 +131,13 @@
                     case '2':
                         this.$router.push('/case');
                         break;
+                    case '3':
+                        this.$router.push('/insight');
+                        break;
+                    case '4':
+                        this.$router.push('/dynamic');
+                        break;
+
                 }
 
 

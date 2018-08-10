@@ -82418,6 +82418,18 @@ module.exports = function (css) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_case_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__components_case_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_case_item_vue__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_case_item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__components_case_item_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_insight_vue__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_insight_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__components_insight_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_insight_item_vue__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_insight_item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__components_insight_item_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_dynamic_vue__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_dynamic_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__components_dynamic_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_dynamic_item_vue__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_dynamic_item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__components_dynamic_item_vue__);
+
+
+
+
 
 
 
@@ -82512,6 +82524,26 @@ var routes = [{
         name: 'case_item',
         meta: { title: '案例详情' },
         component: __WEBPACK_IMPORTED_MODULE_16__components_case_item_vue___default.a
+    }, {
+        path: 'insight',
+        name: 'insight',
+        meta: { title: '洞察管理' },
+        component: __WEBPACK_IMPORTED_MODULE_17__components_insight_vue___default.a
+    }, {
+        path: 'insight_item/:id?',
+        name: 'insight_item',
+        meta: { title: '洞察详情' },
+        component: __WEBPACK_IMPORTED_MODULE_18__components_insight_item_vue___default.a
+    }, {
+        path: 'dynamic',
+        name: 'dynamic',
+        meta: { title: '动态管理' },
+        component: __WEBPACK_IMPORTED_MODULE_19__components_dynamic_vue___default.a
+    }, {
+        path: 'dynamic_item/:id?',
+        name: 'dynamic_item',
+        meta: { title: '动态详情' },
+        component: __WEBPACK_IMPORTED_MODULE_20__components_dynamic_item_vue___default.a
     }]
 }];
 
@@ -85414,6 +85446,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 case '2':
                     this.$router.push('/case');
                     break;
+                case '3':
+                    this.$router.push('/insight');
+                    break;
+                case '4':
+                    this.$router.push('/dynamic');
+                    break;
+
             }
         }
     }
@@ -96096,20 +96135,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -96122,7 +96147,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             pageSize: 15,
             cansee: false,
             pageClass: 'page',
-            condition: 'form',
+            condition: 'title',
             search: '',
             isImport: false,
             col: [{
@@ -96239,7 +96264,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$Message.error('请输入查询条件');
                 return false;
             }
-            this.$ajax.get('http://iview-laravel.test/api/newspaper/' + this.condition + '/' + this.search).then(function (response) {
+            this.$ajax.get('http://iview-laravel.test/api/case/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.Case = response.data.data;
                 _this5.total = response.data.data.length;
                 _this5.cansee = false;
@@ -96289,13 +96314,9 @@ var render = function() {
               }
             },
             [
-              _c("i-option", { attrs: { value: "form", label: "形式" } }),
+              _c("i-option", { attrs: { value: "title", label: "标题" } }),
               _vm._v(" "),
-              _c("i-option", { attrs: { value: "category", label: "类别" } }),
-              _vm._v(" "),
-              _c("i-option", {
-                attrs: { value: "country", label: "国家或地区" }
-              })
+              _c("i-option", { attrs: { value: "category", label: "类别" } })
             ],
             1
           ),
@@ -96333,62 +96354,6 @@ var render = function() {
                   on: { click: _vm.addCaseItem }
                 },
                 [_vm._v("添加资源")]
-              ),
-              _vm._v(" "),
-              _c(
-                "i-button",
-                {
-                  attrs: { type: "warning", icon: "ios-upload" },
-                  on: {
-                    click: function($event) {
-                      _vm.isImport = true
-                    }
-                  }
-                },
-                [_vm._v("批量导入资源")]
-              ),
-              _vm._v(" "),
-              _c(
-                "Modal",
-                {
-                  attrs: { title: "选择上传的excel文件", okText: "完成" },
-                  model: {
-                    value: _vm.isImport,
-                    callback: function($$v) {
-                      _vm.isImport = $$v
-                    },
-                    expression: "isImport"
-                  }
-                },
-                [
-                  _c(
-                    "Upload",
-                    {
-                      attrs: {
-                        type: "drag",
-                        action: "http://iview-laravel.test/api/importCase",
-                        "on-success": _vm.importSuccess,
-                        name: "excel"
-                      }
-                    },
-                    [
-                      _c(
-                        "div",
-                        { staticStyle: { padding: "20px 0" } },
-                        [
-                          _c("Icon", {
-                            staticStyle: { color: "#3399ff" },
-                            attrs: { type: "ios-cloud-upload", size: "52" }
-                          }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("拖拽文件到此或者点击文件上传")])
-                        ],
-                        1
-                      )
-                    ]
-                  )
-                ],
-                1
               )
             ],
             1
@@ -96879,7 +96844,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -96929,7 +96894,7 @@ var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled butt
         },
         serverUrl: {
             type: String,
-            default: ''
+            default: 'http://iview-laravel.test/api/otherImg'
         }
     },
     data: function data() {
@@ -96956,7 +96921,17 @@ var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled butt
     },
 
     methods: {
-        uploadSuccess: function uploadSuccess(res, file) {},
+        uploadSuccess: function uploadSuccess(res, file) {
+            var quill = this.$refs.Ueditor.quill;
+            if (res['path']) {
+                var len = quill.getSelection().index;
+                quill.insertEmbed(len, 'image', res['path']);
+                quill.setSelection(len + 1);
+            } else {
+                console.log(res);
+                this.$Message.error('图片插入失败');
+            }
+        },
         uploadError: function uploadError(res, file) {
             this.$Message.error('图片上传出错');
             console.log(res);
@@ -111121,6 +111096,1919 @@ exports.push([module.i, "\n.spin-container[data-v-608ed48a] {\n  position: relat
 
 // exports
 
+
+/***/ }),
+/* 163 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(164)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(166)
+/* template */
+var __vue_template__ = __webpack_require__(167)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-1df623d1"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/insight.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1df623d1", Component.options)
+  } else {
+    hotAPI.reload("data-v-1df623d1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 164 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(165);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("860a05f6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1df623d1\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./insight.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1df623d1\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./insight.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 165 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.page[data-v-1df623d1] {\n    margin: 10px 0;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 166 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        var _this = this;
+
+        return {
+            loading: true,
+            total: 0,
+            currentPage: 1,
+            pageSize: 15,
+            cansee: false,
+            pageClass: 'page',
+            condition: 'title',
+            search: '',
+            isImport: false,
+            col: [{
+                'title': '编号',
+                'key': 'id',
+                'width': 80,
+                'sortable': true,
+                'align': 'center'
+            }, {
+                'title': '标题',
+                'key': 'title',
+                'width': 800
+            }, {
+                'title': '分类',
+                'key': 'category'
+            }, {
+                'title': '操作',
+                'key': 'action',
+                'width': 200,
+                'align': 'center',
+                render: function render(h, params) {
+                    return h('div', [h('i-button', {
+                        props: {
+                            type: 'primary',
+                            size: 'small'
+                        },
+                        style: {
+                            marginRight: '8px'
+                        },
+                        on: {
+                            click: function click() {
+                                event.stopPropagation();
+                                _this.show(params.row, params.index);
+                            }
+                        }
+                    }, '查看详情'), h('poptip', {
+                        props: {
+                            confirm: true,
+                            title: '确认删除这条资源吗？',
+                            transfer: true
+                        },
+                        on: {
+                            'on-ok': function onOk() {
+                                event.stopPropagation();
+                                _this.remove(params.row, params.index);
+                            }
+                        }
+                    }, [h('i-button', {
+                        props: {
+                            type: 'error',
+                            size: 'small'
+                        }
+                    }, '删除资源')])]);
+                }
+            }],
+            insight: []
+        };
+    },
+    created: function created() {
+        var _this2 = this;
+
+        this.$ajax.get('http://iview-laravel.test/api/insight').then(function (response) {
+            console.log('拉取资源列表', response);
+            _this2.insight = response.data.data;
+            _this2.loading = false;
+            _this2.total = response.data.meta.pagination.total;
+            if (response.data.meta.pagination.total_pages > 1) {
+                _this2.cansee = true;
+            }
+        }).catch(function (error) {
+            _this2.$Message.error('资源列表加载出错，请稍后重试');
+            console.log('资源列表加载出错:', error);
+        });
+    },
+
+    methods: {
+        addInsightItem: function addInsightItem() {
+            this.$router.push('insight_item');
+        },
+        show: function show(row, index) {
+            this.$router.push({ 'name': 'insight_item', params: { id: row.id } });
+        },
+        remove: function remove(row, index) {
+            var _this3 = this;
+
+            this.$ajax.delete('http://iview-laravel.test/api/insight/' + row.id).then(function (response) {
+                _this3.$Message.info('删除资源成功');
+                _this3.insight.splice(index, 1);
+                _this3.total = response.data.meta.pagination.total;
+                if (response.data.meta.pagination.total_pages == 1) {
+                    _this3.cansee = true;
+                }
+            }).catch(function (error) {
+                _this3.$Message.error('删除资源出错');
+                console.log('删除资源出错', error);
+            });
+        },
+        changePage: function changePage(index) {
+            var _this4 = this;
+
+            this.currentPage = index;
+            this.$ajax.get('http://iview-laravel.test/api/insight?page=' + index).then(function (response) {
+                console.log('换页', response);
+                _this4.insight = response.data.data;
+                _this4.loading = false;
+            }).catch(function (error) {
+                console.log('换页出错', error);
+            });
+        },
+        searchInsight: function searchInsight() {
+            var _this5 = this;
+
+            if (this.search == '') {
+                this.$Message.error('请输入查询条件');
+                return false;
+            }
+            this.$ajax.get('http://iview-laravel.test/api/insight/' + this.condition + '/' + this.search).then(function (response) {
+                _this5.insight = response.data.data;
+                _this5.total = response.data.data.length;
+                _this5.cansee = false;
+                console.log('搜索', response);
+            }).catch(function (error) {
+                console.log('搜索出错', error);
+            });
+        },
+        importSuccess: function importSuccess(response, file, fileList) {
+            console.log('批量导入', response);
+            this.insight = response.data;
+            this.isImport = false;
+            this.$Message.info('导入完成');
+            this.total = response.meta.pagination.total;
+            if (this.total / this.pageSize > 1) {
+                this.cansee = true;
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 167 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        { staticStyle: { margin: "30px 0" } },
+        [
+          _c(
+            "i-select",
+            {
+              staticStyle: { width: "100px" },
+              model: {
+                value: _vm.condition,
+                callback: function($$v) {
+                  _vm.condition = $$v
+                },
+                expression: "condition"
+              }
+            },
+            [
+              _c("i-option", { attrs: { value: "title", label: "标题" } }),
+              _vm._v(" "),
+              _c("i-option", { attrs: { value: "category", label: "类别" } })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("i-input", {
+            staticStyle: { width: "50%" },
+            attrs: {
+              placeholder: "请输入关键词",
+              autofocus: "",
+              clearable: ""
+            },
+            on: { "on-enter": _vm.searchInsight },
+            model: {
+              value: _vm.search,
+              callback: function($$v) {
+                _vm.search = $$v
+              },
+              expression: "search"
+            }
+          }),
+          _vm._v(" "),
+          _c("Button", {
+            attrs: { type: "ghost", shape: "circle", icon: "search" },
+            on: { click: _vm.searchInsight }
+          }),
+          _vm._v(" "),
+          _c(
+            "button-group",
+            { staticStyle: { float: "right" } },
+            [
+              _c(
+                "i-button",
+                {
+                  attrs: { type: "success", icon: "android-add-circle" },
+                  on: { click: _vm.addInsightItem }
+                },
+                [_vm._v("添加资源")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _c("i-table", {
+            attrs: {
+              border: "",
+              columns: _vm.col,
+              data: _vm.insight,
+              stripe: "",
+              "highlight-row": false,
+              loading: _vm.loading
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.cansee
+        ? _c("page", {
+            attrs: {
+              total: _vm.total,
+              "show-total": "",
+              current: _vm.currentPage,
+              "page-size": _vm.pageSize,
+              "class-name": _vm.pageClass,
+              "show-elevator": ""
+            },
+            on: { "on-change": _vm.changePage }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.cansee
+        ? _c(
+            "span",
+            { staticStyle: { "margin-top": "15px", display: "block" } },
+            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1df623d1", module.exports)
+  }
+}
+
+/***/ }),
+/* 168 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(169)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(171)
+/* template */
+var __vue_template__ = __webpack_require__(172)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-35e707f1"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/insight_item.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-35e707f1", Component.options)
+  } else {
+    hotAPI.reload("data-v-35e707f1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 169 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(170);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("25fdfa8a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35e707f1\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./insight_item.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35e707f1\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./insight_item.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 170 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.spin-container[data-v-35e707f1] {\n  position: relative;\n}\n.img-list[data-v-35e707f1] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-35e707f1] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-35e707f1] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-35e707f1] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-35e707f1] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-35e707f1] {\n  margin: 3px 0;\n}\n.customPop[data-v-35e707f1] {\n  text-align: left;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 171 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__editor__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: { Editor: __WEBPACK_IMPORTED_MODULE_0__editor___default.a },
+    data: function data() {
+        return {
+            edit: '编辑资源',
+            canDel: true,
+            spinShow: true,
+            content: '',
+            insight: {
+                id: '',
+                title: '',
+                category: '',
+                content: ''
+            },
+            insightRules: {
+                title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
+                category: [{ required: true, message: '请选择分类', trigger: 'change' }],
+                content: [{ required: true, message: '请输入内容', trigger: 'blur' }]
+            }
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        if (this.$route.params.id) {
+            this.$ajax.get('http://iview-laravel.test/api/insight/' + this.$route.params.id + '?include=Imgs').then(function (response) {
+                console.log('获取资源', response);
+                _this.insight = response.data;
+                _this.spinShow = false;
+                _this.edit = '提交修改';
+            }).catch(function (error) {
+                _this.$Message.error('资源未找到');
+                console.log('编辑资源出错', error);
+            });
+        } else {
+            this.spinShow = false;
+            this.canDel = false;
+            console.log('创建资源');
+        }
+    },
+
+    methods: {
+        /*
+        *   返回上一页的方法
+        * */
+        back: function back() {
+            alert(this.content);
+            return false;
+            this.$router.go(-1);
+        },
+        updateInsight: function updateInsight() {
+            var _this2 = this;
+
+            this.$refs['insight'].validate(function (valid) {
+                if (valid) {
+                    _this2.$ajax.post('http://iview-laravel.test/api/insight', _this2.insight).then(function (response) {
+                        console.log(response.data);
+                        _this2.$Message.info('资源编辑成功');
+                    }).catch(function (error) {
+                        _this2.$Message.error('资源编辑失败');
+                        console.log('资源编辑失败', error);
+                    });
+                } else {
+                    _this2.$Message.warning('请填写必须信息');
+                }
+            });
+        },
+
+        /*
+        *   根据当前电视的id删除电视资源，删除完成后返回上一页
+        * */
+        deleteInsight: function deleteInsight(id) {
+            var _this3 = this;
+
+            this.$ajax.delete('http://iview-laravel.test/api/insight/' + id).then(function (response) {
+                _this3.$Message.info('删除资源成功');
+                _this3.$router.go(-1);
+            }).catch(function (error) {
+                _this3.$Message.info('删除资源出错');
+                console.log('删除资源出错', error);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 172 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "spin-container" },
+    [
+      _c(
+        "i-form",
+        {
+          ref: "insight",
+          attrs: { model: _vm.insight, rules: _vm.insightRules }
+        },
+        [
+          _c(
+            "Card",
+            {
+              staticStyle: {
+                width: "1175px",
+                display: "inline-block",
+                left: "50%",
+                transform: "translateX(-50%)"
+              }
+            },
+            [
+              _c(
+                "p",
+                { attrs: { slot: "title" }, slot: "title" },
+                [
+                  _c("Icon", { attrs: { type: "clipboard" } }),
+                  _vm._v("\n                基本信息\n            ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "标题", prop: "title" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "", autofocus: "" },
+                    model: {
+                      value: _vm.insight.title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.insight, "title", $$v)
+                      },
+                      expression: "insight.title"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "分类", prop: "category" } },
+                [
+                  _c(
+                    "radio-group",
+                    {
+                      attrs: { type: "button" },
+                      model: {
+                        value: _vm.insight.category,
+                        callback: function($$v) {
+                          _vm.$set(_vm.insight, "category", $$v)
+                        },
+                        expression: "insight.category"
+                      }
+                    },
+                    [
+                      _c("radio", { attrs: { label: "全部" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "财务" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "创意" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "电商" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "旅游" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "媒体" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "品牌" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "市场" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "数字" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "消费者" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "游戏" } })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "案例内容", prop: "content" } },
+                [
+                  _c("Editor", {
+                    model: {
+                      value: _vm.insight.content,
+                      callback: function($$v) {
+                        _vm.$set(_vm.insight, "content", $$v)
+                      },
+                      expression: "insight.content"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticStyle: { margin: "30px", "text-align": "center" } },
+            [
+              _c(
+                "i-button",
+                { attrs: { icon: "ios-arrow-back" }, on: { click: _vm.back } },
+                [_vm._v("返回资源列表")]
+              ),
+              _vm._v(" "),
+              _c(
+                "i-button",
+                {
+                  attrs: { icon: "ios-checkmark-empty", type: "success" },
+                  on: { click: _vm.updateInsight }
+                },
+                [_vm._v(_vm._s(_vm.edit))]
+              ),
+              _vm._v(" "),
+              _vm.canDel
+                ? _c(
+                    "poptip",
+                    {
+                      attrs: {
+                        confirm: "",
+                        transfer: "",
+                        title: "您确定要删除该资源吗？删除后不可恢复"
+                      },
+                      on: {
+                        "on-ok": function($event) {
+                          _vm.deleteInsight(_vm.insight.id)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "i-button",
+                        { attrs: { icon: "ios-trash", type: "error" } },
+                        [_vm._v("删除资源")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.spinShow
+        ? _c("Spin", { attrs: { size: "large", fix: "" } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-35e707f1", module.exports)
+  }
+}
+
+/***/ }),
+/* 173 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(174)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(176)
+/* template */
+var __vue_template__ = __webpack_require__(177)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-631cc610"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/dynamic.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-631cc610", Component.options)
+  } else {
+    hotAPI.reload("data-v-631cc610", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 174 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(175);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("2bd688f5", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-631cc610\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./dynamic.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-631cc610\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./dynamic.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 175 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.page[data-v-631cc610] {\n    margin: 10px 0;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 176 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        var _this = this;
+
+        return {
+            loading: true,
+            total: 0,
+            currentPage: 1,
+            pageSize: 15,
+            cansee: false,
+            pageClass: 'page',
+            condition: 'form',
+            search: '',
+            isImport: false,
+            col: [{
+                'title': '编号',
+                'key': 'id',
+                'width': 80,
+                'sortable': true,
+                'align': 'center'
+            }, {
+                'title': '标题',
+                'key': 'title',
+                'width': 800
+            }, {
+                'title': '标签',
+                'key': 'tag'
+            }, {
+                'title': '操作',
+                'key': 'action',
+                'width': 200,
+                'align': 'center',
+                render: function render(h, params) {
+                    return h('div', [h('i-button', {
+                        props: {
+                            type: 'primary',
+                            size: 'small'
+                        },
+                        style: {
+                            marginRight: '8px'
+                        },
+                        on: {
+                            click: function click() {
+                                event.stopPropagation();
+                                _this.show(params.row, params.index);
+                            }
+                        }
+                    }, '查看详情'), h('poptip', {
+                        props: {
+                            confirm: true,
+                            title: '确认删除这条资源吗？',
+                            transfer: true
+                        },
+                        on: {
+                            'on-ok': function onOk() {
+                                event.stopPropagation();
+                                _this.remove(params.row, params.index);
+                            }
+                        }
+                    }, [h('i-button', {
+                        props: {
+                            type: 'error',
+                            size: 'small'
+                        }
+                    }, '删除资源')])]);
+                }
+            }],
+            dynamic: []
+        };
+    },
+    created: function created() {
+        var _this2 = this;
+
+        this.$ajax.get('http://iview-laravel.test/api/dynamic').then(function (response) {
+            console.log('拉取资源列表', response);
+            _this2.dynamic = response.data.data;
+            _this2.loading = false;
+            _this2.total = response.data.meta.pagination.total;
+            if (response.data.meta.pagination.total_pages > 1) {
+                _this2.cansee = true;
+            }
+        }).catch(function (error) {
+            _this2.$Message.error('资源列表加载出错，请稍后重试');
+            console.log('资源列表加载出错:', error);
+        });
+    },
+
+    methods: {
+        addDynamicItem: function addDynamicItem() {
+            this.$router.push('dynamic_item');
+        },
+        show: function show(row, index) {
+            this.$router.push({ 'name': 'dynamic_item', params: { id: row.id } });
+        },
+        remove: function remove(row, index) {
+            var _this3 = this;
+
+            this.$ajax.delete('http://iview-laravel.test/api/dynamic/' + row.id).then(function (response) {
+                _this3.$Message.info('删除资源成功');
+                _this3.dynamic.splice(index, 1);
+                _this3.total = response.data.meta.pagination.total;
+                if (response.data.meta.pagination.total_pages == 1) {
+                    _this3.cansee = true;
+                }
+            }).catch(function (error) {
+                _this3.$Message.error('删除资源出错');
+                console.log('删除资源出错', error);
+            });
+        },
+        changePage: function changePage(index) {
+            var _this4 = this;
+
+            this.currentPage = index;
+            this.$ajax.get('http://iview-laravel.test/api/dynamic?page=' + index).then(function (response) {
+                console.log('换页', response);
+                _this4.dynamic = response.data.data;
+                _this4.loading = false;
+            }).catch(function (error) {
+                console.log('换页出错', error);
+            });
+        },
+        searchDynamic: function searchDynamic() {
+            var _this5 = this;
+
+            if (this.search == '') {
+                this.$Message.error('请输入查询条件');
+                return false;
+            }
+            this.$ajax.get('http://iview-laravel.test/api/newspaper/' + this.condition + '/' + this.search).then(function (response) {
+                _this5.dynamic = response.data.data;
+                _this5.total = response.data.data.length;
+                _this5.cansee = false;
+                console.log('搜索', response);
+            }).catch(function (error) {
+                console.log('搜索出错', error);
+            });
+        },
+        importSuccess: function importSuccess(response, file, fileList) {
+            console.log('批量导入', response);
+            this.dynamic = response.data;
+            this.isImport = false;
+            this.$Message.info('导入完成');
+            this.total = response.meta.pagination.total;
+            if (this.total / this.pageSize > 1) {
+                this.cansee = true;
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 177 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        { staticStyle: { margin: "30px 0" } },
+        [
+          _c(
+            "i-select",
+            {
+              staticStyle: { width: "100px" },
+              model: {
+                value: _vm.condition,
+                callback: function($$v) {
+                  _vm.condition = $$v
+                },
+                expression: "condition"
+              }
+            },
+            [
+              _c("i-option", { attrs: { value: "form", label: "形式" } }),
+              _vm._v(" "),
+              _c("i-option", { attrs: { value: "category", label: "类别" } }),
+              _vm._v(" "),
+              _c("i-option", {
+                attrs: { value: "country", label: "国家或地区" }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("i-input", {
+            staticStyle: { width: "50%" },
+            attrs: {
+              placeholder: "请输入关键词",
+              autofocus: "",
+              clearable: ""
+            },
+            on: { "on-enter": _vm.searchDynamic },
+            model: {
+              value: _vm.search,
+              callback: function($$v) {
+                _vm.search = $$v
+              },
+              expression: "search"
+            }
+          }),
+          _vm._v(" "),
+          _c("Button", {
+            attrs: { type: "ghost", shape: "circle", icon: "search" },
+            on: { click: _vm.searchDynamic }
+          }),
+          _vm._v(" "),
+          _c(
+            "button-group",
+            { staticStyle: { float: "right" } },
+            [
+              _c(
+                "i-button",
+                {
+                  attrs: { type: "success", icon: "android-add-circle" },
+                  on: { click: _vm.addDynamicItem }
+                },
+                [_vm._v("添加资源")]
+              ),
+              _vm._v(" "),
+              _c(
+                "i-button",
+                {
+                  attrs: { type: "warning", icon: "ios-upload" },
+                  on: {
+                    click: function($event) {
+                      _vm.isImport = true
+                    }
+                  }
+                },
+                [_vm._v("批量导入资源")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _c("i-table", {
+            attrs: {
+              border: "",
+              columns: _vm.col,
+              data: _vm.dynamic,
+              stripe: "",
+              "highlight-row": false,
+              loading: _vm.loading
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.cansee
+        ? _c("page", {
+            attrs: {
+              total: _vm.total,
+              "show-total": "",
+              current: _vm.currentPage,
+              "page-size": _vm.pageSize,
+              "class-name": _vm.pageClass,
+              "show-elevator": ""
+            },
+            on: { "on-change": _vm.changePage }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.cansee
+        ? _c(
+            "span",
+            { staticStyle: { "margin-top": "15px", display: "block" } },
+            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-631cc610", module.exports)
+  }
+}
+
+/***/ }),
+/* 178 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(179)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(181)
+/* template */
+var __vue_template__ = __webpack_require__(182)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-573c2f2a"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/dynamic_item.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-573c2f2a", Component.options)
+  } else {
+    hotAPI.reload("data-v-573c2f2a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 179 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(180);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("2bfe08dc", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-573c2f2a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./dynamic_item.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-573c2f2a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./dynamic_item.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 180 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.spin-container[data-v-573c2f2a] {\n  position: relative;\n}\n.img-list[data-v-573c2f2a] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-573c2f2a] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-573c2f2a] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-573c2f2a] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-573c2f2a] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-573c2f2a] {\n  margin: 3px 0;\n}\n.customPop[data-v-573c2f2a] {\n  text-align: left;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 181 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__editor__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: { Editor: __WEBPACK_IMPORTED_MODULE_0__editor___default.a },
+    data: function data() {
+        return {
+            edit: '编辑资源',
+            canDel: true,
+            spinShow: true,
+            content: '',
+            Case: {
+                id: '',
+                title: '',
+                category: '',
+                content: '',
+                Imgs: {
+                    data: []
+                }
+            },
+            CaseRules: {
+                title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
+                category: [{ required: true, message: '请选择分类', trigger: 'change' }],
+                content: [{ required: true, message: '请输入内容', trigger: 'blur' }]
+            }
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        if (this.$route.params.id) {
+            this.$ajax.get('http://iview-laravel.test/api/case/' + this.$route.params.id + '?include=Imgs').then(function (response) {
+                console.log('获取资源', response);
+                _this.Case = response.data;
+                _this.spinShow = false;
+                _this.edit = '提交修改';
+            }).catch(function (error) {
+                _this.$Message.error('资源未找到');
+                console.log('编辑资源出错', error);
+            });
+        } else {
+            this.spinShow = false;
+            this.canDel = false;
+            console.log('创建资源');
+        }
+    },
+
+    methods: {
+        /*
+        *   返回上一页的方法
+        * */
+        back: function back() {
+            alert(this.content);
+            return false;
+            this.$router.go(-1);
+        },
+        deleteImg: function deleteImg(id) {
+            var _this2 = this;
+
+            this.$Modal.confirm({
+                title: '删除图片',
+                content: '确定要删除这张图片吗？',
+                /*
+                *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
+                * */
+                onOk: function onOk() {
+                    _this2.$ajax.delete('http://iview-laravel.test/api/caseImg/' + id).then(function (response) {
+                        _this2.$Message.info('图片删除完成');
+                        if (response.data.data) {
+                            _this2.Case.Imgs.data = response.data.data;
+                        } else {
+                            _this2.Case.Imgs.data = [];
+                        }
+                    }).catch(function (error) {
+                        console.log('删除图片出错：', error);
+                        _this2.$Message.error('图片删除失败');
+                    });
+                }
+            });
+        },
+
+        /*
+        *   更新图片或者上传图片的方法
+        * */
+        updateImg: function updateImg(img) {
+            var _this3 = this;
+
+            this.img = img;
+            this.$Modal.info({
+                title: '修改图片',
+                okText: '取消',
+                render: function render(h) {
+                    return h('div', [h('upload', {
+                        props: {
+                            action: 'http://iview-laravel.test/api/caseImgUpdate',
+                            type: 'drag',
+                            name: 'img',
+                            data: _this3.img,
+                            'show-upload-list': false,
+                            'on-success': _this3.imgUpdateSuccess,
+                            'on-error': _this3.imgUpdateError
+                        },
+                        style: {
+                            paddingTop: '50px'
+                        }
+                    }, [h('div', [h('icon', {
+                        props: {
+                            type: 'ios-cloud-upload',
+                            size: 52
+                        },
+                        style: {
+                            paddingTop: '20px'
+                        }
+                    }), h('p', {
+                        style: {
+                            paddingBottom: '20px'
+                        }
+                    }, '点击或者拖拽图片到此上传')])])]);
+                }
+            });
+        },
+
+        /*
+        *   图片上传成功的方法
+        * */
+        imgSuccess: function imgSuccess(response, file, fileList) {
+            this.$Message.info('图片上传成功');
+            this.Case.Imgs.data.push(response);
+            console.log(response);
+        },
+
+        /*
+        *   图片更新成功的方法
+        * */
+        imgUpdateSuccess: function imgUpdateSuccess(response, file, fileList) {
+            this.$Message.info('图片上传成功');
+            this.Case.Imgs.data.forEach(function (item) {
+                if (item.id == response.id) {
+                    item.url = response.url;
+                }
+            });
+            this.$Modal.remove();
+        },
+
+        /*
+        *   图片上传失败的方法
+        * */
+        imgError: function imgError(response, file, fileList) {
+            this.$Message.error('图片上传失败');
+            console.log(response);
+        },
+
+        /*
+        *   图片更新失败的方法
+        * */
+        imgUpdateError: function imgUpdateError(response, file, fileList) {
+            this.imgError(response, file, fileList);
+            this.$Modal.remove();
+        },
+        updateCase: function updateCase() {
+            var _this4 = this;
+
+            this.$refs['Case'].validate(function (valid) {
+                if (valid) {
+                    _this4.$ajax.post('http://iview-laravel.test/api/case', _this4.Case).then(function (response) {
+                        console.log(response.data);
+                        _this4.$Message.info('资源编辑成功');
+                    }).catch(function (error) {
+                        _this4.$Message.error('资源编辑失败');
+                        console.log('资源编辑失败', error);
+                    });
+                } else {
+                    _this4.$Message.warning('请填写必须信息');
+                }
+            });
+        },
+
+        /*
+        *   根据当前电视的id删除电视资源，删除完成后返回上一页
+        * */
+        deleteCase: function deleteCase(id) {
+            var _this5 = this;
+
+            this.$ajax.delete('http://iview-laravel.test/api/case/' + id).then(function (response) {
+                _this5.$Message.info('删除资源成功');
+                _this5.$router.go(-1);
+            }).catch(function (error) {
+                _this5.$Message.info('删除资源出错');
+                console.log('删除资源出错', error);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "spin-container" },
+    [
+      _c(
+        "i-form",
+        { ref: "Case", attrs: { model: _vm.Case, rules: _vm.CaseRules } },
+        [
+          _c(
+            "Card",
+            {
+              staticStyle: {
+                width: "1175px",
+                display: "inline-block",
+                "margin-right": "20px"
+              }
+            },
+            [
+              _c(
+                "p",
+                { attrs: { slot: "title" }, slot: "title" },
+                [
+                  _c("Icon", { attrs: { type: "clipboard" } }),
+                  _vm._v("\n                基本信息\n            ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "标题", prop: "title" } },
+                [
+                  _c("i-input", {
+                    attrs: { placeholder: "", clearable: "", autofocus: "" },
+                    model: {
+                      value: _vm.Case.title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.Case, "title", $$v)
+                      },
+                      expression: "Case.title"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "分类", prop: "category" } },
+                [
+                  _c(
+                    "radio-group",
+                    {
+                      attrs: { type: "button" },
+                      model: {
+                        value: _vm.Case.category,
+                        callback: function($$v) {
+                          _vm.$set(_vm.Case, "category", $$v)
+                        },
+                        expression: "Case.category"
+                      }
+                    },
+                    [
+                      _c("radio", { attrs: { label: "全部" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "游戏" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "应用" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "电视" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "旅游" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "汽车" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "3C电子产品" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "快消品" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "其他" } })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "案例内容", prop: "content" } },
+                [
+                  _c("Editor", {
+                    model: {
+                      value: _vm.Case.content,
+                      callback: function($$v) {
+                        _vm.$set(_vm.Case, "content", $$v)
+                      },
+                      expression: "Case.content"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "Card",
+            {
+              staticStyle: {
+                width: "400px",
+                display: "inline-block",
+                position: "absolute"
+              }
+            },
+            [
+              _c(
+                "p",
+                { attrs: { slot: "title" }, slot: "title" },
+                [
+                  _c("Icon", { attrs: { type: "image" } }),
+                  _vm._v("\n                图片信息\n            ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                [
+                  _c(
+                    "upload",
+                    {
+                      attrs: {
+                        multiple: "",
+                        type: "drag",
+                        name: "img",
+                        action: "http://iview-laravel.test/api/caseImg",
+                        "on-success": _vm.imgSuccess,
+                        "on-error": _vm.imgError,
+                        data: _vm.Case,
+                        "show-upload-list": false
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticStyle: { width: "360px", height: "120px" } },
+                        [
+                          _c("Icon", {
+                            staticStyle: {
+                              color: "#3399ff",
+                              "margin-top": "20px"
+                            },
+                            attrs: { type: "ios-cloud-upload", size: "52" }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("点击或者拖拽图片到此上传")])
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.Case.Imgs.data, function(img) {
+                return [
+                  _c("div", { staticClass: "img-list" }, [
+                    _c("img", { attrs: { src: img.url, alt: "" } }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "img-list-cover" },
+                      [
+                        _c("Icon", {
+                          attrs: { type: "ios-trash" },
+                          nativeOn: {
+                            click: function($event) {
+                              _vm.deleteImg(img.id)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("Icon", {
+                          attrs: { type: "upload" },
+                          nativeOn: {
+                            click: function($event) {
+                              _vm.updateImg(img)
+                            }
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticStyle: { margin: "30px", "text-align": "center" } },
+            [
+              _c(
+                "i-button",
+                { attrs: { icon: "ios-arrow-back" }, on: { click: _vm.back } },
+                [_vm._v("返回资源列表")]
+              ),
+              _vm._v(" "),
+              _c(
+                "i-button",
+                {
+                  attrs: { icon: "ios-checkmark-empty", type: "success" },
+                  on: { click: _vm.updateCase }
+                },
+                [_vm._v(_vm._s(_vm.edit))]
+              ),
+              _vm._v(" "),
+              _vm.canDel
+                ? _c(
+                    "poptip",
+                    {
+                      attrs: {
+                        confirm: "",
+                        transfer: "",
+                        title: "您确定要删除该资源吗？删除后不可恢复"
+                      },
+                      on: {
+                        "on-ok": function($event) {
+                          _vm.deleteCase(_vm.Case.id)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "i-button",
+                        { attrs: { icon: "ios-trash", type: "error" } },
+                        [_vm._v("删除资源")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.spinShow
+        ? _c("Spin", { attrs: { size: "large", fix: "" } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-573c2f2a", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

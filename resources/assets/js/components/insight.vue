@@ -6,15 +6,15 @@
                 <i-option value="category" label="类别"></i-option>
             </i-select>
             <i-input v-model="search" placeholder="请输入关键词" style="width:50%;"
-                     autofocus clearable @on-enter="searchCase"/>
-            <Button type="ghost" shape="circle" icon="search" @click="searchCase"></Button>
+                     autofocus clearable @on-enter="searchInsight"/>
+            <Button type="ghost" shape="circle" icon="search" @click="searchInsight"></Button>
             <button-group style="float: right;">
-                <i-button type="success" icon="android-add-circle" @click="addCaseItem">添加资源</i-button>
+                <i-button type="success" icon="android-add-circle" @click="addInsightItem">添加资源</i-button>
                 <!-- <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button> -->
             </button-group>
         </div>
         <div>
-            <i-table border :columns="col" :data="Case" stripe :highlight-row=false
+            <i-table border :columns="col" :data="insight" stripe :highlight-row=false
                      :loading="loading"></i-table>
         </div>
         <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize"
@@ -99,13 +99,13 @@
                         },
                     },
                 ],
-                Case: [],
+                insight: [],
             }
         },
         created() {
-            this.$ajax.get('http://iview-laravel.test/api/case').then((response) => {
+            this.$ajax.get('http://iview-laravel.test/api/insight').then((response) => {
                 console.log('拉取资源列表', response);
-                this.Case = response.data.data
+                this.insight = response.data.data
                 this.loading = false
                 this.total = response.data.meta.pagination.total
                 if ( response.data.meta.pagination.total_pages > 1) {
@@ -117,16 +117,16 @@
             })
         },
         methods: {
-            addCaseItem() {
-                this.$router.push('case_item')
+            addInsightItem() {
+                this.$router.push('insight_item')
             },
             show(row, index) {
-                this.$router.push({'name': 'case_item', params: {id: row.id}})
+                this.$router.push({'name': 'insight_item', params: {id: row.id}})
             },
             remove(row, index) {
-                this.$ajax.delete('http://iview-laravel.test/api/case/' + row.id).then((response) => {
+                this.$ajax.delete('http://iview-laravel.test/api/insight/' + row.id).then((response) => {
                     this.$Message.info('删除资源成功')
-                    this.Case.splice(index, 1)
+                    this.insight.splice(index, 1)
                     this.total = response.data.meta.pagination.total
                     if (response.data.meta.pagination.total_pages == 1) {
                         this.cansee = true
@@ -138,21 +138,21 @@
             },
             changePage(index) {
                 this.currentPage = index
-                this.$ajax.get('http://iview-laravel.test/api/case?page=' + index).then((response) => {
+                this.$ajax.get('http://iview-laravel.test/api/insight?page=' + index).then((response) => {
                     console.log('换页', response);
-                    this.Case = response.data.data
+                    this.insight = response.data.data
                     this.loading = false
                 }).catch((error) => {
                     console.log('换页出错', error);
                 })
             },
-            searchCase() {
+            searchInsight() {
                 if (this.search == '') {
                     this.$Message.error('请输入查询条件')
                     return false
                 }
-                this.$ajax.get('http://iview-laravel.test/api/case/' + this.condition + '/' + this.search).then((response) => {
-                    this.Case = response.data.data
+                this.$ajax.get('http://iview-laravel.test/api/insight/' + this.condition + '/' + this.search).then((response) => {
+                    this.insight = response.data.data
                     this.total = response.data.data.length
                     this.cansee = false
                     console.log('搜索', response)
@@ -162,7 +162,7 @@
             },
             importSuccess(response, file, fileList) {
                 console.log('批量导入', response)
-                this.Case = response.data
+                this.insight = response.data
                 this.isImport = false
                 this.$Message.info('导入完成');
                 this.total = response.meta.pagination.total
