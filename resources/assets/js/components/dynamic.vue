@@ -2,9 +2,8 @@
     <div>
         <div style="margin: 30px 0">
             <i-select v-model="condition" style="width:100px">
-                <i-option value="form" label="形式"></i-option>
-                <i-option value="category" label="类别"></i-option>
-                <i-option value="country" label="国家或地区"></i-option>
+                <i-option value="title" label="标题"></i-option>
+                <i-option value="tag" label="标签"></i-option>
             </i-select>
             <i-input v-model="search" placeholder="请输入关键词" style="width:50%;"
                      autofocus clearable @on-enter="searchDynamic"/>
@@ -12,7 +11,6 @@
             <button-group style="float: right;">
                 <i-button type="success" icon="android-add-circle" @click="addDynamicItem">添加资源</i-button>
                 <!-- <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button> -->
-                <i-button type="warning" icon="ios-upload" @click="isImport = true">批量导入资源</i-button>
             </button-group>
         </div>
         <div>
@@ -35,7 +33,7 @@
                 pageSize: 15,
                 cansee: false,
                 pageClass: 'page',
-                condition: 'form',
+                condition: 'title',
                 search: '',
                 isImport: false,
                 col: [
@@ -153,7 +151,7 @@
                     this.$Message.error('请输入查询条件')
                     return false
                 }
-                this.$ajax.get('http://iview-laravel.test/api/newspaper/' + this.condition + '/' + this.search).then((response) => {
+                this.$ajax.get('http://iview-laravel.test/api/dynamic/' + this.condition + '/' + this.search).then((response) => {
                     this.dynamic = response.data.data
                     this.total = response.data.data.length
                     this.cansee = false
@@ -162,16 +160,6 @@
                     console.log('搜索出错', error);
                 })
             },
-            importSuccess(response, file, fileList) {
-                console.log('批量导入', response)
-                this.dynamic = response.data
-                this.isImport = false
-                this.$Message.info('导入完成');
-                this.total = response.meta.pagination.total
-                if (this.total / this.pageSize > 1) {
-                    this.cansee = true
-                }
-            }
         }
     }
 </script>

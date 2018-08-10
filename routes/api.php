@@ -102,6 +102,8 @@ $api->version('v1', [
 
     $api->get('dynamic', 'dynamicController@index')->name('api.dynamic.index');
     $api->get('dynamic/{dynamic}', 'dynamicController@show')->name('api.dynamic.show');
+    $api->get('dynamic/{condition}/{query}', 'dynamicController@query')->name('api.dynamic.query');
+    $api->post('dynamic', 'dynamicController@store')->name('api.dynamic.store');
     $api->delete('dynamic/{dynamic}', 'dynamicController@destroy')->name('api.dynamic.destroy');
 
     $api->post('otherImg', 'ImgsController@store')->name('api.img.store');

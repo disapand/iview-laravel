@@ -37,7 +37,18 @@ class dynamicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = $request->toArray();
+            if ($request->id) {
+                dynamic::findOrFail($request->id)->update($data);
+            } else {
+                dynamic::create($data);
+            }
+
+            return $this->response->created();
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -78,8 +89,20 @@ class dynamicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(dynamic $dynamic)
     {
-        //
+        try{
+            $dynamic->delete();
+            return $this->response->paginator(dynamic::where([])->orderBy('id', 'desc')->paginate(),
+                new dynamicTransformer());
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+
+    public function query($condition, $query)
+    {
+        $dynamic = dynamic::where($condition, 'like', "%$query%")->orderBy('id', 'desc')->paginate();
+        return $this->response->paginator($dynamic, new dynamicTransformer());
     }
 }
