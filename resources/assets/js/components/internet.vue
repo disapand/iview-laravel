@@ -105,11 +105,6 @@
                         'key': 'cooperation'
                     },
                     {
-                        'title': '是否有效',
-                        'key': 'isuse',
-                        width: 100
-                    },
-                    {
                         'title': '操作',
                         'key': 'action',
                         render: (h, params) => {

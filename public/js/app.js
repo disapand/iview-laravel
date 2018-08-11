@@ -87540,10 +87540,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'title': '名称',
                 'key': 'name'
             }, {
-                'title': '是否有效',
-                'key': 'isuse',
-                width: 100
-            }, {
                 'title': '操作',
                 'key': 'action',
                 render: function render(h, params) {
@@ -89315,10 +89311,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'title': '名称',
                 'key': 'name'
             }, {
-                'title': '是否有效',
-                'key': 'isuse',
-                width: 100
-            }, {
                 'title': '操作',
                 'key': 'action',
                 render: function render(h, params) {
@@ -91086,10 +91078,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'title': '版本',
                 'key': 'version'
             }, {
-                'title': '是否有效',
-                'key': 'isuse',
-                width: 100
-            }, {
                 'title': '操作',
                 'key': 'action',
                 render: function render(h, params) {
@@ -92790,10 +92778,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'title': '国家和地区',
                 'key': 'country'
             }, {
-                'title': '是否有效',
-                'key': 'isuse',
-                width: 100
-            }, {
                 'title': '操作',
                 'key': 'action',
                 render: function render(h, params) {
@@ -94440,10 +94424,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, {
                 'title': '合作品牌',
                 'key': 'cooperation'
-            }, {
-                'title': '是否有效',
-                'key': 'isuse',
-                width: 100
             }, {
                 'title': '操作',
                 'key': 'action',
