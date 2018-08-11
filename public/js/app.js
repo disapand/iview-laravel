@@ -85915,10 +85915,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'title': '国家或地区',
                 'key': 'country'
             }, {
-                'title': '是否有效',
-                'key': 'isuse',
-                width: 100
-            }, {
                 'title': '操作',
                 'key': 'action',
                 render: function render(h, params) {
