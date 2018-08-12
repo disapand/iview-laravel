@@ -103,7 +103,7 @@ class transformController extends Controller
     }
 
     public function query($condition, $query) {
-        $transforms = transformResource::where($condition, 'like', "%$query%")->paginate(15);
+        $transforms = transformResource::where($condition, 'like', "%$query%")->orderBy('id', 'desc')->paginate(15);
         return $this->response->paginator($transforms, new transformResourceTransformer());
     }
 

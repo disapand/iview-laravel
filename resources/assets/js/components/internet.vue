@@ -15,9 +15,9 @@
             <i-input v-model="search" placeholder="请输入关键词" style="width:50%;"
                      autofocus clearable @on-enter="searchInternet"/>
             <Button type="ghost" shape="circle" icon="search" @click="searchInternet"></Button>
+            <Button type="ghost" icon="android-list" shape="circle" v-if="all" @click="showAll">显示全部</Button>
             <button-group style="float: right;">
                 <i-button type="success" icon="android-add-circle" @click="addInternetItem">添加资源</i-button>
-                <!-- <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button> -->
                 <i-button type="warning" icon="ios-upload" @click="isImport = true">批量导入资源</i-button>
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
                     <Upload
@@ -38,8 +38,7 @@
                      :loading="loading"></i-table>
         </div>
         <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize"
-              :class-name="pageClass" show-elevator v-if="cansee"></page>
-        <span v-if="! cansee" style="margin-top: 15px;display: block">共找到{{ total }}条记录</span>
+              :class-name="pageClass" show-elevator></page>
     </div>
 </template>
 
@@ -48,11 +47,11 @@
     export default {
         data() {
             return {
+                all: false,
                 loading: true,
                 total: 0,
                 currentPage: 1,
                 pageSize: 15,
-                cansee: false,
                 pageClass: 'page',
                 condition: 'platform',
                 search: '',
@@ -156,9 +155,6 @@
                 this.internet = response.data.data
                 this.loading = false
                 this.total = response.data.meta.pagination.total
-                if ( response.data.meta.pagination.total_pages > 1) {
-                    this.cansee = true
-                }
             }).catch((error) => {
                 this.$Message.error('资源列表加载出错，请稍后重试');
                 console.log('资源列表加载出错:', error);
@@ -178,9 +174,6 @@
                     this.$Message.info('删除资源成功')
                     this.internet.splice(index, 1)
                     this.total = response.data.meta.pagination.total
-                    if (response.data.meta.pagination.total_pages == 1) {
-                        this.cansee = true
-                    }
                 }).catch((error) => {
                     this.$Message.error('删除资源出错')
                     console.log('删除资源出错', error)
@@ -188,8 +181,13 @@
             },
             changePage(index) {
                 this.currentPage = index
-                this.$ajax.get('http://iview-laravel.test/api/internet?page=' + index).then((response) => {
-                    console.log('换页', response);
+                let uri
+                if (this.condition && this.search) {
+                    uri = 'http://iview-laravel.test/api/internet/' + this.condition + '/' + this.search + '?page=' + index
+                } else {
+                    uri = 'http://iview-laravel.test/api/internet?page=' + index
+                }
+                this.$ajax.get(uri).then((response) => {
                     this.internet = response.data.data
                     this.loading = false
                 }).catch((error) => {
@@ -204,10 +202,21 @@
                 this.$ajax.get('http://iview-laravel.test/api/internet/' + this.condition + '/' + this.search).then((response) => {
                     this.internet = response.data.data
                     this.total = response.data.meta.pagination.total
-                    this.cansee = false
-                    console.log('搜索', response)
+                    this.all = true
                 }).catch((error) => {
                     console.log('搜索出错', error);
+                })
+            },
+            showAll() {
+                this.all = false
+                this.search = ''
+                this.currentPage = 1
+                this.$ajax.get('http://iview-laravel.test/api/internet').then((response) => {
+                    this.internet = response.data.data
+                    this.total = response.data.meta.pagination.total
+                }).catch((error) => {
+                    this.$Message.error('网红资源列表加载出错，请稍后重试');
+                    console.log('网红资源列表加载出错:', error);
                 })
             },
             importSuccess(response, file, fileList) {
@@ -216,24 +225,7 @@
                 this.isImport = false
                 this.$Message.info('导入完成');
                 this.total = response.meta.pagination.total
-                if (this.total / this.pageSize > 1) {
-                    this.cansee = true
-                }
             }
         },
-        computed: {
-            /*decodeCategories: function() {
-                if (this.internet.category) {
-                    let t
-                    for ( let i = 0; i < this.internet.category.length; i ++) {
-                        t += this.internet.category[i]
-                    }
-                    return t;
-                }
-                else {
-                    return '';
-                }
-            }*/
-        }
     }
 </script>

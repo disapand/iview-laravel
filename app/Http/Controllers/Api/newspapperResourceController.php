@@ -104,7 +104,7 @@ class newspapperResourceController extends Controller
     }
 
     public function query($condition, $query) {
-        $newspapers = newspaperResource::where($condition, 'like', "%$query%")->paginate(15);
+        $newspapers = newspaperResource::where($condition, 'like', "%$query%")->orderBy('id', 'desc')->paginate(15);
         return $this->response->paginator($newspapers, new newspaperResourceTransformer());
     }
 

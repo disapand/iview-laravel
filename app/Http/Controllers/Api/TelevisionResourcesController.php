@@ -75,8 +75,8 @@ class TelevisionResourcesController extends Controller
 
     public function searchTv($condition, $query) {
 
-        $tvs = televisionResources::where($condition, 'like', "%$query%")->get();
-        return $this->response->collection($tvs, new televisionResourcesTransformer());
+        $tvs = televisionResources::where($condition, 'like', "%$query%")->paginate();
+        return $this->response->paginator($tvs, new televisionResourcesTransformer());
     }
     
     public function importTv(Request $request, ExcelUploadHandler $uploader) {

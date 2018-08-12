@@ -104,7 +104,7 @@ class onlineResourceController extends Controller
     }
 
     public function query($condition, $query) {
-        $online = onlineResource::where($condition, 'like', "%$query%")->paginate(15);
+        $online = onlineResource::where($condition, 'like', "%$query%")->orderBy('id', 'desc')->paginate(15);
         return $this->response->paginator($online, new onlineResourceTransformer());
     }
 

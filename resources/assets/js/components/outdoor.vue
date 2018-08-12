@@ -15,6 +15,7 @@
             <i-input v-model="search" placeholder="请输入关键词" style="width:50%;"
                      autofocus clearable @on-enter="searchOutdoor"/>
             <Button type="ghost" shape="circle" icon="search" @click="searchOutdoor"></Button>
+            <Button type="ghost" icon="android-list" shape="circle" v-if="all" @click="showAll">显示全部</Button>
             <button-group style="float: right;">
                 <i-button type="success" icon="android-add-circle" @click="addOutdoorItem">添加资源</i-button>
                 <i-button type="warning" icon="ios-upload" @click="isImport = true">批量导入资源</i-button>
@@ -37,8 +38,8 @@
                      :loading="loading"></i-table>
         </div>
         <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize"
-              :class-name="pageClass" show-elevator v-if="cansee"></page>
-        <span v-if="! cansee" style="margin-top: 15px;display: block">共找到{{ total }}条记录</span>
+              :class-name="pageClass" show-elevator>
+        </page>
     </div>
 </template>
 
@@ -46,11 +47,11 @@
     export default {
         data() {
             return {
+                all: false,
                 loading: true,
                 total: 0,
                 currentPage: 1,
                 pageSize: 15,
-                cansee: false,
                 pageClass: 'page',
                 condition: 'form',
                 search: '',
@@ -152,9 +153,6 @@
                 this.outdoor = response.data.data
                 this.loading = false
                 this.total = response.data.meta.pagination.total
-                if ( response.data.meta.pagination.total_pages > 1) {
-                    this.cansee = true
-                }
             }).catch((error) => {
                 this.$Message.error('户外资源列表加载出错，请稍后重试');
                 console.log('户外资源列表加载出错:', error);
@@ -163,12 +161,6 @@
         mounted() {
         },
         methods: {
-            /*
-            *   点击当前行，跳转到对应行的详情，绑定于@on-row-click
-            * */
-            /*tv_item(row, index) {
-                this.$router.push({'name': 'tv_item', params: {id: row.id}})
-            },*/
             addOutdoorItem() {
                 this.$router.push('outdoor_item')
             },
@@ -180,18 +172,20 @@
                     this.$Message.info('删除资源成功')
                     this.tvs.splice(index, 1)
                     this.total = response.data.meta.pagination.total
-                    if (response.data.meta.pagination.total_pages == 1) {
-                        this.cansee = true
-                    }
                 }).catch((error) => {
                     this.$Message.error('删除资源出错')
                     console.log('删除资源出错', error)
                 })
             },
             changePage(index) {
+                let uri
+                if (this.condition && this.search) {
+                    uri = 'http://iview-laravel.test/api/outdoor/' + this.condition + '/' + this.search + '?page=' + index
+                } else {
+                    uri = 'http://iview-laravel.test/api/outdoor?page=' + index
+                }
                 this.currentPage = index
-                this.$ajax.get('http://iview-laravel.test/api/outdoor?page=' + index).then((response) => {
-                    console.log('换页', response);
+                this.$ajax.get(uri).then((response) => {
                     this.outdoor = response.data.data
                     this.loading = false
                 }).catch((error) => {
@@ -205,15 +199,23 @@
                 }
                 this.$ajax.get('http://iview-laravel.test/api/outdoor/' + this.condition + '/' + this.search).then((response) => {
                     this.outdoor = response.data.data
-                    this.total = response.data.data.length
-                    this.cansee = false
-                    console.log('搜索', response)
+                    this.total = response.data.meta.pagination.total
+                    this.all = true
                 }).catch((error) => {
                     console.log('搜索出错', error);
                 })
             },
-            exportTv() {
-
+            showAll() {
+                this.all = false
+                this.search = ''
+                this.currentPage = 1
+                this.$ajax.get('http://iview-laravel.test/api/outdoor').then((response) => {
+                    this.outdoor = response.data.data
+                    this.total = response.data.meta.pagination.total
+                }).catch((error) => {
+                    this.$Message.error('户外资源列表加载出错，请稍后重试');
+                    console.log('户外资源列表加载出错:', error);
+                })
             },
             importSuccess(response, file, fileList) {
                 console.log('批量导入', response)
@@ -221,9 +223,6 @@
                 this.isImport = false
                 this.$Message.info('导入完成')
                 this.total = response.meta.pagination.total
-                if (this.total / this.pageSize > 1) {
-                    this.cansee = true
-                }
             }
         }
     }

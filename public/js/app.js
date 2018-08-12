@@ -85870,6 +85870,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -85878,9 +85879,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             loading: true,
             total: 0,
+            all: false,
             currentPage: 1,
             pageSize: 15,
-            cansee: false,
             pageClass: 'page',
             condition: 'form',
             search: '',
@@ -85962,9 +85963,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this2.tvs = response.data.data;
             _this2.loading = false;
             _this2.total = response.data.meta.pagination.total;
-            if (_this2.total / _this2.pageSize > 1) {
-                _this2.cansee = true;
-            }
         }).catch(function (error) {
             _this2.$Message.error('电视资源列表加载出错，请稍后重试');
             console.log('电视资源列表加载出错:', error);
@@ -85973,12 +85971,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {},
 
     methods: {
-        /*
-        *   点击当前行，跳转到对应行的详情，绑定于@on-row-click
-        * */
-        /*tv_item(row, index) {
-            this.$router.push({'name': 'tv_item', params: {id: row.id}})
-        },*/
         addTVItem: function addTVItem() {
             this.$router.push('tv_item');
         },
@@ -85992,9 +85984,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.$Message.info('删除资源成功');
                 _this3.tvs.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
-                if (_this3.total / _this3.pageSize > 1) {
-                    _this3.cansee = true;
-                }
             }).catch(function (error) {
                 _this3.$Message.error('删除资源出错');
                 console.log('删除资源出错', error);
@@ -86004,8 +85993,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             this.currentPage = index;
-            this.$ajax.get('http://iview-laravel.test/api/tv?page=' + index).then(function (response) {
-                console.log('换页', response);
+            var uri = void 0;
+            if (this.condition && this.search) {
+                uri = 'http://iview-laravel.test/api/tv/' + this.condition + '/' + this.search + '?page=' + index;
+            } else {
+                uri = 'http://iview-laravel.test/api/tv?page=' + index;
+            }
+            this.$ajax.get(uri).then(function (response) {
                 _this4.tvs = response.data.data;
                 _this4.loading = false;
             }).catch(function (error) {
@@ -86021,11 +86015,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             this.$ajax.get('http://iview-laravel.test/api/tv/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.tvs = response.data.data;
-                _this5.total = response.data.data.length;
-                _this5.cansee = false;
-                console.log('搜索', response);
+                _this5.total = response.data.meta.pagination.total;
+                _this5.all = true;
             }).catch(function (error) {
                 console.log('搜索出错', error);
+            });
+        },
+        showAll: function showAll() {
+            var _this6 = this;
+
+            this.all = false;
+            this.search = '';
+            this.currentPage = 1;
+            this.$ajax.get('http://iview-laravel.test/api/tv').then(function (response) {
+                console.log('拉取电视资源列表', response);
+                _this6.tvs = response.data.data;
+                _this6.total = response.data.meta.pagination.total;
+            }).catch(function (error) {
+                _this6.$Message.error('电视资源列表加载出错，请稍后重试');
+                console.log('电视资源列表加载出错:', error);
             });
         },
         importSuccess: function importSuccess(response, file, fileList) {
@@ -86034,9 +86042,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.isImport = false;
             this.$Message.success('批量导入完成');
             this.total = response.meta.pagination.total;
-            if (this.total / this.pageSize > 1) {
-                this.cansee = true;
-            }
         }
     }
 });
@@ -86101,6 +86106,21 @@ var render = function() {
             attrs: { type: "ghost", shape: "circle", icon: "search" },
             on: { click: _vm.searchTv }
           }),
+          _vm._v(" "),
+          _vm.all
+            ? _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "ghost",
+                    icon: "android-list",
+                    shape: "circle"
+                  },
+                  on: { click: _vm.showAll }
+                },
+                [_vm._v("显示全部")]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "button-group",
@@ -86194,27 +86214,17 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm.cansee
-        ? _c("page", {
-            attrs: {
-              total: _vm.total,
-              "show-total": "",
-              current: _vm.currentPage,
-              "page-size": _vm.pageSize,
-              "class-name": _vm.pageClass,
-              "show-elevator": ""
-            },
-            on: { "on-change": _vm.changePage }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      !_vm.cansee
-        ? _c(
-            "span",
-            { staticStyle: { "margin-top": "15px", display: "block" } },
-            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
-          )
-        : _vm._e()
+      _c("page", {
+        attrs: {
+          total: _vm.total,
+          "show-total": "",
+          current: _vm.currentPage,
+          "page-size": _vm.pageSize,
+          "class-name": _vm.pageClass,
+          "show-elevator": ""
+        },
+        on: { "on-change": _vm.changePage }
+      })
     ],
     1
   )
@@ -87490,17 +87500,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var _this = this;
 
         return {
+            all: false,
             loading: true,
             total: 0,
             currentPage: 1,
             pageSize: 15,
-            cansee: false,
             pageClass: 'page',
             condition: 'form',
             search: '',
@@ -87587,9 +87598,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this2.outdoor = response.data.data;
             _this2.loading = false;
             _this2.total = response.data.meta.pagination.total;
-            if (response.data.meta.pagination.total_pages > 1) {
-                _this2.cansee = true;
-            }
         }).catch(function (error) {
             _this2.$Message.error('户外资源列表加载出错，请稍后重试');
             console.log('户外资源列表加载出错:', error);
@@ -87598,12 +87606,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {},
 
     methods: {
-        /*
-        *   点击当前行，跳转到对应行的详情，绑定于@on-row-click
-        * */
-        /*tv_item(row, index) {
-            this.$router.push({'name': 'tv_item', params: {id: row.id}})
-        },*/
         addOutdoorItem: function addOutdoorItem() {
             this.$router.push('outdoor_item');
         },
@@ -87617,9 +87619,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.$Message.info('删除资源成功');
                 _this3.tvs.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
-                if (response.data.meta.pagination.total_pages == 1) {
-                    _this3.cansee = true;
-                }
             }).catch(function (error) {
                 _this3.$Message.error('删除资源出错');
                 console.log('删除资源出错', error);
@@ -87628,9 +87627,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         changePage: function changePage(index) {
             var _this4 = this;
 
+            var uri = void 0;
+            if (this.condition && this.search) {
+                uri = 'http://iview-laravel.test/api/outdoor/' + this.condition + '/' + this.search + '?page=' + index;
+            } else {
+                uri = 'http://iview-laravel.test/api/outdoor?page=' + index;
+            }
             this.currentPage = index;
-            this.$ajax.get('http://iview-laravel.test/api/outdoor?page=' + index).then(function (response) {
-                console.log('换页', response);
+            this.$ajax.get(uri).then(function (response) {
                 _this4.outdoor = response.data.data;
                 _this4.loading = false;
             }).catch(function (error) {
@@ -87646,23 +87650,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             this.$ajax.get('http://iview-laravel.test/api/outdoor/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.outdoor = response.data.data;
-                _this5.total = response.data.data.length;
-                _this5.cansee = false;
-                console.log('搜索', response);
+                _this5.total = response.data.meta.pagination.total;
+                _this5.all = true;
             }).catch(function (error) {
                 console.log('搜索出错', error);
             });
         },
-        exportTv: function exportTv() {},
+        showAll: function showAll() {
+            var _this6 = this;
+
+            this.all = false;
+            this.search = '';
+            this.currentPage = 1;
+            this.$ajax.get('http://iview-laravel.test/api/outdoor').then(function (response) {
+                _this6.outdoor = response.data.data;
+                _this6.total = response.data.meta.pagination.total;
+            }).catch(function (error) {
+                _this6.$Message.error('户外资源列表加载出错，请稍后重试');
+                console.log('户外资源列表加载出错:', error);
+            });
+        },
         importSuccess: function importSuccess(response, file, fileList) {
             console.log('批量导入', response);
             this.outdoor = response.data;
             this.isImport = false;
             this.$Message.info('导入完成');
             this.total = response.meta.pagination.total;
-            if (this.total / this.pageSize > 1) {
-                this.cansee = true;
-            }
         }
     }
 });
@@ -87727,6 +87740,21 @@ var render = function() {
             attrs: { type: "ghost", shape: "circle", icon: "search" },
             on: { click: _vm.searchOutdoor }
           }),
+          _vm._v(" "),
+          _vm.all
+            ? _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "ghost",
+                    icon: "android-list",
+                    shape: "circle"
+                  },
+                  on: { click: _vm.showAll }
+                },
+                [_vm._v("显示全部")]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "button-group",
@@ -87820,27 +87848,17 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm.cansee
-        ? _c("page", {
-            attrs: {
-              total: _vm.total,
-              "show-total": "",
-              current: _vm.currentPage,
-              "page-size": _vm.pageSize,
-              "class-name": _vm.pageClass,
-              "show-elevator": ""
-            },
-            on: { "on-change": _vm.changePage }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      !_vm.cansee
-        ? _c(
-            "span",
-            { staticStyle: { "margin-top": "15px", display: "block" } },
-            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
-          )
-        : _vm._e()
+      _c("page", {
+        attrs: {
+          total: _vm.total,
+          "show-total": "",
+          current: _vm.currentPage,
+          "page-size": _vm.pageSize,
+          "class-name": _vm.pageClass,
+          "show-elevator": ""
+        },
+        on: { "on-change": _vm.changePage }
+      })
     ],
     1
   )
@@ -91032,7 +91050,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             total: 0,
             currentPage: 1,
             pageSize: 15,
-            cansee: false,
+            all: false,
             pageClass: 'page',
             condition: 'form',
             search: '',
@@ -91125,9 +91143,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this2.newspaper = response.data.data;
             _this2.loading = false;
             _this2.total = response.data.meta.pagination.total;
-            if (response.data.meta.pagination.total_pages > 1) {
-                _this2.cansee = true;
-            }
         }).catch(function (error) {
             _this2.$Message.error('资源列表加载出错，请稍后重试');
             console.log('资源列表加载出错:', error);
@@ -91149,9 +91164,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.$Message.info('删除资源成功');
                 _this3.newspaper.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
-                if (response.data.meta.pagination.total_pages == 1) {
-                    _this3.cansee = true;
-                }
             }).catch(function (error) {
                 _this3.$Message.error('删除资源出错');
                 console.log('删除资源出错', error);
@@ -91161,8 +91173,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             this.currentPage = index;
-            this.$ajax.get('http://iview-laravel.test/api/newspaper?page=' + index).then(function (response) {
-                console.log('换页', response);
+            var uri = void 0;
+            if (this.condition && this.search) {
+                uri = 'http://iview-laravel.test/api/newspaper/' + this.condition + '/' + this.search + '?page=' + index;
+            } else {
+                uri = 'http://iview-laravel.test/api/newspaper?page=' + index;
+            }
+            this.$ajax.get(uri).then(function (response) {
                 _this4.newspaper = response.data.data;
                 _this4.loading = false;
             }).catch(function (error) {
@@ -91178,11 +91195,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             this.$ajax.get('http://iview-laravel.test/api/newspaper/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.newspaper = response.data.data;
-                _this5.total = response.data.data.length;
-                _this5.cansee = false;
-                console.log('搜索', response);
+                _this5.total = response.data.meta.pagination.total;
+                _this5.all = true;
             }).catch(function (error) {
                 console.log('搜索出错', error);
+            });
+        },
+        showAll: function showAll() {
+            var _this6 = this;
+
+            this.all = false;
+            this.search = '';
+            this.currentPage = 1;
+            this.$ajax.get('http://iview-laravel.test/api/newspaper').then(function (response) {
+                console.log('拉取资源列表', response);
+                _this6.newspaper = response.data.data;
+                _this6.loading = false;
+                _this6.total = response.data.meta.pagination.total;
+            }).catch(function (error) {
+                _this6.$Message.error('资源列表加载出错，请稍后重试');
+                console.log('资源列表加载出错:', error);
             });
         },
         importSuccess: function importSuccess(response, file, fileList) {
@@ -91191,9 +91223,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.isImport = false;
             this.$Message.info('导入完成');
             this.total = response.meta.pagination.total;
-            if (this.total / this.pageSize > 1) {
-                this.cansee = true;
-            }
         }
     }
 });
@@ -91258,6 +91287,21 @@ var render = function() {
             attrs: { type: "ghost", shape: "circle", icon: "search" },
             on: { click: _vm.searchNewspaper }
           }),
+          _vm._v(" "),
+          _vm.all
+            ? _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "ghost",
+                    icon: "android-list",
+                    shape: "circle"
+                  },
+                  on: { click: _vm.showAll }
+                },
+                [_vm._v("显示全部")]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "button-group",
@@ -91351,27 +91395,17 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm.cansee
-        ? _c("page", {
-            attrs: {
-              total: _vm.total,
-              "show-total": "",
-              current: _vm.currentPage,
-              "page-size": _vm.pageSize,
-              "class-name": _vm.pageClass,
-              "show-elevator": ""
-            },
-            on: { "on-change": _vm.changePage }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      !_vm.cansee
-        ? _c(
-            "span",
-            { staticStyle: { "margin-top": "15px", display: "block" } },
-            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
-          )
-        : _vm._e()
+      _c("page", {
+        attrs: {
+          total: _vm.total,
+          "show-total": "",
+          current: _vm.currentPage,
+          "page-size": _vm.pageSize,
+          "class-name": _vm.pageClass,
+          "show-elevator": ""
+        },
+        on: { "on-change": _vm.changePage }
+      })
     ],
     1
   )
@@ -92733,18 +92767,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var _this = this;
 
         return {
+            all: false,
             loading: true,
             total: 0,
             currentPage: 1,
             pageSize: 15,
-            cansee: false,
             pageClass: 'page',
             condition: 'form',
             search: '',
@@ -92825,9 +92858,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this2.online = response.data.data;
             _this2.loading = false;
             _this2.total = response.data.meta.pagination.total;
-            if (response.data.meta.pagination.total_pages > 1) {
-                _this2.cansee = true;
-            }
         }).catch(function (error) {
             _this2.$Message.error('资源列表加载出错，请稍后重试');
             console.log('资源列表加载出错:', error);
@@ -92849,9 +92879,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.$Message.info('删除资源成功');
                 _this3.online.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
-                if (response.data.meta.pagination.total_pages == 1) {
-                    _this3.cansee = true;
-                }
             }).catch(function (error) {
                 _this3.$Message.error('删除资源出错');
                 console.log('删除资源出错', error);
@@ -92861,10 +92888,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             this.currentPage = index;
-            this.$ajax.get('http://iview-laravel.test/api/online?page=' + index).then(function (response) {
-                console.log('换页', response);
+            var uri = void 0;
+            if (this.condition && this.search) {
+                uri = 'http://iview-laravel.test/api/online/' + this.condition + '/' + this.search + '?page=' + index;
+            } else {
+                uri = 'http://iview-laravel.test/api/online?page=' + index;
+            }
+            this.$ajax.get(uri).then(function (response) {
                 _this4.online = response.data.data;
-                _this4.loading = false;
+                _this4.total = response.data.meta.pagination.total;
+                _this4.all = true;
             }).catch(function (error) {
                 console.log('换页出错', error);
             });
@@ -92885,15 +92918,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log('搜索出错', error);
             });
         },
+        showAll: function showAll() {
+            var _this6 = this;
+
+            this.all = false;
+            this.currentPage = 1;
+            this.search = '';
+            this.$ajax.get('http://iview-laravel.test/api/online').then(function (response) {
+                console.log('拉取资源列表', response);
+                _this6.online = response.data.data;
+                _this6.loading = false;
+                _this6.total = response.data.meta.pagination.total;
+            }).catch(function (error) {
+                _this6.$Message.error('资源列表加载出错，请稍后重试');
+                console.log('资源列表加载出错:', error);
+            });
+        },
         importSuccess: function importSuccess(response, file, fileList) {
             console.log('批量导入', response);
             this.online = response.data;
             this.isImport = false;
             this.$Message.info('导入完成');
             this.total = response.meta.pagination.total;
-            if (this.total / this.pageSize > 1) {
-                this.cansee = true;
-            }
         }
     }
 });
@@ -92958,6 +93004,21 @@ var render = function() {
             attrs: { type: "ghost", shape: "circle", icon: "search" },
             on: { click: _vm.searchOnline }
           }),
+          _vm._v(" "),
+          _vm.all
+            ? _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "ghost",
+                    icon: "android-list",
+                    shape: "circle"
+                  },
+                  on: { click: _vm.showAll }
+                },
+                [_vm._v("显示全部")]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "button-group",
@@ -93051,27 +93112,17 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm.cansee
-        ? _c("page", {
-            attrs: {
-              total: _vm.total,
-              "show-total": "",
-              current: _vm.currentPage,
-              "page-size": _vm.pageSize,
-              "class-name": _vm.pageClass,
-              "show-elevator": ""
-            },
-            on: { "on-change": _vm.changePage }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      !_vm.cansee
-        ? _c(
-            "span",
-            { staticStyle: { "margin-top": "15px", display: "block" } },
-            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
-          )
-        : _vm._e()
+      _c("page", {
+        attrs: {
+          total: _vm.total,
+          "show-total": "",
+          current: _vm.currentPage,
+          "page-size": _vm.pageSize,
+          "class-name": _vm.pageClass,
+          "show-elevator": ""
+        },
+        on: { "on-change": _vm.changePage }
+      })
     ],
     1
   )
@@ -94370,7 +94421,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -94378,11 +94428,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         return {
+            all: false,
             loading: true,
             total: 0,
             currentPage: 1,
             pageSize: 15,
-            cansee: false,
             pageClass: 'page',
             condition: 'platform',
             search: '',
@@ -94472,9 +94522,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this2.internet = response.data.data;
             _this2.loading = false;
             _this2.total = response.data.meta.pagination.total;
-            if (response.data.meta.pagination.total_pages > 1) {
-                _this2.cansee = true;
-            }
         }).catch(function (error) {
             _this2.$Message.error('资源列表加载出错，请稍后重试');
             console.log('资源列表加载出错:', error);
@@ -94496,9 +94543,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.$Message.info('删除资源成功');
                 _this3.internet.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
-                if (response.data.meta.pagination.total_pages == 1) {
-                    _this3.cansee = true;
-                }
             }).catch(function (error) {
                 _this3.$Message.error('删除资源出错');
                 console.log('删除资源出错', error);
@@ -94508,8 +94552,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             this.currentPage = index;
-            this.$ajax.get('http://iview-laravel.test/api/internet?page=' + index).then(function (response) {
-                console.log('换页', response);
+            var uri = void 0;
+            if (this.condition && this.search) {
+                uri = 'http://iview-laravel.test/api/internet/' + this.condition + '/' + this.search + '?page=' + index;
+            } else {
+                uri = 'http://iview-laravel.test/api/internet?page=' + index;
+            }
+            this.$ajax.get(uri).then(function (response) {
                 _this4.internet = response.data.data;
                 _this4.loading = false;
             }).catch(function (error) {
@@ -94526,10 +94575,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$ajax.get('http://iview-laravel.test/api/internet/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.internet = response.data.data;
                 _this5.total = response.data.meta.pagination.total;
-                _this5.cansee = false;
-                console.log('搜索', response);
+                _this5.all = true;
             }).catch(function (error) {
                 console.log('搜索出错', error);
+            });
+        },
+        showAll: function showAll() {
+            var _this6 = this;
+
+            this.all = false;
+            this.search = '';
+            this.currentPage = 1;
+            this.$ajax.get('http://iview-laravel.test/api/internet').then(function (response) {
+                _this6.internet = response.data.data;
+                _this6.total = response.data.meta.pagination.total;
+            }).catch(function (error) {
+                _this6.$Message.error('网红资源列表加载出错，请稍后重试');
+                console.log('网红资源列表加载出错:', error);
             });
         },
         importSuccess: function importSuccess(response, file, fileList) {
@@ -94538,24 +94600,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.isImport = false;
             this.$Message.info('导入完成');
             this.total = response.meta.pagination.total;
-            if (this.total / this.pageSize > 1) {
-                this.cansee = true;
-            }
         }
-    },
-    computed: {
-        /*decodeCategories: function() {
-            if (this.internet.category) {
-                let t
-                for ( let i = 0; i < this.internet.category.length; i ++) {
-                    t += this.internet.category[i]
-                }
-                return t;
-            }
-            else {
-                return '';
-            }
-        }*/
     }
 });
 
@@ -94763,6 +94808,21 @@ var render = function() {
             on: { click: _vm.searchInternet }
           }),
           _vm._v(" "),
+          _vm.all
+            ? _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "ghost",
+                    icon: "android-list",
+                    shape: "circle"
+                  },
+                  on: { click: _vm.showAll }
+                },
+                [_vm._v("显示全部")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "button-group",
             { staticStyle: { float: "right" } },
@@ -94855,27 +94915,17 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm.cansee
-        ? _c("page", {
-            attrs: {
-              total: _vm.total,
-              "show-total": "",
-              current: _vm.currentPage,
-              "page-size": _vm.pageSize,
-              "class-name": _vm.pageClass,
-              "show-elevator": ""
-            },
-            on: { "on-change": _vm.changePage }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      !_vm.cansee
-        ? _c(
-            "span",
-            { staticStyle: { "margin-top": "15px", display: "block" } },
-            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
-          )
-        : _vm._e()
+      _c("page", {
+        attrs: {
+          total: _vm.total,
+          "show-total": "",
+          current: _vm.currentPage,
+          "page-size": _vm.pageSize,
+          "class-name": _vm.pageClass,
+          "show-elevator": ""
+        },
+        on: { "on-change": _vm.changePage }
+      })
     ],
     1
   )

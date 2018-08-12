@@ -46,7 +46,7 @@ class outdoorResourceController extends Controller
     }
 
     public function query($condition, $query) {
-        $outdoors = outdoorResource::where($condition, 'like', '%' . $query . '%')->paginate(15);
+        $outdoors = outdoorResource::where($condition, 'like', '%' . $query . '%')->orderBy('id', 'desc')->paginate(15);
         return $this->response->paginator($outdoors, new outdoorResourceTransformer());
     }
 

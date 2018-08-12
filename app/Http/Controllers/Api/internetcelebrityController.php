@@ -126,7 +126,7 @@ class internetcelebrityController extends Controller
                     $q->where('name', 'like', "%$query%");
                 })->paginate(15);
            } else {
-               $internet = internetcelebrityResource::where($condition, 'like', "%$query%")->paginate(15);
+               $internet = internetcelebrityResource::where($condition, 'like', "%$query%")->orderBy('id', 'desc')->paginate(15);
            }
            return $this->response->paginator($internet, new internetcelebrityResourcTransformer());
        } catch (\Exception $e) {
