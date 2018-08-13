@@ -11,6 +11,19 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/admin', function () {
     return view('welcome');
 });
+
+Route::get('/', function () {
+    return view('index');
+})->name('home');
+
+Route::get('/job', function () {
+    return view('pages.job');
+})->name('job');
+
+Route::get('/contact', function () {
+    return view('pages.contact');
+})->name('contact');
+
