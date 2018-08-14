@@ -93,11 +93,11 @@
                                                 <a href="" class="dropdown-toggle" data-toggle="dropdown" style="cursor: default;">资源</a>
                                                 <ul class="dropdown-menu">
                                                     <li><a href="{{ route('newspaper') }}"><i class="icon-right-open"></i>报刊杂志</a></li>
-                                                    <li><a href="resources_television.html"><i class="icon-right-open"></i>电视媒体</a></li>
-                                                    <li><a href="resources_outdoor.html"><i class="icon-right-open"></i>户外媒体</a></li>
-                                                    <li><a href="resources_transform.html"><i class="icon-right-open"></i>交通媒体</a></li>
-                                                    <li><a href="#"><i class="icon-right-open"></i>线上媒体</a></li>
-                                                    <li><a href="resources_internetcelebrity.html"><i class="icon-right-open"></i>网络红人</a></li>
+                                                    <li><a href="{{ route('television') }}"><i class="icon-right-open"></i>电视媒体</a></li>
+                                                    <li><a href="{{ route('outdoor') }}"><i class="icon-right-open"></i>户外媒体</a></li>
+                                                    <li><a href="{{ route('transform') }}"><i class="icon-right-open"></i>交通媒体</a></li>
+                                                    {{--<li><a href="{{ route('') }}"><i class="icon-right-open"></i>线上媒体</a></li>--}}
+                                                    <li><a href="{{ route('internetCelebrity') }}"><i class="icon-right-open"></i>网络红人</a></li>
                                                 </ul>
                                             </li>
                                             <!-- mega-menu end -->
@@ -123,10 +123,10 @@
                                                 <a href="services.html" class="dropdown-toggle" data-toggle="dropdown">服务</a>
                                             </li>
                                             <li class="dropdown">
-                                                <a href="about.html" class="dropdown-toggle" data-toggle="dropdown">关于</a>
+                                                <a href="{{ route('about') }}" class="dropdown-toggle" data-toggle="dropdown">关于</a>
                                             </li>
                                             <li class="dropdown">
-                                                <a href="" class="dropdown-toggle" data-toggle="dropdown" style="cursor:default;">联系</a>
+                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="cursor:default;">联系</a>
                                                 <ul class="dropdown-menu">
                                                     <li><a href="{{ route('contact') }}"><i class="icon-right-open"></i>联系我们</a></li>
                                                     <li><a href="{{ route('job') }}"><i class="icon-right-open"></i>加入我们</a></li>

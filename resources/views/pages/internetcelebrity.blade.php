@@ -1,16 +1,17 @@
 @extends('layouts._header')
 
 @section('title')
-    Zetin 报纸杂志
-@stop
+    Zetin 网络红人
+    @stop
 
 @section('content')
+    <!-- banner start -->
+    <!-- ================ -->
     <div class="banner">
-        <div class="fixed-image section dark-translucent-bg parallax-bg-3"
-             style="background-image:url('{{ asset('images/resourcesbg2.jpg') }}');">
+        <div class="fixed-image section dark-translucent-bg parallax-bg-3" style="background-image:url('{{ asset('images/resourcesbg5.jpg') }}');">
             <div class="container">
                 <div class="space-top"></div>
-                <h1>报纸杂志</h1>
+                <h1>网络红人</h1>
                 <div class="separator-2"></div>
                 <p class="lead" style="font-size: 16px;line-height: 32px;">
                     凭借与海外主流传统媒体、专业媒体的多年深度合作和良好关系，为客户提供多渠道、多媒介的全球传播服务，<br>
@@ -75,8 +76,7 @@
                             <div class="form-group">
                                 <label>类别</label>
                                 <select class="form-control">
-                                    <option selected="selected">综合新闻</option>
-                                    <option>财经</option>
+                                    <option selected="selected">财经</option>
                                     <option>体育</option>
                                     <option>时尚</option>
                                     <option>科技</option>
@@ -89,15 +89,23 @@
                                     <option>汽车</option>
                                     <option>健康</option>
                                     <option>漫画</option>
-                                    <option>航空</option>
+                                    <option>搞笑</option>
+                                    <option>美食</option>
                                     <option>其他</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>形式</label>
+                                <label>平台</label>
                                 <select class="form-control">
-                                    <option selected="selected">硬广</option>
-                                    <option>软文</option>
+                                    <option selected="selected">YouTube</option>
+                                    <option>Facebook</option>
+                                    <option>Instagram</option>
+                                    <option>Twitter</option>
+                                    <option>Pinterest</option>
+                                    <option>VK</option>
+                                    <option>OK</option>
+                                    <option>Moi Mir</option>
+                                    <option>Blog</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -108,22 +116,18 @@
 
                     <!-- shop items start -->
                     <div class="masonry-grid-fitrows row grid-space-20">
-                        @foreach($newspapers as $newspaper)
+                        @foreach($internetCelebrities as $internetCelebrity)
                         <div class="col-md-4 col-sm-6 masonry-grid-item">
                             <div class="listing-item">
                                 <div class="overlay-container">
-                                    @if($newspaper->newspaperResourceImgs->count() > 0)
-                                        <img src="{{ $newspaper->newspaperResourceImgs[0]->url }}" alt="{{ $newspaper->name }}">
-                                    @else
-                                        <img src="{{ asset('images/newspaper/1.jpg') }}" alt="{{ $newspaper->name }}">
-                                    @endif
-                                    <a href="resources_newspaper_4.html" class="overlay small">
+                                    <img src="{{ $internetCelebrity->Imgs[0]->url }}" alt="Andreea Cristina">
+                                    <a href="#" class="overlay small">
                                         <i class="fa fa-plus"></i>
                                         <span>了解详情</span>
                                     </a>
                                 </div>
                                 <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_newspaper_4.html">{{ $newspaper->name }}</a></h3>
+                                    <h3 class="title"><a href="#">Andreea Cristina</a></h3>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +138,7 @@
                     <div class="clearfix"></div>
 
                     <!-- pagination start -->
-                    {{ $newspapers->links() }}
+                    {{ $internetCelebrities->links() }}
                     <!-- pagination end -->
 
                 </div>
@@ -143,4 +147,5 @@
             </div>
         </div>
     </section>
-@stop
+    <!-- main-container end -->
+    @stop

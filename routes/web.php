@@ -15,18 +15,20 @@ Route::get('/admin', function () {
     return view('welcome');
 });
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+Route::get('/', 'PagesController@index')->name('home');
 
-Route::get('/job', function () {
-    return view('pages.job');
-})->name('job');
+Route::get('/job', 'PagesController@job')->name('job');
 
-Route::get('/contact', function () {
-    return view('pages.contact');
-})->name('contact');
+Route::get('/contact', 'PagesController@contact')->name('contact');
 
-Route::get('/newspaper', function () {
-    return view('pages.newspaper');
-})->name('newspaper');
+Route::get('/about', 'PagesController@about')->name('about');
+
+Route::get('/newspaper', 'PagesController@newspaper')->name('newspaper');
+
+Route::get('/television', 'PagesController@television')->name('television');
+
+Route::get('/outdoor', 'PagesController@outdoor')->name('outdoor');
+
+Route::get('/transform', 'PagesController@transform')->name('transform');
+
+Route::get('/internetCelebrity', 'PagesController@internetCelebrity')->name('internetCelebrity');
