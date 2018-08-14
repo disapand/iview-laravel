@@ -27,3 +27,6 @@ Route::get('/contact', function () {
     return view('pages.contact');
 })->name('contact');
 
+Route::get('/newspaper', function () {
+    return view('pages.newspaper');
+})->name('newspaper');

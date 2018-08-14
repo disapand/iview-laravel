@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="favicon.ico">
-    <title>@yield('title', '正点国际传媒')</title>
+    <title>@yield('title', 'Zetin 正点国际传媒')</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('bootstrap/css/bootstrap.css') }}" rel="stylesheet">
@@ -92,7 +92,7 @@
                                             <li class="dropdown">
                                                 <a href="" class="dropdown-toggle" data-toggle="dropdown" style="cursor: default;">资源</a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="resources_newspaper.html"><i class="icon-right-open"></i>报刊杂志</a></li>
+                                                    <li><a href="{{ route('newspaper') }}"><i class="icon-right-open"></i>报刊杂志</a></li>
                                                     <li><a href="resources_television.html"><i class="icon-right-open"></i>电视媒体</a></li>
                                                     <li><a href="resources_outdoor.html"><i class="icon-right-open"></i>户外媒体</a></li>
                                                     <li><a href="resources_transform.html"><i class="icon-right-open"></i>交通媒体</a></li>
