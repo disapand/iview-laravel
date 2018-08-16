@@ -1,4 +1,4 @@
-@extends('layouts._header')
+@extends('layouts._layouts')
 
 @section('title')
     Zetin 关于我们

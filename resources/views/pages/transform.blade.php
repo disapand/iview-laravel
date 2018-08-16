@@ -1,14 +1,15 @@
-@extends('layouts._header')
+@extends('layouts._layouts')
 
 @section('title')
     Zetin 交通媒体
-    @stop
+@stop
 
 @section('content')
     <!-- banner start -->
     <!-- ================ -->
     <div class="banner">
-        <div class="fixed-image section dark-translucent-bg parallax-bg-3" style="background-image:url('{{ asset('images/resourcesbg3.jpg') }}');">
+        <div class="fixed-image section dark-translucent-bg parallax-bg-3"
+             style="background-image:url('{{ asset('images/resourcesbg3.jpg') }}');">
             <div class="container">
                 <div class="space-top"></div>
                 <h1>交通媒体</h1>
@@ -100,132 +101,27 @@
 
                     <!-- shop items start -->
                     <div class="masonry-grid-fitrows row grid-space-20">
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/transform/1.jpg" alt="日本-东京名古屋大阪美式卡车-全车包裹">
-                                    <a href="#" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="#">日本-东京名古屋大阪美式卡车-全车包裹</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/transform/2.jpg" alt="日本-东京双层巴士-全车包裹">
-                                    <a href="resources_transform_in.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_transform_in.html">日本-东京双层巴士-全车包裹</a></h3>
+                        @foreach( $transforms as $transform)
+                            <div class="col-md-4 col-sm-6 masonry-grid-item">
+                                <div class="listing-item">
+                                    <div class="overlay-container">
+                                        @if($transform->transformResourceImgs->count() > 0)
+                                            <img src="{{ $transform->transformResourceImgs[0]->url }}" alt="{{ $transform->name }}">
+                                        @else
+                                            <img src="{{ asset('images/4.jpg') }}" alt="{{ $transform->name }}">
+                                        @endif
+                                        <a href="{{ route('transform.show', [$transform->id]) }}" class="overlay small">
+                                            <i class="fa fa-plus"></i>
+                                            <span>了解详情</span>
+                                        </a>
+                                    </div>
+                                    <div class="listing-item-body clearfix">
+                                        <h3 class="title"><a href="{{ route('transform.show', [$transform->id]) }}">{{ $transform->name }}</a>
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/transform/3.jpg" alt="马来西亚-吉隆坡双层巴士-全车包裹">
-                                    <a href="#" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="#">马来西亚-吉隆坡双层巴士-全车包裹</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/transform/4.jpg" alt="马来西亚-吉隆坡单层巴士-全车包裹">
-                                    <a href="#" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="#">马来西亚-吉隆坡单层巴士-全车包裹</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/transform/5.jpg" alt="泰国-曼谷单层巴士-半包">
-                                    <a href="#" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="#">泰国-曼谷单层巴士-半包</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/transform/6.jpg" alt="泰国-曼谷单层巴士-全包">
-                                    <a href="#" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="#">泰国-曼谷单层巴士-全包</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/transform/7.jpg" alt="泰国-曼谷轻轨-LED屏">
-                                    <a href="#" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="#">泰国-曼谷轻轨-LED屏</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/transform/8.jpg" alt="意大利-威尼斯水上巴士">
-                                    <a href="#" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="#">意大利-威尼斯水上巴士</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/transform/9.jpg" alt="俄罗斯-莫斯科地铁-车厢贴纸">
-                                    <a href="#" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="#">俄罗斯-莫斯科地铁-车厢贴纸</a></h3>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <!-- shop items end -->
 
@@ -242,4 +138,4 @@
         </div>
     </section>
     <!-- main-container end -->
-    @stop
+@stop

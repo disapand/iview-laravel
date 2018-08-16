@@ -1,4 +1,4 @@
-@extends('layouts._header')
+@extends('layouts._layouts')
 
 @section('title')
     Zetin 户外媒体
@@ -79,7 +79,6 @@
                                     <option selected="selected">机场</option>
                                     <option>楼宇</option>
                                     <option>街道</option>
-                                    <option>楼宇</option>
                                     <option>地铁站</option>
                                     <option>巴士站</option>
                                     <option>轻轨站</option>
@@ -103,132 +102,26 @@
 
                     <!-- shop items start -->
                     <div class="masonry-grid-fitrows row grid-space-20">
+                        @foreach( $outdoors as $outdoor)
                         <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/resources/1.jpg" alt="美国-纽约-时报广场-路透社大屏">
-                                    <a href="resources_outdoor_lts.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
+                                <div class="listing-item">
+                                    <div class="overlay-container">
+                                        @if($outdoor->outdoorResourceImgs->count() > 0)
+                                            <img src="{{ $outdoor->outdoorResourceImgs[0]->url }}" alt="{{ $outdoor->name }}">
+                                        @else
+                                            <img src="{{ asset('images/3.jpg') }}" alt="{{ $outdoor->name }}">
+                                        @endif
+                                        <a href="{{ route('outdoor.show', [$outdoor->id]) }}" class="overlay small">
+                                            <i class="fa fa-plus"></i>
+                                            <span>了解详情</span>
+                                        </a>
+                                    </div>
+                                    <div class="listing-item-body clearfix">
+                                        <h3 class="title"><a href="{{ route('outdoor.show', [$outdoor->id]) }}">{{ $outdoor->name }}</a></h3>
+                                    </div>
                                 </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_lts.html">美国-纽约-时报广场-路透社大屏</a></h3>
-                                </div>
-                            </div>
                         </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/resources/2.jpg" alt="美国-纽约时报广场-纳斯达克大屏">
-                                    <a href="resources_outdoor_nsdk.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_nsdk.html">美国-纽约时报广场-纳斯达克大屏</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/resources/3.jpg" alt="法国-巴黎环城路-户外广告组屏">
-                                    <a href="resources_outdoor_bl.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_bl.html">法国-巴黎环城路-户外广告组屏</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/resources/4.jpg" alt="英国-伦敦-皮卡迪利广场大屏 ">
-                                    <a href="resources_outdoor_pkdl.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_pkdl.html">英国-伦敦-皮卡迪利广场大屏 </a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/resources/5.jpg" alt="英国-伦敦韦斯特菲尔德商业街出入口-户外大屏">
-                                    <a href="resources_outdoor_wstfedcrk.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_wstfedcrk.html">英国-伦敦韦斯特菲尔德商业街出入口-户外大屏</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/resources/6.jpg" alt="英国-伦敦韦斯特菲尔德商业街外墙-户外大屏">
-                                    <a href="resources_outdoor_wstfedwq.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_wstfedwq.html">英国-伦敦韦斯特菲尔德商业街外墙-户外大屏</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/resources/7.jpg" alt="新西兰-奥克兰城市之门-户外LED广告屏">
-                                    <a href="resources_outdoor_akl.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_akl.html">新西兰-奥克兰城市之门-户外LED广告屏</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/resources/8.jpg" alt="西班牙-马德里-Callao广场户外广告屏组">
-                                    <a href="resources_outdoor_mdl.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_mdl.html">西班牙-马德里-Callao广场户外广告屏组</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/resources/9.jpg" alt="澳大利亚-悉尼威廉街citybound-户外广告牌">
-                                    <a href="resources_outdoor_xn.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_xn.html">澳大利亚-悉尼威廉街citybound-户外广告牌</a></h3>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <!-- shop items end -->
 

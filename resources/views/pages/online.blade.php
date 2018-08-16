@@ -1,17 +1,18 @@
-@extends('layouts._header')
+@extends('layouts._layouts')
 
 @section('title')
-    Zetin 网络红人
-    @stop
+    Zetin 线上媒体
+@stop
 
 @section('content')
     <!-- banner start -->
     <!-- ================ -->
     <div class="banner">
-        <div class="fixed-image section dark-translucent-bg parallax-bg-3" style="background-image:url('{{ asset('images/resourcesbg5.jpg') }}');">
+        <div class="fixed-image section dark-translucent-bg parallax-bg-3"
+             style="background-image:url('{{ asset('images/resourcesbg6.jpg') }}');">
             <div class="container">
                 <div class="space-top"></div>
-                <h1>网络红人</h1>
+                <h1>线上媒体</h1>
                 <div class="separator-2"></div>
                 <p class="lead" style="font-size: 16px;line-height: 32px;">
                     凭借与海外主流传统媒体、专业媒体的多年深度合作和良好关系，为客户提供多渠道、多媒介的全球传播服务，<br>
@@ -76,36 +77,21 @@
                             <div class="form-group">
                                 <label>类别</label>
                                 <select class="form-control">
-                                    <option selected="selected">财经</option>
-                                    <option>体育</option>
-                                    <option>时尚</option>
-                                    <option>科技</option>
-                                    <option>生活</option>
-                                    <option>旅游</option>
-                                    <option>八卦</option>
-                                    <option>音乐</option>
-                                    <option>影视</option>
-                                    <option>艺术</option>
-                                    <option>汽车</option>
-                                    <option>健康</option>
-                                    <option>漫画</option>
-                                    <option>搞笑</option>
-                                    <option>美食</option>
-                                    <option>其他</option>
+                                    <option selected="selected">网站</option>
+                                    <option>APP</option>
+                                    <option>社交媒体</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>平台</label>
+                                <label>形式</label>
                                 <select class="form-control">
-                                    <option selected="selected">YouTube</option>
-                                    <option>Facebook</option>
-                                    <option>Instagram</option>
-                                    <option>Twitter</option>
-                                    <option>Pinterest</option>
-                                    <option>VK</option>
-                                    <option>OK</option>
-                                    <option>Moi Mir</option>
-                                    <option>Blog</option>
+                                    <option selected="selected">横幅广告</option>
+                                    <option>开屏广告</option>
+                                    <option>弹出广告</option>
+                                    <option>信息流广告</option>
+                                    <option>图片广告</option>
+                                    <option>视频广告</option>
+                                    <option>轮播广告</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -116,21 +102,25 @@
 
                     <!-- shop items start -->
                     <div class="masonry-grid-fitrows row grid-space-20">
-                        @foreach($internetCelebrities as $internetCelebrity)
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="{{ $internetCelebrity->Imgs[0]->url }}" alt="Andreea Cristina">
-                                    <a href="#" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="#">Andreea Cristina</a></h3>
+                        @foreach( $onlines as $online )
+                            <div class="col-md-4 col-sm-6 masonry-grid-item">
+                                <div class="listing-item">
+                                    <div class="overlay-container">
+                                        @if($online->onlineResourceImgs->count() > 0)
+                                            <img src="{{ $online->onlineResourceImgs[0]->url }}" alt="{{ $online->name }}">
+                                        @else
+                                            <img src="{{ asset('images/6.jpg') }}" alt="{{ $online->name }}">
+                                        @endif
+                                        <a href="{{ route('online.show', [$online->id]) }}" class="overlay small">
+                                            <i class="fa fa-plus"></i>
+                                            <span>了解详情</span>
+                                        </a>
+                                    </div>
+                                    <div class="listing-item-body clearfix">
+                                        <h3 class="title"><a href="{{ route('online.show', [$online->id]) }}">{{ $online->name }}</a></h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                     <!-- shop items end -->
@@ -138,8 +128,8 @@
                     <div class="clearfix"></div>
 
                     <!-- pagination start -->
-                    {{ $internetCelebrities->links() }}
-                    <!-- pagination end -->
+                {{ $onlines->links() }}
+                <!-- pagination end -->
 
                 </div>
                 <!-- main end -->
@@ -148,4 +138,4 @@
         </div>
     </section>
     <!-- main-container end -->
-    @stop
+@stop

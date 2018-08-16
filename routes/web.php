@@ -24,11 +24,19 @@ Route::get('/contact', 'PagesController@contact')->name('contact');
 Route::get('/about', 'PagesController@about')->name('about');
 
 Route::get('/newspaper', 'PagesController@newspaper')->name('newspaper');
+Route::get('/newspaper/{newspaper}', 'PagesController@newspaperShow')->name('newspaper.show');
 
 Route::get('/television', 'PagesController@television')->name('television');
+Route::get('/television/{television}', 'PagesController@televisionShow')->name('television.show');
 
 Route::get('/outdoor', 'PagesController@outdoor')->name('outdoor');
+Route::get('/outdoor/{outdoor}', 'PagesController@outdoorShow')->name('outdoor.show');
 
 Route::get('/transform', 'PagesController@transform')->name('transform');
+Route::get('/transform/{transform}', 'PagesController@transformShow')->name('transform.show');
+
+Route::get('/online', 'PagesController@online')->name('online');
+Route::get('/online/{online}', 'PagesController@onlineShow')->name('online.show');
 
 Route::get('/internetCelebrity', 'PagesController@internetCelebrity')->name('internetCelebrity');
+Route::get('/internetCelebrity/{internetCelebrity}', 'PagesController@internetCelebrityShow')->name('internetCelebrity.show');

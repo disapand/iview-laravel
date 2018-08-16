@@ -15,9 +15,9 @@ class CreateDynamicsTable extends Migration
     {
         Schema::create('dynamics', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tag')->nullable()->comment('标签');
-            $table->string('title')->nullable()->comment('标签');
-            $table->text('content')->nullable()->comment('内容');
+            $table->string('tag')->nullable()->comment('标签')->nullable();
+            $table->string('title')->nullable()->comment('标签')->nullable();
+            $table->text('content')->nullable()->comment('内容')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

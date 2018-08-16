@@ -45,18 +45,22 @@ class onlineResourceController extends Controller
         $imgs = $data['onlineResourceImgs'];
         unset($data['onlineResourceImgs'], $data['created_at'], $data['updated_at'], $data['deleted_at']);
 
-        if ($data['id']) {
-            onlineResource::findOrFail($data['id'])->update($data);
-        } else {
-            $online = onlineResource::create($data);
-            foreach ($imgs['data'] as $img) {
-                onlineResourceImgs::findOrFail($img['id'])->update([
-                    'online_resources_id' => $online->id,
-                ]);
+        try {
+            if ($data['id']) {
+                onlineResource::findOrFail($data['id'])->update($data);
+            } else {
+                $online = onlineResource::create($data);
+                foreach ($imgs['data'] as $img) {
+                    onlineResourceImgs::findOrFail($img['id'])->update([
+                        'online_resources_id' => $online->id,
+                    ]);
+                }
             }
-        }
 
-        return $this->response->created();
+            return $this->response->created();
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**

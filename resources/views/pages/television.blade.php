@@ -1,4 +1,4 @@
-@extends('layouts._header')
+@extends('layouts._layouts')
 
 @section('title')
     Zetin 电视媒体
@@ -76,20 +76,15 @@
                             <div class="form-group">
                                 <label>类别</label>
                                 <select class="form-control">
-                                    <option selected="selected">电视剧</option>
-                                    <option>综艺</option>
-                                    <option>真人秀</option>
-                                    <option>脱口秀</option>
-                                    <option>新闻</option>
-                                    <option>时政</option>
+                                    <option selected="selected">综合新闻</option>
                                     <option>财经</option>
-                                    <option>访谈</option>
                                     <option>体育</option>
+                                    <option>娱乐</option>
                                     <option>时尚</option>
                                     <option>科技</option>
-                                    <option>纪录片</option>
                                     <option>生活</option>
                                     <option>文史</option>
+                                    <option>军事</option>
                                     <option>旅游</option>
                                     <option>八卦</option>
                                     <option>音乐</option>
@@ -105,9 +100,6 @@
                                 <label>形式</label>
                                 <select class="form-control">
                                     <option selected="selected">TVC</option>
-                                    <option>冠名</option>
-                                    <option>植入</option>
-                                    <option>赞助</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -118,33 +110,40 @@
 
                     <!-- shop items start -->
                     <div class="masonry-grid-fitrows row grid-space-20">
-                        @foreach($televisions as $television)
                         <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    @if( $television->televisionResourcesImgs->count() > 0)
-                                        <img src="{{ $television->televisionResourcesImgs[0]->url }}" alt="{{ $television->name }}">
-                                    @else
-                                        <img src="{{ asset('images/aboutbg.jpg') }}" alt="{{ $television->name }}">
-                                    @endif
-                                    <a href="#" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
+                            @foreach($televisions as $television)
+                                <div class="listing-item">
+                                    <div class="overlay-container">
+                                        @if($television->televisionResourcesImgs->count() > 0)
+                                            <img src="{{ $television->televisionResourcesImgs[0]->url }}" alt="{{ $television->channel }}">
+                                        @else
+                                            <img src="{{ asset('images/1.jpg') }}" alt="{{ $television->channel }}">
+                                        @endif
+                                        <a href="{{ route('television.show', [$television->id]) }}" class="overlay small">
+                                            <i class="fa fa-plus"></i>
+                                            <span>了解详情</span>
+                                        </a>
+                                    </div>
+                                    <div class="listing-item-body clearfix">
+                                        <h3 class="title"><a href="{{ route('television.show', [$television->id]) }}">{{ $television->channel }}</a></h3>
+                                    </div>
                                 </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="#">俄罗斯-Россия 1（俄罗斯1）</a></h3>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
-                        @endforeach
                     </div>
                     <!-- shop items end -->
 
                     <div class="clearfix"></div>
 
                     <!-- pagination start -->
-                    {{ $televisions->links() }}
+                    <ul class="pagination">
+                        <li><a href="#"><<</a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="resources_television2.html">2</a></li>
+                        <li><a href="resources_television3.html">3</a></li>
+                        <li><a href="resources_television4.html">4</a></li>
+                        <li><a href="resources_television3.html">>></a></li>
+                    </ul>
                     <!-- pagination end -->
 
                 </div>

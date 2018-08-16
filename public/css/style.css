@@ -2054,8 +2054,8 @@ tbody {
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
 	color: #fff !important;
-	background-color: #0e7fe7;
-	border-color: #0e7fe7;
+	background-color: #55acee;
+	border-color: #55acee;
 }
 .default-bg .btn-default {
 	background-color: rgba(0, 0, 0, 0.3);
@@ -3420,7 +3420,6 @@ a.overlay.small i {
 /* arrows for parent menu items */
 .dropdown>a:before {
 	font-family: 'FontAwesome';
-	content: "\f107";
 	position: absolute;
 	left: auto;
 	top: 15px;

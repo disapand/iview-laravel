@@ -58,7 +58,7 @@ class internetcelebrityController extends Controller
                     $internet->categories()->attach(internetcelebrityResourceCategory::whereName($category)
                         ->get(['id'])->first()['id']);
                 }
-                foreach ($imgs as $img) {
+                foreach ($imgs['data'] as $img) {
                     internetcelebrityResourceImgs::findOrFail($img['id'])->update([
                         'internetcelebrity_resources_id' => $internet->id,
                     ]);

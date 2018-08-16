@@ -15,7 +15,7 @@ class CreateInternetcelebrityResourceCategoriesTable extends Migration
     {
         Schema::create('internetcelebrity_resource_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('internetcelebrity_resources_id')->nullable();
+            $table->string('name')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

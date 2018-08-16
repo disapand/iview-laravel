@@ -15,9 +15,9 @@ class CreateInsightsTable extends Migration
     {
         Schema::create('insights', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('category')->nullable()->comment("分类");
-            $table->string('title')->nullable()->comment("标题");
-            $table->text('content')->nullable()->comment("内容");
+            $table->string('category')->nullable()->comment("分类")->nullable();
+            $table->string('title')->nullable()->comment("标题")->nullable();
+            $table->text('content')->nullable()->comment("内容")->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

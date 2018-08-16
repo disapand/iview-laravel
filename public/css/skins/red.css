@@ -108,8 +108,8 @@ mark,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
 	color: #fff !important;
-	background-color: #0e7fe7;
-	border-color: #0e7fe7;
+	background-color: #55acee;
+	border-color: #55acee;
 }
 .btn-default.disabled,
 .btn-default[disabled],

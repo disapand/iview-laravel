@@ -15,9 +15,9 @@ class CreateCaseResourcesTable extends Migration
     {
         Schema::create('case_resources', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('category', 10)->default('全部')->comment('分类');
-            $table->string('title', 150)->default('标题')->comment('标题');
-            $table->text('content')->comment('案例内容');
+            $table->string('category', 10)->default('全部')->comment('分类')->nullable();
+            $table->string('title', 150)->default('标题')->comment('标题')->nullable();
+            $table->text('content')->comment('案例内容')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
