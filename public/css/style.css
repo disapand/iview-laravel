@@ -80,8 +80,13 @@ h6 {
 	margin-top: 20px;
 	padding-top: 20px;
 }
+
 p {
-	margin-bottom: 20px;
+	margin: 0;
+}
+
+p img{
+	margin: 0 auto;
 }
 a {
 	color: #0e7fe7;

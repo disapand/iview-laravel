@@ -57,7 +57,7 @@
                                         </li>
                                         <!-- mega-menu end -->
                                         <li class="dropdown">
-                                            <a href="insight.html" class="dropdown-toggle" data-toggle="dropdown">洞察</a>
+                                            <a href="{{ route('insight') }}" class="dropdown-toggle" data-toggle="dropdown">洞察</a>
                                         </li>
                                         <!-- mega-menu start -->
                                         <li class="dropdown">
@@ -76,20 +76,20 @@
                                         </li>
                                         <!-- mega-menu end -->
                                         <li class="dropdown">
-                                            <a href="services.html" class="dropdown-toggle" data-toggle="dropdown">服务</a>
+                                            <a href="{{ route('services') }}" class="dropdown-toggle" data-toggle="dropdown">服务</a>
                                         </li>
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="cursor:default;">关于</a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="about.html"><i class="icon-right-open"></i>关于我们</a></li>
+                                                <li><a href="{{ route('about') }}"><i class="icon-right-open"></i>关于我们</a></li>
                                                 <li><a href="about_in.html"><i class="icon-right-open"></i>公司动态</a></li>
                                             </ul>
                                         </li>
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="cursor:default;">联系</a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="contact.html"><i class="icon-right-open"></i>联系我们</a></li>
-                                                <li><a href="job.html"><i class="icon-right-open"></i>加入我们</a></li>
+                                                <li><a href="{{ route('contact') }}"><i class="icon-right-open"></i>联系我们</a></li>
+                                                <li><a href="{{ route('job') }}"><i class="icon-right-open"></i>加入我们</a></li>
                                             </ul>
                                         </li>
                                     </ul>

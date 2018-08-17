@@ -21,7 +21,7 @@ class CreateOnlineResourcesTable extends Migration
             $table->string('detail')->default('媒体介绍，特点、优势等文字描述')->comment('内容和特点')->nullable();
             $table->string('area', 50)->default('受众主要分布地区')->comment('覆盖区域')->nullable();
             $table->string('language', 20)->default('中文')->comment('语言')->nullable();
-            $table->string('platform', 20)->default('综合')->comment('媒体内容属性类别')->nullable();
+            $table->string('platform')->default('综合')->comment('媒体内容属性类别')->nullable();
             $table->string('company', 50)->default('媒体所属公司或集团名称')->comment('媒体所属公司或集团')->nullable();
             $table->integer('pv')->default(0)->comment('网站月度PV')->nullable();
             $table->integer('uv')->default(0)->comment('网站月度UV')->nullable();

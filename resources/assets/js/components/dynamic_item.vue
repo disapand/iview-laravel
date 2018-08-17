@@ -3,11 +3,9 @@
 
         <i-form :model="dynamic" ref="dynamic" :rules="dynamicRules">
             <!--
-            -
             -   基本信息编辑部分
-            -
             --->
-            <Card style="width: 1175px; display: inline-block; left: 50%; transform: translateX(-50%)">
+            <Card style="width: 1175px; display: inline-block; margin-right: 20px;">
                 <p slot="title">
                     <Icon type="clipboard"></Icon>
                     基本信息
@@ -24,6 +22,42 @@
                 <form-item label="案例内容" prop="content">
                     <Editor v-model="dynamic.content"></Editor>
                 </form-item>
+            </Card>
+
+            <!--
+            -   图片编辑部分
+            --->
+            <Card style="width: 400px; display: inline-block; position: absolute;">
+                <p slot="title">
+                    <Icon type="image"></Icon>
+                    图片信息
+                </p>
+
+                <form-item>
+                    <upload multiple type="drag"
+                            name="img"
+                            action="http://iview-laravel.test/api/caseImg"
+                            :on-success="imgSuccess"
+                            :on-error="imgError"
+                            :data="dynamic"
+                            :show-upload-list=false>
+                        <div style="width: 360px; height: 120px">
+                            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff;margin-top: 20px"></Icon>
+                            <p>点击或者拖拽图片到此上传</p>
+                        </div>
+                    </upload>
+                </form-item>
+
+                <template v-for="img in dynamic.Imgs.data">
+                    <div class="img-list">
+                        <img :src="img.url" alt="">
+                        <div class="img-list-cover">
+                            <Icon type="ios-trash" @click.native="deleteImg(img.id)"></Icon>
+                            <Icon type="upload" @click.native="updateImg(img)"></Icon>
+                        </div>
+                    </div>
+                </template>
+
             </Card>
 
             <div style="margin: 30px;text-align: center">
@@ -55,6 +89,9 @@
                     title:'',
                     tag: '',
                     content: '',
+                    Imgs:{
+                        data:[]
+                    }
                 },
                 dynamicRules: {
                     title:[

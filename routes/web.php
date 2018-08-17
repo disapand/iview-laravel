@@ -23,6 +23,8 @@ Route::get('/contact', 'PagesController@contact')->name('contact');
 
 Route::get('/about', 'PagesController@about')->name('about');
 
+Route::get('/services', 'PagesController@services')->name('services');
+
 Route::get('/newspaper', 'PagesController@newspaper')->name('newspaper');
 Route::get('/newspaper/{newspaper}', 'PagesController@newspaperShow')->name('newspaper.show');
 
@@ -40,3 +42,6 @@ Route::get('/online/{online}', 'PagesController@onlineShow')->name('online.show'
 
 Route::get('/internetCelebrity', 'PagesController@internetCelebrity')->name('internetCelebrity');
 Route::get('/internetCelebrity/{internetCelebrity}', 'PagesController@internetCelebrityShow')->name('internetCelebrity.show');
+
+Route::get('/insight', 'PagesController@insight')->name('insight');
+Route::get('/insight/{insight}', 'PagesController@insightShow')->name('insight.show');

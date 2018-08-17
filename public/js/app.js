@@ -98701,6 +98701,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -98716,7 +98750,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 id: '',
                 title: '',
                 tag: '',
-                content: ''
+                content: '',
+                Imgs: {
+                    data: []
+                }
             },
             dynamicRules: {
                 title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
@@ -98917,8 +98954,7 @@ var render = function() {
               staticStyle: {
                 width: "1175px",
                 display: "inline-block",
-                left: "50%",
-                transform: "translateX(-50%)"
+                "margin-right": "20px"
               }
             },
             [
@@ -98986,6 +99022,102 @@ var render = function() {
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "Card",
+            {
+              staticStyle: {
+                width: "400px",
+                display: "inline-block",
+                position: "absolute"
+              }
+            },
+            [
+              _c(
+                "p",
+                { attrs: { slot: "title" }, slot: "title" },
+                [
+                  _c("Icon", { attrs: { type: "image" } }),
+                  _vm._v("\n                图片信息\n            ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                [
+                  _c(
+                    "upload",
+                    {
+                      attrs: {
+                        multiple: "",
+                        type: "drag",
+                        name: "img",
+                        action: "http://iview-laravel.test/api/caseImg",
+                        "on-success": _vm.imgSuccess,
+                        "on-error": _vm.imgError,
+                        data: _vm.dynamic,
+                        "show-upload-list": false
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticStyle: { width: "360px", height: "120px" } },
+                        [
+                          _c("Icon", {
+                            staticStyle: {
+                              color: "#3399ff",
+                              "margin-top": "20px"
+                            },
+                            attrs: { type: "ios-cloud-upload", size: "52" }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("点击或者拖拽图片到此上传")])
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.dynamic.Imgs.data, function(img) {
+                return [
+                  _c("div", { staticClass: "img-list" }, [
+                    _c("img", { attrs: { src: img.url, alt: "" } }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "img-list-cover" },
+                      [
+                        _c("Icon", {
+                          attrs: { type: "ios-trash" },
+                          nativeOn: {
+                            click: function($event) {
+                              _vm.deleteImg(img.id)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("Icon", {
+                          attrs: { type: "upload" },
+                          nativeOn: {
+                            click: function($event) {
+                              _vm.updateImg(img)
+                            }
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              })
+            ],
+            2
           ),
           _vm._v(" "),
           _c(

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\insight;
 use App\Models\internetcelebrityResource;
 use App\Models\newspaperResource;
 use App\Models\onlineResource;
@@ -26,6 +27,11 @@ class PagesController extends Controller
 
     public function about() {
         return view('pages.about');
+    }
+
+    public function services()
+    {
+        return view('pages.services');
     }
 
     public function newspaper()
@@ -99,4 +105,16 @@ class PagesController extends Controller
         $categories = implode(',', $arr);
         return view('pages.internetCelebrity_in', compact('internetCelebrity', 'categories'));
     }
+
+    public function insight()
+    {
+        $insights = insight::all();
+        return view('pages.insight', compact('insights'));
+    }
+
+    public function insightShow(insight $insight)
+    {
+        return view('pages.insight_in', compact('insight'));
+    }
+
 }
