@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\dynamic withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\dynamic withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\dynamicImg[] $imgs
  */
 class dynamic extends Model
 {
@@ -37,4 +38,9 @@ class dynamic extends Model
     protected $guarded = [
         'id', 'created_at', 'updated_at', 'deleted_at'
     ];
+
+    public function imgs()
+    {
+        return $this->hasMany(dynamicImg::class, 'dynamic_id', 'id');
+    }
 }

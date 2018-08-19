@@ -63,7 +63,7 @@
                                         <li class="dropdown">
                                             <a href="" class="dropdown-toggle" data-toggle="dropdown" style="cursor: default;">案例</a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="cases.html"><i class="icon-right-open"></i>全部</a></li>
+                                                <li><a href="{{ route('cases') }}"><i class="icon-right-open"></i>全部</a></li>
                                                 <li><a href="#"><i class="icon-right-open"></i>游戏</a></li>
                                                 <li><a href="#"><i class="icon-right-open"></i>应用</a></li>
                                                 <li><a href="#"><i class="icon-right-open"></i>电商</a></li>
@@ -82,7 +82,7 @@
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="cursor:default;">关于</a>
                                             <ul class="dropdown-menu">
                                                 <li><a href="{{ route('about') }}"><i class="icon-right-open"></i>关于我们</a></li>
-                                                <li><a href="about_in.html"><i class="icon-right-open"></i>公司动态</a></li>
+                                                <li><a href="{{ route('aboutIn') }}"><i class="icon-right-open"></i>公司动态</a></li>
                                             </ul>
                                         </li>
                                         <li class="dropdown">

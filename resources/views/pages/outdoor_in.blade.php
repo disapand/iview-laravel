@@ -93,62 +93,22 @@
                     <h2>您可能想了解</h2>
                     <div class="separator-2"></div>
                     <div class="row grid-space-20">
+                        @foreach($recommends as $recommend)
                         <div class="col-md-3 col-sm-6">
                             <div class="listing-item">
                                 <div class="overlay-container">
-                                    <img src="images/resources/20.jpg" alt="新加坡-樟宜机场T2 -机场电子屏">
-                                    <a href="resources_outdoor_xjp.html" class="overlay small">
+                                    <img src="{{ $recommend->outdoorResourceImgs[0]->url }}" alt="{{ $outdoor->name }}">
+                                    <a href="{{ route('outdoor.show', [$recommend->id]) }}" class="overlay small">
                                         <i class="fa fa-plus"></i>
                                         <span>了解详情</span>
                                     </a>
                                 </div>
                                 <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_xjp.html">新加坡-樟宜机场T2 -机场电子屏</a></h3>
+                                    <h3 class="title"><a href="{{ route('outdoor.show', [$recommend->id]) }}">{{ $outdoor->name }}</a></h3>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/resources/21.jpg" alt="意大利-罗马菲乌米奇诺机场-LED广告屏">
-                                    <a href="resources_outdoor_lm.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_lm.html">意大利-罗马菲乌米奇诺机场-LED广告屏</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/resources/22.jpg" alt="意大利-米兰马尔彭萨国际机场-T1到达静态广告组">
-                                    <a href="resources_outdoor_ml.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_ml.html">意大利-米兰马尔彭萨国际机场-T1到达静态广告组</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/resources/23.jpg" alt="意大利-威尼斯斯卡尔齐教堂-户外广告牌">
-                                    <a href="resources_outdoor_wns.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_outdoor_wns.html">意大利-威尼斯斯卡尔齐教堂-户外广告牌</a></h3>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

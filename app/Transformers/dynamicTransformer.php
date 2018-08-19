@@ -14,6 +14,8 @@ use League\Fractal\TransformerAbstract;
 
 class dynamicTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = ['Imgs'];
+
     public function transform(dynamic $dynamic) {
         return [
             'id' => $dynamic->id,
@@ -25,4 +27,10 @@ class dynamicTransformer extends TransformerAbstract
             'deleted_at' => $dynamic->deleted_at ? $dynamic->deleted_at->toDateTimeString(): '',
         ];
     }
+
+    public function includeImgs(dynamic $dynamic)
+    {
+        return $this->collection($dynamic->imgs, new dynamicImgTransformer());
+    }
+
 }

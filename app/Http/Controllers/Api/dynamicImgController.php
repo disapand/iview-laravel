@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Handlers\ImageUploadHandler;
-use App\Models\CaseImg;
-use App\Transformers\CaseImgTransformer;
+use App\Models\dynamic;
+use App\Models\dynamicImg;
+use App\Transformers\dynamicImgTransformer;
 use Illuminate\Http\Request;
 
-class CaseImgsController extends Controller
+class dynamicImgController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,14 +39,15 @@ class CaseImgsController extends Controller
     public function store(Request $request, ImageUploadHandler $uploader)
     {
         $img = $request->img;
-        $result = $uploader->save($img, 'case', 'c');
+        $result = $uploader->save($img, 'dynamic', 'd');
 
-        $imgList =CaseImg::create([
+        $imgList = dynamicImg::create([
             'url' => $result['path'],
-            'case_resources_id' => $request->id,
+            'dynamic_id' => $request->id,
         ]);
 
-        return $this->response->item($imgList, new CaseImgTransformer());
+        return $this->response->item($imgList, new dynamicImgTransformer());
+
     }
 
     /**
@@ -79,15 +81,14 @@ class CaseImgsController extends Controller
      */
     public function update(Request $request, ImageUploadHandler $uploader)
     {
+        $img = $request->img;
+        $result = $uploader->save($img, 'dynamic', 't');
         try {
-            $img = $request->img;
-            $result = $uploader->save($img, 'case', 'u');
-
-            $imgList = CaseImg::findOrFail($request->id);
+            $imgList = dynamicImg::findOrFail($request->id);
             $imgList->update([
-                'url' => $result['path']
+                'url' => $result['path'],
             ]);
-            return $this->response->item($imgList, new CaseImgTransformer());
+            return $this->response->item($imgList, new dynamicImgTransformer());
         } catch (\Exception $e) {
             return $e;
         }
@@ -99,12 +100,12 @@ class CaseImgsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CaseImg $img)
+    public function destroy(dynamicImg $img)
     {
         try {
             $img->delete();
-            $imgList = CaseImg::whereCaseResourcesId($img->case_resources_id)->get();
-            return $this->response->collection($imgList, new CaseImgTransformer());
+            $imgList = dynamicImg::whereDynamicId($img->dynamic_id)->get();
+            return $this->response->collection($imgList, new dynamicImgTransformer());
         } catch (\Exception $e) {
             return $e;
         }

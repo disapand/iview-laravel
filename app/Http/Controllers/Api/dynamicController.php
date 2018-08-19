@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\dynamic;
+use App\Models\dynamicImg;
 use App\Transformers\dynamicTransformer;
 use Illuminate\Http\Request;
 
@@ -37,12 +38,19 @@ class dynamicController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->toArray();
+        $imgs = $data['Imgs'];
+        unset($data['Imgs']);
         try {
-            $data = $request->toArray();
             if ($request->id) {
                 dynamic::findOrFail($request->id)->update($data);
             } else {
-                dynamic::create($data);
+                $dynamic = dynamic::create($data);
+                foreach ($imgs['data'] as $img) {
+                    dynamicImg::whereId($img['id'])->update([
+                        'dynamic_id' => $dynamic->id,
+                    ]);
+                }
             }
 
             return $this->response->created();

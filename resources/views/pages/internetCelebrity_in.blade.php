@@ -97,65 +97,22 @@
                     <h2>您可能想了解</h2>
                     <div class="separator-2"></div>
                     <div class="row grid-space-20">
+                        @foreach($recommends as $recommend)
                         <div class="col-md-3 col-sm-6">
                             <div class="listing-item">
                                 <div class="overlay-container">
-                                    <img src="images/internetcelebrity/23.jpg" alt="Shen Tanaka">
-                                    <a href="resources_internetcelebrity_ST.html" class="overlay small">
+                                    <img src="{{ $recommend->Imgs[0]->url }}" alt="{{ $recommend->name }}">
+                                    <a href="{{ route('internetCelebrity.show', [$recommend->id]) }}" class="overlay small">
                                         <i class="fa fa-plus"></i>
                                         <span>了解详情</span>
                                     </a>
                                 </div>
                                 <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_internetcelebrity_ST.html">Shen Tanaka</a></h3>
+                                    <h3 class="title"><a href="{{ route('internetCelebrity.show', [$recommend->id]) }}">{{ $recommend->name }}</a></h3>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/internetcelebrity/24.jpg" alt="Vahchef - VahRehVah">
-                                    <a href="resources_internetcelebrity_VV.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_internetcelebrity_VV.html">Vahchef -
-                                            VahRehVah</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/internetcelebrity/25.jpg" alt="Александр Бочков">
-                                    <a href="resources_internetcelebrity_25.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_internetcelebrity_25.html">Александр Бочков</a>
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/internetcelebrity/26.jpg" alt="Александр Кондрашов">
-                                    <a href="resources_internetcelebrity_26.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_internetcelebrity_26.html">Александр
-                                            Кондрашов</a></h3>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

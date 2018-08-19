@@ -96679,6 +96679,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -96694,7 +96706,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 id: '',
                 title: '',
                 category: '',
-                content: '',
+                effect: '',
+                execute: '',
+                strategy: '',
+                needs: '',
                 Imgs: {
                     data: []
                 }
@@ -96702,8 +96717,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             CaseRules: {
                 title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
                 category: [{ required: true, message: '请选择分类', trigger: 'change' }],
-                content: [{ required: true, message: '请输入内容', trigger: 'blur' }]
-            }
+                needs: [{ required: true, message: '请输入需求分析', trigger: 'blur' }],
+                strategy: [{ required: true, message: '请输入推广策略', trigger: 'blur' }],
+                execute: [{ required: true, message: '请输入方案执行', trigger: 'blur' }],
+                effect: [{ required: true, message: '请输入推广效果', trigger: 'blur' }]
+            },
+            img: ''
         };
     },
     created: function created() {
@@ -97156,15 +97175,86 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "form-item",
-                { attrs: { label: "案例内容", prop: "content" } },
+                { attrs: { label: "客户需求", prop: "needs" } },
                 [
-                  _c("Editor", {
+                  _c("i-input", {
+                    attrs: {
+                      placeholder: "",
+                      type: "textarea",
+                      autosize: { minRows: 5 }
+                    },
                     model: {
-                      value: _vm.Case.content,
+                      value: _vm.Case.needs,
                       callback: function($$v) {
-                        _vm.$set(_vm.Case, "content", $$v)
+                        _vm.$set(_vm.Case, "needs", $$v)
                       },
-                      expression: "Case.content"
+                      expression: "Case.needs"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "推广策略", prop: "strategy" } },
+                [
+                  _c("i-input", {
+                    attrs: {
+                      placeholder: "",
+                      type: "textarea",
+                      autosize: { minRows: 5 }
+                    },
+                    model: {
+                      value: _vm.Case.strategy,
+                      callback: function($$v) {
+                        _vm.$set(_vm.Case, "strategy", $$v)
+                      },
+                      expression: "Case.strategy"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "方案执行", prop: "execute" } },
+                [
+                  _c("i-input", {
+                    attrs: {
+                      placeholder: "",
+                      type: "textarea",
+                      autosize: { minRows: 5 }
+                    },
+                    model: {
+                      value: _vm.Case.execute,
+                      callback: function($$v) {
+                        _vm.$set(_vm.Case, "execute", $$v)
+                      },
+                      expression: "Case.execute"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "form-item",
+                { attrs: { label: "推广效果", prop: "effect" } },
+                [
+                  _c("i-input", {
+                    attrs: {
+                      placeholder: "",
+                      type: "textarea",
+                      autosize: { minRows: 5 }
+                    },
+                    model: {
+                      value: _vm.Case.effect,
+                      callback: function($$v) {
+                        _vm.$set(_vm.Case, "effect", $$v)
+                      },
+                      expression: "Case.effect"
                     }
                   })
                 ],
@@ -98759,7 +98849,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
                 tag: [{ required: true, message: '请选择分类', trigger: 'change' }],
                 content: [{ required: true, message: '请输入内容', trigger: 'blur' }]
-            }
+            },
+            img: ''
         };
     },
     created: function created() {
@@ -98870,6 +98961,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   图片更新成功的方法
         * */
         imgUpdateSuccess: function imgUpdateSuccess(response, file, fileList) {
+            console.log(response);
             this.$Message.info('图片上传成功');
             this.dynamic.Imgs.data.forEach(function (item) {
                 if (item.id == response.id) {
@@ -99054,7 +99146,7 @@ var render = function() {
                         multiple: "",
                         type: "drag",
                         name: "img",
-                        action: "http://iview-laravel.test/api/caseImg",
+                        action: "http://iview-laravel.test/api/dynamicImg",
                         "on-success": _vm.imgSuccess,
                         "on-error": _vm.imgError,
                         data: _vm.dynamic,

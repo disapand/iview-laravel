@@ -96,63 +96,22 @@
                     <h2>您可能想了解</h2>
                     <div class="separator-2"></div>
                     <div class="row grid-space-20">
+                        @foreach( $recommends as $recommend)
                         <div class="col-md-3 col-sm-6">
                             <div class="listing-item">
                                 <div class="overlay-container">
-                                    <img src="images/newspaper/20.jpg" alt="Hello 6E">
-                                    <a href="resources_newspaper_6E.html" class="overlay small">
+                                    <img src="{{ $recommend->newspaperResourceImgs[0]->url }}" alt="{{ $recommend->name }}">
+                                    <a href="{{ route('newspaper.show', [$recommend->id]) }}" class="overlay small">
                                         <i class="fa fa-plus"></i>
                                         <span>了解详情</span>
                                     </a>
                                 </div>
                                 <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_newspaper_6E.html">Hello 6E</a></h3>
+                                    <h3 class="title"><a href="{{ route('newspaper.show', [$recommend->id]) }}">{{ $recommend->name }}</a></h3>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/newspaper/21.jpg" alt="India Today">
-                                    <a href="resources_newspaper_India.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_newspaper_India.html">India Today</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/newspaper/22.jpg" alt="International Daily News">
-                                    <a href="resources_newspaper_IDN.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_newspaper_IDN.html">International Daily
-                                            News</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/newspaper/23.jpg" alt="Metro">
-                                    <a href="resources_newspaper_Metro.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_newspaper_Metro.html">Metro</a></h3>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

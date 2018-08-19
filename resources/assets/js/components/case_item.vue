@@ -31,8 +31,20 @@
                     </radio-group>
                 </form-item>
 
-                <form-item label="案例内容" prop="content">
-                    <Editor v-model="Case.content"></Editor>
+                <form-item label="客户需求" prop="needs">
+                    <i-input v-model="Case.needs" placeholder="" type="textarea" :autosize="{minRows: 5}"/>
+                </form-item>
+
+                <form-item label="推广策略" prop="strategy">
+                    <i-input v-model="Case.strategy" placeholder="" type="textarea" :autosize="{minRows: 5}"/>
+                </form-item>
+
+                <form-item label="方案执行" prop="execute">
+                    <i-input v-model="Case.execute" placeholder="" type="textarea" :autosize="{minRows: 5}"/>
+                </form-item>
+
+                <form-item label="推广效果" prop="effect">
+                    <i-input v-model="Case.effect" placeholder="" type="textarea" :autosize="{minRows: 5}"/>
                 </form-item>
             </Card>
 
@@ -102,7 +114,10 @@
                     id: '',
                     title:'',
                     category: '',
-                    content: '',
+                    effect: '',
+                    execute: '',
+                    strategy: '',
+                    needs: '',
                     Imgs: {
                         data: [],
                     }
@@ -114,10 +129,20 @@
                     category:[
                         {required: true, message: '请选择分类', trigger: 'change'}
                     ],
-                    content:[
-                        {required: true, message: '请输入内容', trigger: 'blur'}
-                    ]
+                    needs:[
+                        {required: true, message: '请输入需求分析', trigger: 'blur'}
+                    ],
+                    strategy:[
+                        {required: true, message: '请输入推广策略', trigger: 'blur'}
+                    ],
+                    execute:[
+                        {required: true, message: '请输入方案执行', trigger: 'blur'}
+                    ],
+                    effect:[
+                        {required: true, message: '请输入推广效果', trigger: 'blur'}
+                    ],
                 },
+                img: '',
             }
         },
         created() {

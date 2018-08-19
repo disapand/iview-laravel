@@ -272,84 +272,21 @@
                     <div class="separator-2"></div>
                     <!-- portfolio items start -->
                     <div class="isotope-container row grid-space-20">
+                        @foreach($cases as $case)
                         <div class="col-sm-4 isotope-item web-design margin-bottom-clear">
                             <div class="box-style-1 gray-bg">
                                 <div class="overlay-container">
-                                    <img src="images/portfolio-1.jpg" alt="一加印度落地活动">
-                                    <a href="cases_yj.html" class="overlay small">
+                                    <img src="{{ $case->Imgs[0]->url }}" alt="一加印度落地活动">
+                                    <a href="{{ route('cases.show', [$case->id]) }}" class="overlay small">
                                         <i class="fa fa-plus"></i>
-                                        <span>3C电子产品</span>
+                                        <span>{{ $case->category }}</span>
                                     </a>
                                 </div>
-                                <h3>一加印度落地活动</h3>
-                                <a href="cases_yj.html" class="btn btn-default">了解详情</a>
+                                <h3>{{ $case->title }}</h3>
+                                <a href="{{ route('cases.show', [$case->id]) }}" class="btn btn-default">了解详情</a>
                             </div>
                         </div>
-                        <div class="col-sm-4 isotope-item app-development margin-bottom-clear">
-                            <div class="box-style-1 gray-bg">
-                                <div class="overlay-container">
-                                    <img src="images/portfolio-2.jpg" alt="METISU推广">
-                                    <a href="cases_metisu.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>电商</span>
-                                    </a>
-                                </div>
-                                <h3>METISU推广</h3>
-                                <a href="cases_metisu.html" class="btn btn-default">了解详情</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 isotope-item web-design margin-bottom-clear">
-                            <div class="box-style-1 gray-bg">
-                                <div class="overlay-container">
-                                    <img src="images/portfolio-3.jpg" alt="BACA推广印尼市场">
-                                    <a href="cases_baca.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>应用</span>
-                                    </a>
-                                </div>
-                                <h3>BACA推广印尼市场</h3>
-                                <a href="cases_baca.html" class="btn btn-default">了解详情</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 isotope-item site-building margin-bottom-clear">
-                            <div class="box-style-1 gray-bg">
-                                <div class="overlay-container">
-                                    <img src="images/portfolio-4.jpg" alt="茄子快传印度校园活动">
-                                    <a href="cases_qzkc.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>应用</span>
-                                    </a>
-                                </div>
-                                <h3>茄子快传印度校园活动</h3>
-                                <a href="cases_qzkc.html" class="btn btn-default">了解详情</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 isotope-item app-development margin-bottom-clear">
-                            <div class="box-style-1 gray-bg">
-                                <div class="overlay-container">
-                                    <img src="images/portfolio-5.jpg" alt="UC News推广印尼市场">
-                                    <a href="cases_uc.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>应用</span>
-                                    </a>
-                                </div>
-                                <h3>UC News推广印尼市场</h3>
-                                <a href="cases_uc.html" class="btn btn-default">了解详情</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 isotope-item web-design margin-bottom-clear">
-                            <div class="box-style-1 gray-bg">
-                                <div class="overlay-container">
-                                    <img src="images/portfolio-6.jpg" alt="海口旅游局推广俄罗斯市场">
-                                    <a href="cases_hkels.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>旅游</span>
-                                    </a>
-                                </div>
-                                <h3>海口旅游局推广俄罗斯市场</h3>
-                                <a href="cases_hkels.html" class="btn btn-default">了解详情</a>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <!-- portfolio items end -->
 

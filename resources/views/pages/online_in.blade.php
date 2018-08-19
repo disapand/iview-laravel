@@ -97,62 +97,22 @@
                     <h2>您可能想了解</h2>
                     <div class="separator-2"></div>
                     <div class="row grid-space-20">
+                        @foreach($recommends as $recommend)
                         <div class="col-md-3 col-sm-6">
                             <div class="listing-item">
                                 <div class="overlay-container">
-                                    <img src="images/online/2.jpg" alt="Instagram">
-                                    <a href="resources_online_i.html" class="overlay small">
+                                    <img src="{{ $recommend->onlineResourceImgs[0]->url }}" alt="{{ $recommend->name }}">
+                                    <a href="{{ route('online.show', [$recommend->id]) }}" class="overlay small">
                                         <i class="fa fa-plus"></i>
                                         <span>了解详情</span>
                                     </a>
                                 </div>
                                 <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_online_i.html">Instagram</a></h3>
+                                    <h3 class="title"><a href="{{ route('online.show', [$recommend->id]) }}">{{ $recommend->name }}</a></h3>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/online/3.jpg" alt="Pinterest">
-                                    <a href="resources_online_p.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_online_p.html">Pinterest</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/online/1.jpg" alt="Facebook">
-                                    <a href="resources_online_f.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_online_f.html">Facebook</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/online/5.jpg" alt="Yandex PC端旅游版">
-                                    <a href="resources_online_yp.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_online_yp.html">Yandex PC端旅游版</a></h3>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

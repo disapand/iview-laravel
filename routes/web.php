@@ -22,6 +22,8 @@ Route::get('/job', 'PagesController@job')->name('job');
 Route::get('/contact', 'PagesController@contact')->name('contact');
 
 Route::get('/about', 'PagesController@about')->name('about');
+Route::get('/about_in', 'PagesController@aboutIn')->name('aboutIn');
+Route::get('/about/{about}', 'PagesController@aboutShow')->name('about.show');
 
 Route::get('/services', 'PagesController@services')->name('services');
 
@@ -45,3 +47,6 @@ Route::get('/internetCelebrity/{internetCelebrity}', 'PagesController@internetCe
 
 Route::get('/insight', 'PagesController@insight')->name('insight');
 Route::get('/insight/{insight}', 'PagesController@insightShow')->name('insight.show');
+
+Route::get('/cases', 'PagesController@cases')->name('cases');
+Route::get('/cases/{cases}', 'PagesController@casesShow')->name('cases.show');

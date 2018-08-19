@@ -91,61 +91,21 @@
                     <h2>您可能想了解</h2>
                     <div class="separator-2"></div>
                     <div class="row grid-space-20">
+                        @foreach($recommends as $recommend)
                         <div class="col-md-3 col-sm-6">
                             <div class="listing-item">
                                 <div class="overlay-container">
-                                    <img src="images/television/26.jpg" alt="印度-Zee TV">
-                                    <a href="resources_television_ydZT.html" class="overlay small">
+                                    <img src="{{ $recommend->televisionResourcesImgs[0]->url }}" alt="{{ $recommend->channel }}">
+                                    <a href="{{ route('newspaper.show', [$recommend->id]) }}" class="overlay small">
                                         <i class="fa fa-plus"></i>
                                         <span>了解详情</span>
                                     </a>
                                 </div>
                                 <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_television_ydZT.html">印度-Zee TV</a></h3>
+                                    <h3 class="title"><a href="{{ route('newspaper.show', [$recommend->id]) }}">{{ $recommend->channel }}</a></h3>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/television/27.jpg" alt="印度-Star plus">
-                                    <a href="resources_television_ydSP.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_television_ydSP.html">印度-Star plus</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/television/28.jpg" alt="印度-Colors">
-                                    <a href="resources_television_ydColors.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_television_ydColors.html">印度-Colors</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/television/30.jpg" alt="印度-Aaj Tak">
-                                    <a href="resources_television_ydAaj Tak.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_television_ydAaj Tak.html">印度-Aaj Tak</a></h3>
-                                </div>
-                            </div>
+                        @endforeach
                         </div>
                     </div>
                 </div>

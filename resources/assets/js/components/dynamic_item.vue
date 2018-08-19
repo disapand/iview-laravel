@@ -36,7 +36,7 @@
                 <form-item>
                     <upload multiple type="drag"
                             name="img"
-                            action="http://iview-laravel.test/api/caseImg"
+                            action="http://iview-laravel.test/api/dynamicImg"
                             :on-success="imgSuccess"
                             :on-error="imgError"
                             :data="dynamic"
@@ -104,6 +104,7 @@
                         {required: true, message: '请输入内容', trigger: 'blur'}
                     ]
                 },
+                img: '',
             }
         },
         created() {
@@ -211,6 +212,7 @@
             *   图片更新成功的方法
             * */
             imgUpdateSuccess(response, file, fileList) {
+                console.log(response)
                 this.$Message.info('图片上传成功');
                 this.dynamic.Imgs.data.forEach(function (item) {
                     if (item.id == response.id) {

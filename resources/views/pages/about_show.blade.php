@@ -1,7 +1,7 @@
 @extends('layouts._layouts')
 
 @section('title')
-    Zetin {{ $insight->title }}
+    Zetin {{ $dynamic->title }}
     @stop
 @section('content')
     <!-- main-container start -->
@@ -17,14 +17,13 @@
 
                     <!-- page-title start -->
                     <!-- ================ -->
-                    <h1 class="page-title margin-top-clear">{{ $insight->title }}</h1>
+                    <h1 class="page-title margin-top-clear">{{ $dynamic->title }}</h1>
                     <!-- page-title end -->
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 style="color: #0E7FE7;">{{ $insight->category }}</h3>
-                            <p style="color:rgba(200,200,200,1.00);">{{ $insight->updated_at->format('Y.m.d') }}</p>
+                            <p style="color:rgba(200,200,200,1.00);">{{ $dynamic->updated_at->format('Y.m.d') }}</p>
                             <div class="separator-2"></div>
-                            {!! str_replace('<p><br></p>', '<br />', $insight->content) !!}
+                            {!! $dynamic->content !!}
                         </div>
                     </div>
                     <hr>
@@ -45,11 +44,14 @@
                     <div class="separator-2"></div>
                     <div class="owl-carousel carousel">
                         @foreach($recommends as $recommend)
-                        <div class="image-box object-non-visible" data-animation-effect="fadeInLeft" data-effect-delay="{{ $loop->remaining * 100 }}" style="padding:0 20px;">
-                            <h3><a href="{{ route('insight.show', [$recommend->id]) }}">{{ $recommend->title }}</a></h3>
-                            <a href="#">{{ $recommend->category }}</a>
-                            <p>{{ mb_substr(strip_tags($recommend->content), 0, 120, 'utf-8') }}...</p>
-                            <p style="color:rgba(200,200,200,1.00);">{{ $insight->updated_at->format('Y.m.d') }}</p>
+                        <div class="image-box object-non-visible" data-animation-effect="fadeInLeft" data-effect-delay="{{ $loop->remaining * 100 }}">
+                            <div class="overlay-container">
+                                <img src="{{ $recommend->Imgs[0]->url }}" alt="{{ $recommend->title }}">
+                                <a href="{{ route('cases.show', [$recommend->id]) }}" class="overlay small">
+                                    <i class="fa fa-link"></i>
+                                </a>
+                            </div>
+                            <a href="{{ route('cases.show', [$recommend->id]) }}" class="btn btn-light-gray btn-lg btn-block">{{ $recommend->title }}</a>
                         </div>
                         @endforeach
                     </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CaseResource;
+use App\Models\dynamic;
 use App\Models\insight;
 use App\Models\internetcelebrityResource;
 use App\Models\newspaperResource;
@@ -14,7 +16,8 @@ use Illuminate\Http\Request;
 class PagesController extends Controller
 {
     public function index() {
-        return view('index');
+        $cases = CaseResource::with('Imgs')->orderBy('id', 'desc')->take(6)->get();
+        return view('index', compact('cases'));
     }
 
     public function job() {
@@ -27,6 +30,19 @@ class PagesController extends Controller
 
     public function about() {
         return view('pages.about');
+    }
+
+    public function aboutIn()
+    {
+        $abouts = dynamic::with('imgs')->get();
+        return view('pages.about_in', compact('abouts'));
+    }
+
+    public function aboutShow($id)
+    {
+        $dynamic = dynamic::findOrFail($id);
+        $recommends = dynamic::where('id', '<>', $id)->with('Imgs')->orderBy('id', 'desc')->whereHas('Imgs')->take(4)->get();
+        return view('pages.about_show', compact('dynamic', 'recommends'));
     }
 
     public function services()
@@ -42,7 +58,8 @@ class PagesController extends Controller
 
     public function newspaperShow(newspaperResource $newspaper)
     {
-        return view('pages.newspaper_in', compact('newspaper'));
+        $recommends = newspaperResource::where('id', '<>', $newspaper->id)->with('newspaperResourceImgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.newspaper_in', compact('newspaper', 'recommends'));
     }
 
     public function television()
@@ -53,7 +70,8 @@ class PagesController extends Controller
 
     public function televisionShow(televisionResources $television)
     {
-        return view('pages.television_in', compact('television'));
+        $recommends = televisionResources::where('id', '<>', $television->id)->with('televisionResourcesImgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.television_in', compact('television', 'recommends'));
     }
 
     public function outdoor()
@@ -64,7 +82,8 @@ class PagesController extends Controller
 
     public function outdoorShow(outdoorResource $outdoor)
     {
-        return view('pages.outdoor_in', compact('outdoor'));
+        $recommends = outdoorResource::where('id', '<>', $outdoor->id)->with('outdoorResourceImgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.outdoor_in', compact('outdoor', 'recommends'));
     }
 
     public function transform()
@@ -75,13 +94,8 @@ class PagesController extends Controller
 
     public function transformShow(transformResource $transform)
     {
-        return view('pages.transform_in', compact('transform'));
-    }
-
-    public function internetCelebrity()
-    {
-        $internetCelebrities = internetcelebrityResource::with(['Imgs', 'categories'])->paginate(9);
-        return view('pages.internetcelebrity', compact('internetCelebrities'));
+        $recommends = transformResource::where('id', '<>', $transform->id)->with('transformResourceImgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.transform_in', compact('transform', 'recommends'));
     }
 
     public function online()
@@ -92,7 +106,14 @@ class PagesController extends Controller
 
     public function onlineShow(onlineResource $online)
     {
-        return view('pages.online_in', compact('online'));
+        $recommends = onlineResource::where('id', '<>', $online->id)->with('onlineResourceImgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.online_in', compact('online', 'recommends'));
+    }
+
+    public function internetCelebrity()
+    {
+        $internetCelebrities = internetcelebrityResource::with(['Imgs', 'categories'])->paginate(9);
+        return view('pages.internetcelebrity', compact('internetCelebrities'));
     }
 
     public function internetCelebrityShow(internetcelebrityResource $internetCelebrity)
@@ -103,7 +124,8 @@ class PagesController extends Controller
             array_push($arr, $t['name']);
         }
         $categories = implode(',', $arr);
-        return view('pages.internetCelebrity_in', compact('internetCelebrity', 'categories'));
+        $recommends = internetcelebrityResource::where('id', '<>', $internetCelebrity->id)->with('Imgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.internetCelebrity_in', compact('internetCelebrity', 'categories', 'recommends'));
     }
 
     public function insight()
@@ -114,7 +136,20 @@ class PagesController extends Controller
 
     public function insightShow(insight $insight)
     {
-        return view('pages.insight_in', compact('insight'));
+        $recommends = insight::where('id', '<>', $insight->id)->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.insight_in', compact('insight', 'recommends'));
+    }
+
+    public function cases()
+    {
+        $cases = CaseResource::with('Imgs')->get();
+        return view('pages.cases', compact('cases'));
+    }
+
+    public function casesShow(CaseResource $cases)
+    {
+        $recommends = CaseResource::where('id', '<>', $cases->id)->with('Imgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.cases_in', compact('cases', 'recommends'));
     }
 
 }

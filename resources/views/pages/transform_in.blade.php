@@ -95,65 +95,23 @@
                     <h2>您可能想了解</h2>
                     <div class="separator-2"></div>
                     <div class="row grid-space-20">
+                        @foreach( $recommends as $recommend)
                         <div class="col-md-3 col-sm-6">
                             <div class="listing-item">
                                 <div class="overlay-container">
-                                    <img src="images/transform/1.jpg" alt="日本-东京名古屋大阪美式卡车-全车包裹">
-                                    <a href="resources_transform_rbm.html" class="overlay small">
+                                    <img src="{{ $recommend->transformResourceImgs[0]->url }}" alt="{{ $recommend->name }}">
+                                    <a href="{{ route('transform.show', [$recommend->id]) }}" class="overlay small">
                                         <i class="fa fa-plus"></i>
                                         <span>了解详情</span>
                                     </a>
                                 </div>
                                 <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_transform_rbm.html">日本-东京名古屋大阪美式卡车-全车包裹</a>
+                                    <h3 class="title"><a href="{{ route('transform.show', [$recommend->id]) }}">{{ $recommend->name }}</a>
                                     </h3>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/transform/3.jpg" alt="马来西亚-吉隆坡双层巴士-全车包裹">
-                                    <a href="resources_transform_mlxy2.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_transform_mlxy2.html">马来西亚-吉隆坡双层巴士-全车包裹</a>
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/transform/4.jpg" alt="马来西亚-吉隆坡单层巴士-全车包裹">
-                                    <a href="resources_transform_mlxy1.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_transform_mlxy1.html">马来西亚-吉隆坡单层巴士-全车包裹</a>
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="images/transform/5.jpg" alt="泰国-曼谷单层巴士-半包">
-                                    <a href="resources_transform_tgb.html" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="resources_transform_tgb.html">泰国-曼谷单层巴士-半包</a></h3>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
