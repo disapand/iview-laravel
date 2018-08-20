@@ -7,7 +7,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     <meta name="Keywords" content="正点,广告公司,广告,传媒，媒体资源">
     <meta name="description" content="正点国际传媒（ZETIN Group）是中国首家全渠道品牌出海服务商，专注于为旅游业、互联网行业、制造业等中国出海企业提供品牌全球化服务。公司兼具国际化视野及本地化优势，拥有庞大的全球优质媒体资源、覆盖全球的媒体资源库，为品牌产品的推广投放提供有力支持，致力于帮助众多客户制胜海外市场，以全球化视野整合本地资源，用客制化服务满足用户需求。">
