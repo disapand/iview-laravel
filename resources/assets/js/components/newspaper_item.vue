@@ -157,7 +157,7 @@
                 <form-item>
                     <upload multiple type="drag"
                             name="img"
-                            action="http://iview-laravel.test/api/newspaperImg"
+                            action="http://zetin.cn/api/newspaperImg"
                             :on-success="imgSuccess"
                             :on-error="imgError"
                             :data="newspaper"
@@ -282,7 +282,7 @@
                     *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                     * */
                     onOk: () => {
-                        this.$ajax.delete('http://iview-laravel.test/api/newspaperImg/' + id).then((response) => {
+                        this.$ajax.delete('http://zetin.cn/api/newspaperImg/' + id).then((response) => {
                             this.$Message.info('图片删除完成')
                             if (response.data.data) {
                                 this.newspaper.newspaperResourceImgs.data = response.data.data
@@ -308,7 +308,7 @@
                         return h('div', [
                             h('upload', {
                                 props: {
-                                    action: 'http://iview-laravel.test/api/newspaperImgUpdate',
+                                    action: 'http://zetin.cn/api/newspaperImgUpdate',
                                     type: 'drag',
                                     name: 'img',
                                     data: this.img,
@@ -345,7 +345,7 @@
             *   根据当前电视的id删除电视资源，删除完成后返回上一页
             * */
             deleteNewspaper(id) {
-                this.$ajax.delete('http://iview-laravel.test/api/newspaper/' + id).then((response) => {
+                this.$ajax.delete('http://zetin.cn/api/newspaper/' + id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.$router.go(-1)
                 }).catch((error) => {
@@ -359,7 +359,7 @@
             updateNewspaper() {
                 this.$refs['newspaper'].validate((valid) => {
                     if (valid) {
-                        this.$ajax.post('http://iview-laravel.test/api/newspaper', this.newspaper).then((response) => {
+                        this.$ajax.post('http://zetin.cn/api/newspaper', this.newspaper).then((response) => {
                             console.log(response.data)
                             this.$Message.info('资源编辑成功')
                         }).catch((error) => {
@@ -411,7 +411,7 @@
             *   根据传过来的id获取对应的televisionResources
             * */
             if (this.$route.params.id) {
-                this.$ajax.get('http://iview-laravel.test/api/newspaper/' + this.$route.params.id + '?include=newspaperResourceImgs').then((response) => {
+                this.$ajax.get('http://zetin.cn/api/newspaper/' + this.$route.params.id + '?include=newspaperResourceImgs').then((response) => {
                     this.newspaper = response.data
                     this.spinShow = false
                     this.edit = '提交修改'

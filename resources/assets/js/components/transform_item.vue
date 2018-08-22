@@ -161,7 +161,7 @@
                 <form-item>
                     <upload multiple type="drag"
                             name="img"
-                            action="http://iview-laravel.test/api/transformImg"
+                            action="http://zetin.cn/api/transformImg"
                             :on-success="imgSuccess"
                             :on-error="imgError"
                             :data="transform"
@@ -287,7 +287,7 @@
                     *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                     * */
                     onOk: () => {
-                        this.$ajax.delete('http://iview-laravel.test/api/transformImg/' + id).then((response) => {
+                        this.$ajax.delete('http://zetin.cn/api/transformImg/' + id).then((response) => {
                             this.$Message.info('图片删除完成')
                             if (response.data.data) {
                                 this.transform.transformResourceImgs.data = response.data.data
@@ -313,7 +313,7 @@
                         return h('div', [
                             h('upload', {
                                 props: {
-                                    action: 'http://iview-laravel.test/api/transformImgUpdate',
+                                    action: 'http://zetin.cn/api/transformImgUpdate',
                                     type: 'drag',
                                     name: 'img',
                                     data: this.img,
@@ -350,7 +350,7 @@
             *   根据当前电视的id删除电视资源，删除完成后返回上一页
             * */
             deleteTransform(id) {
-                this.$ajax.delete('http://iview-laravel.test/api/transform/' + id).then((response) => {
+                this.$ajax.delete('http://zetin.cn/api/transform/' + id).then((response) => {
                     this.$Message.info('删除交通资源成功')
                     this.$router.go(-1)
                 }).catch((error) => {
@@ -364,7 +364,7 @@
             updateTransform() {
                 this.$refs['transform'].validate((valid) => {
                     if (valid) {
-                        this.$ajax.post('http://iview-laravel.test/api/transform', this.transform).then((response) => {
+                        this.$ajax.post('http://zetin.cn/api/transform', this.transform).then((response) => {
                             console.log(response.data)
                             this.$Message.info('交通资源编辑成功')
                         }).catch((error) => {
@@ -416,7 +416,7 @@
             *   根据传过来的id获取对应的televisionResources
             * */
             if (this.$route.params.id) {
-                this.$ajax.get('http://iview-laravel.test/api/transform/' + this.$route.params.id + '?include=transformResourceImgs').then((response) => {
+                this.$ajax.get('http://zetin.cn/api/transform/' + this.$route.params.id + '?include=transformResourceImgs').then((response) => {
                     this.transform = response.data
                     this.spinShow = false
                     this.edit = '提交修改'
