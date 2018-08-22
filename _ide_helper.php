@@ -7558,10 +7558,10 @@ namespace Illuminate\Support\Facades {
          * 
          * Suppose this request is instantiated from /mysite on localhost:
          * 
-         *  * http://zetin.cn/mysite              returns an empty string
-         *  * http://zetin.cn/mysite/about        returns '/about'
-         *  * http://zetin.cn/mysite/enco%20ded   returns '/enco%20ded'
-         *  * http://zetin.cn/mysite/about?var=1  returns '/about'
+         *  * http://www.zetin.cn/mysite              returns an empty string
+         *  * http://www.zetin.cn/mysite/about        returns '/about'
+         *  * http://www.zetin.cn/mysite/enco%20ded   returns '/enco%20ded'
+         *  * http://www.zetin.cn/mysite/about?var=1  returns '/about'
          *
          * @return string The raw path (i.e. not urldecoded)
          * @static 
@@ -7577,10 +7577,10 @@ namespace Illuminate\Support\Facades {
          * 
          * Suppose that an index.php file instantiates this request object:
          * 
-         *  * http://zetin.cn/index.php         returns an empty string
-         *  * http://zetin.cn/index.php/page    returns an empty string
-         *  * http://zetin.cn/web/index.php     returns '/web'
-         *  * http://zetin.cn/we%20b/index.php  returns '/we%20b'
+         *  * http://www.zetin.cn/index.php         returns an empty string
+         *  * http://www.zetin.cn/index.php/page    returns an empty string
+         *  * http://www.zetin.cn/web/index.php     returns '/web'
+         *  * http://www.zetin.cn/we%20b/index.php  returns '/we%20b'
          *
          * @return string The raw path (i.e. not urldecoded)
          * @static 

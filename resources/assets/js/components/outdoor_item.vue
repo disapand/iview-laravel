@@ -165,7 +165,7 @@
                 <form-item>
                     <upload multiple type="drag"
                             name="img"
-                            action="http://zetin.cn/api/outdoorImg"
+                            action="http://www.zetin.cn/api/outdoorImg"
                             :on-success="imgSuccess"
                             :on-error="imgError"
                             :data="outdoor"
@@ -287,7 +287,7 @@
                     *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                     * */
                     onOk: () => {
-                        this.$ajax.delete('http://zetin.cn/api/outdoorImg/' + id).then((response) => {
+                        this.$ajax.delete('http://www.zetin.cn/api/outdoorImg/' + id).then((response) => {
                             this.$Message.info('图片删除完成')
                             if (response.data.data) {
                                 this.outdoor.outdoorResourceImgs.data = response.data.data
@@ -313,7 +313,7 @@
                         return h('div', [
                             h('upload', {
                                 props: {
-                                    action: 'http://zetin.cn/api/outdoorImgUpdate',
+                                    action: 'http://www.zetin.cn/api/outdoorImgUpdate',
                                     type: 'drag',
                                     name: 'img',
                                     data: this.img,
@@ -350,7 +350,7 @@
             *   根据当前电视的id删除电视资源，删除完成后返回上一页
             * */
             deleteOutdoor(id) {
-                this.$ajax.delete('http://zetin.cn/api/outdoor/' + id).then((response) => {
+                this.$ajax.delete('http://www.zetin.cn/api/outdoor/' + id).then((response) => {
                     this.$Message.info('删除户外资源成功')
                     this.$router.go(-1)
                 }).catch((error) => {
@@ -364,7 +364,7 @@
             updateOutdoor() {
                 this.$refs['outdoor'].validate((valid) => {
                     if (valid) {
-                        this.$ajax.post('http://zetin.cn/api/outdoor', this.outdoor).then((response) => {
+                        this.$ajax.post('http://www.zetin.cn/api/outdoor', this.outdoor).then((response) => {
                             console.log(response.data)
                             this.$Message.info('户外资源编辑成功')
                         }).catch((error) => {
@@ -416,7 +416,7 @@
             *   根据传过来的id获取对应的televisionResources
             * */
             if (this.$route.params.id) {
-                this.$ajax.get('http://zetin.cn/api/outdoor/' + this.$route.params.id + '?include=outdoorResourceImgs').then((response) => {
+                this.$ajax.get('http://www.zetin.cn/api/outdoor/' + this.$route.params.id + '?include=outdoorResourceImgs').then((response) => {
                     this.outdoor = response.data
                     this.spinShow = false
                     this.edit = '提交修改'

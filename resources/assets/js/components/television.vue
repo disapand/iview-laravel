@@ -23,7 +23,7 @@
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
                     <Upload
                             type="drag"
-                            action="http://zetin.cn/api/importTv"
+                            action="http://www.zetin.cn/api/importTv"
                             :on-success="importSuccess"
                             name="excel">
                         <div style="padding: 20px 0">
@@ -142,7 +142,7 @@
             }
         },
         created() {
-            this.$ajax.get('http://zetin.cn/api/tv').then((response) => {
+            this.$ajax.get('http://www.zetin.cn/api/tv').then((response) => {
                 console.log('拉取电视资源列表', response);
                 this.tvs = response.data.data
                 this.loading = false
@@ -162,7 +162,7 @@
                 this.$router.push({'name': 'tv_item', params: {id: row.id}})
             },
             remove(row, index) {
-                this.$ajax.delete('http://zetin.cn/api/tv/' + row.id).then((response) => {
+                this.$ajax.delete('http://www.zetin.cn/api/tv/' + row.id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.tvs.splice(index, 1)
                     this.total = response.data.meta.pagination.total
@@ -175,9 +175,9 @@
                 this.currentPage = index
                 let uri
                 if (this.condition && this.search) {
-                    uri = 'http://zetin.cn/api/tv/' + this.condition + '/' + this.search + '?page=' + index
+                    uri = 'http://www.zetin.cn/api/tv/' + this.condition + '/' + this.search + '?page=' + index
                 } else {
-                    uri = 'http://zetin.cn/api/tv?page=' + index
+                    uri = 'http://www.zetin.cn/api/tv?page=' + index
                 }
                 this.$ajax.get(uri).then((response) => {
                     this.tvs = response.data.data
@@ -191,7 +191,7 @@
                     this.$Message.error('请输入查询条件')
                     return false
                 }
-                this.$ajax.get('http://zetin.cn/api/tv/' + this.condition + '/' + this.search).then((response) => {
+                this.$ajax.get('http://www.zetin.cn/api/tv/' + this.condition + '/' + this.search).then((response) => {
                     this.tvs = response.data.data
                     this.total = response.data.meta.pagination.total
                     this.all = true
@@ -203,7 +203,7 @@
                 this.all = false
                 this.search = ''
                 this.currentPage = 1
-                this.$ajax.get('http://zetin.cn/api/tv').then((response) => {
+                this.$ajax.get('http://www.zetin.cn/api/tv').then((response) => {
                     console.log('拉取电视资源列表', response);
                     this.tvs = response.data.data
                     this.total = response.data.meta.pagination.total

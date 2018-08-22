@@ -15,6 +15,11 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
+    public function adimin()
+    {
+        return view('welcome');
+    }
+
     public function index() {
         $cases = CaseResource::with('Imgs')->orderBy('id', 'desc')->take(6)->get();
         return view('index', compact('cases'));

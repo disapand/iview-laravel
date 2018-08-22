@@ -85958,7 +85958,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this2 = this;
 
-        this.$ajax.get('http://zetin.cn/api/tv').then(function (response) {
+        this.$ajax.get('http://www.zetin.cn/api/tv').then(function (response) {
             console.log('拉取电视资源列表', response);
             _this2.tvs = response.data.data;
             _this2.loading = false;
@@ -85980,7 +85980,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         remove: function remove(row, index) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/tv/' + row.id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/tv/' + row.id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.tvs.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
@@ -85995,9 +85995,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.currentPage = index;
             var uri = void 0;
             if (this.condition && this.search) {
-                uri = 'http://zetin.cn/api/tv/' + this.condition + '/' + this.search + '?page=' + index;
+                uri = 'http://www.zetin.cn/api/tv/' + this.condition + '/' + this.search + '?page=' + index;
             } else {
-                uri = 'http://zetin.cn/api/tv?page=' + index;
+                uri = 'http://www.zetin.cn/api/tv?page=' + index;
             }
             this.$ajax.get(uri).then(function (response) {
                 _this4.tvs = response.data.data;
@@ -86013,7 +86013,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$Message.error('请输入查询条件');
                 return false;
             }
-            this.$ajax.get('http://zetin.cn/api/tv/' + this.condition + '/' + this.search).then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/tv/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.tvs = response.data.data;
                 _this5.total = response.data.meta.pagination.total;
                 _this5.all = true;
@@ -86027,7 +86027,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.all = false;
             this.search = '';
             this.currentPage = 1;
-            this.$ajax.get('http://zetin.cn/api/tv').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/tv').then(function (response) {
                 console.log('拉取电视资源列表', response);
                 _this6.tvs = response.data.data;
                 _this6.total = response.data.meta.pagination.total;
@@ -86166,7 +86166,7 @@ var render = function() {
                     {
                       attrs: {
                         type: "drag",
-                        action: "http://zetin.cn/api/importTv",
+                        action: "http://www.zetin.cn/api/importTv",
                         "on-success": _vm.importSuccess,
                         name: "excel"
                       }
@@ -86583,7 +86583,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                 * */
                 onOk: function onOk() {
-                    _this.$ajax.delete('http://zetin.cn/api/img/' + id).then(function (response) {
+                    _this.$ajax.delete('http://www.zetin.cn/api/img/' + id).then(function (response) {
                         console.log(response);
                         _this.$Message.info('图片删除完成');
                         if (response.data.data) {
@@ -86612,7 +86612,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 render: function render(h) {
                     return h('div', [h('upload', {
                         props: {
-                            action: 'http://zetin.cn/api/img',
+                            action: 'http://www.zetin.cn/api/img',
                             type: 'drag',
                             name: 'img',
                             data: _this2.img,
@@ -86646,7 +86646,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteTv: function deleteTv(id) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/tv/' + id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/tv/' + id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.$router.go(-1);
             }).catch(function (error) {
@@ -86663,7 +86663,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['tv'].validate(function (valid) {
                 if (valid) {
-                    _this4.$ajax.post('http://zetin.cn/api/tv', _this4.tv).then(function (response) {
+                    _this4.$ajax.post('http://www.zetin.cn/api/tv', _this4.tv).then(function (response) {
                         console.log(response.data);
                         _this4.$Message.info('资源编辑成功');
                     }).catch(function (error) {
@@ -86721,7 +86721,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   根据传过来的id获取对应的televisionResources
         * */
         if (this.$route.params.id) {
-            this.$ajax.get('http://zetin.cn/api/tv/' + this.$route.params.id + '?include=televisionResourcesImgs').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/tv/' + this.$route.params.id + '?include=televisionResourcesImgs').then(function (response) {
                 _this5.tv = response.data;
                 _this5.spinShow = false;
                 _this5.edit = '提交修改';
@@ -87225,7 +87225,7 @@ var render = function() {
                         multiple: "",
                         type: "drag",
                         name: "img",
-                        action: "http://zetin.cn/api/img",
+                        action: "http://www.zetin.cn/api/img",
                         "on-success": _vm.imgSuccess,
                         "on-error": _vm.imgError,
                         data: _vm.tv,
@@ -87593,7 +87593,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this2 = this;
 
-        this.$ajax.get('http://zetin.cn/api/outdoor').then(function (response) {
+        this.$ajax.get('http://www.zetin.cn/api/outdoor').then(function (response) {
             console.log('拉取户外资源列表', response);
             _this2.outdoor = response.data.data;
             _this2.loading = false;
@@ -87615,7 +87615,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         remove: function remove(row, index) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/outdoor/' + row.id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/outdoor/' + row.id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.tvs.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
@@ -87629,9 +87629,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var uri = void 0;
             if (this.condition && this.search) {
-                uri = 'http://zetin.cn/api/outdoor/' + this.condition + '/' + this.search + '?page=' + index;
+                uri = 'http://www.zetin.cn/api/outdoor/' + this.condition + '/' + this.search + '?page=' + index;
             } else {
-                uri = 'http://zetin.cn/api/outdoor?page=' + index;
+                uri = 'http://www.zetin.cn/api/outdoor?page=' + index;
             }
             this.currentPage = index;
             this.$ajax.get(uri).then(function (response) {
@@ -87648,7 +87648,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$Message.error('请输入查询条件');
                 return false;
             }
-            this.$ajax.get('http://zetin.cn/api/outdoor/' + this.condition + '/' + this.search).then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/outdoor/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.outdoor = response.data.data;
                 _this5.total = response.data.meta.pagination.total;
                 _this5.all = true;
@@ -87662,7 +87662,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.all = false;
             this.search = '';
             this.currentPage = 1;
-            this.$ajax.get('http://zetin.cn/api/outdoor').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/outdoor').then(function (response) {
                 _this6.outdoor = response.data.data;
                 _this6.total = response.data.meta.pagination.total;
             }).catch(function (error) {
@@ -87800,7 +87800,7 @@ var render = function() {
                     {
                       attrs: {
                         type: "drag",
-                        action: "http://zetin.cn/api/importOutdoor",
+                        action: "http://www.zetin.cn/api/importOutdoor",
                         "on-success": _vm.importSuccess,
                         name: "excel"
                       }
@@ -88245,7 +88245,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                 * */
                 onOk: function onOk() {
-                    _this.$ajax.delete('http://zetin.cn/api/outdoorImg/' + id).then(function (response) {
+                    _this.$ajax.delete('http://www.zetin.cn/api/outdoorImg/' + id).then(function (response) {
                         _this.$Message.info('图片删除完成');
                         if (response.data.data) {
                             _this.outdoor.outdoorResourceImgs.data = response.data.data;
@@ -88273,7 +88273,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 render: function render(h) {
                     return h('div', [h('upload', {
                         props: {
-                            action: 'http://zetin.cn/api/outdoorImgUpdate',
+                            action: 'http://www.zetin.cn/api/outdoorImgUpdate',
                             type: 'drag',
                             name: 'img',
                             data: _this2.img,
@@ -88307,7 +88307,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteOutdoor: function deleteOutdoor(id) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/outdoor/' + id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/outdoor/' + id).then(function (response) {
                 _this3.$Message.info('删除户外资源成功');
                 _this3.$router.go(-1);
             }).catch(function (error) {
@@ -88324,7 +88324,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['outdoor'].validate(function (valid) {
                 if (valid) {
-                    _this4.$ajax.post('http://zetin.cn/api/outdoor', _this4.outdoor).then(function (response) {
+                    _this4.$ajax.post('http://www.zetin.cn/api/outdoor', _this4.outdoor).then(function (response) {
                         console.log(response.data);
                         _this4.$Message.info('户外资源编辑成功');
                     }).catch(function (error) {
@@ -88382,7 +88382,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   根据传过来的id获取对应的televisionResources
         * */
         if (this.$route.params.id) {
-            this.$ajax.get('http://zetin.cn/api/outdoor/' + this.$route.params.id + '?include=outdoorResourceImgs').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/outdoor/' + this.$route.params.id + '?include=outdoorResourceImgs').then(function (response) {
                 _this5.outdoor = response.data;
                 _this5.spinShow = false;
                 _this5.edit = '提交修改';
@@ -89000,7 +89000,7 @@ var render = function() {
                         multiple: "",
                         type: "drag",
                         name: "img",
-                        action: "http://zetin.cn/api/outdoorImg",
+                        action: "http://www.zetin.cn/api/outdoorImg",
                         "on-success": _vm.imgSuccess,
                         "on-error": _vm.imgError,
                         data: _vm.outdoor,
@@ -89371,7 +89371,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this2 = this;
 
-        this.$ajax.get('http://zetin.cn/api/transform').then(function (response) {
+        this.$ajax.get('http://www.zetin.cn/api/transform').then(function (response) {
             console.log('拉取交通资源列表', response);
             _this2.transform = response.data.data;
             _this2.loading = false;
@@ -89396,7 +89396,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         remove: function remove(row, index) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/transform/' + row.id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/transform/' + row.id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.transform.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
@@ -89414,9 +89414,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.currentPage = index;
             var uri = void 0;
             if (this.condition && this.search) {
-                uri = 'http://zetin.cn/api/transform/' + this.condition + '/' + this.search + '?page=' + index;
+                uri = 'http://www.zetin.cn/api/transform/' + this.condition + '/' + this.search + '?page=' + index;
             } else {
-                uri = 'http://zetin.cn/api/transform?page=' + index;
+                uri = 'http://www.zetin.cn/api/transform?page=' + index;
             }
             this.$ajax.get(uri).then(function (response) {
                 console.log('换页', response);
@@ -89432,7 +89432,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.all = false;
             this.search = '';
             this.currentPage = 1;
-            this.$ajax.get('http://zetin.cn/api/transform').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/transform').then(function (response) {
                 console.log('拉取资源列表', response);
                 _this5.transform = response.data.data;
                 _this5.loading = false;
@@ -89449,7 +89449,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$Message.error('请输入查询条件');
                 return false;
             }
-            this.$ajax.get('http://zetin.cn/api/transform/' + this.condition + '/' + this.search).then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/transform/' + this.condition + '/' + this.search).then(function (response) {
                 _this6.transform = response.data.data;
                 _this6.total = response.data.meta.pagination.total;
                 _this6.all = true;
@@ -89591,7 +89591,7 @@ var render = function() {
                     {
                       attrs: {
                         type: "drag",
-                        action: "http://zetin.cn/api/importTransform",
+                        action: "http://www.zetin.cn/api/importTransform",
                         "on-success": _vm.importSuccess,
                         name: "excel"
                       }
@@ -90034,7 +90034,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                 * */
                 onOk: function onOk() {
-                    _this.$ajax.delete('http://zetin.cn/api/transformImg/' + id).then(function (response) {
+                    _this.$ajax.delete('http://www.zetin.cn/api/transformImg/' + id).then(function (response) {
                         _this.$Message.info('图片删除完成');
                         if (response.data.data) {
                             _this.transform.transformResourceImgs.data = response.data.data;
@@ -90062,7 +90062,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 render: function render(h) {
                     return h('div', [h('upload', {
                         props: {
-                            action: 'http://zetin.cn/api/transformImgUpdate',
+                            action: 'http://www.zetin.cn/api/transformImgUpdate',
                             type: 'drag',
                             name: 'img',
                             data: _this2.img,
@@ -90096,7 +90096,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteTransform: function deleteTransform(id) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/transform/' + id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/transform/' + id).then(function (response) {
                 _this3.$Message.info('删除交通资源成功');
                 _this3.$router.go(-1);
             }).catch(function (error) {
@@ -90113,7 +90113,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['transform'].validate(function (valid) {
                 if (valid) {
-                    _this4.$ajax.post('http://zetin.cn/api/transform', _this4.transform).then(function (response) {
+                    _this4.$ajax.post('http://www.zetin.cn/api/transform', _this4.transform).then(function (response) {
                         console.log(response.data);
                         _this4.$Message.info('交通资源编辑成功');
                     }).catch(function (error) {
@@ -90171,7 +90171,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   根据传过来的id获取对应的televisionResources
         * */
         if (this.$route.params.id) {
-            this.$ajax.get('http://zetin.cn/api/transform/' + this.$route.params.id + '?include=transformResourceImgs').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/transform/' + this.$route.params.id + '?include=transformResourceImgs').then(function (response) {
                 _this5.transform = response.data;
                 _this5.spinShow = false;
                 _this5.edit = '提交修改';
@@ -90791,7 +90791,7 @@ var render = function() {
                         multiple: "",
                         type: "drag",
                         name: "img",
-                        action: "http://zetin.cn/api/transformImg",
+                        action: "http://www.zetin.cn/api/transformImg",
                         "on-success": _vm.imgSuccess,
                         "on-error": _vm.imgError,
                         data: _vm.transform,
@@ -91165,7 +91165,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this2 = this;
 
-        this.$ajax.get('http://zetin.cn/api/newspaper').then(function (response) {
+        this.$ajax.get('http://www.zetin.cn/api/newspaper').then(function (response) {
             console.log('拉取资源列表', response);
             _this2.newspaper = response.data.data;
             _this2.loading = false;
@@ -91187,7 +91187,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         remove: function remove(row, index) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/newspaper/' + row.id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/newspaper/' + row.id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.newspaper.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
@@ -91202,9 +91202,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.currentPage = index;
             var uri = void 0;
             if (this.condition && this.search) {
-                uri = 'http://zetin.cn/api/newspaper/' + this.condition + '/' + this.search + '?page=' + index;
+                uri = 'http://www.zetin.cn/api/newspaper/' + this.condition + '/' + this.search + '?page=' + index;
             } else {
-                uri = 'http://zetin.cn/api/newspaper?page=' + index;
+                uri = 'http://www.zetin.cn/api/newspaper?page=' + index;
             }
             this.$ajax.get(uri).then(function (response) {
                 _this4.newspaper = response.data.data;
@@ -91220,7 +91220,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$Message.error('请输入查询条件');
                 return false;
             }
-            this.$ajax.get('http://zetin.cn/api/newspaper/' + this.condition + '/' + this.search).then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/newspaper/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.newspaper = response.data.data;
                 _this5.total = response.data.meta.pagination.total;
                 _this5.all = true;
@@ -91234,7 +91234,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.all = false;
             this.search = '';
             this.currentPage = 1;
-            this.$ajax.get('http://zetin.cn/api/newspaper').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/newspaper').then(function (response) {
                 console.log('拉取资源列表', response);
                 _this6.newspaper = response.data.data;
                 _this6.loading = false;
@@ -91374,7 +91374,7 @@ var render = function() {
                     {
                       attrs: {
                         type: "drag",
-                        action: "http://zetin.cn/api/importNewspaper",
+                        action: "http://www.zetin.cn/api/importNewspaper",
                         "on-success": _vm.importSuccess,
                         name: "excel"
                       }
@@ -91810,7 +91810,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                 * */
                 onOk: function onOk() {
-                    _this.$ajax.delete('http://zetin.cn/api/newspaperImg/' + id).then(function (response) {
+                    _this.$ajax.delete('http://www.zetin.cn/api/newspaperImg/' + id).then(function (response) {
                         _this.$Message.info('图片删除完成');
                         if (response.data.data) {
                             _this.newspaper.newspaperResourceImgs.data = response.data.data;
@@ -91838,7 +91838,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 render: function render(h) {
                     return h('div', [h('upload', {
                         props: {
-                            action: 'http://zetin.cn/api/newspaperImgUpdate',
+                            action: 'http://www.zetin.cn/api/newspaperImgUpdate',
                             type: 'drag',
                             name: 'img',
                             data: _this2.img,
@@ -91872,7 +91872,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteNewspaper: function deleteNewspaper(id) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/newspaper/' + id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/newspaper/' + id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.$router.go(-1);
             }).catch(function (error) {
@@ -91889,7 +91889,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['newspaper'].validate(function (valid) {
                 if (valid) {
-                    _this4.$ajax.post('http://zetin.cn/api/newspaper', _this4.newspaper).then(function (response) {
+                    _this4.$ajax.post('http://www.zetin.cn/api/newspaper', _this4.newspaper).then(function (response) {
                         console.log(response.data);
                         _this4.$Message.info('资源编辑成功');
                     }).catch(function (error) {
@@ -91947,7 +91947,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   根据传过来的id获取对应的televisionResources
         * */
         if (this.$route.params.id) {
-            this.$ajax.get('http://zetin.cn/api/newspaper/' + this.$route.params.id + '?include=newspaperResourceImgs').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/newspaper/' + this.$route.params.id + '?include=newspaperResourceImgs').then(function (response) {
                 _this5.newspaper = response.data;
                 _this5.spinShow = false;
                 _this5.edit = '提交修改';
@@ -92519,7 +92519,7 @@ var render = function() {
                         multiple: "",
                         type: "drag",
                         name: "img",
-                        action: "http://zetin.cn/api/newspaperImg",
+                        action: "http://www.zetin.cn/api/newspaperImg",
                         "on-success": _vm.imgSuccess,
                         "on-error": _vm.imgError,
                         data: _vm.newspaper,
@@ -92880,7 +92880,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this2 = this;
 
-        this.$ajax.get('http://zetin.cn/api/online').then(function (response) {
+        this.$ajax.get('http://www.zetin.cn/api/online').then(function (response) {
             console.log('拉取资源列表', response);
             _this2.online = response.data.data;
             _this2.loading = false;
@@ -92902,7 +92902,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         remove: function remove(row, index) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/online/' + row.id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/online/' + row.id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.online.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
@@ -92917,9 +92917,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.currentPage = index;
             var uri = void 0;
             if (this.condition && this.search) {
-                uri = 'http://zetin.cn/api/online/' + this.condition + '/' + this.search + '?page=' + index;
+                uri = 'http://www.zetin.cn/api/online/' + this.condition + '/' + this.search + '?page=' + index;
             } else {
-                uri = 'http://zetin.cn/api/online?page=' + index;
+                uri = 'http://www.zetin.cn/api/online?page=' + index;
             }
             this.$ajax.get(uri).then(function (response) {
                 _this4.online = response.data.data;
@@ -92936,7 +92936,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$Message.error('请输入查询条件');
                 return false;
             }
-            this.$ajax.get('http://zetin.cn/api/online/' + this.condition + '/' + this.search).then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/online/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.online = response.data.data;
                 _this5.total = response.data.data.length;
                 _this5.cansee = false;
@@ -92951,7 +92951,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.all = false;
             this.currentPage = 1;
             this.search = '';
-            this.$ajax.get('http://zetin.cn/api/online').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/online').then(function (response) {
                 console.log('拉取资源列表', response);
                 _this6.online = response.data.data;
                 _this6.loading = false;
@@ -93091,7 +93091,7 @@ var render = function() {
                     {
                       attrs: {
                         type: "drag",
-                        action: "http://zetin.cn/api/importOnline",
+                        action: "http://www.zetin.cn/api/importOnline",
                         "on-success": _vm.importSuccess,
                         name: "excel"
                       }
@@ -93507,7 +93507,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                 * */
                 onOk: function onOk() {
-                    _this.$ajax.delete('http://zetin.cn/api/onlineImg/' + id).then(function (response) {
+                    _this.$ajax.delete('http://www.zetin.cn/api/onlineImg/' + id).then(function (response) {
                         _this.$Message.info('图片删除完成');
                         if (response.data.data) {
                             _this.online.onlineResourceImgs.data = response.data.data;
@@ -93535,7 +93535,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 render: function render(h) {
                     return h('div', [h('upload', {
                         props: {
-                            action: 'http://zetin.cn/api/onlineImgUpdate',
+                            action: 'http://www.zetin.cn/api/onlineImgUpdate',
                             type: 'drag',
                             name: 'img',
                             data: _this2.img,
@@ -93569,7 +93569,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteOnline: function deleteOnline(id) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/online/' + id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/online/' + id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.$router.go(-1);
             }).catch(function (error) {
@@ -93586,7 +93586,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['online'].validate(function (valid) {
                 if (valid) {
-                    _this4.$ajax.post('http://zetin.cn/api/online', _this4.online).then(function (response) {
+                    _this4.$ajax.post('http://www.zetin.cn/api/online', _this4.online).then(function (response) {
                         console.log(response.data);
                         _this4.$Message.info('资源编辑成功');
                     }).catch(function (error) {
@@ -93644,7 +93644,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   根据传过来的id获取对应的televisionResources
         * */
         if (this.$route.params.id) {
-            this.$ajax.get('http://zetin.cn/api/online/' + this.$route.params.id + '?include=onlineResourceImgs').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/online/' + this.$route.params.id + '?include=onlineResourceImgs').then(function (response) {
                 _this5.online = response.data;
                 _this5.spinShow = false;
                 _this5.edit = '提交修改';
@@ -94171,7 +94171,7 @@ var render = function() {
                         multiple: "",
                         type: "drag",
                         name: "img",
-                        action: "http://zetin.cn/api/onlineImg",
+                        action: "http://www.zetin.cn/api/onlineImg",
                         "on-success": _vm.imgSuccess,
                         "on-error": _vm.imgError,
                         data: _vm.online,
@@ -94544,7 +94544,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this2 = this;
 
-        this.$ajax.get('http://zetin.cn/api/internet').then(function (response) {
+        this.$ajax.get('http://www.zetin.cn/api/internet').then(function (response) {
             console.log('拉取资源列表', response);
             _this2.internet = response.data.data;
             _this2.loading = false;
@@ -94566,7 +94566,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         remove: function remove(row, index) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/internet/' + row.id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/internet/' + row.id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.internet.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
@@ -94581,9 +94581,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.currentPage = index;
             var uri = void 0;
             if (this.condition && this.search) {
-                uri = 'http://zetin.cn/api/internet/' + this.condition + '/' + this.search + '?page=' + index;
+                uri = 'http://www.zetin.cn/api/internet/' + this.condition + '/' + this.search + '?page=' + index;
             } else {
-                uri = 'http://zetin.cn/api/internet?page=' + index;
+                uri = 'http://www.zetin.cn/api/internet?page=' + index;
             }
             this.$ajax.get(uri).then(function (response) {
                 _this4.internet = response.data.data;
@@ -94599,7 +94599,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$Message.error('请输入查询条件');
                 return false;
             }
-            this.$ajax.get('http://zetin.cn/api/internet/' + this.condition + '/' + this.search).then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/internet/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.internet = response.data.data;
                 _this5.total = response.data.meta.pagination.total;
                 _this5.all = true;
@@ -94613,7 +94613,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.all = false;
             this.search = '';
             this.currentPage = 1;
-            this.$ajax.get('http://zetin.cn/api/internet').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/internet').then(function (response) {
                 _this6.internet = response.data.data;
                 _this6.total = response.data.meta.pagination.total;
             }).catch(function (error) {
@@ -94894,7 +94894,7 @@ var render = function() {
                     {
                       attrs: {
                         type: "drag",
-                        action: "http://zetin.cn/api/importInternet",
+                        action: "http://www.zetin.cn/api/importInternet",
                         "on-success": _vm.importSuccess,
                         name: "excel"
                       }
@@ -95317,7 +95317,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                 * */
                 onOk: function onOk() {
-                    _this.$ajax.delete('http://zetin.cn/api/internetImg/' + id).then(function (response) {
+                    _this.$ajax.delete('http://www.zetin.cn/api/internetImg/' + id).then(function (response) {
                         _this.$Message.info('图片删除完成');
                         if (response.data.data) {
                             _this.internet.Imgs.data = response.data.data;
@@ -95345,7 +95345,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 render: function render(h) {
                     return h('div', [h('upload', {
                         props: {
-                            action: 'http://zetin.cn/api/internetImgUpdate',
+                            action: 'http://www.zetin.cn/api/internetImgUpdate',
                             type: 'drag',
                             name: 'img',
                             data: _this2.img,
@@ -95379,7 +95379,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteInternet: function deleteInternet(id) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/internet/' + id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/internet/' + id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.$router.go(-1);
             }).catch(function (error) {
@@ -95396,7 +95396,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['internet'].validate(function (valid) {
                 if (valid) {
-                    _this4.$ajax.post('http://zetin.cn/api/internet', _this4.internet).then(function (response) {
+                    _this4.$ajax.post('http://www.zetin.cn/api/internet', _this4.internet).then(function (response) {
                         console.log(response.data);
                         _this4.$Message.info('资源编辑成功');
                     }).catch(function (error) {
@@ -95454,7 +95454,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   根据传过来的id获取对应的televisionResources
         * */
         if (this.$route.params.id) {
-            this.$ajax.get('http://zetin.cn/api/internet/' + this.$route.params.id + '?include=Imgs').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/internet/' + this.$route.params.id + '?include=Imgs').then(function (response) {
                 console.log('获取资源', response);
                 _this5.internet = response.data;
                 _this5.spinShow = false;
@@ -95983,7 +95983,7 @@ var render = function() {
                         multiple: "",
                         type: "drag",
                         name: "img",
-                        action: "http://zetin.cn/api/internetImg",
+                        action: "http://www.zetin.cn/api/internetImg",
                         "on-success": _vm.imgSuccess,
                         "on-error": _vm.imgError,
                         data: _vm.internet,
@@ -96313,7 +96313,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this2 = this;
 
-        this.$ajax.get('http://zetin.cn/api/case').then(function (response) {
+        this.$ajax.get('http://www.zetin.cn/api/case').then(function (response) {
             console.log('拉取资源列表', response);
             _this2.Case = response.data.data;
             _this2.loading = false;
@@ -96337,7 +96337,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         remove: function remove(row, index) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/case/' + row.id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/case/' + row.id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.Case.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
@@ -96355,9 +96355,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.currentPage = index;
             var uri = void 0;
             if (this.condition && this.search) {
-                uri = 'http://zetin.cn/api/case/' + this.condition + '/' + this.search + '?page=' + index;
+                uri = 'http://www.zetin.cn/api/case/' + this.condition + '/' + this.search + '?page=' + index;
             } else {
-                uri = 'http://zetin.cn/api/case?page=' + index;
+                uri = 'http://www.zetin.cn/api/case?page=' + index;
             }
             this.$ajax.get(uri).then(function (response) {
                 console.log('换页', response);
@@ -96374,7 +96374,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$Message.error('请输入查询条件');
                 return false;
             }
-            this.$ajax.get('http://zetin.cn/api/case/' + this.condition + '/' + this.search).then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/case/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.Case = response.data.data;
                 _this5.total = response.data.meta.pagination.total;
                 _this5.all = true;
@@ -96389,7 +96389,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.all = false;
             this.search = '';
             this.currentPage = 1;
-            this.$ajax.get('http://zetin.cn/api/case').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/case').then(function (response) {
                 console.log('拉取资源列表', response);
                 _this6.Case = response.data.data;
                 _this6.loading = false;
@@ -96783,7 +96783,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         if (this.$route.params.id) {
-            this.$ajax.get('http://zetin.cn/api/case/' + this.$route.params.id + '?include=Imgs').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/case/' + this.$route.params.id + '?include=Imgs').then(function (response) {
                 console.log('获取资源', response);
                 _this.Case = response.data;
                 _this.spinShow = false;
@@ -96818,7 +96818,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                 * */
                 onOk: function onOk() {
-                    _this2.$ajax.delete('http://zetin.cn/api/caseImg/' + id).then(function (response) {
+                    _this2.$ajax.delete('http://www.zetin.cn/api/caseImg/' + id).then(function (response) {
                         _this2.$Message.info('图片删除完成');
                         if (response.data.data) {
                             _this2.Case.Imgs.data = response.data.data;
@@ -96846,7 +96846,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 render: function render(h) {
                     return h('div', [h('upload', {
                         props: {
-                            action: 'http://zetin.cn/api/caseImgUpdate',
+                            action: 'http://www.zetin.cn/api/caseImgUpdate',
                             type: 'drag',
                             name: 'img',
                             data: _this3.img,
@@ -96916,7 +96916,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['Case'].validate(function (valid) {
                 if (valid) {
-                    _this4.$ajax.post('http://zetin.cn/api/case', _this4.Case).then(function (response) {
+                    _this4.$ajax.post('http://www.zetin.cn/api/case', _this4.Case).then(function (response) {
                         console.log(response.data);
                         _this4.$Message.info('资源编辑成功');
                     }).catch(function (error) {
@@ -96935,7 +96935,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteCase: function deleteCase(id) {
             var _this5 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/case/' + id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/case/' + id).then(function (response) {
                 _this5.$Message.info('删除资源成功');
                 _this5.$router.go(-1);
             }).catch(function (error) {
@@ -97031,7 +97031,7 @@ var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled butt
         },
         serverUrl: {
             type: String,
-            default: 'http://zetin.cn/api/otherImg'
+            default: 'http://www.zetin.cn/api/otherImg'
         }
     },
     data: function data() {
@@ -97348,7 +97348,7 @@ var render = function() {
                         multiple: "",
                         type: "drag",
                         name: "img",
-                        action: "http://zetin.cn/api/caseImg",
+                        action: "http://www.zetin.cn/api/caseImg",
                         "on-success": _vm.imgSuccess,
                         "on-error": _vm.imgError,
                         data: _vm.Case,
@@ -97678,7 +97678,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this2 = this;
 
-        this.$ajax.get('http://zetin.cn/api/insight').then(function (response) {
+        this.$ajax.get('http://www.zetin.cn/api/insight').then(function (response) {
             console.log('拉取资源列表', response);
             _this2.insight = response.data.data;
             _this2.loading = false;
@@ -97702,7 +97702,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         remove: function remove(row, index) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/insight/' + row.id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/insight/' + row.id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.insight.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
@@ -97720,11 +97720,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.currentPage = index;
             var uri = void 0;
             if (this.condition && this.search) {
-                uri = 'http://zetin.cn/api/insight/' + this.condition + '/' + this.search + '?page=' + index;
+                uri = 'http://www.zetin.cn/api/insight/' + this.condition + '/' + this.search + '?page=' + index;
             } else {
-                uri = 'http://zetin.cn/api/insight?page=' + index;
+                uri = 'http://www.zetin.cn/api/insight?page=' + index;
             }
-            this.$ajax.get('http://zetin.cn/api/insight?page=' + index).then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/insight?page=' + index).then(function (response) {
                 console.log('换页', response);
                 _this4.insight = response.data.data;
                 _this4.loading = false;
@@ -97739,7 +97739,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$Message.error('请输入查询条件');
                 return false;
             }
-            this.$ajax.get('http://zetin.cn/api/insight/' + this.condition + '/' + this.search).then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/insight/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.insight = response.data.data;
                 _this5.total = response.data.meta.pagination.total;
                 _this5.all = true;
@@ -97754,7 +97754,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.all = false;
             this.search = '';
             this.currentPage = 1;
-            this.$ajax.get('http://zetin.cn/api/insight').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/insight').then(function (response) {
                 console.log('拉取资源列表', response);
                 _this6.insight = response.data.data;
                 _this6.loading = false;
@@ -98090,7 +98090,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         if (this.$route.params.id) {
-            this.$ajax.get('http://zetin.cn/api/insight/' + this.$route.params.id + '?include=Imgs').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/insight/' + this.$route.params.id + '?include=Imgs').then(function (response) {
                 console.log('获取资源', response);
                 _this.insight = response.data;
                 _this.spinShow = false;
@@ -98120,7 +98120,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['insight'].validate(function (valid) {
                 if (valid) {
-                    _this2.$ajax.post('http://zetin.cn/api/insight', _this2.insight).then(function (response) {
+                    _this2.$ajax.post('http://www.zetin.cn/api/insight', _this2.insight).then(function (response) {
                         console.log(response.data);
                         _this2.$Message.info('资源编辑成功');
                     }).catch(function (error) {
@@ -98139,7 +98139,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteInsight: function deleteInsight(id) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/insight/' + id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/insight/' + id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.$router.go(-1);
             }).catch(function (error) {
@@ -98537,7 +98537,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this2 = this;
 
-        this.$ajax.get('http://zetin.cn/api/dynamic').then(function (response) {
+        this.$ajax.get('http://www.zetin.cn/api/dynamic').then(function (response) {
             console.log('拉取资源列表', response);
             _this2.dynamic = response.data.data;
             _this2.loading = false;
@@ -98561,7 +98561,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         remove: function remove(row, index) {
             var _this3 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/dynamic/' + row.id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/dynamic/' + row.id).then(function (response) {
                 _this3.$Message.info('删除资源成功');
                 _this3.dynamic.splice(index, 1);
                 _this3.total = response.data.meta.pagination.total;
@@ -98579,9 +98579,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.currentPage = index;
             var uri = void 0;
             if (this.condition && this.search) {
-                uri = 'http://zetin.cn/api/dynamic/' + this.condition + '/' + this.search + '?page=' + index;
+                uri = 'http://www.zetin.cn/api/dynamic/' + this.condition + '/' + this.search + '?page=' + index;
             } else {
-                uri = 'http://zetin.cn/api/dynamic?page=' + index;
+                uri = 'http://www.zetin.cn/api/dynamic?page=' + index;
             }
             this.$ajax.get(uri).then(function (response) {
                 console.log('换页', response);
@@ -98598,7 +98598,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$Message.error('请输入查询条件');
                 return false;
             }
-            this.$ajax.get('http://zetin.cn/api/dynamic/' + this.condition + '/' + this.search).then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/dynamic/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.dynamic = response.data.data;
                 _this5.total = response.data.meta.pagination.total;
                 _this5.all = true;
@@ -98613,7 +98613,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.all = false;
             this.search = '';
             this.currentPage = 1;
-            this.$ajax.get('http://zetin.cn/api/dynamic').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/dynamic').then(function (response) {
                 console.log('拉取资源列表', response);
                 _this6.dynamic = response.data.data;
                 _this6.loading = false;
@@ -98965,7 +98965,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         if (this.$route.params.id) {
-            this.$ajax.get('http://zetin.cn/api/dynamic/' + this.$route.params.id + '?include=Imgs').then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/dynamic/' + this.$route.params.id + '?include=Imgs').then(function (response) {
                 console.log('获取资源', response);
                 _this.dynamic = response.data;
                 _this.spinShow = false;
@@ -99000,7 +99000,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                 * */
                 onOk: function onOk() {
-                    _this2.$ajax.delete('http://zetin.cn/api/dynamicImg/' + id).then(function (response) {
+                    _this2.$ajax.delete('http://www.zetin.cn/api/dynamicImg/' + id).then(function (response) {
                         _this2.$Message.info('图片删除完成');
                         if (response.data.data) {
                             _this2.dynamic.Imgs.data = response.data.data;
@@ -99028,7 +99028,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 render: function render(h) {
                     return h('div', [h('upload', {
                         props: {
-                            action: 'http://zetin.cn/api/dynamicImgUpdate',
+                            action: 'http://www.zetin.cn/api/dynamicImgUpdate',
                             type: 'drag',
                             name: 'img',
                             data: _this3.img,
@@ -99099,7 +99099,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['dynamic'].validate(function (valid) {
                 if (valid) {
-                    _this4.$ajax.post('http://zetin.cn/api/dynamic', _this4.dynamic).then(function (response) {
+                    _this4.$ajax.post('http://www.zetin.cn/api/dynamic', _this4.dynamic).then(function (response) {
                         console.log(response.data);
                         _this4.$Message.info('资源编辑成功');
                     }).catch(function (error) {
@@ -99118,7 +99118,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteDynamic: function deleteDynamic(id) {
             var _this5 = this;
 
-            this.$ajax.delete('http://zetin.cn/api/dynamic/' + id).then(function (response) {
+            this.$ajax.delete('http://www.zetin.cn/api/dynamic/' + id).then(function (response) {
                 _this5.$Message.info('删除资源成功');
                 _this5.$router.go(-1);
             }).catch(function (error) {
@@ -99254,7 +99254,7 @@ var render = function() {
                         multiple: "",
                         type: "drag",
                         name: "img",
-                        action: "http://zetin.cn/api/dynamicImg",
+                        action: "http://www.zetin.cn/api/dynamicImg",
                         "on-success": _vm.imgSuccess,
                         "on-error": _vm.imgError,
                         data: _vm.dynamic,

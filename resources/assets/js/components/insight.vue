@@ -103,7 +103,7 @@
             }
         },
         created() {
-            this.$ajax.get('http://zetin.cn/api/insight').then((response) => {
+            this.$ajax.get('http://www.zetin.cn/api/insight').then((response) => {
                 console.log('拉取资源列表', response);
                 this.insight = response.data.data
                 this.loading = false
@@ -124,7 +124,7 @@
                 this.$router.push({'name': 'insight_item', params: {id: row.id}})
             },
             remove(row, index) {
-                this.$ajax.delete('http://zetin.cn/api/insight/' + row.id).then((response) => {
+                this.$ajax.delete('http://www.zetin.cn/api/insight/' + row.id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.insight.splice(index, 1)
                     this.total = response.data.meta.pagination.total
@@ -140,11 +140,11 @@
                 this.currentPage = index
                 let uri
                 if (this.condition && this.search) {
-                    uri = 'http://zetin.cn/api/insight/' + this.condition + '/' + this.search + '?page=' + index
+                    uri = 'http://www.zetin.cn/api/insight/' + this.condition + '/' + this.search + '?page=' + index
                 } else {
-                    uri = 'http://zetin.cn/api/insight?page=' + index
+                    uri = 'http://www.zetin.cn/api/insight?page=' + index
                 }
-                this.$ajax.get('http://zetin.cn/api/insight?page=' + index).then((response) => {
+                this.$ajax.get('http://www.zetin.cn/api/insight?page=' + index).then((response) => {
                     console.log('换页', response);
                     this.insight = response.data.data
                     this.loading = false
@@ -157,7 +157,7 @@
                     this.$Message.error('请输入查询条件')
                     return false
                 }
-                this.$ajax.get('http://zetin.cn/api/insight/' + this.condition + '/' + this.search).then((response) => {
+                this.$ajax.get('http://www.zetin.cn/api/insight/' + this.condition + '/' + this.search).then((response) => {
                     this.insight = response.data.data
                     this.total = response.data.meta.pagination.total
                     this.all = true
@@ -169,7 +169,7 @@
                 this.all = false
                 this.search = ''
                 this.currentPage = 1
-                this.$ajax.get('http://zetin.cn/api/insight').then((response) => {
+                this.$ajax.get('http://www.zetin.cn/api/insight').then((response) => {
                     console.log('拉取资源列表', response);
                     this.insight= response.data.data
                     this.loading = false

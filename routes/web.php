@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/admin', function () {
-    return view('welcome');
-});
+Route::get('/admin', 'PagesController@adimin')->name('admin');
 
 Route::get('/', 'PagesController@index')->name('home');
 
