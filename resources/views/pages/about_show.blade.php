@@ -47,7 +47,7 @@
                         <div class="image-box object-non-visible" data-animation-effect="fadeInLeft" data-effect-delay="{{ $loop->remaining * 100 }}">
                             <div class="overlay-container">
                                 <img src="{{ $recommend->Imgs[0]->url }}" alt="{{ $recommend->title }}">
-                                <a href="{{ route('cases.show', [$recommend->id]) }}" class="overlay small">
+                                <a href="{{ route('about.show', [$recommend->id]) }}" class="overlay small">
                                     <i class="fa fa-link"></i>
                                 </a>
                             </div>
