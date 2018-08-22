@@ -89286,11 +89286,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             total: 0,
             currentPage: 1,
             pageSize: 15,
-            cansee: false,
             pageClass: 'page',
             condition: 'form',
             search: '',
             isImport: false,
+            all: false,
             col: [{
                 'title': '编号',
                 'key': 'id',
@@ -89412,7 +89412,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             this.currentPage = index;
-            this.$ajax.get('http://iview-laravel.test/api/transform?page=' + index).then(function (response) {
+            var uri = void 0;
+            if (this.condition && this.search) {
+                uri = 'http://iview-laravel.test/api/transform/' + this.condition + '/' + this.search + '?page=' + index;
+            } else {
+                uri = 'http://iview-laravel.test/api/transform?page=' + index;
+            }
+            this.$ajax.get(uri).then(function (response) {
                 console.log('换页', response);
                 _this4.transform = response.data.data;
                 _this4.loading = false;
@@ -89420,17 +89426,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log('换页出错', error);
             });
         },
-        searchTransform: function searchTransform() {
+        showAll: function showAll() {
             var _this5 = this;
+
+            this.all = false;
+            this.search = '';
+            this.currentPage = 1;
+            this.$ajax.get('http://iview-laravel.test/api/transform').then(function (response) {
+                console.log('拉取资源列表', response);
+                _this5.transform = response.data.data;
+                _this5.loading = false;
+                _this5.total = response.data.meta.pagination.total;
+            }).catch(function (error) {
+                _this5.$Message.error('资源列表加载出错，请稍后重试');
+                console.log('资源列表加载出错:', error);
+            });
+        },
+        searchTransform: function searchTransform() {
+            var _this6 = this;
 
             if (this.search == '') {
                 this.$Message.error('请输入查询条件');
                 return false;
             }
             this.$ajax.get('http://iview-laravel.test/api/transform/' + this.condition + '/' + this.search).then(function (response) {
-                _this5.transform = response.data.data;
-                _this5.total = response.data.data.length;
-                _this5.cansee = false;
+                _this6.transform = response.data.data;
+                _this6.total = response.data.meta.pagination.total;
+                _this6.all = true;
                 console.log('搜索', response);
             }).catch(function (error) {
                 console.log('搜索出错', error);
@@ -89509,6 +89531,21 @@ var render = function() {
             attrs: { type: "ghost", shape: "circle", icon: "search" },
             on: { click: _vm.searchTransform }
           }),
+          _vm._v(" "),
+          _vm.all
+            ? _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "ghost",
+                    icon: "android-list",
+                    shape: "circle"
+                  },
+                  on: { click: _vm.showAll }
+                },
+                [_vm._v("显示全部")]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "button-group",
@@ -89602,27 +89639,17 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm.cansee
-        ? _c("page", {
-            attrs: {
-              total: _vm.total,
-              "show-total": "",
-              current: _vm.currentPage,
-              "page-size": _vm.pageSize,
-              "class-name": _vm.pageClass,
-              "show-elevator": ""
-            },
-            on: { "on-change": _vm.changePage }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      !_vm.cansee
-        ? _c(
-            "span",
-            { staticStyle: { "margin-top": "15px", display: "block" } },
-            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
-          )
-        : _vm._e()
+      _c("page", {
+        attrs: {
+          total: _vm.total,
+          "show-total": "",
+          current: _vm.currentPage,
+          "page-size": _vm.pageSize,
+          "class-name": _vm.pageClass,
+          "show-elevator": ""
+        },
+        on: { "on-change": _vm.changePage }
+      })
     ],
     1
   )
@@ -96222,7 +96249,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             total: 0,
             currentPage: 1,
             pageSize: 15,
-            cansee: false,
+            all: false,
             pageClass: 'page',
             condition: 'title',
             search: '',
@@ -96326,7 +96353,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             this.currentPage = index;
-            this.$ajax.get('http://iview-laravel.test/api/case?page=' + index).then(function (response) {
+            var uri = void 0;
+            if (this.condition && this.search) {
+                uri = 'http://iview-laravel.test/api/case/' + this.condition + '/' + this.search + '?page=' + index;
+            } else {
+                uri = 'http://iview-laravel.test/api/case?page=' + index;
+            }
+            this.$ajax.get(uri).then(function (response) {
                 console.log('换页', response);
                 _this4.Case = response.data.data;
                 _this4.loading = false;
@@ -96343,11 +96376,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             this.$ajax.get('http://iview-laravel.test/api/case/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.Case = response.data.data;
-                _this5.total = response.data.data.length;
-                _this5.cansee = false;
+                _this5.total = response.data.meta.pagination.total;
+                _this5.all = true;
                 console.log('搜索', response);
             }).catch(function (error) {
                 console.log('搜索出错', error);
+            });
+        },
+        showAll: function showAll() {
+            var _this6 = this;
+
+            this.all = false;
+            this.search = '';
+            this.currentPage = 1;
+            this.$ajax.get('http://iview-laravel.test/api/case').then(function (response) {
+                console.log('拉取资源列表', response);
+                _this6.Case = response.data.data;
+                _this6.loading = false;
+                _this6.total = response.data.meta.pagination.total;
+            }).catch(function (error) {
+                _this6.$Message.error('资源列表加载出错，请稍后重试');
+                console.log('资源列表加载出错:', error);
             });
         },
         importSuccess: function importSuccess(response, file, fileList) {
@@ -96420,6 +96469,21 @@ var render = function() {
             on: { click: _vm.searchCase }
           }),
           _vm._v(" "),
+          _vm.all
+            ? _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "ghost",
+                    icon: "android-list",
+                    shape: "circle"
+                  },
+                  on: { click: _vm.showAll }
+                },
+                [_vm._v("显示全部")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "button-group",
             { staticStyle: { float: "right" } },
@@ -96456,27 +96520,17 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm.cansee
-        ? _c("page", {
-            attrs: {
-              total: _vm.total,
-              "show-total": "",
-              current: _vm.currentPage,
-              "page-size": _vm.pageSize,
-              "class-name": _vm.pageClass,
-              "show-elevator": ""
-            },
-            on: { "on-change": _vm.changePage }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      !_vm.cansee
-        ? _c(
-            "span",
-            { staticStyle: { "margin-top": "15px", display: "block" } },
-            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
-          )
-        : _vm._e()
+      _c("page", {
+        attrs: {
+          total: _vm.total,
+          "show-total": "",
+          current: _vm.currentPage,
+          "page-size": _vm.pageSize,
+          "class-name": _vm.pageClass,
+          "show-elevator": ""
+        },
+        on: { "on-change": _vm.changePage }
+      })
     ],
     1
   )
@@ -97560,7 +97614,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             total: 0,
             currentPage: 1,
             pageSize: 15,
-            cansee: false,
+            all: false,
             pageClass: 'page',
             condition: 'title',
             search: '',
@@ -97664,6 +97718,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             this.currentPage = index;
+            var uri = void 0;
+            if (this.condition && this.search) {
+                uri = 'http://iview-laravel.test/api/insight/' + this.condition + '/' + this.search + '?page=' + index;
+            } else {
+                uri = 'http://iview-laravel.test/api/insight?page=' + index;
+            }
             this.$ajax.get('http://iview-laravel.test/api/insight?page=' + index).then(function (response) {
                 console.log('换页', response);
                 _this4.insight = response.data.data;
@@ -97681,11 +97741,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             this.$ajax.get('http://iview-laravel.test/api/insight/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.insight = response.data.data;
-                _this5.total = response.data.data.length;
-                _this5.cansee = false;
+                _this5.total = response.data.meta.pagination.total;
+                _this5.all = true;
                 console.log('搜索', response);
             }).catch(function (error) {
                 console.log('搜索出错', error);
+            });
+        },
+        showAll: function showAll() {
+            var _this6 = this;
+
+            this.all = false;
+            this.search = '';
+            this.currentPage = 1;
+            this.$ajax.get('http://iview-laravel.test/api/insight').then(function (response) {
+                console.log('拉取资源列表', response);
+                _this6.insight = response.data.data;
+                _this6.loading = false;
+                _this6.total = response.data.meta.pagination.total;
+            }).catch(function (error) {
+                _this6.$Message.error('资源列表加载出错，请稍后重试');
+                console.log('资源列表加载出错:', error);
             });
         },
         importSuccess: function importSuccess(response, file, fileList) {
@@ -97758,6 +97834,21 @@ var render = function() {
             on: { click: _vm.searchInsight }
           }),
           _vm._v(" "),
+          _vm.all
+            ? _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "ghost",
+                    icon: "android-list",
+                    shape: "circle"
+                  },
+                  on: { click: _vm.showAll }
+                },
+                [_vm._v("显示全部")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "button-group",
             { staticStyle: { float: "right" } },
@@ -97794,27 +97885,17 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm.cansee
-        ? _c("page", {
-            attrs: {
-              total: _vm.total,
-              "show-total": "",
-              current: _vm.currentPage,
-              "page-size": _vm.pageSize,
-              "class-name": _vm.pageClass,
-              "show-elevator": ""
-            },
-            on: { "on-change": _vm.changePage }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      !_vm.cansee
-        ? _c(
-            "span",
-            { staticStyle: { "margin-top": "15px", display: "block" } },
-            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
-          )
-        : _vm._e()
+      _c("page", {
+        attrs: {
+          total: _vm.total,
+          "show-total": "",
+          current: _vm.currentPage,
+          "page-size": _vm.pageSize,
+          "class-name": _vm.pageClass,
+          "show-elevator": ""
+        },
+        on: { "on-change": _vm.changePage }
+      })
     ],
     1
   )
@@ -98392,7 +98473,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             total: 0,
             currentPage: 1,
             pageSize: 15,
-            cansee: false,
+            all: false,
             pageClass: 'page',
             condition: 'title',
             search: '',
@@ -98496,7 +98577,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             this.currentPage = index;
-            this.$ajax.get('http://iview-laravel.test/api/dynamic?page=' + index).then(function (response) {
+            var uri = void 0;
+            if (this.condition && this.search) {
+                uri = 'http://iview-laravel.test/api/dynamic/' + this.condition + '/' + this.search + '?page=' + index;
+            } else {
+                uri = 'http://iview-laravel.test/api/dynamic?page=' + index;
+            }
+            this.$ajax.get(uri).then(function (response) {
                 console.log('换页', response);
                 _this4.dynamic = response.data.data;
                 _this4.loading = false;
@@ -98513,11 +98600,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             this.$ajax.get('http://iview-laravel.test/api/dynamic/' + this.condition + '/' + this.search).then(function (response) {
                 _this5.dynamic = response.data.data;
-                _this5.total = response.data.data.length;
-                _this5.cansee = false;
+                _this5.total = response.data.meta.pagination.total;
+                _this5.all = true;
                 console.log('搜索', response);
             }).catch(function (error) {
                 console.log('搜索出错', error);
+            });
+        },
+        showAll: function showAll() {
+            var _this6 = this;
+
+            this.all = false;
+            this.search = '';
+            this.currentPage = 1;
+            this.$ajax.get('http://iview-laravel.test/api/dynamic').then(function (response) {
+                console.log('拉取资源列表', response);
+                _this6.dynamic = response.data.data;
+                _this6.loading = false;
+                _this6.total = response.data.meta.pagination.total;
+            }).catch(function (error) {
+                _this6.$Message.error('资源列表加载出错，请稍后重试');
+                console.log('资源列表加载出错:', error);
             });
         }
     }
@@ -98580,6 +98683,21 @@ var render = function() {
             on: { click: _vm.searchDynamic }
           }),
           _vm._v(" "),
+          _vm.all
+            ? _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "ghost",
+                    icon: "android-list",
+                    shape: "circle"
+                  },
+                  on: { click: _vm.showAll }
+                },
+                [_vm._v("显示全部")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "button-group",
             { staticStyle: { float: "right" } },
@@ -98616,27 +98734,17 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm.cansee
-        ? _c("page", {
-            attrs: {
-              total: _vm.total,
-              "show-total": "",
-              current: _vm.currentPage,
-              "page-size": _vm.pageSize,
-              "class-name": _vm.pageClass,
-              "show-elevator": ""
-            },
-            on: { "on-change": _vm.changePage }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      !_vm.cansee
-        ? _c(
-            "span",
-            { staticStyle: { "margin-top": "15px", display: "block" } },
-            [_vm._v("共找到" + _vm._s(_vm.total) + "条记录")]
-          )
-        : _vm._e()
+      _c("page", {
+        attrs: {
+          total: _vm.total,
+          "show-total": "",
+          current: _vm.currentPage,
+          "page-size": _vm.pageSize,
+          "class-name": _vm.pageClass,
+          "show-elevator": ""
+        },
+        on: { "on-change": _vm.changePage }
+      })
     ],
     1
   )

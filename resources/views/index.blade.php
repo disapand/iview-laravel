@@ -15,10 +15,12 @@
                 <div class="slider-banner-2 bullets-with-bg">
                     <ul>
                         <!-- slide 1 start -->
-                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000" data-saveperformance="on" data-title="Slide 1" class="dark-translucent-bg">
+                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000" data-saveperformance="on"
+                            data-title="Slide 1" class="dark-translucent-bg">
 
                             <!-- main image -->
-                            <img src="images/bg1.jpg"  alt="slidebg1" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+                            <img src="images/bg1.jpg" alt="slidebg1" data-bgposition="center top" data-bgfit="cover"
+                                 data-bgrepeat="no-repeat">
 
                             <!-- LAYER NR. 1 -->
                             <div class="tp-caption very_large_text sfl tp-resizeme"
@@ -47,17 +49,20 @@
                                  data-speed="600"
                                  data-start="0"
                                  data-end="10000"
-                                 data-endspeed="600"><a href="about.html" class="btn btn-default btn-lg">了解更多<i class="fa fa-angle-double-right pl-10"></i></a>
+                                 data-endspeed="600"><a href="about.html" class="btn btn-default btn-lg">了解更多<i
+                                            class="fa fa-angle-double-right pl-10"></i></a>
                             </div>
 
                         </li>
                         <!-- slide 1 end -->
 
                         <!-- slide 2 start -->
-                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000" data-saveperformance="on" data-title="Slide 2" class="dark-translucent-bg">
+                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000" data-saveperformance="on"
+                            data-title="Slide 2" class="dark-translucent-bg">
 
                             <!-- main image -->
-                            <img src="images/bg2.jpg"  alt="slidebg1" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+                            <img src="images/bg2.jpg" alt="slidebg1" data-bgposition="center top" data-bgfit="cover"
+                                 data-bgrepeat="no-repeat">
 
                             <!-- LAYER NR. 1 -->
                             <div class="tp-caption very_large_text sfl tp-resizeme"
@@ -86,17 +91,20 @@
                                  data-speed="600"
                                  data-start="0"
                                  data-end="10000"
-                                 data-endspeed="600"><a href="#resources" class="btn btn-default btn-lg">了解更多 <i class="fa fa-angle-double-right pl-10"></i></a>
+                                 data-endspeed="600"><a href="#resources" class="btn btn-default btn-lg">了解更多 <i
+                                            class="fa fa-angle-double-right pl-10"></i></a>
                             </div>
 
                         </li>
                         <!-- slide 2 end -->
 
                         <!-- slide 3 start -->
-                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000" data-saveperformance="on" data-title="Slide 2" class="dark-translucent-bg">
+                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000" data-saveperformance="on"
+                            data-title="Slide 2" class="dark-translucent-bg">
 
                             <!-- main image -->
-                            <img src="images/bg3.jpg"  alt="slidebg3" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+                            <img src="images/bg3.jpg" alt="slidebg3" data-bgposition="center top" data-bgfit="cover"
+                                 data-bgrepeat="no-repeat">
 
                             <!-- LAYER NR. 1 -->
                             <div class="tp-caption very_large_text sfl tp-resizeme"
@@ -125,7 +133,8 @@
                                  data-speed="600"
                                  data-start="0"
                                  data-end="10000"
-                                 data-endspeed="600"><a href="services.html" class="btn btn-default btn-lg">了解更多 <i class="fa fa-angle-double-right pl-10"></i></a>
+                                 data-endspeed="600"><a href="services.html" class="btn btn-default btn-lg">了解更多 <i
+                                            class="fa fa-angle-double-right pl-10"></i></a>
                             </div>
 
                         </li>
@@ -245,7 +254,9 @@
                     <div class="row">
                         <div class="col-md-8">
                             <h1 class="title text-left">全球视野&nbsp;&nbsp;深刻理解</h1>
-                            <p style="text-align: left;width: 85%;">基于对全球互联网的深刻洞察和海外媒体传播的成熟经验，服务于中国品牌的全球化需求。通过全球化、全媒体营销矩阵，为客户提供专业、高效的国际化传播服务。凭借全球化视角，本地化服务，提供行之有效的解决方案 。</p>
+                            <p style="text-align: left;width: 85%;">
+                                基于对全球互联网的深刻洞察和海外媒体传播的成熟经验，服务于中国品牌的全球化需求。通过全球化、全媒体营销矩阵，为客户提供专业、高效的国际化传播服务。凭借全球化视角，本地化服务，提供行之有效的解决方案
+                                。</p>
                         </div>
                         <div class="col-md-4">
                             <div class="text-center">
@@ -273,19 +284,21 @@
                     <!-- portfolio items start -->
                     <div class="isotope-container row grid-space-20">
                         @foreach($cases as $case)
-                        <div class="col-sm-4 isotope-item web-design margin-bottom-clear">
-                            <div class="box-style-1 gray-bg">
-                                <div class="overlay-container">
-                                    <img src="{{ $case->Imgs[0]->url }}" alt="一加印度落地活动">
-                                    <a href="{{ route('cases.show', [$case->id]) }}" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>{{ $case->category }}</span>
-                                    </a>
+                            @if($case->Imgs->count() > 0)
+                                <div class="col-sm-4 isotope-item web-design margin-bottom-clear">
+                                    <div class="box-style-1 gray-bg">
+                                        <div class="overlay-container">
+                                            <img src="{{ $case->Imgs[0]->url }}" alt="一加印度落地活动">
+                                            <a href="{{ route('cases.show', [$case->id]) }}" class="overlay small">
+                                                <i class="fa fa-plus"></i>
+                                                <span>{{ $case->category }}</span>
+                                            </a>
+                                        </div>
+                                        <h3>{{ $case->title }}</h3>
+                                        <a href="{{ route('cases.show', [$case->id]) }}" class="btn btn-default">了解详情</a>
+                                    </div>
                                 </div>
-                                <h3>{{ $case->title }}</h3>
-                                <a href="{{ route('cases.show', [$case->id]) }}" class="btn btn-default">了解详情</a>
-                            </div>
-                        </div>
+                            @endif
                         @endforeach
                     </div>
                     <!-- portfolio items end -->
