@@ -19,7 +19,7 @@
                     <i-input v-model="dynamic.tag" placeholder="" clearable/>
                 </form-item>
 
-                <form-item label="案例内容" prop="content">
+                <form-item label="动态详情" prop="content">
                     <Editor v-model="dynamic.content"></Editor>
                 </form-item>
             </Card>

@@ -148,7 +148,7 @@ class PagesController extends Controller
 
     public function cases()
     {
-        $cases = CaseResource::with('Imgs')->orderBy('id', 'desc')->get();
+        $cases = CaseResource::with('Imgs')->orderBy('id', 'desc')->paginate(9);
         return view('pages.cases', compact('cases'));
     }
 

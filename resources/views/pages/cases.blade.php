@@ -61,7 +61,7 @@
                     <!-- portfolio items end -->
 
                     <!-- pagination start -->
-                    {{--{{ $cases->links() }}--}}
+                    {{ $cases->links() }}
                     <!-- pagination end -->
 
                 </div>
