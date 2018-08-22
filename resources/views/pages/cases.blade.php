@@ -61,12 +61,7 @@
                     <!-- portfolio items end -->
 
                     <!-- pagination start -->
-                    <ul class="pagination">
-                        <li><a href="#"><<</a></li>
-                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="cases2.html">2</a></li>
-                        <li><a href="cases2.html">>></a></li>
-                    </ul>
+                    {{--{{ $cases->links() }}--}}
                     <!-- pagination end -->
 
                 </div>

@@ -39,7 +39,7 @@ class PagesController extends Controller
 
     public function aboutIn()
     {
-        $abouts = dynamic::with('imgs')->get();
+        $abouts = dynamic::with('imgs')->orderBy('id', 'desc')->get();
         return view('pages.about_in', compact('abouts'));
     }
 
@@ -135,7 +135,7 @@ class PagesController extends Controller
 
     public function insight()
     {
-        $insights = insight::all();
+        $insights = insight::orderBy('id', 'desc')->get();
         return view('pages.insight', compact('insights'));
     }
 
@@ -147,7 +147,7 @@ class PagesController extends Controller
 
     public function cases()
     {
-        $cases = CaseResource::with('Imgs')->get();
+        $cases = CaseResource::with('Imgs')->orderBy('id', 'desc')->get();
         return view('pages.cases', compact('cases'));
     }
 
