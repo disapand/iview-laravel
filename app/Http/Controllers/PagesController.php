@@ -34,7 +34,8 @@ class PagesController extends Controller
     }
 
     public function about() {
-        return view('pages.about');
+        $dynamics = dynamic::with('Imgs')->whereHas('Imgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.about', compact('dynamics'));
     }
 
     public function aboutIn()
