@@ -51,7 +51,7 @@
                                     <i class="fa fa-link"></i>
                                 </a>
                             </div>
-                            <a href="{{ route('cases.show', [$recommend->id]) }}" class="btn btn-light-gray btn-lg btn-block">{{ $recommend->title }}</a>
+                            <a href="{{ route('about.show', [$recommend->id]) }}" class="btn btn-light-gray btn-lg btn-block">{{ $recommend->title }}</a>
                         </div>
                         @endforeach
                     </div>
