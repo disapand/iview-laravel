@@ -53,6 +53,14 @@
                     <i-input v-model="online.country" placeholder="" clearable/>
                 </form-item>
 
+                <form-item label="PV">
+                    <i-input v-model="online.pv" placeholder="" clearable/>
+                </form-item>
+
+                <form-item label="UV">
+                    <i-input v-model="online.uv" placeholder="" clearable/>
+                </form-item>
+
                 <form-item label="内容和特点">
                     <i-input type="textarea" v-model="online.detail" placeholder="" :autosize="{minRows: 5}"/>
                 </form-item>
@@ -76,14 +84,6 @@
                     <Icon type="compose"></Icon>
                     附加信息
                 </p>
-
-                <form-item label="PV">
-                    <i-input v-model="online.pv" placeholder="" clearable/>
-                </form-item>
-
-                <form-item label="UV">
-                    <i-input v-model="online.uv" placeholder="" clearable/>
-                </form-item>
 
                 <form-item label="Link">
                     <i-input v-model="online.link" placeholder="" clearable/>
