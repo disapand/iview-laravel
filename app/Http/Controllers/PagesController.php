@@ -119,7 +119,7 @@ class PagesController extends Controller
     public function internetCelebrity()
     {
         $internetCelebrities = internetcelebrityResource::with(['Imgs', 'categories'])->orderBy('id', 'desc')->paginate(9);
-        return view('pages.internetcelebrity', compact('internetCelebrities'));
+        return view('pages.internetCelebrity', compact('internetCelebrities'));
     }
 
     public function internetCelebrityShow(internetcelebrityResource $internetCelebrity)
