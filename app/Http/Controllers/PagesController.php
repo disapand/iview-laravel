@@ -89,6 +89,13 @@ class PagesController extends Controller
         return view('pages.television_in', compact('television', 'recommends'));
     }
 
+    public function televisionSearch(Request $request)
+    {
+        $televisions = televisionResources::where('country', $request->country)->where('category', $request->category)
+            ->where('form', $request->form)->orderBy('id', 'desc')->paginate(9);
+        dd($televisions);
+    }
+
     public function outdoor()
     {
         $outdoors = outdoorResource::with('outdoorResourceImgs')->orderBy('id', 'desc')->paginate(9);

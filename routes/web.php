@@ -31,6 +31,7 @@ Route::post('/newspaper', 'PagesController@newspaperSearch')->name('newspaper.se
 
 Route::get('/television', 'PagesController@television')->name('television');
 Route::get('/television/{television}', 'PagesController@televisionShow')->name('television.show');
+Route::post('/television', 'PagesController@televisionSearch')->name('television.search');
 
 Route::get('/outdoor', 'PagesController@outdoor')->name('outdoor');
 Route::get('/outdoor/{outdoor}', 'PagesController@outdoorShow')->name('outdoor.show');
