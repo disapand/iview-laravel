@@ -92,21 +92,25 @@
                     <div class="separator-2"></div>
                     <div class="row grid-space-20">
                         @foreach($recommends as $recommend)
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="{{ $recommend->televisionResourcesImgs[0]->url }}" alt="{{ $recommend->channel }}">
-                                    <a href="{{ route('newspaper.show', [$recommend->id]) }}" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="{{ route('newspaper.show', [$recommend->id]) }}">{{ $recommend->channel }}</a></h3>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="listing-item">
+                                    <div class="overlay-container">
+                                        <img src="{{ $recommend->televisionResourcesImgs[0]->url }}"
+                                             alt="{{ $recommend->channel }}">
+                                        <a href="{{ route('television.showw', [$recommend->id]) }}"
+                                           class="overlay small">
+                                            <i class="fa fa-plus"></i>
+                                            <span>了解详情</span>
+                                        </a>
+                                    </div>
+                                    <div class="listing-item-body clearfix">
+                                        <h3 class="title"><a
+                                                    href="{{ route('television.show', [$recommend->id]) }}">{{ $recommend->channel }}</a>
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
-                        </div>
                     </div>
                 </div>
             </div>
