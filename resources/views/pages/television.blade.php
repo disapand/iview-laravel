@@ -136,14 +136,7 @@
                     <div class="clearfix"></div>
 
                     <!-- pagination start -->
-                    <ul class="pagination">
-                        <li><a href="#"><<</a></li>
-                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="resources_television2.html">2</a></li>
-                        <li><a href="resources_television3.html">3</a></li>
-                        <li><a href="resources_television4.html">4</a></li>
-                        <li><a href="resources_television3.html">>></a></li>
-                    </ul>
+                    {{ $televisions->links() }}
                     <!-- pagination end -->
 
                 </div>

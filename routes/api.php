@@ -25,9 +25,9 @@ $api->version('v1', [
 ], function ($api) {
     $api->get('index', 'TelevisionResourcesController@index')->name('api.tv.index');
     $api->get('tv', 'TelevisionResourcesController@tv')->name('api.tv.tv');
-    $api->get('img', 'TelevisionResourcesImgsController@index')->name('api.tv.img');
-    $api->post('img', 'TelevisionResourcesImgsController@store')->name('api.tv.img.store');
-    $api->delete('img/{img}', 'TelevisionResourcesImgsController@delete')->name('api.tv.img.delete');
+    $api->get('img', 'televisionResourcesImgsController@index')->name('api.tv.img');
+    $api->post('img', 'televisionResourcesImgsController@store')->name('api.tv.img.store');
+    $api->delete('img/{img}', 'televisionResourcesImgsController@delete')->name('api.tv.img.delete');
     $api->get('tv/{tv}', 'TelevisionResourcesController@getTv')->name('api.tv.get');
     $api->get('tv/{condition}/{query}', 'TelevisionResourcesController@searchTv')->name('api.tv.get');
     $api->get('searchTv/{country?}/{category?}/{form?}', 'TelevisionResourcesController@search')->name('api.tv.get');
