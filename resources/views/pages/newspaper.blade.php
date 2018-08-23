@@ -8,7 +8,8 @@
     <!-- banner start -->
     <!-- ================ -->
     <div class="banner">
-        <div class="fixed-image section dark-translucent-bg parallax-bg-3" style="background-image:url('{{ asset('images/resourcesbg2.jpg') }}');">
+        <div class="fixed-image section dark-translucent-bg parallax-bg-3"
+             style="background-image:url('{{ asset('images/resourcesbg2.jpg') }}');">
             <div class="container">
                 <div class="space-top"></div>
                 <h1>报纸杂志</h1>
@@ -33,10 +34,11 @@
                 <div class="main col-md-12">
 
                     <div class="sorting-filters">
-                        <form class="form-inline">
+                        <form class="form-inline" id="search" action="{{ route('newspaper.search') }}" method="post">
+                            {{ csrf_field() }}
                             <div class="form-group">
                                 <label>国家或地区</label>
-                                <select class="form-control">
+                                <select class="form-control" name="country">
                                     <option selected="selected">美国</option>
                                     <option>加拿大</option>
                                     <option>英国</option>
@@ -75,7 +77,7 @@
                             </div>
                             <div class="form-group">
                                 <label>类别</label>
-                                <select class="form-control">
+                                <select class="form-control" name="category">
                                     <option selected="selected">综合新闻</option>
                                     <option>财经</option>
                                     <option>体育</option>
@@ -96,13 +98,13 @@
                             </div>
                             <div class="form-group">
                                 <label>形式</label>
-                                <select class="form-control">
+                                <select class="form-control" name="form">
                                     <option selected="selected">报纸</option>
                                     <option>杂志</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <a href="#" class="btn btn-default">开始搜索</a>
+                                <a href="javascript:void(0);" class="btn btn-default" onclick="$('#search').submit()">开始搜索</a>
                             </div>
                         </form>
                     </div>
@@ -110,24 +112,27 @@
                     <!-- shop items start -->
                     <div class="masonry-grid-fitrows row grid-space-20">
                         @foreach( $newspapers as $newspaper)
-                        <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    @if($newspaper->newspaperResourceImgs->count() > 0)
-                                        <img src="{{ $newspaper->newspaperResourceImgs[0]->url }}" alt="{{ $newspaper->name }}">
-                                    @else
-                                        <img src="{{ asset('images/2.jpg') }}" alt="{{ $newspaper->name }}">
-                                    @endif
-                                    <a href="{{ route('newspaper.show', [$newspaper->id]) }}" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="{{ route('newspaper.show', [$newspaper->id]) }}">{{ $newspaper->name }}</a></h3>
+                            <div class="col-md-4 col-sm-6 masonry-grid-item">
+                                <div class="listing-item">
+                                    <div class="overlay-container">
+                                        @if($newspaper->newspaperResourceImgs->count() > 0)
+                                            <img src="{{ $newspaper->newspaperResourceImgs[0]->url }}"
+                                                 alt="{{ $newspaper->name }}">
+                                        @else
+                                            <img src="{{ asset('images/2.jpg') }}" alt="{{ $newspaper->name }}">
+                                        @endif
+                                        <a href="{{ route('newspaper.show', [$newspaper->id]) }}" class="overlay small">
+                                            <i class="fa fa-plus"></i>
+                                            <span>了解详情</span>
+                                        </a>
+                                    </div>
+                                    <div class="listing-item-body clearfix">
+                                        <h3 class="title"><a
+                                                    href="{{ route('newspaper.show', [$newspaper->id]) }}">{{ $newspaper->name }}</a>
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                     <!-- shop items end -->
@@ -135,8 +140,8 @@
                     <div class="clearfix"></div>
 
                     <!-- pagination start -->
-                    {{ $newspapers->links() }}
-                    <!-- pagination end -->
+                {{ $newspapers->links() }}
+                <!-- pagination end -->
 
                 </div>
                 <!-- main end -->

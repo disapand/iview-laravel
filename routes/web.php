@@ -27,6 +27,7 @@ Route::get('/services', 'PagesController@services')->name('services');
 
 Route::get('/newspaper', 'PagesController@newspaper')->name('newspaper');
 Route::get('/newspaper/{newspaper}', 'PagesController@newspaperShow')->name('newspaper.show');
+Route::post('/newspaper', 'PagesController@newspaperSearch')->name('newspaper.search');
 
 Route::get('/television', 'PagesController@television')->name('television');
 Route::get('/television/{television}', 'PagesController@televisionShow')->name('television.show');

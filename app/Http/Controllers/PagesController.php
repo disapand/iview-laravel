@@ -7,6 +7,7 @@ use App\Models\dynamic;
 use App\Models\insight;
 use App\Models\internetcelebrityResource;
 use App\Models\newspaperResource;
+use App\Models\newspaperResourceImg;
 use App\Models\onlineResource;
 use App\Models\outdoorResource;
 use App\Models\televisionResources;
@@ -66,6 +67,14 @@ class PagesController extends Controller
     {
         $recommends = newspaperResource::where('id', '<>', $newspaper->id)->with('newspaperResourceImgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.newspaper_in', compact('newspaper', 'recommends'));
+    }
+
+    public function newspaperSearch(Request $request)
+    {
+        $data = $request->toArray();
+        $newspapers = newspaperResource::where('country', $data['country'])->where('category', $data['category'])
+            ->where('form', $data['form'])->orderBy('id', 'desc')->paginate(9);
+        return view('pages.newspaper', compact('newspapers'));
     }
 
     public function television()

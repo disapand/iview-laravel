@@ -97,4 +97,5 @@
 <!-- Custom Scripts -->
 <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
 </body>
+@yield('script')
 </html>
