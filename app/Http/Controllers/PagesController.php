@@ -57,7 +57,7 @@ class PagesController extends Controller
 
     public function newspaper()
     {
-        $newspapers = newspaperResource::with('newspaperResourceImgs')->paginate(9);
+        $newspapers = newspaperResource::with('newspaperResourceImgs')->orderBy('id', 'desc')->paginate(9);
         return view('pages.newspaper', compact('newspapers'));
     }
 
@@ -69,7 +69,7 @@ class PagesController extends Controller
 
     public function television()
     {
-        $televisions = televisionResources::with('televisionResourcesImgs')->paginate(9);
+        $televisions = televisionResources::with('televisionResourcesImgs')->orderBy('id', 'desc')->paginate(9);
         return view('pages.television', compact('televisions'));
     }
 
@@ -81,7 +81,7 @@ class PagesController extends Controller
 
     public function outdoor()
     {
-        $outdoors = outdoorResource::with('outdoorResourceImgs')->paginate(9);
+        $outdoors = outdoorResource::with('outdoorResourceImgs')->orderBy('id', 'desc')->paginate(9);
         return view('pages.outdoor', compact('outdoors'));
     }
 
@@ -93,7 +93,7 @@ class PagesController extends Controller
 
     public function transform()
     {
-        $transforms = transformResource::with('transformResourceImgs')->paginate(9);
+        $transforms = transformResource::with('transformResourceImgs')->orderBy('id', 'desc')->paginate(9);
         return view('pages.transform', compact('transforms'));
     }
 
@@ -105,7 +105,7 @@ class PagesController extends Controller
 
     public function online()
     {
-        $onlines = onlineResource::with('onlineResourceImgs')->paginate(9);
+        $onlines = onlineResource::with('onlineResourceImgs')->orderBy('id', 'desc')->paginate(9);
         return view('pages.online', compact('onlines'));
     }
 
@@ -117,7 +117,7 @@ class PagesController extends Controller
 
     public function internetCelebrity()
     {
-        $internetCelebrities = internetcelebrityResource::with(['Imgs', 'categories'])->paginate(9);
+        $internetCelebrities = internetcelebrityResource::with(['Imgs', 'categories'])->orderBy('id', 'desc')->paginate(9);
         return view('pages.internetcelebrity', compact('internetCelebrities'));
     }
 
