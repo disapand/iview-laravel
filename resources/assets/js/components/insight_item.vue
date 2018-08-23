@@ -33,7 +33,7 @@
                     </radio-group>
                 </form-item>
 
-                <form-item label="案例内容" prop="content">
+                <form-item label="洞察内容" prop="content">
                     <Editor v-model="insight.content"></Editor>
                 </form-item>
             </Card>

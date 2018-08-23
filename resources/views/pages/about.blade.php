@@ -2,7 +2,7 @@
 
 @section('title')
     Zetin 关于我们
-    @stop
+@stop
 @section('content')
     <!-- banner start -->
     <!-- ================ -->
@@ -32,7 +32,8 @@
                     <h1 class="page-title" style="text-align: center;">公司介绍</h1>
                     <div class="separator-2" style="margin: 0 auto;"></div>
                     <!-- page-title end -->
-                    <p class="lead" style="text-align: center;font-size: 14px;margin-top: 20px;margin-bottom: 40px; line-height: 32px;">
+                    <p class="lead"
+                       style="text-align: center;font-size: 14px;margin-top: 20px;margin-bottom: 40px; line-height: 32px;">
                         正点国际传媒（Zetin Group）是中国第一家专注品牌海外传播的传媒机构，是为中国品牌实现国际化品效合一的互动广告营销服务商。<br>
                         公司专业服务于全球的移动应用、手机游戏、电商平台、旅游等客户，为其提供全球营销推广服务。<br>
                         公司兼具国际化视野及本地化优势，致力于帮助众多客户制胜海外市场。<br>
@@ -45,10 +46,20 @@
                     <div class="row">
                         <div class="col-md-12">
                             <ul class="list-icons" style="text-align: center;margin-top: 20px;margin-bottom: 40px;">
-                                <li class="object-non-visible" data-animation-effect="fadeInUpSmall"><i class="icon-check"></i> 团队：来自世界各国的45位高素质的员工。</li>
-                                <li class="object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="100"><i class="icon-check"></i> 全球化：在香港、雅加达、新德里、莫斯科、洛杉矶、伦敦设有办公机构。 </li>
-                                <li class="object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="300"><i class="icon-check"></i> 专业：专注于出海品牌推广，专家型员工，在互联网、旅游、传媒广告等领域有十年以上行业经验。</li>
-                                <li class="object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="500"><i class="icon-check"></i> 资源：本地化优质资源，正点国际传媒与全球一百多个国家头部媒体资源紧密合作。</li>
+                                <li class="object-non-visible" data-animation-effect="fadeInUpSmall"><i
+                                            class="icon-check"></i> 团队：来自世界各国的45位高素质的员工。
+                                </li>
+                                <li class="object-non-visible" data-animation-effect="fadeInUpSmall"
+                                    data-effect-delay="100"><i class="icon-check"></i> 全球化：在香港、雅加达、新德里、莫斯科、洛杉矶、伦敦设有办公机构。
+                                </li>
+                                <li class="object-non-visible" data-animation-effect="fadeInUpSmall"
+                                    data-effect-delay="300"><i class="icon-check"></i>
+                                    专业：专注于出海品牌推广，专家型员工，在互联网、旅游、传媒广告等领域有十年以上行业经验。
+                                </li>
+                                <li class="object-non-visible" data-animation-effect="fadeInUpSmall"
+                                    data-effect-delay="500"><i class="icon-check"></i>
+                                    资源：本地化优质资源，正点国际传媒与全球一百多个国家头部媒体资源紧密合作。
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -58,45 +69,20 @@
                             <h1 class="page-title" style="text-align: center;">公司动态</h1>
                             <div class="separator-2" style="margin: 0 auto;"></div>
                             <div class="row grid-space-20" style="margin-top: 20px;">
-                                <div class="col-md-3 col-sm-6">
-                                    <div class="box-style-1 gray-bg team-member" style="text-align: left;">
-                                        <div class="overlay-container">
-                                            <img src="{{ asset('images/dongtai1.jpg') }}" alt="UC News">
+                                @foreach($dynamics as $dynamic)
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="box-style-1 gray-bg team-member" style="text-align: left;">
+                                            <div class="overlay-container">
+                                                <img src="{{ $dynamic->Imgs[0]->url }}" alt="{{ $dynamic->title }}">
+                                            </div>
+                                            <a href="{{ route('about.show', [$dynamic->id]) }}"><h3 style="font-size: 16px;">{{ $dynamic->title }}</h3></a>
+                                            {{ $dynamic->updated_at->format('Y.m.d') }}
                                         </div>
-                                        <a href="about_in_uc.html"><h3 style="font-size: 16px;">“户外广告+电视植入”UC News在双印又打赢一场攻坚战</h3></a>
-                                        2018.06.08
                                     </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    <div class="box-style-1 gray-bg team-member" style="text-align: left;">
-                                        <div class="overlay-container">
-                                            <img src="{{ asset('images/dongtai2.jpg') }}" alt="《江湖话事人》">
-                                        </div>
-                                        <a href="about_in_jh.html"><h3 style="font-size: 16px;">《江湖话事人》轰动美国，正点国际传媒为中国文化走出去添砖加瓦</h3></a>
-                                        2018.06.08
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    <div class="box-style-1 gray-bg team-member" style="text-align: left;">
-                                        <div class="overlay-container">
-                                            <img src="{{ asset('images/dongtai3.jpg') }}" alt="延庆">
-                                        </div>
-                                        <a href="about_in_yq.html"><h3 style="font-size: 16px;">冰雪耀延庆，正点国际传媒引领中国特色游走向海外</h3></a>
-                                        2018.06.08
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    <div class="box-style-1 gray-bg team-member" style="text-align: left;">
-                                        <div class="overlay-container">
-                                            <img src="{{ asset('images/dongtai4.jpg') }}" alt="正点国际传媒畅谈入境旅游营销新手段">
-                                        </div>
-                                        <a href="about_in_rjly.html"><h3 style="font-size: 16px;">正点国际传媒畅谈入境旅游营销新手段</h3></a>
-                                        2018.06.08
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                             <div class="tp-caption sfl tp-resizeme">
-                                <a href="about_in.html"><p style="text-align: center;color: #0e7fe7;">了解更多动态 >></p></a>
+                                <a href="{{ route('aboutIn') }}"><p style="text-align: center;color: #0e7fe7;">了解更多动态 >></p></a>
                             </div>
                         </div>
                     </div>
@@ -137,23 +123,23 @@
                         </div>
                         <div class="client">
                             <img src="{{ asset('images/13.png') }}" alt="tripadvisor">
-                            <img src="images/14.png" alt="UC News">
+                            <img src="{{ asset('images/14.png') }}" alt="UC News">
                         </div>
                         <div class="client">
-                            <img src="images/15.png" alt="UMASS">
-                            <img src="images/16.png" alt="海南旅游局">
+                            <img src="{{ asset('images/15.png') }}" alt="UMASS">
+                            <img src="{{ asset('images/16.png') }}" alt="海南旅游局">
                         </div>
                         <div class="client">
-                            <img src="images/17.png" alt="国家旅游局">
-                            <img src="images/18.png" alt="四川旅游局">
+                            <img src="{{ asset('images/17.png') }}" alt="国家旅游局">
+                            <img src="{{ asset('images/18.png') }}" alt="四川旅游局">
                         </div>
                         <div class="client">
-                            <img src="images/19.png" alt="北京旅游局">
-                            <img src="images/20.png" alt="海口市旅游发展委员会">
+                            <img src="{{ asset('images/19.png') }}" alt="北京旅游局">
+                            <img src="{{ asset('images/20.png') }}" alt="海口市旅游发展委员会">
                         </div>
                         <div class="client">
-                            <img src="images/21.png" alt="山东旅游局">
-                            <img src="images/22.png" alt="肯尼亚旅游局">
+                            <img src="{{ asset('images/21.png') }}" alt="山东旅游局">
+                            <img src="{{ asset('images/22.png') }}" alt="肯尼亚旅游局">
                         </div>
                     </div>
                 </div>
@@ -161,4 +147,4 @@
         </div>
     </div>
     <!-- section end -->
-    @stop
+@stop

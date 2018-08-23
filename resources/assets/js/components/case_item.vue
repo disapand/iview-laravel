@@ -22,7 +22,7 @@
                         <radio label="全部"></radio>
                         <radio label="游戏"></radio>
                         <radio label="应用"></radio>
-                        <radio label="电视"></radio>
+                        <radio label="电商"></radio>
                         <radio label="旅游"></radio>
                         <radio label="汽车"></radio>
                         <radio label="3C电子产品"></radio>
