@@ -65,6 +65,10 @@
                     <i-input v-model="online.link" placeholder="" clearable/>
                 </form-item>
 
+                <form-item label="内容和特点">
+                    <i-input type="textarea" v-model="online.detail" placeholder="" :autosize="{minRows: 5}"/>
+                </form-item>
+
                 <form-item label="是否有效">
                     <i-switch v-model="online.isuse" size="large">
                         <span slot="open">有效</span>
@@ -84,10 +88,6 @@
                     <Icon type="compose"></Icon>
                     附加信息
                 </p>
-
-                <form-item label="内容和特点">
-                    <i-input type="textarea" v-model="online.detail" placeholder="" :autosize="{minRows: 5}"/>
-                </form-item>
 
                 <form-item label="媒体所属公司或集团">
                     <i-input v-model="online.company" placeholder="" clearable/>
