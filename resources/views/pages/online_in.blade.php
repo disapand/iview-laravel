@@ -64,7 +64,7 @@
                                             <div class="tab-pane fade in active" id="h2tab1">
                                                 <p style="line-height: 32px;margin-top: 32px;">
                                                     位置：{{ $online->country }}<br>
-                                                    类别：{{ $online->form }}<br>
+                                                    类别：{{ $online->category }}<br>
                                                     类型：{{ $online->form }}<br>
                                                     语言：{{ $online->language }}<br>
                                                     广告形式：{{ $online->platform }}<br>
