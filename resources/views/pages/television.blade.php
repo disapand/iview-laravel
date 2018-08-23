@@ -110,8 +110,8 @@
 
                     <!-- shop items start -->
                     <div class="masonry-grid-fitrows row grid-space-20">
+                        @foreach($televisions as $television)
                         <div class="col-md-4 col-sm-6 masonry-grid-item">
-                            @foreach($televisions as $television)
                                 <div class="listing-item">
                                     <div class="overlay-container">
                                         @if($television->televisionResourcesImgs->count() > 0)
@@ -128,8 +128,8 @@
                                         <h3 class="title"><a href="{{ route('television.show', [$television->id]) }}">{{ $television->channel }}</a></h3>
                                     </div>
                                 </div>
-                            @endforeach
                         </div>
+                        @endforeach
                     </div>
                     <!-- shop items end -->
 
