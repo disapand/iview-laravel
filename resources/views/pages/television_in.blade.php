@@ -97,7 +97,7 @@
                                     <div class="overlay-container">
                                         <img src="{{ $recommend->televisionResourcesImgs[0]->url }}"
                                              alt="{{ $recommend->channel }}">
-                                        <a href="{{ route('television.showw', [$recommend->id]) }}"
+                                        <a href="{{ route('television.show', [$recommend->id]) }}"
                                            class="overlay small">
                                             <i class="fa fa-plus"></i>
                                             <span>了解详情</span>
