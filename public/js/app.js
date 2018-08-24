@@ -86758,9 +86758,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "600px",
+                width: "33%",
                 display: "inline-block",
-                "margin-right": "20px"
+                "margin-right": "1.5%"
               }
             },
             [
@@ -87041,10 +87041,10 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "550px",
+                width: "33%",
                 display: "inline-block",
-                position: "absolute",
-                top: "0"
+                "vertical-align": "top",
+                "margin-right": "1.5%"
               }
             },
             [
@@ -87194,11 +87194,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "400px",
+                width: "30%",
                 display: "inline-block",
-                position: "absolute",
-                top: "0",
-                left: "1190px"
+                "vertical-align": "top"
               }
             },
             [
