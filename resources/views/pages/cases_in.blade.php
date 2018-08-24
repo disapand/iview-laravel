@@ -7,7 +7,7 @@
     <!-- banner start -->
     <!-- ================ -->
     <div class="banner">
-        @if($cases->Imgs->count > 0)
+        @if($cases->Imgs->count() > 0)
             <div class="fixed-image" style="background-image:url('{{ $cases->Imgs[0]->url }}');"></div>
         @else
             <div class="fixed-image" style="background-image:url('{{ asset('images/resourcesbg4.jpg') }}');"></div>
