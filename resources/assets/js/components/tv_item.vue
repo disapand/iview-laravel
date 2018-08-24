@@ -31,8 +31,7 @@
 
                 <form-item label="类别" prop="category">
                     <radio-group v-model="tv.category" type="button">
-                        <radio label="综合"></radio>
-                        <radio label="新闻"></radio>
+                        <radio label="综合新闻"></radio>
                         <radio label="财经"></radio>
                         <radio label="体育"></radio>
                         <radio label="娱乐"></radio>

@@ -2,12 +2,16 @@
 
 @section('title')
     Zetin {{ $cases->title }}
-    @stop
+@stop
 @section('content')
     <!-- banner start -->
     <!-- ================ -->
     <div class="banner">
-        <div class="fixed-image" style="background-image:url('{{ $cases->Imgs[0]->url }}');"></div>
+        @if($cases->Imgs->count > 0)
+            <div class="fixed-image" style="background-image:url('{{ $cases->Imgs[0]->url }}');"></div>
+        @else
+            <div class="fixed-image" style="background-image:url('{{ asset('images/resourcesbg4.jpg') }}');"></div>
+        @endif
     </div>
     <!-- banner end -->
 
@@ -29,15 +33,24 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="separator-2"></div>
-                            <p><b style="color: #0E7FE7;">客户需求</b>: {!! str_replace(PHP_EOL, '<br />', $cases->needs) !!}</p><br />
-                            <p><b style="color: #0E7FE7;">推广策略</b>：{!! str_replace(PHP_EOL, '<br />', $cases->strategy) !!}</p><br />
-                            <p><b style="color: #0E7FE7;">方案执行</b>：{!! str_replace(PHP_EOL, '<br />', $cases->execute) !!}</p><br />
-                            <p><b style="color: #0E7FE7;">推广效果</b>：{!! str_replace(PHP_EOL, '<br />', $cases->effect) !!}</p>
+                            <p>
+                                <b style="color: #0E7FE7;">客户需求</b>: {!! str_replace(PHP_EOL, '<br />', $cases->needs) !!}
+                            </p><br/>
+                            <p>
+                                <b style="color: #0E7FE7;">推广策略</b>：{!! str_replace(PHP_EOL, '<br />', $cases->strategy) !!}
+                            </p><br/>
+                            <p>
+                                <b style="color: #0E7FE7;">方案执行</b>：{!! str_replace(PHP_EOL, '<br />', $cases->execute) !!}
+                            </p><br/>
+                            <p>
+                                <b style="color: #0E7FE7;">推广效果</b>：{!! str_replace(PHP_EOL, '<br />', $cases->effect) !!}
+                            </p>
                         </div>
                         <div class="col-md-6">
                             <!-- Nav tabs -->
                             <ul class="nav nav-pills white space-top" role="tablist">
-                                <li class="active"><a href="#portfolio-images" role="tab" data-toggle="tab" title="照片"><i class="fa fa-camera pr-5"></i> 照片</a></li>
+                                <li class="active"><a href="#portfolio-images" role="tab" data-toggle="tab"
+                                                      title="照片"><i class="fa fa-camera pr-5"></i> 照片</a></li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content clear-style">
@@ -47,7 +60,8 @@
                                             @if(!$loop->first)
                                                 <div class="overlay-container">
                                                     <img src="{{ $img->url }}" alt="{{ $cases->title }}">
-                                                    <a href="{{ $img->url }}" class="popup-img overlay" title="{{ $cases->title }}"><i class="fa fa-search-plus"></i></a>
+                                                    <a href="{{ $img->url }}" class="popup-img overlay"
+                                                       title="{{ $cases->title }}"><i class="fa fa-search-plus"></i></a>
                                                 </div>
                                             @endif
                                         @endforeach
@@ -74,18 +88,20 @@
                     <div class="separator-2"></div>
                     <div class="owl-carousel carousel">
                         @foreach($recommends as $recommend)
-                        <div class="image-box object-non-visible" data-animation-effect="fadeInLeft" data-effect-delay="{{ $loop->remaining * 100 }}">
-                            <div class="overlay-container">
-                                @if($recommend->Imgs->count() > 0)
-                                    <img src="{{ $recommend->Imgs[0]->url }}" alt="{{ $recommend->title }}">
-                                @endif
-                                <a href="{{ route('cases.show', [$recommend->id]) }}" class="overlay small">
-                                    <i class="fa fa-link"></i>
-                                    <span>3C电子产品</span>
-                                </a>
+                            <div class="image-box object-non-visible" data-animation-effect="fadeInLeft"
+                                 data-effect-delay="{{ $loop->remaining * 100 }}">
+                                <div class="overlay-container">
+                                    @if($recommend->Imgs->count() > 0)
+                                        <img src="{{ $recommend->Imgs[0]->url }}" alt="{{ $recommend->title }}">
+                                    @endif
+                                    <a href="{{ route('cases.show', [$recommend->id]) }}" class="overlay small">
+                                        <i class="fa fa-link"></i>
+                                        <span>3C电子产品</span>
+                                    </a>
+                                </div>
+                                <a href="{{ route('cases.show', [$recommend->id]) }}"
+                                   class="btn btn-light-gray btn-lg btn-block">{{ $recommend->title }}</a>
                             </div>
-                            <a href="{{ route('cases.show', [$recommend->id]) }}" class="btn btn-light-gray btn-lg btn-block">{{ $recommend->title }}</a>
-                        </div>
                         @endforeach
                     </div>
                 </div>
@@ -93,4 +109,4 @@
         </div>
     </div>
     <!-- section end -->
-    @stop
+@stop
