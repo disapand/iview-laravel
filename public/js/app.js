@@ -93892,16 +93892,20 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "form-item",
-                { attrs: { label: "Link" } },
+                { attrs: { label: "内容和特点" } },
                 [
                   _c("i-input", {
-                    attrs: { placeholder: "", clearable: "" },
+                    attrs: {
+                      type: "textarea",
+                      placeholder: "",
+                      autosize: { minRows: 5 }
+                    },
                     model: {
-                      value: _vm.online.link,
+                      value: _vm.online.detail,
                       callback: function($$v) {
-                        _vm.$set(_vm.online, "link", $$v)
+                        _vm.$set(_vm.online, "detail", $$v)
                       },
-                      expression: "online.link"
+                      expression: "online.detail"
                     }
                   })
                 ],
@@ -93964,20 +93968,16 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "form-item",
-                { attrs: { label: "内容和特点" } },
+                { attrs: { label: "Link" } },
                 [
                   _c("i-input", {
-                    attrs: {
-                      type: "textarea",
-                      placeholder: "",
-                      autosize: { minRows: 5 }
-                    },
+                    attrs: { placeholder: "", clearable: "" },
                     model: {
-                      value: _vm.online.detail,
+                      value: _vm.online.link,
                       callback: function($$v) {
-                        _vm.$set(_vm.online, "detail", $$v)
+                        _vm.$set(_vm.online, "link", $$v)
                       },
-                      expression: "online.detail"
+                      expression: "online.link"
                     }
                   })
                 ],
@@ -96804,8 +96804,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   返回上一页的方法
         * */
         back: function back() {
-            alert(this.content);
-            return false;
             this.$router.go(-1);
         },
         deleteImg: function deleteImg(id) {
@@ -97209,7 +97207,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("radio", { attrs: { label: "应用" } }),
                       _vm._v(" "),
-                      _c("radio", { attrs: { label: "电视" } }),
+                      _c("radio", { attrs: { label: "电商" } }),
                       _vm._v(" "),
                       _c("radio", { attrs: { label: "旅游" } }),
                       _vm._v(" "),
@@ -98111,8 +98109,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   返回上一页的方法
         * */
         back: function back() {
-            alert(this.content);
-            return false;
             this.$router.go(-1);
         },
         updateInsight: function updateInsight() {
@@ -98255,7 +98251,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "form-item",
-                { attrs: { label: "案例内容", prop: "content" } },
+                { attrs: { label: "洞察内容", prop: "content" } },
                 [
                   _c("Editor", {
                     model: {
@@ -98986,8 +98982,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   返回上一页的方法
         * */
         back: function back() {
-            alert(this.content);
-            return false;
             this.$router.go(-1);
         },
         deleteImg: function deleteImg(id) {
@@ -99206,7 +99200,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "form-item",
-                { attrs: { label: "案例内容", prop: "content" } },
+                { attrs: { label: "动态详情", prop: "content" } },
                 [
                   _c("Editor", {
                     model: {
