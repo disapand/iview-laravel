@@ -129,8 +129,6 @@
             *   返回上一页的方法
             * */
             back() {
-                alert(this.content)
-                return false;
                 this.$router.go(-1)
             },
             deleteImg(id) {
