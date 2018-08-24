@@ -34,10 +34,11 @@
                 <div class="main col-md-12">
 
                     <div class="sorting-filters">
-                        <form class="form-inline">
+                        <form class="form-inline" method="post" action="{{ route('online.search') }}" id="search">
+                            {{ csrf_field() }}
                             <div class="form-group">
                                 <label>国家或地区</label>
-                                <select class="form-control">
+                                <select class="form-control" name="country">
                                     <option selected="selected">美国</option>
                                     <option>加拿大</option>
                                     <option>英国</option>
@@ -76,7 +77,7 @@
                             </div>
                             <div class="form-group">
                                 <label>类别</label>
-                                <select class="form-control">
+                                <select class="form-control" name="category">
                                     <option selected="selected">网站</option>
                                     <option>APP</option>
                                     <option>社交媒体</option>
@@ -84,7 +85,7 @@
                             </div>
                             <div class="form-group">
                                 <label>形式</label>
-                                <select class="form-control">
+                                <select class="form-control" name="form">
                                     <option selected="selected">横幅广告</option>
                                     <option>开屏广告</option>
                                     <option>弹出广告</option>
@@ -95,7 +96,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <a href="#" class="btn btn-default">开始搜索</a>
+                                <a href="javascript:void(0);" class="btn btn-default" onclick="$('#search').submit()">开始搜索</a>
                             </div>
                         </form>
                     </div>
