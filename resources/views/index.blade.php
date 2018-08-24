@@ -1,5 +1,9 @@
 @extends('layouts._layouts')
 
+@section('navbar')
+    @parent
+@stop
+
 @section('content')
     <!-- banner start -->
     <!-- ================ -->
@@ -295,7 +299,8 @@
                                             </a>
                                         </div>
                                         <h3>{{ $case->title }}</h3>
-                                        <a href="{{ route('cases.show', [$case->id]) }}" class="btn btn-default">了解详情</a>
+                                        <a href="{{ route('cases.show', [$case->id]) }}"
+                                           class="btn btn-default">了解详情</a>
                                     </div>
                                 </div>
                             @endif
@@ -309,4 +314,8 @@
 
     </div>
     <!-- section end -->
+@stop
+
+@section('footer')
+    @parent
 @stop
