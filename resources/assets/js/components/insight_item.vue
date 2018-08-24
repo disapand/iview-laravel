@@ -7,7 +7,7 @@
             -   基本信息编辑部分
             -
             --->
-            <Card style="width: 1175px; display: inline-block; left: 50%;transform: translateX(-50%);">
+            <Card style="width: 80%; margin: auto;">
                 <p slot="title">
                     <Icon type="clipboard"></Icon>
                     基本信息

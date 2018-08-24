@@ -88418,9 +88418,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "600px",
+                width: "33%",
                 display: "inline-block",
-                "margin-right": "20px"
+                "margin-right": "1.5%"
               }
             },
             [
@@ -88719,10 +88719,10 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "550px",
+                width: "33%",
                 display: "inline-block",
-                position: "absolute",
-                top: "0"
+                "vertical-align": "top",
+                "margin-right": "1.5%"
               }
             },
             [
@@ -88967,11 +88967,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "400px",
+                width: "30%",
                 display: "inline-block",
-                position: "absolute",
-                top: "0",
-                left: "1190px"
+                "vertical-align": "top"
               }
             },
             [
@@ -90207,9 +90205,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "600px",
+                width: "33%",
                 display: "inline-block",
-                "margin-right": "20px"
+                "margin-right": "1.5%"
               }
             },
             [
@@ -90510,10 +90508,10 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "550px",
+                width: "33%",
                 display: "inline-block",
-                position: "absolute",
-                top: "0"
+                "vertical-align": "top",
+                "margin-right": "1.5%"
               }
             },
             [
@@ -90758,11 +90756,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "400px",
+                width: "30%",
                 display: "inline-block",
-                position: "absolute",
-                top: "0",
-                left: "1190px"
+                "vertical-align": "top"
               }
             },
             [
@@ -91983,9 +91979,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "600px",
+                width: "33%",
                 display: "inline-block",
-                "margin-right": "20px"
+                "margin-right": "1.5%"
               }
             },
             [
@@ -92288,10 +92284,10 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "550px",
+                width: "33%",
                 display: "inline-block",
-                position: "absolute",
-                top: "0"
+                "vertical-align": "top",
+                "margin-right": "1.5%"
               }
             },
             [
@@ -92486,11 +92482,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "400px",
+                width: "30%",
                 display: "inline-block",
-                position: "absolute",
-                top: "0",
-                left: "1190px"
+                "vertical-align": "center"
               }
             },
             [
@@ -93677,9 +93671,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "600px",
+                width: "33%",
                 display: "inline-block",
-                "margin-right": "20px"
+                "margin-right": "1.5%"
               }
             },
             [
@@ -93944,10 +93938,10 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "550px",
+                width: "33%",
                 display: "inline-block",
-                position: "absolute",
-                top: "0"
+                "vertical-align": "top",
+                "margin-right": "1.5%"
               }
             },
             [
@@ -94138,11 +94132,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "400px",
+                width: "30%",
                 display: "inline-block",
-                position: "absolute",
-                top: "0",
-                left: "1190px"
+                "vertical-align": "top"
               }
             },
             [
@@ -95490,9 +95482,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "600px",
+                width: "33%",
                 display: "inline-block",
-                "margin-right": "20px"
+                "margin-right": "1.5%"
               }
             },
             [
@@ -95770,10 +95762,10 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "550px",
+                width: "33%",
                 display: "inline-block",
-                position: "absolute",
-                top: "0"
+                "vertical-align": "top",
+                "margin-right": "1.5%"
               }
             },
             [
@@ -95950,11 +95942,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "400px",
+                width: "30%",
                 display: "inline-block",
-                position: "absolute",
-                top: "0",
-                left: "1190px"
+                "vertical-align": "top"
               }
             },
             [
@@ -97145,9 +97135,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "1175px",
+                width: "67.5%",
                 display: "inline-block",
-                "margin-right": "20px"
+                "margin-right": "1.5%"
               }
             },
             [
@@ -97315,9 +97305,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "400px",
+                width: "30%",
                 display: "inline-block",
-                position: "absolute"
+                "vertical-align": "top"
               }
             },
             [
@@ -98162,14 +98152,7 @@ var render = function() {
         [
           _c(
             "Card",
-            {
-              staticStyle: {
-                width: "1175px",
-                display: "inline-block",
-                left: "50%",
-                transform: "translateX(-50%)"
-              }
-            },
+            { staticStyle: { width: "80%", margin: "auto" } },
             [
               _c(
                 "p",
@@ -99141,9 +99124,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "1175px",
+                width: "67.5%",
                 display: "inline-block",
-                "margin-right": "20px"
+                "margin-right": "1.5%"
               }
             },
             [
@@ -99217,9 +99200,9 @@ var render = function() {
             "Card",
             {
               staticStyle: {
-                width: "400px",
+                width: "30%",
                 display: "inline-block",
-                position: "absolute"
+                "vertical-align": "top"
               }
             },
             [

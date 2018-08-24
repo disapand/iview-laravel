@@ -7,7 +7,7 @@
             -   基本信息编辑部分
             -
             --->
-            <Card style="width: 600px; display: inline-block; margin-right: 20px;">
+            <Card style="width: 33%; display: inline-block; margin-right: 1.5%;">
                 <p slot="title">
                     <Icon type="clipboard"></Icon>
                     基本信息
@@ -95,7 +95,7 @@
             -   扩展信息编辑部分
             -
             --->
-            <Card style="width: 550px; display: inline-block; position: absolute; top: 0;">
+            <Card style="width: 33%; display: inline-block; vertical-align: top; margin-right: 1.5%">
                 <p slot="title">
                     <Icon type="compose"></Icon>
                     附加信息
@@ -148,7 +148,7 @@
             -   图片编辑部分
             -
             --->
-            <Card style="width: 400px; display: inline-block; position: absolute; top: 0; left: 1190px">
+            <Card style="width: 30%; display: inline-block; vertical-align: center;">
                 <p slot="title">
                     <Icon type="image"></Icon>
                     图片信息
