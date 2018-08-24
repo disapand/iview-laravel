@@ -97,7 +97,9 @@
                         <div class="col-md-3 col-sm-6">
                             <div class="listing-item">
                                 <div class="overlay-container">
-                                    <img src="{{ $recommend->outdoorResourceImgs[0]->url }}" alt="{{ $outdoor->name }}">
+                                    @if($recommend->outdoorResourceImgs->count() > 0)
+                                        <img src="{{ $recommend->outdoorResourceImgs[0]->url }}" alt="{{ $outdoor->name }}">
+                                    @endif
                                     <a href="{{ route('outdoor.show', [$recommend->id]) }}" class="overlay small">
                                         <i class="fa fa-plus"></i>
                                         <span>了解详情</span>

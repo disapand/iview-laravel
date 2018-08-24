@@ -37,7 +37,8 @@
                                             <div class="overlay-container">
                                                 <img src="{{ $img->url }}" alt="{{ $internetCelebrity->name }}">
                                                 <a href="{{ $img->url }}" class="popup-img overlay"
-                                                   title="{{ $internetCelebrity->name }}"><i class="fa fa-search-plus"></i></a>
+                                                   title="{{ $internetCelebrity->name }}"><i
+                                                            class="fa fa-search-plus"></i></a>
                                             </div>
                                         @endforeach
                                     </div>
@@ -68,8 +69,10 @@
                                                     平台：{{ $internetCelebrity->platform }}<br>
                                                     粉丝量：{{ number_format($internetCelebrity->fans) }}<br>
                                                     语言：{{ $internetCelebrity->language }}<br>
-                                                    简介：{!! str_replace(PHP_EOL, '<br />', $internetCelebrity->detail ) !!}<br>
-                                                    合作品牌：{!! str_replace(PHP_EOL, '<br />', $internetCelebrity->cooperation ) !!}<br>
+                                                    简介：{!! str_replace(PHP_EOL, '<br />', $internetCelebrity->detail ) !!}
+                                                    <br>
+                                                    合作品牌：{!! str_replace(PHP_EOL, '<br />', $internetCelebrity->cooperation ) !!}
+                                                    <br>
                                                 </p>
                                             </div>
                                         </div>
@@ -98,20 +101,25 @@
                     <div class="separator-2"></div>
                     <div class="row grid-space-20">
                         @foreach($recommends as $recommend)
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="{{ $recommend->Imgs[0]->url }}" alt="{{ $recommend->name }}">
-                                    <a href="{{ route('internetCelebrity.show', [$recommend->id]) }}" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="{{ route('internetCelebrity.show', [$recommend->id]) }}">{{ $recommend->name }}</a></h3>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="listing-item">
+                                    <div class="overlay-container">
+                                        @if($recommend->Imgs->count() > 0 )
+                                            <img src="{{ $recommend->Imgs[0]->url }}" alt="{{ $recommend->name }}">
+                                        @endif
+                                        <a href="{{ route('internetCelebrity.show', [$recommend->id]) }}"
+                                           class="overlay small">
+                                            <i class="fa fa-plus"></i>
+                                            <span>了解详情</span>
+                                        </a>
+                                    </div>
+                                    <div class="listing-item-body clearfix">
+                                        <h3 class="title"><a
+                                                    href="{{ route('internetCelebrity.show', [$recommend->id]) }}">{{ $recommend->name }}</a>
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>

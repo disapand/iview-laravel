@@ -96,21 +96,25 @@
                     <div class="separator-2"></div>
                     <div class="row grid-space-20">
                         @foreach( $recommends as $recommend)
-                        <div class="col-md-3 col-sm-6">
-                            <div class="listing-item">
-                                <div class="overlay-container">
-                                    <img src="{{ $recommend->transformResourceImgs[0]->url }}" alt="{{ $recommend->name }}">
-                                    <a href="{{ route('transform.show', [$recommend->id]) }}" class="overlay small">
-                                        <i class="fa fa-plus"></i>
-                                        <span>了解详情</span>
-                                    </a>
-                                </div>
-                                <div class="listing-item-body clearfix">
-                                    <h3 class="title"><a href="{{ route('transform.show', [$recommend->id]) }}">{{ $recommend->name }}</a>
-                                    </h3>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="listing-item">
+                                    <div class="overlay-container">
+                                        @if($recommend->transformResourceImgs->count() > 0)
+                                            <img src="{{ $recommend->transformResourceImgs[0]->url }}"
+                                                 alt="{{ $recommend->name }}">
+                                        @endif
+                                        <a href="{{ route('transform.show', [$recommend->id]) }}" class="overlay small">
+                                            <i class="fa fa-plus"></i>
+                                            <span>了解详情</span>
+                                        </a>
+                                    </div>
+                                    <div class="listing-item-body clearfix">
+                                        <h3 class="title"><a
+                                                    href="{{ route('transform.show', [$recommend->id]) }}">{{ $recommend->name }}</a>
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>

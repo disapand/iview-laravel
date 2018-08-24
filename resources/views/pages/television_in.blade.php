@@ -95,8 +95,10 @@
                             <div class="col-md-3 col-sm-6">
                                 <div class="listing-item">
                                     <div class="overlay-container">
-                                        <img src="{{ $recommend->televisionResourcesImgs[0]->url }}"
-                                             alt="{{ $recommend->channel }}">
+                                        @if($recommend->televisionResourcesImgs->count() > 0)
+                                            <img src="{{ $recommend->televisionResourcesImgs[0]->url }}"
+                                                 alt="{{ $recommend->channel }}">
+                                        @endif
                                         <a href="{{ route('television.show', [$recommend->id]) }}"
                                            class="overlay small">
                                             <i class="fa fa-plus"></i>

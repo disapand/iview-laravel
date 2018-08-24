@@ -37,7 +37,7 @@
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label>国家或地区</label>
-                                <select class="form-control" name="county">
+                                <select class="form-control" name="country">
                                     <option selected="selected">美国</option>
                                     <option>加拿大</option>
                                     <option>英国</option>

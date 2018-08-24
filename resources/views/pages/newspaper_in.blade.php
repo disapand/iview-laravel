@@ -100,7 +100,9 @@
                         <div class="col-md-3 col-sm-6">
                             <div class="listing-item">
                                 <div class="overlay-container">
-                                    <img src="{{ $recommend->newspaperResourceImgs[0]->url }}" alt="{{ $recommend->name }}">
+                                    @if($recommend->newspaperResourceImgs->count() > 0)
+                                        <img src="{{ $recommend->newspaperResourceImgs[0]->url }}" alt="{{ $recommend->name }}">
+                                    @endif
                                     <a href="{{ route('newspaper.show', [$recommend->id]) }}" class="overlay small">
                                         <i class="fa fa-plus"></i>
                                         <span>了解详情</span>
