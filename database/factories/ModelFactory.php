@@ -108,8 +108,7 @@ $factory->define(App\Models\transformResourceImg::class, function (Faker\Generat
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'email' => $faker->safeEmail,
-        'password' => bcrypt($faker->password),
+        'password' => bcrypt('secret'),
         'remember_token' => str_random(10),
     ];
 });
@@ -270,6 +269,15 @@ $factory->define(App\Models\insight::class, function (Faker\Generator $faker) {
         'category' => $faker->word,
         'title' => $faker->word,
         'content' => $faker->text,
+    ];
+});
+
+$factory->define(App\Models\dynamicImg::class, function (Faker\Generator $faker) {
+    return [
+        'dynamic_id' => function () {
+             return factory(App\Models\dynamic::class)->create()->id;
+        },
+        'url' => $faker->url,
     ];
 });
 

@@ -110,6 +110,10 @@ $api->version('v1', [
     $api->post('dynamicImgUpdate', 'dynamicImgController@update')->name('api.dynamicImg.update');
 
     $api->post('otherImg', 'ImgsController@store')->name('api.img.store');
+
+    $api->post('authorizations', 'AuthorizationsController@store')->name('api.authorizations.store');
+    $api->put('authorizations/current', 'AuthorizationsController@update')->name('api.authorizations.update');
+    $api->delete('authorizations/current', 'AuthorizationsController@destroy')->name('api.authorizations.destroy');
 });
 
 $api->version('v2', function ($api) {

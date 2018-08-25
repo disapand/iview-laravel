@@ -30,6 +30,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\CaseResource withoutTrashed()
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CaseImg[] $Imgs
+ * @property string|null $needs 需求分析
+ * @property string|null $strategy 推广策略
+ * @property string|null $execute 方案执行
+ * @property string|null $effect 推广效果
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseResource whereEffect($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseResource whereExecute($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseResource whereNeeds($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseResource whereStrategy($value)
  */
 class CaseResource extends Model
 {
