@@ -114,6 +114,11 @@ $api->version('v1', [
     $api->post('authorizations', 'AuthorizationsController@store')->name('api.authorizations.store');
     $api->put('authorizations/current', 'AuthorizationsController@update')->name('api.authorizations.update');
     $api->delete('authorizations/current', 'AuthorizationsController@destroy')->name('api.authorizations.destroy');
+
+    $api->group(['middleware' => 'api.auth'], function ($api) {
+
+        $api->get('user', 'UserController@me')->name('api.user.show');
+    });
 });
 
 $api->version('v2', function ($api) {
