@@ -148,7 +148,7 @@
             -   图片编辑部分
             -
             --->
-            <Card style="width: 30%; display: inline-block; vertical-align: center;">
+            <Card style="width: 30%; display: inline-block; vertical-align: top;">
                 <p slot="title">
                     <Icon type="image"></Icon>
                     图片信息
@@ -162,7 +162,7 @@
                             :on-error="imgError"
                             :data="newspaper"
                             :show-upload-list=false>
-                        <div style="width: 360px; height: 120px">
+                        <div style="width: 100%; height: 120px">
                             <Icon type="ios-cloud-upload" size="52" style="color: #3399ff;margin-top: 20px"></Icon>
                             <p>点击或者拖拽图片到此上传</p>
                         </div>
@@ -181,7 +181,7 @@
 
             </Card>
 
-            <div style="margin: 30px;text-align: center">
+            <div class="btn-group-custom">
                 <i-button icon="ios-arrow-back" @click="back">返回资源列表</i-button>
                 <i-button icon="ios-checkmark-empty" type="success" @click="updateNewspaper">{{ edit }}</i-button>
                 <poptip confirm v-if="canDel" transfer title="您确定要删除该资源吗？删除后不可恢复" @on-ok="deleteNewspaper(newspaper.id)">
@@ -440,13 +440,12 @@
         position: relative;
         display: inline-block;
         text-align: center;
-        width: 360px;
-        height: 240px;
-        line-height: 240px;
+        height: 100%;
         vertical-align: middle;
         border-radius: 5px;
         border: 1px rgba(0, 0, 0, .1) dashed;
         overflow: hidden;
+        margin-top: 5px;
 
         img {
             max-width: 100%;
@@ -456,9 +455,6 @@
     .img-list-cover {
         display: none;
         position: absolute;
-        height: 240px;
-        line-height: 240px;
-        vertical-align: middle;
         background: rgba(0, 0, 0, .6);
         top: 0;
         bottom: 0;
@@ -481,6 +477,17 @@
 
     .ivu-radio-group-button .ivu-radio-wrapper {
         margin: 3px 0;
+    }
+
+    .btn-group-custom {
+        position: fixed;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px;
+        background: #ccc;
+        border-radius: 5px;
+        z-index: 9;
     }
 
     .customPop {

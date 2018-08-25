@@ -86325,7 +86325,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.spin-container[data-v-3aec82e9] {\n  position: relative;\n}\n.img-list[data-v-3aec82e9] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-3aec82e9] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-3aec82e9] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-3aec82e9] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-3aec82e9] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-3aec82e9] {\n  margin: 3px 0;\n}\n.customPop[data-v-3aec82e9] {\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.spin-container[data-v-3aec82e9] {\n  position: relative;\n}\n.img-list[data-v-3aec82e9] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  height: 100%;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n  margin-top: 5px;\n}\n.img-list img[data-v-3aec82e9] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-3aec82e9] {\n  display: none;\n  position: absolute;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-3aec82e9] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-3aec82e9] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  cursor: pointer;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-3aec82e9] {\n  margin: 3px 0;\n}\n.btn-group-custom[data-v-3aec82e9] {\n  position: fixed;\n  bottom: 5%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n  padding: 15px;\n  background: #ccc;\n  border-radius: 5px;\n  z-index: 9;\n}\n.customPop[data-v-3aec82e9] {\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -86523,7 +86523,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tv: {
                 id: '',
                 channel: '',
-                form: '',
+                form: 'TVC',
                 detail: '',
                 area: '',
                 language: '',
@@ -87230,7 +87230,7 @@ var render = function() {
                     [
                       _c(
                         "div",
-                        { staticStyle: { width: "360px", height: "120px" } },
+                        { staticStyle: { width: "100%", height: "120px" } },
                         [
                           _c("Icon", {
                             staticStyle: {
@@ -87288,7 +87288,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticStyle: { margin: "30px", "text-align": "center" } },
+            { staticClass: "btn-group-custom" },
             [
               _c(
                 "i-button",
@@ -87954,7 +87954,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.spin-container[data-v-d6480fe6] {\n  position: relative;\n}\n.img-list[data-v-d6480fe6] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-d6480fe6] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-d6480fe6] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-d6480fe6] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-d6480fe6] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-d6480fe6] {\n  margin: 3px 0;\n}\n.customPop[data-v-d6480fe6] {\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.spin-container[data-v-d6480fe6] {\n  position: relative;\n}\n.img-list[data-v-d6480fe6] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  height: 100%;\n  margin-top: 5px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n  margin-top: 5px;\n}\n.img-list img[data-v-d6480fe6] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-d6480fe6] {\n  display: none;\n  position: absolute;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-d6480fe6] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-d6480fe6] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  cursor: pointer;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-d6480fe6] {\n  margin: 3px 0;\n}\n.btn-group-custom[data-v-d6480fe6] {\n  position: fixed;\n  bottom: 5%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n  padding: 15px;\n  background: #ccc;\n  border-radius: 5px;\n  z-index: 9;\n}\n.customPop[data-v-d6480fe6] {\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -87965,6 +87965,10 @@ exports.push([module.i, "\n.spin-container[data-v-d6480fe6] {\n  position: relat
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -88456,16 +88460,27 @@ var render = function() {
                 "form-item",
                 { attrs: { label: "展现形式", prop: "form" } },
                 [
-                  _c("i-input", {
-                    attrs: { placeholder: "", clearable: "" },
-                    model: {
-                      value: _vm.outdoor.form,
-                      callback: function($$v) {
-                        _vm.$set(_vm.outdoor, "form", $$v)
-                      },
-                      expression: "outdoor.form"
-                    }
-                  })
+                  _c(
+                    "radio-group",
+                    {
+                      attrs: { type: "button" },
+                      model: {
+                        value: _vm.outdoor.form,
+                        callback: function($$v) {
+                          _vm.$set(_vm.outdoor, "form", $$v)
+                        },
+                        expression: "outdoor.form"
+                      }
+                    },
+                    [
+                      _c("radio", { attrs: { label: "静态" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "灯箱" } }),
+                      _vm._v(" "),
+                      _c("radio", { attrs: { label: "数码" } })
+                    ],
+                    1
+                  )
                 ],
                 1
               ),
@@ -89003,7 +89018,7 @@ var render = function() {
                     [
                       _c(
                         "div",
-                        { staticStyle: { width: "360px", height: "120px" } },
+                        { staticStyle: { width: "100%", height: "120px" } },
                         [
                           _c("Icon", {
                             staticStyle: {
@@ -89061,7 +89076,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticStyle: { margin: "30px", "text-align": "center" } },
+            { staticClass: "btn-group-custom" },
             [
               _c(
                 "i-button",
@@ -89743,7 +89758,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.spin-container[data-v-aea4ba46] {\n  position: relative;\n}\n.img-list[data-v-aea4ba46] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-aea4ba46] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-aea4ba46] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-aea4ba46] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-aea4ba46] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-aea4ba46] {\n  margin: 3px 0;\n}\n.customPop[data-v-aea4ba46] {\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.spin-container[data-v-aea4ba46] {\n  position: relative;\n}\n.img-list[data-v-aea4ba46] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  height: 100%;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n  margin-top: 5px;\n}\n.img-list img[data-v-aea4ba46] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-aea4ba46] {\n  display: none;\n  position: absolute;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-aea4ba46] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-aea4ba46] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  cursor: pointer;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-aea4ba46] {\n  margin: 3px 0;\n}\n.btn-group-custom[data-v-aea4ba46] {\n  position: fixed;\n  bottom: 5%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n  padding: 15px;\n  background: #ccc;\n  border-radius: 5px;\n  z-index: 9;\n}\n.customPop[data-v-aea4ba46] {\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -90792,7 +90807,7 @@ var render = function() {
                     [
                       _c(
                         "div",
-                        { staticStyle: { width: "360px", height: "120px" } },
+                        { staticStyle: { width: "100%", height: "120px" } },
                         [
                           _c("Icon", {
                             staticStyle: {
@@ -90850,7 +90865,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticStyle: { margin: "30px", "text-align": "center" } },
+            { staticClass: "btn-group-custom" },
             [
               _c(
                 "i-button",
@@ -91524,7 +91539,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.spin-container[data-v-07cf7e50] {\n  position: relative;\n}\n.img-list[data-v-07cf7e50] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-07cf7e50] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-07cf7e50] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-07cf7e50] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-07cf7e50] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-07cf7e50] {\n  margin: 3px 0;\n}\n.customPop[data-v-07cf7e50] {\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.spin-container[data-v-07cf7e50] {\n  position: relative;\n}\n.img-list[data-v-07cf7e50] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  height: 100%;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n  margin-top: 5px;\n}\n.img-list img[data-v-07cf7e50] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-07cf7e50] {\n  display: none;\n  position: absolute;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-07cf7e50] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-07cf7e50] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-07cf7e50] {\n  margin: 3px 0;\n}\n.btn-group-custom[data-v-07cf7e50] {\n  position: fixed;\n  bottom: 5%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n  padding: 15px;\n  background: #ccc;\n  border-radius: 5px;\n  z-index: 9;\n}\n.customPop[data-v-07cf7e50] {\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -92484,7 +92499,7 @@ var render = function() {
               staticStyle: {
                 width: "30%",
                 display: "inline-block",
-                "vertical-align": "center"
+                "vertical-align": "top"
               }
             },
             [
@@ -92518,7 +92533,7 @@ var render = function() {
                     [
                       _c(
                         "div",
-                        { staticStyle: { width: "360px", height: "120px" } },
+                        { staticStyle: { width: "100%", height: "120px" } },
                         [
                           _c("Icon", {
                             staticStyle: {
@@ -92576,7 +92591,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticStyle: { margin: "30px", "text-align": "center" } },
+            { staticClass: "btn-group-custom" },
             [
               _c(
                 "i-button",
@@ -93239,7 +93254,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.spin-container[data-v-39575db8] {\n  position: relative;\n}\n.img-list[data-v-39575db8] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-39575db8] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-39575db8] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-39575db8] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-39575db8] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-39575db8] {\n  margin: 3px 0;\n}\n.customPop[data-v-39575db8] {\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.spin-container[data-v-39575db8] {\n  position: relative;\n}\n.img-list[data-v-39575db8] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  height: 100%;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n  margin-top: 5px;\n}\n.img-list img[data-v-39575db8] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-39575db8] {\n  display: none;\n  position: absolute;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-39575db8] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-39575db8] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-39575db8] {\n  margin: 3px 0;\n}\n.btn-group-custom[data-v-39575db8] {\n  position: fixed;\n  bottom: 5%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n  padding: 15px;\n  background: #ccc;\n  border-radius: 5px;\n  z-index: 9;\n}\n.customPop[data-v-39575db8] {\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -94168,7 +94183,7 @@ var render = function() {
                     [
                       _c(
                         "div",
-                        { staticStyle: { width: "360px", height: "120px" } },
+                        { staticStyle: { width: "100%", height: "120px" } },
                         [
                           _c("Icon", {
                             staticStyle: {
@@ -94226,7 +94241,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticStyle: { margin: "30px", "text-align": "center" } },
+            { staticClass: "btn-group-custom" },
             [
               _c(
                 "i-button",
@@ -95040,7 +95055,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.spin-container[data-v-34c4976c] {\n  position: relative;\n}\n.img-list[data-v-34c4976c] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-34c4976c] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-34c4976c] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-34c4976c] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-34c4976c] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-34c4976c] {\n  margin: 3px 0;\n}\n.customPop[data-v-34c4976c] {\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.spin-container[data-v-34c4976c] {\n  position: relative;\n}\n.img-list[data-v-34c4976c] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  height: 100%;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n  margin-top: 5px;\n}\n.img-list img[data-v-34c4976c] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-34c4976c] {\n  display: none;\n  position: absolute;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-34c4976c] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-34c4976c] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-34c4976c] {\n  margin: 3px 0;\n}\n.btn-group-custom[data-v-34c4976c] {\n  position: fixed;\n  bottom: 5%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n  padding: 15px;\n  background: #ccc;\n  border-radius: 5px;\n  z-index: 9;\n}\n.customPop[data-v-34c4976c] {\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -95978,7 +95993,7 @@ var render = function() {
                     [
                       _c(
                         "div",
-                        { staticStyle: { width: "360px", height: "120px" } },
+                        { staticStyle: { width: "100%", height: "120px" } },
                         [
                           _c("Icon", {
                             staticStyle: {
@@ -96036,7 +96051,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticStyle: { margin: "30px", "text-align": "center" } },
+            { staticClass: "btn-group-custom" },
             [
               _c(
                 "i-button",
@@ -96616,7 +96631,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.spin-container[data-v-608ed48a] {\n  position: relative;\n}\n.img-list[data-v-608ed48a] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-608ed48a] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-608ed48a] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-608ed48a] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-608ed48a] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-608ed48a] {\n  margin: 3px 0;\n}\n.customPop[data-v-608ed48a] {\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.spin-container[data-v-608ed48a] {\n  position: relative;\n}\n.img-list[data-v-608ed48a] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  height: 100%;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n  margin-top: 5px;\n}\n.img-list img[data-v-608ed48a] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-608ed48a] {\n  display: none;\n  position: absolute;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-608ed48a] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-608ed48a] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-608ed48a] {\n  margin: 3px 0;\n}\n.btn-group-custom[data-v-608ed48a] {\n  position: fixed;\n  bottom: 5%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n  padding: 15px;\n  background: #ccc;\n  border-radius: 5px;\n  z-index: 9;\n}\n.customPop[data-v-608ed48a] {\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -97341,7 +97356,7 @@ var render = function() {
                     [
                       _c(
                         "div",
-                        { staticStyle: { width: "360px", height: "120px" } },
+                        { staticStyle: { width: "100%", height: "120px" } },
                         [
                           _c("Icon", {
                             staticStyle: {
@@ -97399,7 +97414,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticStyle: { margin: "30px", "text-align": "center" } },
+            { staticClass: "btn-group-custom" },
             [
               _c(
                 "i-button",
@@ -97979,7 +97994,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.spin-container[data-v-35e707f1] {\n  position: relative;\n}\n.img-list[data-v-35e707f1] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-35e707f1] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-35e707f1] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-35e707f1] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-35e707f1] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-35e707f1] {\n  margin: 3px 0;\n}\n.customPop[data-v-35e707f1] {\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.spin-container[data-v-35e707f1] {\n  position: relative;\n}\n.img-list[data-v-35e707f1] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  height: 100%;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n  margin-top: 5px;\n}\n.img-list img[data-v-35e707f1] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-35e707f1] {\n  display: none;\n  position: absolute;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-35e707f1] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-35e707f1] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-35e707f1] {\n  margin: 3px 0;\n}\n.btn-group-custom[data-v-35e707f1] {\n  position: fixed;\n  bottom: 5%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n  padding: 15px;\n  background: #ccc;\n  border-radius: 5px;\n  z-index: 9;\n}\n.customPop[data-v-35e707f1] {\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -98249,7 +98264,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticStyle: { margin: "30px", "text-align": "center" } },
+            { staticClass: "btn-group-custom" },
             [
               _c(
                 "i-button",
@@ -98819,7 +98834,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.spin-container[data-v-573c2f2a] {\n  position: relative;\n}\n.img-list[data-v-573c2f2a] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  width: 360px;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n}\n.img-list img[data-v-573c2f2a] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-573c2f2a] {\n  display: none;\n  position: absolute;\n  height: 240px;\n  line-height: 240px;\n  vertical-align: middle;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-573c2f2a] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-573c2f2a] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-573c2f2a] {\n  margin: 3px 0;\n}\n.customPop[data-v-573c2f2a] {\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.spin-container[data-v-573c2f2a] {\n  position: relative;\n}\n.img-list[data-v-573c2f2a] {\n  position: relative;\n  display: inline-block;\n  text-align: center;\n  height: 100%;\n  vertical-align: middle;\n  border-radius: 5px;\n  border: 1px rgba(0, 0, 0, 0.1) dashed;\n  overflow: hidden;\n  margin-top: 5px;\n}\n.img-list img[data-v-573c2f2a] {\n    max-width: 100%;\n}\n.img-list-cover[data-v-573c2f2a] {\n  display: none;\n  position: absolute;\n  background: rgba(0, 0, 0, 0.6);\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.img-list:hover .img-list-cover[data-v-573c2f2a] {\n  display: inline-block;\n}\n.img-list-cover .ivu-icon[data-v-573c2f2a] {\n  font-size: 3em;\n  margin-left: 25px;\n  color: #fff;\n  margin-top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  cursor: pointer;\n}\n.ivu-radio-group-button .ivu-radio-wrapper[data-v-573c2f2a] {\n  margin: 3px 0;\n}\n.btn-group-custom[data-v-573c2f2a] {\n  position: fixed;\n  bottom: 5%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n  padding: 15px;\n  background: #ccc;\n  border-radius: 5px;\n  z-index: 9;\n}\n.customPop[data-v-573c2f2a] {\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -99236,7 +99251,7 @@ var render = function() {
                     [
                       _c(
                         "div",
-                        { staticStyle: { width: "360px", height: "120px" } },
+                        { staticStyle: { width: "100%", height: "120px" } },
                         [
                           _c("Icon", {
                             staticStyle: {
@@ -99294,7 +99309,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticStyle: { margin: "30px", "text-align": "center" } },
+            { staticClass: "btn-group-custom" },
             [
               _c(
                 "i-button",
