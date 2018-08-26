@@ -19,10 +19,19 @@ import insight from '../components/insight.vue';
 import insight_item from '../components/insight_item.vue';
 import dynamic from '../components/dynamic.vue';
 import dynamic_item from '../components/dynamic_item.vue';
+import login from '../components/login.vue'
 
 Vue.use(vueRouter);
 
 const routes = [
+    {
+        path: '/login',
+        name: 'login',
+        meta: {
+            title: 'zetin 用户登录'
+        },
+        component: login,
+    },
     {
         path: '/',
         name: 'menu',

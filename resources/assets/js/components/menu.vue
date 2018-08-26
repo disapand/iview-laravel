@@ -1,5 +1,5 @@
 <style scoped>
-    .layout{
+    .layout {
         border: 1px solid #d7dde4;
         background: #f5f7f9;
         position: relative;
@@ -7,7 +7,8 @@
         overflow: hidden;
         height: 100%;
     }
-    .layout-logo{
+
+    .layout-logo {
         width: 100px;
         height: 30px;
         background: #5b6270;
@@ -22,7 +23,7 @@
         height: 100%;
     }
 
-    .layout-nav{
+    .layout-nav {
         width: 420px;
         margin: 0 auto;
         margin-right: 20px;
@@ -41,13 +42,13 @@
                         <MenuItem name="4" style="float:right">
                             <Dropdown>
                                 <avatar icon="person" src=""></avatar>
-                                <span>用户名</span>
+                                <span>{{ this.user.name }}</span>
                                 <DropdownMenu slot="list">
                                     <DropdownItem>
                                         <router-link to="/b">用户信息</router-link>
                                     </DropdownItem>
                                     <DropdownItem divided>
-                                        <router-link to="">退出登录</router-link>
+                                        <span @click="logout">退出登录</span>
                                     </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
@@ -104,12 +105,22 @@
     export default {
         data() {
             return {
-
+                user: '',
             };
+        },
+        created() {
+            this.$ajax.get('http://iview-laravel.test/api/user', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
+                .then((res) => {
+                    console.log(res)
+                    this.user = res.data
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         },
         methods: {
             changeMenu(name) {
-                switch (name){
+                switch (name) {
                     case '1-1':
                         this.$router.push('/television');
                         break;
@@ -137,10 +148,20 @@
                     case '4':
                         this.$router.push('/dynamic');
                         break;
-
                 }
-
-
+            },
+            logout() {
+                this.$ajax.delete('http://iview-laravel.test/authorizations/current', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
+                    .then((res) => {
+                        this.$router.push('login')
+                    }).catch((error) => {
+                        console.log(error)
+                        this.$Message.error({
+                            content: '用户认证失败',
+                            duration: 5,
+                            closable: true
+                        })
+                })
             }
         }
     }

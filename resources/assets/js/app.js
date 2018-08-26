@@ -9,6 +9,9 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import Vuex from 'vuex';
+import VueMeta from 'vue-meta-info';
+
 import iview from 'iview';
 import 'iview/dist/styles/iview.css';
 
@@ -23,8 +26,28 @@ import 'quill/dist/quill.bubble.css';
 
 Vue.use(iview);
 Vue.use(VueQuillEditor);
+Vue.use(Vuex);
+Vue.use(VueMeta);
 
 Vue.prototype.$ajax = axios;
+
+const store = new Vuex.Store( {
+    state:{
+        access_token: '',
+        token_type: '',
+    },
+    mutations: {
+        updateName(state, name) {
+            state.name = name
+        },
+        updateAccessToken(state, token) {
+            state.access_token = token
+        },
+        updateTokenType(state, type) {
+            state.token_type = type
+        }
+    }
+})
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -55,6 +78,7 @@ router.afterEach((to) => {
 
 new Vue({
     el: '#app',
+    store,
     router,
     render: h => h(App),
 });
