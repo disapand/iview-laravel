@@ -46,6 +46,13 @@
                 <form-item label="推广效果" prop="effect">
                     <i-input v-model="Case.effect" placeholder="" type="textarea" :autosize="{minRows: 5}"/>
                 </form-item>
+
+                <form-item label="是否在首页展示">
+                    <i-switch v-model="Case.show" size="large">
+                        <span slot="open">是</span>
+                        <span slot="close">否</span>
+                    </i-switch>
+                </form-item>
             </Card>
 
             <!--
@@ -118,6 +125,7 @@
                     execute: '',
                     strategy: '',
                     needs: '',
+                    show: false,
                     Imgs: {
                         data: [],
                     }

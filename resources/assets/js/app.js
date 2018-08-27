@@ -35,16 +35,17 @@ const store = new Vuex.Store( {
     state:{
         access_token: '',
         token_type: '',
+        expires_in: '',
     },
     mutations: {
-        updateName(state, name) {
-            state.name = name
+        updateAccessToken(state) {
+            state.access_token = localStorage.getItem('access_token')
         },
-        updateAccessToken(state, token) {
-            state.access_token = token
+        updateTokenType(state) {
+            state.token_type = localStorage.getItem('token_type')
         },
-        updateTokenType(state, type) {
-            state.token_type = type
+        updateExpiresIn(state) {
+            state.expires_in = localStorage.getItem('expires_in')
         }
     }
 })
@@ -69,7 +70,20 @@ router.beforeEach((to, from, next) => {
     if(to.meta.title){
         document.title = to.meta.title
     }
-    next();
+    // if ( localStorage.getItem('access_token') === null && to.name !== 'login') {
+    //     alert('111')
+    //     next: {
+    //         name: 'login'
+    //     }
+    // } else if ( localStorage.getItem('access_token') && to.name === 'login') {
+    //     alert('222')
+    //     next: {
+    //         name: '/'
+    //     }
+    // } else {
+    //     next();
+    // }
+    next()
 })
 
 router.afterEach((to) => {

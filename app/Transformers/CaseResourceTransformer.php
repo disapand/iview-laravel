@@ -24,6 +24,7 @@ class CaseResourceTransformer extends TransformerAbstract
             'strategy' => $caseResource->strategy,
             'execute' => $caseResource->execute,
             'effect' => $caseResource->effect,
+            'show' => $caseResource->show ? true : false,
             'created_at' => $caseResource->created_at ? $caseResource->created_at->toDateTimeString() : '',
             'updated_at' => $caseResource->updated_at ? $caseResource->updated_at->toDateTimeString() : '',
             'deleted_at' => $caseResource->deleted_at ? $caseResource->deleted_at->toDateTimeString() : '',

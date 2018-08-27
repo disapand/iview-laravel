@@ -109,6 +109,9 @@
             };
         },
         created() {
+            this.$store.commit('updateAccessToken')
+            this.$store.commit('updateTokenType')
+            this.$store.commit('updateExpiresIn')
             this.$ajax.get('http://iview-laravel.test/api/user', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
                 .then((res) => {
                     console.log(res)
@@ -116,6 +119,16 @@
                 })
                 .catch((error) => {
                     console.log(error)
+                    this.$Modal.confirm({
+                        title: '请登录',
+                        content: '该操作需要先登录账号',
+                        okText: '登录',
+                        cancelText: ' ',
+                        onOk: () => {
+                            this.$router.push('login')
+                        }
+                    })
+                    return false
                 })
         },
         methods: {
@@ -151,8 +164,9 @@
                 }
             },
             logout() {
-                this.$ajax.delete('http://iview-laravel.test/authorizations/current', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
+                this.$ajax.delete('http://iview-laravel.test/api/authorizations/current', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
                     .then((res) => {
+                        localStorage.clear()
                         this.$router.push('login')
                     }).catch((error) => {
                         console.log(error)

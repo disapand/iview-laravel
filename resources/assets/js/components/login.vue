@@ -40,8 +40,9 @@
                 this.$refs['user'].validate((valid) => {
                     if (valid) {
                         this.$ajax.post('http://iview-laravel.test/api/authorizations', this.user).then( (res) => {
-                            this.$store.commit('updateAccessToken', res.data.access_token)
-                            this.$store.commit('updateTokenType', res.data.token_type)
+                            localStorage.setItem('access_token', res.data.access_token)
+                            localStorage.setItem('token_type', res.data.token_type)
+                            localStorage.setItem('expires_in', res.data.expires_in)
                             this.$router.push('/')
                         }).catch((error) => {
                             console.log(error)
