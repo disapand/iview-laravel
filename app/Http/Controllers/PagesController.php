@@ -24,7 +24,7 @@ class PagesController extends Controller
 
     public function index()
     {
-        $cases = CaseResource::with('Imgs')->orderBy('id', 'desc')->take(6)->get();
+        $cases = CaseResource::whereHas('Imgs')->with('Imgs')->orderBy('id', 'desc')->take(6)->get();
         return view('index', compact('cases'));
     }
 

@@ -18,7 +18,8 @@
                                                                alt="Logo"></a>
                         </div>
                         <div style="display: inline-block;margin-left: 20px;">
-                            <a href="javascript:void(0);" style="color: #ccc;text-decoration: none;cursor: default;">中文版</a>&nbsp;|
+                            <a href="javascript:void(0);"
+                               style="color: #ccc;text-decoration: none;cursor: default;">中文版</a>&nbsp;|
                             <a href="/english.html" style="color: #fff;text-decoration: none;">ENGLISH</a>
                         </div>
                     </div>
@@ -394,7 +395,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="text-center">
-                                <a href="insight.html" class="btn btn-default btn-lg">进入洞察</a>
+                                <a href="{{ route('insight') }}" class="btn btn-default btn-lg">进入洞察</a>
                             </div>
                         </div>
                     </div>
