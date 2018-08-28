@@ -423,7 +423,7 @@
                                 <div class="col-sm-4 isotope-item web-design margin-bottom-clear">
                                     <div class="box-style-1 gray-bg">
                                         <div class="overlay-container">
-                                            <img src="{{ $case->Imgs[0]->url }}" alt="一加印度落地活动">
+                                            <img src="{{ $case->Imgs[0]->url }}" alt="{{ $case->title }}">
                                             <a href="{{ route('cases.show', [$case->id]) }}" class="overlay small">
                                                 <i class="fa fa-plus"></i>
                                                 <span>{{ $case->category }}</span>
@@ -438,7 +438,7 @@
                         @endforeach
                     </div>
                     <!-- portfolio items end -->
-
+                    <a href="{{ route('cases') }}" class="link pull-right"><span>了解更多</span></a>
                 </div>
             </div>
         </div>

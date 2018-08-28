@@ -87,7 +87,7 @@
                             <Icon type="ios-pie"></Icon>
                             动态管理
                         </MenuItem>
-                        <MenuItem name="5">
+                        <MenuItem name="5" v-if="user.role == '运营者'">
                             <Icon type="ios-people"></Icon>
                             用户管理
                         </MenuItem>
@@ -164,6 +164,9 @@
                         break;
                     case '4':
                         this.$router.push('/dynamic');
+                        break;
+                    case '5':
+                        this.$router.push('/user');
                         break;
                 }
             },
