@@ -74,13 +74,13 @@
                 <aside class="col-md-4">
                     <div class="sidebar">
                         <div class="side vertical-divider-left">
-                            <h3 class="title">正点互动国际传媒广告有限公司</h3>
+                            <h3 class="title">北京正点互动国际传媒广告有限公司</h3>
                             <ul class="list">
                                 <li><strong></strong></li>
                                 <li><i class="fa fa-home pr-10"></i>北京市朝阳区<br><span class="pl-20">锐创国际中心</span></li>
                                 <li><i class="fa fa-phone pr-10"></i>+86 10 84177927</li>
                                 <li><i class="fa fa-mobile pr-10 pl-5"></i>+86 176 1070 1177</li>
-                                <li><i class="fa fa-envelope pr-10"></i><a href="mailto:niki@zetin.cn">niki@zetin.cn</a></li>
+                                <li><i class="fa fa-envelope pr-10"></i><a href="mailto:info@zetin.cn">info@zetin.cn</a></li>
                             </ul>
                         </div>
                     </div>
