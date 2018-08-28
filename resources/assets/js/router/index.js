@@ -20,6 +20,7 @@ import insight_item from '../components/insight_item.vue';
 import dynamic from '../components/dynamic.vue';
 import dynamic_item from '../components/dynamic_item.vue';
 import login from '../components/login.vue'
+import user from '../components/users.vue';
 
 Vue.use(vueRouter);
 
@@ -31,6 +32,14 @@ const routes = [
             title: 'zetin 用户登录'
         },
         component: login,
+    },
+    {
+      path: '/user',
+      name: 'user',
+      meta: {
+          title: 'zetin 用户管理'
+      },
+      component: user,
     },
     {
         path: '/',

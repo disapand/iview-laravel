@@ -14,7 +14,7 @@ class AddShowToCase extends Migration
     public function up()
     {
         Schema::table('case_resources', function (Blueprint $table) {
-            $table->boolean('show')->defalut(false)->nullable()->comment('是否在首页展示');
+            $table->boolean('show')->defalut(false)->comment('是否在首页展示');
         });
     }
 

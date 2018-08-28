@@ -87,6 +87,10 @@
                             <Icon type="ios-pie"></Icon>
                             动态管理
                         </MenuItem>
+                        <MenuItem name="5">
+                            <Icon type="ios-people"></Icon>
+                            用户管理
+                        </MenuItem>
                     </Menu>
                 </Sider>
                 <!--
