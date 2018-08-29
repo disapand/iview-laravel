@@ -23,15 +23,24 @@
                 </form-item>
                 <form-item label="用户角色" prop="role">
                     <RadioGroup v-model="user.role" type="button">
+                        <Radio label="超级管理员"></Radio>
                         <Radio label="管理员"></Radio>
-                        <Radio label="运营者"></Radio>
                     </RadioGroup>
                 </form-item>
                 <form-item>
                     <i-button type="warning" @click="reset">清空</i-button>
-                    <i-button type="success">提交</i-button>
+                    <i-button type="success" @click="updateUser(user.id)">提交</i-button>
                 </form-item>
             </i-form>
+            <!--<div>
+                <i-input placeholer="请输入查询条件" v-model="query" style="width:20%; margin-left: 40px;">
+                    <i-select v-model="condition" slot="prepend" style="width: 80px">
+                        <i-option label="用户名" value="name"></i-option>
+                        <i-option label="角色" value="role"></i-option>
+                    </i-select>
+                    <i-button slot="append" icon="ios-search" @click="searchUser"></i-button>
+                </i-input>
+            </div>-->
         </Card>
         <div>
             <i-table border :columns="col" :data="users" stripe :highlight-row=false
@@ -51,11 +60,10 @@
                 currentPage: 1,
                 pageSize: 15,
                 pageClass: 'page',
-                condition: 'form',
-                search: '',
-                isImport: false,
+                query: '',
                 all: false,
                 edit: false,
+                condition: '用户名',
                 col: [
                     {
                         'title': '编号',
@@ -93,15 +101,15 @@
                                         click: () => {
                                             event.stopPropagation()
                                             this.user = params.row
-                                            this.edit = ! this.edit
+                                            this.edit = true
                                             // this.show(params.row, params.index)
                                         }
                                     }
-                                }, '查看详情'),
+                                }, '编辑用户信息'),
                                 h('poptip', {
                                     props: {
                                         confirm: true,
-                                        title: '确认删除这条资源吗？',
+                                        title: '确认删除该用户吗？此操作不可逆，删除后数据不可恢复',
                                     },
                                     on: {
                                         'on-ok': () => {
@@ -115,7 +123,7 @@
                                             type: 'error',
                                             size: 'small'
                                         }
-                                    }, '删除资源')
+                                    }, '删除用户')
                                 ])
                             ])
                         },
@@ -123,7 +131,7 @@
                 ],
                 userRules: {
                     name: [
-                        {required: true, message: '请输入用户名', trigger: 'blur'}
+                        {required: true, message: '请输入用户名', trigger: 'blur'},
                     ],
                     password: [
                         {required: true, message: '请输入密码', trigger: 'blur'},
@@ -147,7 +155,7 @@
                     password: '',
                     password_new: '',
                     password_confirm: '',
-                    role: '运营者'
+                    role: '管理员'
                 },
             }
         },
@@ -173,12 +181,12 @@
             },
             remove(row, index) {
                 this.$ajax.delete('http://iview-laravel.test/api/user/' + row.id).then((response) => {
-                    this.$Message.info('删除资源成功')
+                    this.$Message.info('删除成功')
                     this.users = response.data.data
                     this.total = response.data.meta.pagination.total
                 }).catch((error) => {
-                    this.$Message.error('删除资源出错')
-                    console.log('删除资源出错', error)
+                    this.$Message.error('删除出错')
+                    console.log('删除出错', error)
                 })
             },
             changePage(index) {
@@ -211,12 +219,12 @@
                     console.log('资源列表加载出错:', error);
                 })
             },
-            searchTransform() {
-                if (this.search == '') {
+            searchUser() {
+                if (this.query == '') {
                     this.$Message.error('请输入查询条件')
                     return false
                 }
-                this.$ajax.get('http://www.zetin.cn/api/transform/' + this.condition + '/' + this.search).then((response) => {
+                this.$ajax.get('http://www.zetin.cn/api/user/' + this.condition + '/' + this.query).then((response) => {
                     this.transform = response.data.data
                     this.total = response.data.meta.pagination.total
                     this.all = true
@@ -225,15 +233,39 @@
                     console.log('搜索出错', error);
                 })
             },
-            importSuccess(response, file, fileList) {
-                console.log('批量导入', response)
-                this.transform = response.data
-                this.isImport = false
-                this.$Message.info('导入成功')
-                this.total = response.meta.pagination.total
-                if (this.total / this.pageSize > 1) {
-                    this.cansee = true
-                }
+            /*
+            *   创建用户或者更新用户
+            *   @params user id
+            * */
+            updateUser(id) {
+                this.$refs['user'].validate( (valid) => {
+                    if (valid) {
+                        if (this.user.password === this.user.password_confirm || this.user.password_new === this.user.password_confirm) {
+                            this.$ajax.post('http://iview-laravel.test/api/user', this.user)
+                                .then( (res) => {
+                                    console.log('用户信息修改成功', res)
+                                    this.$Modal.success({
+                                        content: '用户信息修改成功：<br />用户名：' + this.user.name + '<br />密码：' + this.user.password_confirm + '<br />角色：' + this.user.role,
+                                        duration: 0,
+                                        closable: true
+                                    })
+                                    this.edit = false
+                                    this.$refs['user'].resetFields()
+                                })
+                                .catch( (err) => {
+                                    console.log('添加用户信息出错', err)
+                                    this.$Message.error('用户信息添加出错')
+                                })
+                        } else {
+                            this.$Message.info('两次输入的密码不一致，请确认后重新输入')
+                            this.user.password_confirm = ''
+                            this.user.password = ''
+                            this.user.password_new = ''
+                        }
+                    } else {
+                        this.$Message.info('请根据提示填写相关信息')
+                    }
+                })
             }
         }
     }

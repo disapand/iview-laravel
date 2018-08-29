@@ -11,13 +11,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < 5; $i ++)
-        {
-            \App\Models\User::create([
-                'name' => $i + 1,
-                'password' => bcrypt('secret'),
-                'remember_token' => str_random(),
-            ]);
-        }
+        $admin = [
+            'name' => 'zetin',
+            'password' => bcrypt('zetin_secret'),
+            'role' => '超级管理员'
+        ];
+
+        \App\Models\User::create($admin);
     }
 }

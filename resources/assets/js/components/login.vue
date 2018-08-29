@@ -4,7 +4,7 @@
             <p slot="title">登录</p>
             <i-form :model="user" ref="user" :rules="userRules">
                 <form-item label="用户名" prop="name">
-                    <i-input v-model="user.name" clearable autofocus></i-input>
+                    <i-input v-model="user.name" clearable></i-input>
                 </form-item>
                 <form-item label="密码" prop="password">
                     <i-input type="password" v-model="user.password" clearable @on-enter="authorization"></i-input>

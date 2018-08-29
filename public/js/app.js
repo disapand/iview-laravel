@@ -86677,9 +86677,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -86806,17 +86803,7 @@ var render = function() {
                               "DropdownMenu",
                               { attrs: { slot: "list" }, slot: "list" },
                               [
-                                _c(
-                                  "DropdownItem",
-                                  [
-                                    _c("router-link", { attrs: { to: "/b" } }, [
-                                      _vm._v("用户信息")
-                                    ])
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c("DropdownItem", { attrs: { divided: "" } }, [
+                                _c("DropdownItem", [
                                   _c("span", { on: { click: _vm.logout } }, [
                                     _vm._v("退出登录")
                                   ])
@@ -86939,7 +86926,7 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _vm.user.role == "运营者"
+                      _vm.user.role == "超级管理员"
                         ? _c(
                             "MenuItem",
                             { attrs: { name: "5" } },
@@ -100867,7 +100854,7 @@ var render = function() {
                 { attrs: { label: "用户名", prop: "name" } },
                 [
                   _c("i-input", {
-                    attrs: { clearable: "", autofocus: "" },
+                    attrs: { clearable: "" },
                     model: {
                       value: _vm.user.name,
                       callback: function($$v) {
@@ -101074,6 +101061,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -101085,11 +101081,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             currentPage: 1,
             pageSize: 15,
             pageClass: 'page',
-            condition: 'form',
-            search: '',
-            isImport: false,
+            query: '',
             all: false,
             edit: false,
+            condition: '用户名',
             col: [{
                 'title': '编号',
                 'key': 'id',
@@ -101121,14 +101116,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             click: function click() {
                                 event.stopPropagation();
                                 _this.user = params.row;
-                                _this.edit = !_this.edit;
+                                _this.edit = true;
                                 // this.show(params.row, params.index)
                             }
                         }
-                    }, '查看详情'), h('poptip', {
+                    }, '编辑用户信息'), h('poptip', {
                         props: {
                             confirm: true,
-                            title: '确认删除这条资源吗？'
+                            title: '确认删除该用户吗？此操作不可逆，删除后数据不可恢复'
                         },
                         on: {
                             'on-ok': function onOk() {
@@ -101141,7 +101136,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             type: 'error',
                             size: 'small'
                         }
-                    }, '删除资源')])]);
+                    }, '删除用户')])]);
                 }
             }],
             userRules: {
@@ -101157,7 +101152,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 password: '',
                 password_new: '',
                 password_confirm: '',
-                role: '运营者'
+                role: '管理员'
             }
         };
     },
@@ -101187,12 +101182,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this3 = this;
 
             this.$ajax.delete('http://iview-laravel.test/api/user/' + row.id).then(function (response) {
-                _this3.$Message.info('删除资源成功');
+                _this3.$Message.info('删除成功');
                 _this3.users = response.data.data;
                 _this3.total = response.data.meta.pagination.total;
             }).catch(function (error) {
-                _this3.$Message.error('删除资源出错');
-                console.log('删除资源出错', error);
+                _this3.$Message.error('删除出错');
+                console.log('删除出错', error);
             });
         },
         changePage: function changePage(index) {
@@ -101229,14 +101224,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log('资源列表加载出错:', error);
             });
         },
-        searchTransform: function searchTransform() {
+        searchUser: function searchUser() {
             var _this6 = this;
 
-            if (this.search == '') {
+            if (this.query == '') {
                 this.$Message.error('请输入查询条件');
                 return false;
             }
-            this.$ajax.get('http://www.zetin.cn/api/transform/' + this.condition + '/' + this.search).then(function (response) {
+            this.$ajax.get('http://www.zetin.cn/api/user/' + this.condition + '/' + this.query).then(function (response) {
                 _this6.transform = response.data.data;
                 _this6.total = response.data.meta.pagination.total;
                 _this6.all = true;
@@ -101245,15 +101240,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log('搜索出错', error);
             });
         },
-        importSuccess: function importSuccess(response, file, fileList) {
-            console.log('批量导入', response);
-            this.transform = response.data;
-            this.isImport = false;
-            this.$Message.info('导入成功');
-            this.total = response.meta.pagination.total;
-            if (this.total / this.pageSize > 1) {
-                this.cansee = true;
-            }
+
+        /*
+        *   创建用户或者更新用户
+        *   @params user id
+        * */
+        updateUser: function updateUser(id) {
+            var _this7 = this;
+
+            this.$refs['user'].validate(function (valid) {
+                if (valid) {
+                    if (_this7.user.password === _this7.user.password_confirm || _this7.user.password_new === _this7.user.password_confirm) {
+                        _this7.$ajax.post('http://iview-laravel.test/api/user', _this7.user).then(function (res) {
+                            console.log('用户信息修改成功', res);
+                            _this7.$Modal.success({
+                                content: '用户信息修改成功：<br />用户名：' + _this7.user.name + '<br />密码：' + _this7.user.password_confirm + '<br />角色：' + _this7.user.role,
+                                duration: 0,
+                                closable: true
+                            });
+                            _this7.edit = false;
+                            _this7.$refs['user'].resetFields();
+                        }).catch(function (err) {
+                            console.log('添加用户信息出错', err);
+                            _this7.$Message.error('用户信息添加出错');
+                        });
+                    } else {
+                        _this7.$Message.info('两次输入的密码不一致，请确认后重新输入');
+                        _this7.user.password_confirm = '';
+                        _this7.user.password = '';
+                        _this7.user.password_new = '';
+                    }
+                } else {
+                    _this7.$Message.info('请根据提示填写相关信息');
+                }
+            });
         }
     }
 });
@@ -101382,9 +101402,9 @@ var render = function() {
                       }
                     },
                     [
-                      _c("Radio", { attrs: { label: "管理员" } }),
+                      _c("Radio", { attrs: { label: "超级管理员" } }),
                       _vm._v(" "),
-                      _c("Radio", { attrs: { label: "运营者" } })
+                      _c("Radio", { attrs: { label: "管理员" } })
                     ],
                     1
                   )
@@ -101401,9 +101421,18 @@ var render = function() {
                     [_vm._v("清空")]
                   ),
                   _vm._v(" "),
-                  _c("i-button", { attrs: { type: "success" } }, [
-                    _vm._v("提交")
-                  ])
+                  _c(
+                    "i-button",
+                    {
+                      attrs: { type: "success" },
+                      on: {
+                        click: function($event) {
+                          _vm.updateUser(_vm.user.id)
+                        }
+                      }
+                    },
+                    [_vm._v("提交")]
+                  )
                 ],
                 1
               )

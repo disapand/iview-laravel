@@ -45,9 +45,6 @@
                                 <span>{{ this.user.name }}</span>
                                 <DropdownMenu slot="list">
                                     <DropdownItem>
-                                        <router-link to="/b">用户信息</router-link>
-                                    </DropdownItem>
-                                    <DropdownItem divided>
                                         <span @click="logout">退出登录</span>
                                     </DropdownItem>
                                 </DropdownMenu>
@@ -87,7 +84,7 @@
                             <Icon type="ios-pie"></Icon>
                             动态管理
                         </MenuItem>
-                        <MenuItem name="5" v-if="user.role == '运营者'">
+                        <MenuItem name="5" v-if="user.role == '超级管理员'">
                             <Icon type="ios-people"></Icon>
                             用户管理
                         </MenuItem>

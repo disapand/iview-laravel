@@ -30,4 +30,11 @@ class UserController extends Controller
             return $e;
         }
     }
+
+    public function update(Request $request)
+    {
+        $password = $request->password ? : $request->password_new;
+        $user = User::updateOrCreate(['name' => $request->name], ['password' => bcrypt($password), 'role' => $request->role]);
+        return $this->response->item($user, new UserTransformer());
+    }
 }
