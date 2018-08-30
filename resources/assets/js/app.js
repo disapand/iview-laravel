@@ -70,20 +70,15 @@ router.beforeEach((to, from, next) => {
     if(to.meta.title){
         document.title = to.meta.title
     }
-    // if ( localStorage.getItem('access_token') === null && to.name !== 'login') {
-    //     alert('111')
-    //     next: {
-    //         name: 'login'
-    //     }
-    // } else if ( localStorage.getItem('access_token') && to.name === 'login') {
-    //     alert('222')
-    //     next: {
-    //         name: '/'
-    //     }
-    // } else {
-    //     next();
-    // }
-    next()
+    if ( localStorage.getItem('access_token') === null && to.name !== 'login') {
+        next({
+            path: '/login'
+        })
+    } else if ( localStorage.getItem('access_token') && to.name === 'login') {
+        next('/')
+    } else {
+        next()
+    }
 })
 
 router.afterEach((to) => {

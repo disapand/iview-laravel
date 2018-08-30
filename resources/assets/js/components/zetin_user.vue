@@ -160,14 +160,11 @@
             }
         },
         created() {
-            this.$ajax.get('http://iview-laravel.test/api/users').then((response) => {
+            this.$ajax.get('http://www.zetin.cn/api/users').then((response) => {
                 console.log('拉取用户列表', response);
                 this.users = response.data.data
                 this.loading = false
                 this.total = response.data.meta.pagination.total
-                if (response.data.meta.pagination.total_pages > 1) {
-                    this.cansee = true
-                }
             }).catch((error) => {
                 this.$Message.error('用户列表加载出错，请稍后重试');
                 console.log('用户列表加载出错:', error);
@@ -180,7 +177,7 @@
                 this.$refs['user'].resetFields()
             },
             remove(row, index) {
-                this.$ajax.delete('http://iview-laravel.test/api/user/' + row.id).then((response) => {
+                this.$ajax.delete('http://www.zetin.cn/api/user/' + row.id).then((response) => {
                     this.$Message.info('删除成功')
                     this.users = response.data.data
                     this.total = response.data.meta.pagination.total
@@ -241,7 +238,7 @@
                 this.$refs['user'].validate( (valid) => {
                     if (valid) {
                         if (this.user.password === this.user.password_confirm || this.user.password_new === this.user.password_confirm) {
-                            this.$ajax.post('http://iview-laravel.test/api/user', this.user)
+                            this.$ajax.post('http://www.zetin.cn/api/user', this.user)
                                 .then( (res) => {
                                     console.log('用户信息修改成功', res)
                                     this.$Modal.success({

@@ -1,7 +1,7 @@
 <template>
     <div class="bg">
         <Card class="md-form">
-            <p slot="title">登录</p>
+            <p slot="title">zetin 后台管理系统</p>
             <i-form :model="user" ref="user" :rules="userRules">
                 <form-item label="用户名" prop="name">
                     <i-input v-model="user.name" clearable></i-input>
@@ -39,7 +39,7 @@
             authorization() {
                 this.$refs['user'].validate((valid) => {
                     if (valid) {
-                        this.$ajax.post('http://iview-laravel.test/api/authorizations', this.user).then( (res) => {
+                        this.$ajax.post('http://www.zetin.cn/api/authorizations', this.user).then( (res) => {
                             localStorage.setItem('access_token', res.data.access_token)
                             localStorage.setItem('token_type', res.data.token_type)
                             localStorage.setItem('expires_in', res.data.expires_in)
@@ -70,7 +70,7 @@
     .bg {
         width: 100%;
         height: 100%;
-        background: url("imgs/logn_bg.jpg") center no-repeat;
+        background: url("http://www.zetin.cn/images/login_bg.jpg") center no-repeat;
     }
 
     .md-form {

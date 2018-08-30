@@ -113,7 +113,7 @@
             this.$store.commit('updateAccessToken')
             this.$store.commit('updateTokenType')
             this.$store.commit('updateExpiresIn')
-            this.$ajax.get('http://iview-laravel.test/api/user', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
+            this.$ajax.get('http://www.zetin.cn/api/user', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
                 .then((res) => {
                     console.log(res)
                     this.user = res.data
@@ -122,14 +122,14 @@
                     console.log(error)
                     this.$Modal.confirm({
                         title: '请登录',
-                        content: '该操作需要先登录账号',
+                        content: '用户认证失败，请重新登陆',
                         okText: '登录',
                         cancelText: ' ',
                         onOk: () => {
                             this.$router.push('login')
                         }
                     })
-                    return false
+                    this.$router.push('/login')
                 })
         },
         methods: {
@@ -168,7 +168,7 @@
                 }
             },
             logout() {
-                this.$ajax.delete('http://iview-laravel.test/api/authorizations/current', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
+                this.$ajax.delete('http://www.zetin.cn/api/authorizations/current', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
                     .then((res) => {
                         localStorage.clear()
                         this.$router.push('login')
