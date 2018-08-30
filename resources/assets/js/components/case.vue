@@ -54,6 +54,17 @@
                         'key': 'category'
                     },
                     {
+                        'title': '是否在首页显示',
+                        'key': 'show',
+                        render: (h, params) => {
+                            if ( params.row.show ) {
+                                return h('span', '是')
+                            } else {
+                                return h('span', '否')
+                            }
+                        }
+                    },
+                    {
                         'title': '操作',
                         'key': 'action',
                         'width': 200,

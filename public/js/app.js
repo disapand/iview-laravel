@@ -86699,6 +86699,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this.$router.push('login');
                 }
             });
+            localStorage.clear();
             _this.$router.push('/login');
         });
     },
@@ -97504,6 +97505,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, {
                 'title': '分类',
                 'key': 'category'
+            }, {
+                'title': '是否在首页显示',
+                'key': 'show',
+                render: function render(h, params) {
+                    if (params.row.show) {
+                        return h('span', '是');
+                    } else {
+                        return h('span', '否');
+                    }
+                }
             }, {
                 'title': '操作',
                 'key': 'action',
