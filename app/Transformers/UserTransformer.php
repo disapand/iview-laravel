@@ -20,6 +20,8 @@ class UserTransformer extends TransformerAbstract
             'id' => $user->id,
             'name' => $user->name,
             'role' => $user->role ? : '管理员',
+            'note' => $user->note,
+            'isuse' => $user->isuse,
             'created_at' => $user->created_at->toDateTimeString(),
             'updated_at' => $user->updated_at->toDateTimeString(),
         ];

@@ -184,7 +184,7 @@
                                  data-speed="600"
                                  data-start="0"
                                  data-end="10000"
-                                 data-endspeed="600"><a href="about.html" class="btn btn-default btn-lg">了解更多<i
+                                 data-endspeed="600"><a href="{{ route('about') }}" class="btn btn-default btn-lg">了解更多<i
                                             class="fa fa-angle-double-right pl-10"></i></a>
                             </div>
 
@@ -268,7 +268,7 @@
                                  data-speed="600"
                                  data-start="0"
                                  data-end="10000"
-                                 data-endspeed="600"><a href="services.html" class="btn btn-default btn-lg">了解更多 <i
+                                 data-endspeed="600"><a href="{{ route('services') }}" class="btn btn-default btn-lg">了解更多 <i
                                             class="fa fa-angle-double-right pl-10"></i></a>
                             </div>
 

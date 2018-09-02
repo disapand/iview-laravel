@@ -21,6 +21,9 @@
                 <form-item label="确认密码" prop="password_confirm">
                     <i-input v-model="user.password_confirm" clearable type="password"></i-input>
                 </form-item>
+                <form-item label="备注信息" prop="note">
+                    <i-input v-model="user.note" clearable></i-input>
+                </form-item>
                 <form-item label="用户角色" prop="role">
                     <RadioGroup v-model="user.role" type="button">
                         <Radio label="超级管理员"></Radio>
@@ -81,6 +84,10 @@
                         'key': 'role'
                     },
                     {
+                        'title': '备注',
+                        'key': 'note'
+                    },
+                    {
                         'title': '创建时间',
                         'key': 'created_at'
                     },
@@ -88,6 +95,12 @@
                         'title': '操作',
                         'key': 'action',
                         render: (h, params) => {
+                            let isuse
+                            if (params.row.isuse) {
+                                isuse = '正常'
+                            } else {
+                                isuse = '禁用'
+                            }
                             return h('div', [
                                 h('i-button', {
                                     props: {
@@ -122,9 +135,23 @@
                                         props: {
                                             type: 'error',
                                             size: 'small'
+                                        },
+                                        style: {
+                                            marginRight: '8px'
                                         }
                                     }, '删除用户')
-                                ])
+                                ]),
+                                h('i-button', {
+                                    props: {
+                                        type: 'info',
+                                        size: 'small',
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.isuseUser(params.row)
+                                        }
+                                    }
+                                }, isuse)
                             ])
                         },
                     },
@@ -155,6 +182,8 @@
                     password: '',
                     password_new: '',
                     password_confirm: '',
+                    note: '',
+                    isuse: true,
                     role: '管理员'
                 },
             }
@@ -175,6 +204,7 @@
         methods: {
             reset() {
                 this.$refs['user'].resetFields()
+                this.edit = false
             },
             remove(row, index) {
                 this.$ajax.delete('http://www.zetin.cn/api/user/' + row.id).then((response) => {
@@ -186,17 +216,20 @@
                     console.log('删除出错', error)
                 })
             },
+            isuseUser(user) {
+                console.log('isuseUser', user)
+            },
             changePage(index) {
                 this.currentPage = index
                 let uri
                 if (this.condition && this.search) {
-                    uri = 'http://www.zetin.cn/api/transform/' + this.condition + '/' + this.search + '?page=' + index
+                    uri = 'http://www.zetin.cn/api/users/' + this.condition + '/' + this.search + '?page=' + index
                 } else {
-                    uri = 'http://www.zetin.cn/api/transform?page=' + index
+                    uri = 'http://www.zetin.cn/api/users?page=' + index
                 }
                 this.$ajax.get(uri).then((response) => {
                     console.log('换页', response);
-                    this.transform = response.data.data
+                    this.users = response.data.data
                     this.loading = false
                 }).catch((error) => {
                     console.log('换页出错', error);
@@ -206,7 +239,7 @@
                 this.all = false
                 this.search = ''
                 this.currentPage = 1
-                this.$ajax.get('http://www.zetin.cn/api/transform').then((response) => {
+                this.$ajax.get('http://www.zetin.cn/api/users').then((response) => {
                     console.log('拉取资源列表', response);
                     this.transform = response.data.data
                     this.loading = false

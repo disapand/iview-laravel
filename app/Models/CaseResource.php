@@ -38,6 +38,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseResource whereExecute($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseResource whereNeeds($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseResource whereStrategy($value)
+ * @property int $show 是否在首页展示
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseResource whereShow($value)
  */
 class CaseResource extends Model
 {

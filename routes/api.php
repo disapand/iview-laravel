@@ -118,6 +118,7 @@ $api->version('v1', [
     $api->get('users', 'UserController@index')->name('api.users.show');
     $api->delete('user/{user}', 'UserController@destroy')->name('api.user.destroy');
     $api->post('user', 'UserController@update')->name('api.user.update');
+    $api->post('isuse', 'UserController@isuse')->name('api.user.isuse');
 
     $api->group(['middleware' => 'api.auth'], function ($api) {
 

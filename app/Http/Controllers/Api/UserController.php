@@ -34,7 +34,12 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $password = $request->password ? : $request->password_new;
-        $user = User::updateOrCreate(['name' => $request->name], ['password' => bcrypt($password), 'role' => $request->role]);
+        $user = User::updateOrCreate(['name' => $request->name], ['password' => bcrypt($password), 'role' => $request->role, 'note' => $request->note]);
         return $this->response->item($user, new UserTransformer());
+    }
+
+    public function isuse(Request $request)
+    {
+        $user = User::findOrFail($request->id);
     }
 }

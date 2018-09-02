@@ -23,6 +23,12 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $role 用户角色
+ * @property string|null $note 备注
+ * @property int $isuse 账号状态，正常和禁用
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereIsuse($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereNote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRole($value)
  */
 class User extends Authenticatable implements JWTSubject
 {
