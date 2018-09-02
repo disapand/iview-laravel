@@ -101109,12 +101109,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'title': '操作',
                 'key': 'action',
                 render: function render(h, params) {
+
                     var isuse = void 0;
                     if (params.row.isuse) {
                         isuse = '正常';
                     } else {
                         isuse = '禁用';
                     }
+
                     return h('div', [h('i-button', {
                         props: {
                             type: 'primary',
@@ -101152,7 +101154,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                     }, '删除用户')]), h('i-button', {
                         props: {
-                            type: 'info',
+                            type: params.row.isuse ? 'info' : 'ghost',
                             size: 'small'
                         },
                         on: {
@@ -101177,7 +101179,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 password_new: '',
                 password_confirm: '',
                 note: '',
-                isuse: true,
+                isuse: '',
                 role: '管理员'
             }
         };
@@ -101214,11 +101216,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log('删除出错', error);
             });
         },
-        isuseUser: function isuseUser(user) {
-            console.log('isuseUser', user);
+        isuseUser: function isuseUser(user, isuse) {
+            var _this4 = this;
+
+            this.$ajax.post('http://iview-laravel.test/api/isuse', user).then(function (res) {
+                console.log(res);
+                _this4.users = res.data.data;
+            }).catch(function (err) {
+                console.log('禁用用户出错', err);
+            });
         },
         changePage: function changePage(index) {
-            var _this4 = this;
+            var _this5 = this;
 
             this.currentPage = index;
             var uri = void 0;
@@ -101229,39 +101238,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             this.$ajax.get(uri).then(function (response) {
                 console.log('换页', response);
-                _this4.users = response.data.data;
-                _this4.loading = false;
+                _this5.users = response.data.data;
+                _this5.loading = false;
             }).catch(function (error) {
                 console.log('换页出错', error);
             });
         },
         showAll: function showAll() {
-            var _this5 = this;
+            var _this6 = this;
 
             this.all = false;
             this.search = '';
             this.currentPage = 1;
             this.$ajax.get('http://www.zetin.cn/api/users').then(function (response) {
                 console.log('拉取资源列表', response);
-                _this5.transform = response.data.data;
-                _this5.loading = false;
-                _this5.total = response.data.meta.pagination.total;
+                _this6.transform = response.data.data;
+                _this6.loading = false;
+                _this6.total = response.data.meta.pagination.total;
             }).catch(function (error) {
-                _this5.$Message.error('资源列表加载出错，请稍后重试');
+                _this6.$Message.error('资源列表加载出错，请稍后重试');
                 console.log('资源列表加载出错:', error);
             });
         },
         searchUser: function searchUser() {
-            var _this6 = this;
+            var _this7 = this;
 
             if (this.query == '') {
                 this.$Message.error('请输入查询条件');
                 return false;
             }
             this.$ajax.get('http://www.zetin.cn/api/user/' + this.condition + '/' + this.query).then(function (response) {
-                _this6.transform = response.data.data;
-                _this6.total = response.data.meta.pagination.total;
-                _this6.all = true;
+                _this7.transform = response.data.data;
+                _this7.total = response.data.meta.pagination.total;
+                _this7.all = true;
                 console.log('搜索', response);
             }).catch(function (error) {
                 console.log('搜索出错', error);
@@ -101273,32 +101282,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         *   @params user id
         * */
         updateUser: function updateUser(id) {
-            var _this7 = this;
+            var _this8 = this;
 
             this.$refs['user'].validate(function (valid) {
                 if (valid) {
-                    if (_this7.user.password === _this7.user.password_confirm || _this7.user.password_new === _this7.user.password_confirm) {
-                        _this7.$ajax.post('http://www.zetin.cn/api/user', _this7.user).then(function (res) {
+                    if (_this8.user.password === _this8.user.password_confirm || _this8.user.password_new === _this8.user.password_confirm) {
+                        _this8.$ajax.post('http://www.zetin.cn/api/user', _this8.user).then(function (res) {
                             console.log('用户信息修改成功', res);
-                            _this7.$Modal.success({
-                                content: '用户信息修改成功：<br />用户名：' + _this7.user.name + '<br />密码：' + _this7.user.password_confirm + '<br />角色：' + _this7.user.role,
+                            _this8.$Modal.success({
+                                content: '用户信息修改成功：<br />用户名：' + _this8.user.name + '<br />密码：' + _this8.user.password_confirm + '<br />角色：' + _this8.user.role,
                                 duration: 0,
                                 closable: true
                             });
-                            _this7.edit = false;
-                            _this7.$refs['user'].resetFields();
+                            _this8.edit = false;
+                            _this8.$refs['user'].resetFields();
                         }).catch(function (err) {
                             console.log('添加用户信息出错', err);
-                            _this7.$Message.error('用户信息添加出错');
+                            _this8.$Message.error('用户信息添加出错');
                         });
                     } else {
-                        _this7.$Message.info('两次输入的密码不一致，请确认后重新输入');
-                        _this7.user.password_confirm = '';
-                        _this7.user.password = '';
-                        _this7.user.password_new = '';
+                        _this8.$Message.info('两次输入的密码不一致，请确认后重新输入');
+                        _this8.user.password_confirm = '';
+                        _this8.user.password = '';
+                        _this8.user.password_new = '';
                     }
                 } else {
-                    _this7.$Message.info('请根据提示填写相关信息');
+                    _this8.$Message.info('请根据提示填写相关信息');
                 }
             });
         }

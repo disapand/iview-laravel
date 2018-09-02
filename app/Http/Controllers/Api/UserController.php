@@ -40,6 +40,15 @@ class UserController extends Controller
 
     public function isuse(Request $request)
     {
-        $user = User::findOrFail($request->id);
+        try {
+            $user = User::findOrFail($request->id);
+            $user->update([
+                'isuse' => ! $user->isuse,
+            ]);
+            $users = User::where([])->orderby('id', 'desc')->paginate();
+            return $this->response->paginator($users, new UserTransformer());
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 }

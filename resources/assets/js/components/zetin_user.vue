@@ -95,12 +95,14 @@
                         'title': '操作',
                         'key': 'action',
                         render: (h, params) => {
+
                             let isuse
                             if (params.row.isuse) {
                                 isuse = '正常'
                             } else {
                                 isuse = '禁用'
                             }
+
                             return h('div', [
                                 h('i-button', {
                                     props: {
@@ -143,7 +145,7 @@
                                 ]),
                                 h('i-button', {
                                     props: {
-                                        type: 'info',
+                                        type: params.row.isuse ? 'info' : 'ghost',
                                         size: 'small',
                                     },
                                     on: {
@@ -183,7 +185,7 @@
                     password_new: '',
                     password_confirm: '',
                     note: '',
-                    isuse: true,
+                    isuse: '',
                     role: '管理员'
                 },
             }
@@ -216,8 +218,15 @@
                     console.log('删除出错', error)
                 })
             },
-            isuseUser(user) {
-                console.log('isuseUser', user)
+            isuseUser(user, isuse) {
+                this.$ajax.post('http://iview-laravel.test/api/isuse', user)
+                    .then( (res) => {
+                        console.log(res)
+                        this.users = res.data.data
+                    })
+                    .catch( (err) => {
+                        console.log('禁用用户出错', err)
+                    })
             },
             changePage(index) {
                 this.currentPage = index

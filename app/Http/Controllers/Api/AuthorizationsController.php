@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use Auth;
 use App\Http\Requests\Api\AuthorizationsRequest;
 use Illuminate\Http\Request;
@@ -37,6 +38,9 @@ class AuthorizationsController extends Controller
             'name' => $request->name,
             'password' => $request->password,
         ];
+
+        if ( User::whereName($request->name)->count() <= 0 )
+            return $this->response->errorUnauthorized('账号已被禁用');
 
         if (! $token = Auth::guard('api')->attempt($data))
         {
