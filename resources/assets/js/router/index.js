@@ -21,6 +21,7 @@ import dynamic from '../components/dynamic.vue';
 import dynamic_item from '../components/dynamic_item.vue';
 import login from '../components/login.vue'
 import zetinUser from '../components/zetin_user.vue'
+import dashboard from '../components/dashboard.vue'
 
 Vue.use(vueRouter);
 
@@ -38,6 +39,12 @@ const routes = [
         name: 'menu',
         component: menu,
         children: [
+            {
+                path: 'dashboard',
+                name: 'dashboard',
+                meta: {title: 'zetin 系统面板'},
+                component: dashboard,
+            },
             {
                 path: 'television',
                 name: 'television',

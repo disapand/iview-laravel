@@ -23,6 +23,7 @@ import VueQuillEditor from 'vue-quill-editor';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
+import echarts from 'echarts';
 
 Vue.use(iview);
 Vue.use(VueQuillEditor);
@@ -30,6 +31,7 @@ Vue.use(Vuex);
 Vue.use(VueMeta);
 
 Vue.prototype.$ajax = axios;
+Vue.prototype.$echarts = echarts;
 
 const store = new Vuex.Store( {
     state:{
