@@ -101219,7 +101219,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         isuseUser: function isuseUser(user, isuse) {
             var _this4 = this;
 
-            this.$ajax.post('http://iview-laravel.test/api/isuse', user).then(function (res) {
+            this.$ajax.post('http://www.zetin.cn/api/isuse', user).then(function (res) {
                 console.log(res);
                 _this4.users = res.data.data;
             }).catch(function (err) {

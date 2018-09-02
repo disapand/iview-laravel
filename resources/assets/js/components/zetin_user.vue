@@ -219,7 +219,7 @@
                 })
             },
             isuseUser(user, isuse) {
-                this.$ajax.post('http://iview-laravel.test/api/isuse', user)
+                this.$ajax.post('http://www.zetin.cn/api/isuse', user)
                     .then( (res) => {
                         console.log(res)
                         this.users = res.data.data
