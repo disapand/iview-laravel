@@ -48,7 +48,7 @@
                             console.log(error)
                             this.$refs['user'].resetFields()
                             this.$Message.error({
-                                content:'账号或密码错误',
+                                content:'账号/密码错误，或者账号被禁用',
                                 duration: 5,
                                 closable: true
                             })

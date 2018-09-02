@@ -39,7 +39,7 @@ class AuthorizationsController extends Controller
             'password' => $request->password,
         ];
 
-        if ( User::whereName($request->name)->count() <= 0 )
+        if ( ! User::whereName($request->name)->first()['isuse'] )
             return $this->response->errorUnauthorized('账号已被禁用');
 
         if (! $token = Auth::guard('api')->attempt($data))
