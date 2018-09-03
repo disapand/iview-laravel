@@ -115,7 +115,7 @@
             this.$store.commit('updateExpiresIn')
             this.$ajax.get('http://www.zetin.cn/api/user', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
                 .then((res) => {
-                    console.log(res)
+                    console.log('用户登录', res)
                     this.user = res.data
                 })
                 .catch((error) => {

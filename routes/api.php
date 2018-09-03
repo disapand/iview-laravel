@@ -120,6 +120,8 @@ $api->version('v1', [
     $api->post('user', 'UserController@update')->name('api.user.update');
     $api->post('isuse', 'UserController@isuse')->name('api.user.isuse');
 
+    $api->get('dashboard', 'DashboardController@index')->name('api.dashboard.index');
+
     $api->group(['middleware' => 'api.auth'], function ($api) {
 
         $api->get('user', 'UserController@me')->name('api.user.show');
