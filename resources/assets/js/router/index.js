@@ -38,6 +38,7 @@ const routes = [
         path: '/',
         name: 'menu',
         component: menu,
+        redirect: '/dashboard',
         children: [
             {
                 path: 'dashboard',

@@ -37,7 +37,9 @@
             -->
             <Header>
                 <Menu mode="horizontal" theme="dark">
-                    <div class="layout-logo"></div>
+                    <router-link to="/dashboard" style="float: left;">
+                        <img src="./imgs/logo.png" alt="">
+                    </router-link>
                     <div class="layout-nav">
                         <MenuItem name="4" style="float:right">
                             <Dropdown>
