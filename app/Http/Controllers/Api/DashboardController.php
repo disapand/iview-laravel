@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\CaseResource;
+use App\Models\count;
 use App\Models\dynamic;
 use App\Models\insight;
 use App\Models\internetcelebrityResource;
@@ -57,10 +58,35 @@ class DashboardController extends Controller
         $dynamic_2 = dynamic::whereBetween('updated_at', [Carbon::parse('5 day ago'), Carbon::parse('4 days ago')])->count();
         $dynamic_1 = dynamic::whereBetween('updated_at', [Carbon::parse('6 day ago'), Carbon::parse('5 days ago')])->count();
 
+        $uv = count::where('updated_at', '>=', Carbon::parse('today'))->count();
+        $pv = count::where('updated_at', '>=', Carbon::parse('today'))->select('host')->distinct()->get()->count();
+        $uv1 = count::whereBetween('updated_at', [Carbon::parse('1 days ago'), Carbon::parse('today')])->count();
+        $pv1 = count::whereBetween('updated_at', [Carbon::parse('1 days ago'), Carbon::parse('today')])->select('host')
+            ->distinct()->get()->count();
+        $uv2 = count::whereBetween('updated_at', [Carbon::parse('2 days ago'), Carbon::parse('1 days ago')])->count();
+        $pv2 = count::whereBetween('updated_at', [Carbon::parse('2 days ago'), Carbon::parse('1 days ago')])->select('host')
+            ->distinct()->get()->count();
+        $uv3 = count::whereBetween('updated_at', [Carbon::parse('3 days ago'), Carbon::parse('2 days ago')])->count();
+        $pv3 = count::whereBetween('updated_at', [Carbon::parse('3 days ago'), Carbon::parse('2 days ago')])->select('host')
+            ->distinct()->get()->count();
+        $uv4 = count::whereBetween('updated_at', [Carbon::parse('4 days ago'), Carbon::parse('3 days ago')])->count();
+        $pv4 = count::whereBetween('updated_at', [Carbon::parse('4 days ago'), Carbon::parse('3 days ago')])->select('host')
+            ->distinct()->get()->count();
+        $uv5 = count::whereBetween('updated_at', [Carbon::parse('5 days ago'), Carbon::parse('4 days ago')])->count();
+        $pv5 = count::whereBetween('updated_at', [Carbon::parse('5 days ago'), Carbon::parse('4 days ago')])->select('host')
+            ->distinct()->get()->count();
+        $uv6 = count::whereBetween('updated_at', [Carbon::parse('6 days ago'), Carbon::parse('5 days ago')])->count();
+        $pv6 = count::whereBetween('updated_at', [Carbon::parse('6 days ago'), Carbon::parse('5 days ago')])->select('host')
+            ->distinct()->get()->count();
+
+        $uv_count = count::all()->count();
+        $pv_count = count::select('host')->distinct()->get()->count();
+
         return $this->response->array(compact('televisons', 'onlines', 'outdoors', 'transforms', 'internetCelebrities', 'case_3c', 'case_app', 'case_game',
             'case_kxp', 'case_lv', 'case_other', 'case_shop', 'insights', 'insight_cw', 'insight_cy', 'insight_ds', 'insight_lv', 'insight_mt', 'insight_pp',
             'insight_sc', 'insight_sz', 'insight_xfz', 'insight_yx', 'newspapers', 'cases', 'dynamics', 'dynamic_1', 'dynamic_2', 'dynamic_3', 'dynamic_4',
-            'dynamic_5', 'dynamic_6', 'dynamic_7'));
+            'dynamic_5', 'dynamic_6', 'dynamic_7', 'uv', 'pv', 'uv1', 'uv2', 'uv3', 'uv4', 'uv5', 'uv6', 'pv1', 'pv2', 'pv3', 'pv4', 'pv5', 'pv6',
+            'uv_count', 'pv_count'));
     }
 
     /**

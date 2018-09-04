@@ -7,10 +7,14 @@
             </p>
             <div style="text-align: center">
                 <span class="total">合计：</span>
-                <router-link to="/television" class="num" style="color: #2d8cf0;">{{ this.dataList.outdoors + this.dataList.transforms + this.dataList.onlines
-                    + this.dataList.televisons + this.dataList.newspapers + this.dataList.internetCelebrities }}</router-link>
+                <router-link to="/television" class="num" style="color: #2d8cf0;">{{ this.dataList.outdoors +
+                    this.dataList.transforms + this.dataList.onlines
+                    + this.dataList.televisons + this.dataList.newspapers + this.dataList.internetCelebrities }}
+                </router-link>
                 <br/>
-                <div class="echarts-container" id="zysl"></div>
+                <div class="echarts-container" id="zysl">
+                    <Spin fix v-if="loading"></Spin>
+                </div>
             </div>
         </Card>
 
@@ -22,7 +26,9 @@
             <div style="text-align: center">
                 <span class="total">合计：</span>
                 <router-link to="/insight" class="num" style="color: #19be6b;">{{ this.dataList.insights}}</router-link>
-                <div class="echarts-container" id="dctj"></div>
+                <div class="echarts-container" id="dctj">
+                    <Spin fix v-if="loading"></Spin>
+                </div>
             </div>
         </Card>
 
@@ -34,7 +40,9 @@
             <div style="text-align: center">
                 <span class="total">合计：</span>
                 <router-link to="/case" class="num">{{ this.dataList.cases}}</router-link>
-                <div class="echarts-container" id="altj"></div>
+                <div class="echarts-container" id="altj">
+                    <Spin fix v-if="loading"></Spin>
+                </div>
             </div>
         </Card>
 
@@ -45,10 +53,29 @@
             </p>
             <div style="text-align: center">
                 <span class="total">合计：</span>
-                <router-link to="/dynamic" class="num" style="color: #ed3f14;">{{ this.dataList.dynamics }}</router-link>
-                <div class="echarts-container" id="dttj"></div>
+                <router-link to="/dynamic" class="num" style="color: #ed3f14;">{{ this.dataList.dynamics }}
+                </router-link>
+                <div class="echarts-container" id="dttj">
+                    <Spin fix v-if="loading"></Spin>
+                </div>
             </div>
         </Card>
+
+        <Card style="width: 80%; vertical-align: top; display: inline-block;margin: 1% 8%;">
+            <p slot="title">
+                <Icon type="stats-bars"></Icon>
+                UV/PV
+            </p>
+            <div style="text-align: center">
+                <div class="echarts-container" id="uv" style="width:100%;border:none;">
+                </div>
+            </div>
+            <div style="text-align: center; font-size: 1.5em;">
+                <span style="margin-right: 30px">总访问次数：{{ this.dataList.uv_count }}</span>
+                <span>总访问人数：{{ this.dataList.pv_count }}</span>
+            </div>
+        </Card>
+
     </div>
 </template>
 
@@ -58,14 +85,16 @@
         data() {
             return {
                 dataList: '',
+                loading: true,
             }
         },
         created() {
-            this.$ajax.get('http://localhost/api/dashboard')
+            this.$ajax.get('http://iview-laravel.test/api/dashboard')
                 .then((res) => {
                     console.log('返回数据', res.data)
                     this.dataList = res.data
                     this.draw()
+                    this.loading = true
                 })
                 .catch((err) => {
 
@@ -79,10 +108,10 @@
             getDay(day) {
                 let myDate = new Date()
                 let tmp
-                let m = myDate.getMonth()
+                let m = myDate.getMonth() + 1
                 let d = myDate.getDate() - day
-                if ( d <= 0) {
-                    tmp = this.getDateCount(myDate.getFullYear(), m - 1 ) + d
+                if (d <= 0) {
+                    tmp = this.getDateCount(myDate.getFullYear(), m - 1) + d
                     return m - 1 + '-' + tmp
                 } else {
                     return m + '-' + d
@@ -102,7 +131,7 @@
                         text: '各类资源数量统计'
                     },
                     legend: {
-                        data:['资源数量']
+                        data: ['资源数量']
                     },
                     tooltip: {},
                     xAxis: {
@@ -129,7 +158,7 @@
                         text: '洞察数量统计'
                     },
                     legend: {
-                        data:['洞察数量']
+                        data: ['洞察数量']
                     },
                     tooltip: {},
                     xAxis: {
@@ -156,7 +185,7 @@
                         text: '案例数量统计'
                     },
                     legend: {
-                        data:['案例数量']
+                        data: ['案例数量']
                     },
                     tooltip: {},
                     xAxis: {
@@ -183,11 +212,11 @@
                         text: '动态数量统计'
                     },
                     legend: {
-                        data:['动态数量']
+                        data: ['动态数量']
                     },
                     tooltip: {},
                     xAxis: {
-                        data: [this.getDay(7), this.getDay(6), this.getDay(5), this.getDay(4), this.getDay(3), this.getDay(2), this.getDay(1), this.getDay(0)]
+                        data: [this.getDay(6), this.getDay(5), this.getDay(4), this.getDay(3), this.getDay(2), this.getDay(1), this.getDay(0)]
                     },
                     yAxis: {},
                     series: [{
@@ -199,6 +228,41 @@
                             color: '#ed3f14'
                         }
                     }]
+                })
+
+                /*
+                * UV/PV
+                * */
+                let uv = this.$echarts.init(document.getElementById('uv'))
+                uv.setOption({
+                    legend: {
+                        data: ['UV', 'PV']
+                    },
+                    tooltip: {},
+                    xAxis: {
+                        data: [this.getDay(6), this.getDay(5), this.getDay(4), this.getDay(3), this.getDay(2), this.getDay(1), this.getDay(0)]
+                    },
+                    yAxis: {},
+                    series: [
+                        {
+                            name: 'UV',
+                            type: 'line',
+                            data: [this.dataList.uv6, this.dataList.uv5, this.dataList.uv4, this.dataList.uv3, this.dataList.uv2,
+                                this.dataList.uv1, this.dataList.uv],
+                            itemStyle: {
+                                color: '#495060'
+                            }
+                        },
+                        {
+                            name: 'PV',
+                            type: 'line',
+                            data: [this.dataList.pv6, this.dataList.pv5, this.dataList.pv4, this.dataList.pv3, this.dataList.pv2,
+                                this.dataList.pv1, this.dataList.pv],
+                            itemStyle: {
+                                color: '#2b85e4'
+                            }
+                        },
+                    ]
                 })
             }
         }
