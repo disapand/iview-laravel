@@ -245,7 +245,7 @@
                     yAxis: {},
                     series: [
                         {
-                            name: 'UV',
+                            name: 'PV',
                             type: 'line',
                             data: [this.dataList.uv6, this.dataList.uv5, this.dataList.uv4, this.dataList.uv3, this.dataList.uv2,
                                 this.dataList.uv1, this.dataList.uv],
@@ -254,7 +254,7 @@
                             }
                         },
                         {
-                            name: 'PV',
+                            name: 'UV',
                             type: 'line',
                             data: [this.dataList.pv6, this.dataList.pv5, this.dataList.pv4, this.dataList.pv3, this.dataList.pv2,
                                 this.dataList.pv1, this.dataList.pv],
@@ -289,7 +289,7 @@
     }
 
     .echarts-container {
-        width: 610px;
+        width: 100%;
         height: 250px;
         border-top: solid 1.5px #ccc;
         margin: 15px auto;
