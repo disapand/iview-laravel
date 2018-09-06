@@ -83,7 +83,9 @@
 
                 <template v-for="img in Case.Imgs.data">
                     <div class="img-list">
-                        <img :src="img.url" alt="">
+                        <img :src="img.url" alt="" v-if="img.url.split('.').pop() == 'jpg' || img.url.split('.').pop() == 'png' || img.url.split('.').pop() == 'jpeg'">
+                        <video :src="img.url" v-else autoplay>
+                        </video>
                         <div class="img-list-cover">
                             <Icon type="ios-trash" @click.native="deleteImg(img.id)"></Icon>
                             <Icon type="upload" @click.native="updateImg(img)"></Icon>
@@ -319,6 +321,7 @@
         display: inline-block;
         text-align: center;
         height: 100%;
+        max-width: 100%;
         border-radius: 5px;
         border: 1px rgba(0, 0, 0, .1) dashed;
         overflow: hidden;

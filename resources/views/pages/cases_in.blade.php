@@ -58,11 +58,24 @@
                                     <div class="owl-carousel content-slider-with-controls">
                                         @foreach($cases->Imgs as $img)
                                             @if(!$loop->first)
-                                                <div class="overlay-container">
-                                                    <img src="{{ $img->url }}" alt="{{ $cases->title }}">
-                                                    <a href="{{ $img->url }}" class="popup-img overlay"
-                                                       title="{{ $cases->title }}"><i class="fa fa-search-plus"></i></a>
-                                                </div>
+                                                @if( explode('.', $img->url)[count(explode('.', $img->url)) - 1 ] == 'jpg' ||
+                                                explode('.', $img->url)[count(explode('.', $img->url)) - 1 ] == 'png' ||
+                                                explode('.', $img->url)[count(explode('.', $img->url)) - 1 ] == 'jpeg' )
+                                                    <div class="overlay-container">
+                                                        <img src="{{ $img->url }}" alt="{{ $cases->title }}">
+                                                        <a href="{{ $img->url }}" class="popup-img overlay"
+                                                           title="{{ $cases->title }}"><i class="fa fa-search-plus"></i></a>
+                                                    </div>
+                                                @else
+                                                    <div class="overlay-container">
+                                                        <video autoplay="autoplay" loop muted preload="auto" controls="controls">
+                                                            <source src="{{ $img->url }}" type="video/mp4">
+                                                            <source src="{{ $img->url }}" type="video/swf">
+                                                            <source src="{{ $img->url }}" type="video/flv">
+                                                            <source src="{{ $img->url }}" type="video/wmv">
+                                                        </video>
+                                                    </div>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </div>

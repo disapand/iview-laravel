@@ -2,7 +2,7 @@
 namespace App\Handlers;
 
 class ImageUploadHandler {
-    protected $allowed_ext = ['png', 'jpg', 'gif', 'jpeg'];
+    protected $allowed_ext = ['png', 'jpg', 'gif', 'jpeg', 'mp4', 'swf', 'flv', 'wmv'];
 
     public function save($file, $floder, $file_prefix) {
 

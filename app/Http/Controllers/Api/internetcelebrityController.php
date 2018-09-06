@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Handlers\ExcelUploadHandler;
 use App\Models\internetcelebrityResource;
 use App\Models\internetcelebrityResourceCategory;
 use App\Models\internetcelebrityResourceImgs;
 use App\Transformers\internetcelebrityResourcTransformer;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class internetcelebrityController extends Controller
 {
@@ -133,4 +135,21 @@ class internetcelebrityController extends Controller
            return $e;
        }
     }
+
+    public function importInternet(Request $request, ExcelUploadHandler $uploader)
+    {
+        try {
+            $excel = $request->file('excel');
+            $result = $uploader->save($excel, 'internet');
+
+            $data = Excel::load($result['path'], function ($reader){})->get();
+
+            internetcelebrityResource::insert($data->toArray());
+            return $this->response->paginator(internetcelebrityResource::where([])->orderBy('id', 'desc')->paginate(15),
+                new internetcelebrityResourcTransformer());
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+
 }
