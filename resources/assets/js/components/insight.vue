@@ -47,11 +47,11 @@
                     {
                         'title': '标题',
                         'key': 'title',
-                        'width': 800
                     },
                     {
                         'title': '分类',
-                        'key': 'category'
+                        'key': 'category',
+                        'width': 150
                     },
                     {
                         'title': '操作',

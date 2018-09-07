@@ -68,7 +68,8 @@
                                                     </div>
                                                 @else
                                                     <div class="overlay-container">
-                                                        <video autoplay="autoplay" loop muted preload="auto" controls="controls">
+                                                        <video autoplay="autoplay" loop muted preload="auto" controls="controls" style="max-height: 300px;
+                                                        margin-left: 50%; transform: translateX(-50%)">
                                                             <source src="{{ $img->url }}" type="video/mp4">
                                                             <source src="{{ $img->url }}" type="video/swf">
                                                             <source src="{{ $img->url }}" type="video/flv">

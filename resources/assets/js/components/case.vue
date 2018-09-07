@@ -47,11 +47,11 @@
                     {
                         'title': '标题',
                         'key': 'title',
-                        'width': 800
                     },
                     {
                         'title': '分类',
-                        'key': 'category'
+                        'key': 'category',
+                        'width': 150
                     },
                     {
                         'title': '是否在首页显示',
@@ -62,7 +62,8 @@
                             } else {
                                 return h('span', '否')
                             }
-                        }
+                        },
+                        'width': 180
                     },
                     {
                         'title': '操作',
