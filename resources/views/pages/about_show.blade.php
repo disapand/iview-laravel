@@ -45,7 +45,7 @@
                     <div class="owl-carousel carousel">
                         @foreach($recommends as $recommend)
                         <div class="image-box object-non-visible" data-animation-effect="fadeInLeft" data-effect-delay="{{ $loop->remaining * 100 }}">
-                            <div class="overlay-container">
+                            <div class="overlay-container" style="height: 160px;">
                                 @if($recommend->Imgs[0]->count() > 0)
                                     <img src="{{ $recommend->Imgs[0]->url }}" alt="{{ $recommend->title }}">
                                 @endif

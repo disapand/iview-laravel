@@ -99,7 +99,7 @@
                         @foreach( $recommends as $recommend)
                         <div class="col-md-3 col-sm-6">
                             <div class="listing-item">
-                                <div class="overlay-container">
+                                <div class="overlay-container" style="height: 355px;">
                                     @if($recommend->newspaperResourceImgs->count() > 0)
                                         <img src="{{ $recommend->newspaperResourceImgs[0]->url }}" alt="{{ $recommend->name }}">
                                     @endif

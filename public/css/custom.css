@@ -8,3 +8,7 @@ Created: August 2014
 License URI: http://wrapbootstrap.com
 File Description: Place here your custom CSS styles
 */
+.ql-align-center {
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
