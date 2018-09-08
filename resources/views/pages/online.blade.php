@@ -106,7 +106,7 @@
                         @foreach( $onlines as $online )
                             <div class="col-md-4 col-sm-6 masonry-grid-item">
                                 <div class="listing-item">
-                                    <div class="overlay-container">
+                                    <div class="overlay-container" style="height: 365px;">
                                         @if($online->onlineResourceImgs->count() > 0)
                                             <img src="{{ $online->onlineResourceImgs[0]->url }}" alt="{{ $online->name }}">
                                         @else

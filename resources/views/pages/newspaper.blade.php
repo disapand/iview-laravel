@@ -114,7 +114,7 @@
                         @foreach( $newspapers as $newspaper)
                             <div class="col-md-4 col-sm-6 masonry-grid-item">
                                 <div class="listing-item">
-                                    <div class="overlay-container">
+                                    <div class="overlay-container" style="height: 485px;">
                                         @if($newspaper->newspaperResourceImgs->count() > 0)
                                             <img src="{{ $newspaper->newspaperResourceImgs[0]->url }}"
                                                  alt="{{ $newspaper->name }}">

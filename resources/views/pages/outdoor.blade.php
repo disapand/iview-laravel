@@ -106,7 +106,7 @@
                         @foreach( $outdoors as $outdoor)
                         <div class="col-md-4 col-sm-6 masonry-grid-item">
                                 <div class="listing-item">
-                                    <div class="overlay-container">
+                                    <div class="overlay-container" style="height: 275px;">
                                         @if($outdoor->outdoorResourceImgs->count() > 0)
                                             <img src="{{ $outdoor->outdoorResourceImgs[0]->url }}" alt="{{ $outdoor->name }}">
                                         @else

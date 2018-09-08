@@ -105,7 +105,7 @@
                         @foreach( $transforms as $transform)
                             <div class="col-md-4 col-sm-6 masonry-grid-item">
                                 <div class="listing-item">
-                                    <div class="overlay-container">
+                                    <div class="overlay-container" style="height: 245px;">
                                         @if($transform->transformResourceImgs->count() > 0)
                                             <img src="{{ $transform->transformResourceImgs[0]->url }}" alt="{{ $transform->name }}">
                                         @else

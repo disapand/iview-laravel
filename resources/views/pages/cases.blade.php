@@ -46,7 +46,7 @@
                                 <div class="col-sm-6 col-md-4 isotope-item {{ \App\Handlers\Tools::pinyin1($case->category) }}">
                             @endif
                                 <div class="image-box">
-                                    <div class="overlay-container">
+                                    <div class="overlay-container" style="height: 245px;">
                                         @if($case->Imgs->count() > 0)
                                             <img src="{{ $case->Imgs[0]->url }}" alt="{{ $case->title }}">
                                         @endif

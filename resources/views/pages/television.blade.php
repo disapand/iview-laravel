@@ -114,7 +114,7 @@
                         @foreach($televisions as $television)
                         <div class="col-md-4 col-sm-6 masonry-grid-item">
                                 <div class="listing-item">
-                                    <div class="overlay-container">
+                                    <div class="overlay-container" style="height: 245px;">
                                         @if($television->televisionResourcesImgs->count() > 0)
                                             <img src="{{ $television->televisionResourcesImgs[0]->url }}" alt="{{ $television->channel }}">
                                         @else
