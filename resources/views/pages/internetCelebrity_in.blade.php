@@ -35,7 +35,7 @@
                                     <div class="owl-carousel content-slider-with-controls-bottom">
                                         @foreach( $internetCelebrity->Imgs as $img )
                                             <div class="overlay-container">
-                                                <img src="{{ $img->url }}" alt="{{ $internetCelebrity->name }}">
+                                                <img src="{{ $img->url }}" alt="{{ $internetCelebrity->name }}" style="max-height: 360px; margin: 0 auto;">
                                                 <a href="{{ $img->url }}" class="popup-img overlay"
                                                    title="{{ $internetCelebrity->name }}"><i
                                                             class="fa fa-search-plus"></i></a>

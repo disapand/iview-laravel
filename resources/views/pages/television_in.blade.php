@@ -35,7 +35,7 @@
                                     <div class="owl-carousel content-slider-with-controls-bottom">
                                         @foreach($television->televisionResourcesImgs as $img)
                                             <div class="overlay-container">
-                                                <img src="{{ $img->url }}" alt="{{ $television->channel }}">
+                                                <img src="{{ $img->url }}" alt="{{ $television->channel }}" style="max-height: 240px; margin: 0 auto;">
                                                 <a href="{{ $img->url }}" class="popup-img overlay"
                                                    title="{{ $television->channel }}"><i class="fa fa-search-plus"></i></a>
                                             </div>

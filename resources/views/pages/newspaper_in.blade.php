@@ -35,7 +35,7 @@
                                     <div class="owl-carousel content-slider-with-controls-bottom">
                                         @foreach($newspaper->newspaperResourceImgs as $img)
                                             <div class="overlay-container">
-                                                <img src="{{ $img->url }}" alt="{{ $newspaper->name }}">
+                                                <img src="{{ $img->url }}" alt="{{ $newspaper->name }}" style="max-height: 480px; margin: 0 auto;">
                                                 <a href="{{ $img->url }}" class="popup-img overlay"
                                                    title="{{ $newspaper->name }}"><i class="fa fa-search-plus"></i></a>
                                             </div>

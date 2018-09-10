@@ -62,13 +62,13 @@
                                                 explode('.', $img->url)[count(explode('.', $img->url)) - 1 ] == 'png' ||
                                                 explode('.', $img->url)[count(explode('.', $img->url)) - 1 ] == 'jpeg' )
                                                     <div class="overlay-container">
-                                                        <img src="{{ $img->url }}" alt="{{ $cases->title }}">
+                                                        <img src="{{ $img->url }}" alt="{{ $cases->title }}" style="max-height: 340px;margin-left: 50%; transform: translateX(-50%)">
                                                         <a href="{{ $img->url }}" class="popup-img overlay"
                                                            title="{{ $cases->title }}"><i class="fa fa-search-plus"></i></a>
                                                     </div>
                                                 @else
                                                     <div class="overlay-container">
-                                                        <video autoplay="autoplay" loop muted preload="auto" controls="controls" style="max-height: 300px;
+                                                        <video autoplay="autoplay" loop muted preload="auto" controls="controls" style="max-height: 340px;
                                                         margin-left: 50%; transform: translateX(-50%)">
                                                             <source src="{{ $img->url }}" type="video/mp4">
                                                             <source src="{{ $img->url }}" type="video/swf">

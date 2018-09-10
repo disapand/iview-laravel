@@ -35,7 +35,7 @@
                                     <div class="owl-carousel content-slider-with-controls-bottom">
                                         @foreach( $transform->transformResourceImgs as $img)
                                             <div class="overlay-container">
-                                                <img src="{{ $img->url }}" alt="{{ $transform->name }}">
+                                                <img src="{{ $img->url }}" alt="{{ $transform->name }}" style="max-height: 240px; margin: 0 auto;">
                                                 <a href="{{ $img->url }}" class="popup-img overlay"
                                                    title="{{ $transform->name }}"><i class="fa fa-search-plus"></i></a>
                                             </div>

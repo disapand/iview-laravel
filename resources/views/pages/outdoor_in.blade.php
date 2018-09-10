@@ -34,7 +34,7 @@
                                     <div class="owl-carousel content-slider-with-controls-bottom">
                                         @foreach($outdoor->outdoorResourceImgs as $img)
                                             <div class="overlay-container">
-                                                <img src="{{ $img->url }}" alt="{{ $outdoor->name }}">
+                                                <img src="{{ $img->url }}" alt="{{ $outdoor->name }}" style="max-height: 270px; margin: 0 auto;">
                                                 <a href="{{ $img->url }}" class="popup-img overlay" title="{{ $outdoor->name }}"><i class="fa fa-search-plus"></i></a>
                                             </div>
                                         @endforeach
