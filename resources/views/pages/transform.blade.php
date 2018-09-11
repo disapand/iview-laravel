@@ -116,8 +116,8 @@
                                             <span>了解详情</span>
                                         </a>
                                     </div>
-                                    <div class="listing-item-body clearfix">
-                                        <h3 class="title"><a href="{{ route('transform.show', [$transform->id]) }}">{{ $transform->name }}</a>
+                                    <div class="listing-item-body clearfix" style="height: 5em;">
+                                        <h3 class="title"><a href="{{ route('transform.show', [$transform->id]) }}">{{ mb_strimwidth($transform->name, 0, 70, '...', 'utf-8') }}</a>
                                         </h3>
                                     </div>
                                 </div>

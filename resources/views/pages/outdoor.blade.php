@@ -117,8 +117,8 @@
                                             <span>了解详情</span>
                                         </a>
                                     </div>
-                                    <div class="listing-item-body clearfix">
-                                        <h3 class="title"><a href="{{ route('outdoor.show', [$outdoor->id]) }}">{{ $outdoor->name }}</a></h3>
+                                    <div class="listing-item-body clearfix" style="height: 5em;">
+                                        <h3 class="title"><a href="{{ route('outdoor.show', [$outdoor->id]) }}">{{ mb_strimwidth($outdoor->name, 0, 70, '...', 'utf-8') }}</a></h3>
                                     </div>
                                 </div>
                         </div>

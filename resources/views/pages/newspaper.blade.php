@@ -128,7 +128,7 @@
                                     </div>
                                     <div class="listing-item-body clearfix">
                                         <h3 class="title"><a
-                                                    href="{{ route('newspaper.show', [$newspaper->id]) }}">{{ $newspaper->name }}</a>
+                                                    href="{{ route('newspaper.show', [$newspaper->id]) }}">{{ mb_strimwidth($newspaper->name, 0, 36, '...', 'utf-8') }}</a>
                                         </h3>
                                     </div>
                                 </div>

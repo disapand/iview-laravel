@@ -118,7 +118,7 @@
                                         </a>
                                     </div>
                                     <div class="listing-item-body clearfix">
-                                        <h3 class="title"><a href="{{ route('online.show', [$online->id]) }}">{{ $online->name }}</a></h3>
+                                        <h3 class="title"><a href="{{ route('online.show', [$online->id]) }}">{{ mb_strimwidth($online->name, 0, 36, '...', 'utf-8') }}</a></h3>
                                     </div>
                                 </div>
                             </div>
