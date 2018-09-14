@@ -1,7 +1,7 @@
 @section('navbar')
     <!-- header start (remove fixed class from header in order to disable fixed navigation mode) -->
     <!-- ================ -->
-    <header class="header fixed clearfix">
+    <header class="header fixed clearfix" style="background-color: #0E7FE7">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
