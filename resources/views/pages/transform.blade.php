@@ -82,8 +82,9 @@
                                     <option>地铁</option>
                                     <option>轻轨</option>
                                     <option>船舶</option>
-                                    <option>航机</option>
+                                    <option>飞机</option>
                                     <option>出租车</option>
+                                    <option>其他</option>
                                 </select>
                             </div>
                             <div class="form-group">

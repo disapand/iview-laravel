@@ -93,6 +93,9 @@
                                     <option>漫画</option>
                                     <option>搞笑</option>
                                     <option>美食</option>
+                                    <option>游戏</option>
+                                    <option>亲子</option>
+                                    <option>宠物</option>
                                     <option>其他</option>
                                 </select>
                             </div>
