@@ -18,7 +18,7 @@
                         <div style="display: inline-block;margin-left: 20px;">
                             <a href="javascript:void(0);"
                                style="color: #ccc;text-decoration: none;cursor: default;">中文版</a>&nbsp;|
-                            <a href="/english.html" style="color: #fff;text-decoration: none;">ENGLISH</a>
+                            <a href="{{ route('english') }}" style="color: #fff;text-decoration: none;">ENGLISH</a>
                         </div>
                     </div>
                     <!-- header-left end -->

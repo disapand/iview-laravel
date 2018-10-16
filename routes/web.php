@@ -56,4 +56,8 @@ Route::group(['middleware' => 'uv'], function () {
     Route::get('/cases', 'PagesController@cases')->name('cases');
     Route::get('/cases/{cases}', 'PagesController@casesShow')->name('cases.show');
 
+    Route::get('/english', function () {
+        return view('english');
+    })->name('english');
+
 });
