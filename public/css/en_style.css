@@ -35,18 +35,20 @@ h6 a {
 }
 h1 {
 	font-size: 38px;
-	font-weight: normal;
+	font-weight: 600;
 	color: #1c97c1;
-	font-family: 'Avenir Light',SourceHanSansCN-Light;
+	font-family: 'Avenir',SourceHanSansCN;
 }
 h2 {
 	font-size: 28px;
+	font-weight: 300;
 	margin-bottom: 15px;
-	font-family: 'Avenir Light',SourceHanSansCN-Light;
+	font-family: 'Avenir',SourceHanSansCN;
 }
 h3 {
 	font-size: 22px;
-	font-family: 'Avenir Light',SourceHanSansCN-Light;
+	font-weight: 300;
+	font-family: 'Avenir',SourceHanSansCN;
 }
 h4 {
 	font-size: 18px;
@@ -86,8 +88,10 @@ h6 {
 }
 p {
 	margin-bottom: 20px;
-	font-family: 'Avenir Light',SourceHanSansCN-Light;
+	font-family: 'Avenir',SourceHanSansCN;
+	font-weight: 300px;
 	line-height: 30px;
+	font-size: 15px;
 }
 a {
 	color: #1b1c80;
@@ -98,7 +102,7 @@ a {
 	transition: all 0.2s ease-in-out;
 }
 a:hover {
-	color: #cd3c2e;
+	color: #1b1c80;
 }
 a:focus,
 a:active {
@@ -326,8 +330,8 @@ tbody {
 	padding-top: 220px;
 }
 .section1 {
-	padding-bottom: 240px;
-	background:url(../images/en_bg1.jpg)no-repeat;
+	padding-bottom: 225px;
+	background:url(../images/en_bg1.jpg) no-repeat;
 	background-size:cover;
 	background-position: center;
 	-webkit-background-size:cover;
@@ -336,8 +340,8 @@ tbody {
 	-ms-background-size:cover;
 }
 .section2 {
-	padding: 195px 0 196px 0;
-	background:url(../images/en_bg2.jpg)no-repeat;
+	padding: 0 0 467px 0;
+	background:url(../images/en_bg2.jpg) no-repeat;
 	background-size:cover;
 	background-position: center;
 	-webkit-background-size:cover;
@@ -346,12 +350,18 @@ tbody {
 	-ms-background-size:cover;
 }
 .section3 {
-	padding: 48px 0;
-	background-color: #59c9f1;
+	padding: 0 0 202px 0;
+	background:url(../images/en_bg3.jpg)no-repeat;
+	background-size:cover;
+	background-position: center;
+	-webkit-background-size:cover;
+	-o-background-size:cover;
+	-moz-background-size:cover;
+	-ms-background-size:cover;
 }
 .section4 {
-	padding: 470px 0 568px 0;
-	background:url(../images/en_bg4.jpg)no-repeat;
+	padding: 0 0 293px 0;
+	background:url(../images/en_bg4.jpg) no-repeat;
 	background-size:cover;
 	background-position: center;
 	-webkit-background-size:cover;
@@ -360,11 +370,17 @@ tbody {
 	-ms-background-size:cover;
 }
 .section5 {
-	padding: 48px 0;
-	background-color: #56c8f0;
+	padding: 0 0 254px 0;
+	background:url(../images/en_bg5.jpg)no-repeat;
+	background-size:cover;
+	background-position: center;
+	-webkit-background-size:cover;
+	-o-background-size:cover;
+	-moz-background-size:cover;
+	-ms-background-size:cover;
 }
 .section6 {
-	padding: 440px 0 561px 0;
+	padding: 0 0 278px 0;
 	background:url(../images/en_bg6.jpg)no-repeat;
 	background-size:cover;
 	background-position: center;
@@ -374,7 +390,7 @@ tbody {
 	-ms-background-size:cover;
 }
 .section7 {
-	padding: 0;
+	padding: 0 0 26px 0;
 	background:url(../images/en_bg7.jpg)no-repeat;
 	background-size:cover;
 	background-position: center;
@@ -699,13 +715,13 @@ tbody {
 	position: relative;
 }
 .parallax-bg {
-	background: url("../images/parallax-bg.jpg") 50% 0px no-repeat;
+	background: url("../Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/9f284d5dcb4af65772c0396042735e56/Message/MessageTemp/a494e35a2ce3c80d41bbc5f440117dfc/images/parallax-bg.jpg") 50% 0px no-repeat;
 }
 .parallax-bg-2 {
-	background: url("../images/parallax-bg-2.jpg") 50% 0px no-repeat;
+	background: url("../Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/9f284d5dcb4af65772c0396042735e56/Message/MessageTemp/a494e35a2ce3c80d41bbc5f440117dfc/images/parallax-bg-2.jpg") 50% 0px no-repeat;
 }
 .parallax-bg-3 {
-	background: url("../images/parallax-bg-3.jpg") 50% 0px no-repeat;
+	background: url("../Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/9f284d5dcb4af65772c0396042735e56/Message/MessageTemp/a494e35a2ce3c80d41bbc5f440117dfc/images/parallax-bg-3.jpg") 50% 0px no-repeat;
 }
 
 /* Custom Grid
@@ -2108,9 +2124,9 @@ tbody {
 
 /* The color of default buttons is the color of current color scheme */
 .btn-default {
-	background-color: #1b1c80;
+	background-color: #1c97c1;
 	color: #fff !important;
-	border-color: #cd3c2e;
+	border-color: #1c97c1;
 }
 .btn-default:hover,
 .btn-default:focus,
@@ -2118,8 +2134,8 @@ tbody {
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
 	color: #fff !important;
-	background-color: #cd3c2e;
-	border-color: #cd3c2e;
+	background-color: #1b1c80;
+	border-color: #1b1c80;
 }
 .default-bg .btn-default {
 	background-color: rgba(0, 0, 0, 0.3);
@@ -2137,8 +2153,8 @@ tbody {
 .btn-default.disabled,
 .btn-default[disabled],
 fieldset[disabled] .btn-default {
-	background-color: #cd3c2e;
-	border-color: #cd3c2e;
+	background-color: #1b1c80;
+	border-color: #1b1c80;
 	opacity: 0.7;
 	filter: alpha(opacity=70);
 }
@@ -2146,7 +2162,7 @@ fieldset[disabled] .btn-default {
 /* Button with transparent bg */
 .btn-white {
 	background-color: transparent;
-	color: #cd3c2e;
+	color: #1b1c80;
 	border: 1px solid #1b1c80;
 }
 .footer .btn-white,
@@ -2163,8 +2179,8 @@ fieldset[disabled] .btn-default {
 .btn-white.active,
 .open .dropdown-toggle.btn-white {
 	color: #fff;
-	background-color: #cd3c2e;
-	border-color: #cd3c2e;
+	background-color: #1b1c80;
+	border-color: #1b1c80;
 }
 .default-bg .btn-white {
 	color: transparent;
@@ -2332,7 +2348,7 @@ fieldset .form-control:focus {
 	background-color: rgba(0, 0, 0, 0.25);
 }
 .default-bg .input-group-addon {
-	background-color: #cd3c2e;
+	background-color: #1b1c80;
 	border-color: #1b1c80;
 	color: #fff;
 }
@@ -2819,7 +2835,7 @@ ul.pagination li > a:focus {
 }
 .light .footer-content .nav-pills > li.active > a:hover,
 .light .footer-content .nav-pills > li > a:hover {
-	color: #cd3c2e;
+	color: #1b1c80;
 }
 .light .footer-content .nav-pills.nav-stacked > li > a:after,
 .light .footer-content .nav-pills > li.active > a:after,
@@ -4160,8 +4176,8 @@ footer:not(.light) .footer-content .tag a,
 }
 .social-links li a:hover {
 	background-color: transparent;
-	border-color: #cd3c2e;
-	color: #cd3c2e;
+	border-color: #1b1c80;
+	color: #1b1c80;
 }
 .social-links.dark li a:hover {
 	background: #fafafa;
@@ -4204,7 +4220,7 @@ footer:not(.light) .footer-content .tag a,
 	border-color: transparent;
 }
 .header-top .social-links li a:hover {
-	color: #cd3c2e;
+	color: #1b1c80;
 }
 .header-top .social-links li a i {
 	line-height: 30px;
@@ -4826,9 +4842,9 @@ ul.tweets li span {
 .stripped .header {
 	background: #1b1c80;
 	border: none;
-	-webkit-box-shadow: 0px 0px 60px #cd3c2e inset;
-	-moz-box-shadow: 0px 0px 60px #cd3c2e inset;
-	box-shadow: 0px 0px 60px #cd3c2e inset;
+	-webkit-box-shadow: 0px 0px 60px #1b1c80 inset;
+	-moz-box-shadow: 0px 0px 60px #1b1c80 inset;
+	box-shadow: 0px 0px 60px #1b1c80 inset;
 	color: #fff;
 }
 .stripped .header h3 {
@@ -4930,7 +4946,7 @@ ul.tweets li span {
 	display: none;
 }
 .tp-loader.spinner0 {
-	background: url("../images/loader.gif") no-repeat center center;
+	background: url("../Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/9f284d5dcb4af65772c0396042735e56/Message/MessageTemp/a494e35a2ce3c80d41bbc5f440117dfc/images/loader.gif") no-repeat center center;
 	box-shadow: none;
 	-webkit-box-shadow: none;
 	-webkit-animation: none;
@@ -5338,6 +5354,8 @@ ul.tweets li span {
 } 
 .da-thumbs li a div span {
 	font-size: 18px;
+	font-family: 'Avenir';
+	font-weight: 500;
 	display: block;
 	padding: 10px 0;
 	margin: 20px 20px 0px 20px;
@@ -5347,6 +5365,7 @@ ul.tweets li span {
 }
 .da-thumbs li a div p {
 	font-size: 12px;
+	font-family: 'Avenir';
 	display: block;
 	padding: 0;
 	margin: 0px 20px;

@@ -68,19 +68,20 @@ position:absolute;
 color:#fff;
 text-shadow:0px 2px 5px rgba(0, 0, 0, 0.5);
 font-weight:700;
-font-size:40px;
-line-height:40px;
+font-size:60px;
+line-height:60px;
 font-family:Arial;
 margin:0px;
 border-width:0px;
 border-style:none;
 white-space:nowrap;
+letter-spacing:-2px;
 }
 
 .tp-caption.very_large_text {
 position:absolute;
 color:#fff;
-text-shadow:0px 2px 5px rgba(0, 0, 0, 0.5);
+text-shadow:-4px 4px 5px #1d98c1;
 font-weight:700;
 font-size:60px;
 line-height:60px;
