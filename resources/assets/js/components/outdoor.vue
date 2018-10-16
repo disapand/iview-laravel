@@ -170,7 +170,7 @@
             remove(row, index) {
                 this.$ajax.delete('http://www.zetin.cn/api/outdoor/' + row.id).then((response) => {
                     this.$Message.info('删除资源成功')
-                    this.tvs.splice(index, 1)
+                    this.outdoor.splice(index, 1)
                     this.total = response.data.meta.pagination.total
                 }).catch((error) => {
                     this.$Message.error('删除资源出错')
