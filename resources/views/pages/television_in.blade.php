@@ -70,7 +70,7 @@
                                                     语言：{{ $television->language }} <br />
                                                     类别：{{ $television->category }} <br />
                                                     所属电视台：{{ $television->station }} <br />
-                                                    广告时长：{{ $television->time }} <br />
+                                                    广告时长：{{ $television->time }}秒 <br />
                                                     国家或地区：{{ $television->country }} <br />
                                                     热门节目：{{ $television->program }}
                                                 </p>
