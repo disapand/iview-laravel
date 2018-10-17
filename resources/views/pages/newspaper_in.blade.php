@@ -68,6 +68,11 @@
                                                     语种：{{ $newspaper->language }}<br>
                                                     类型：{{ $newspaper->ad_form }}<br>
                                                     规格：{{ $newspaper->format }}<br>
+                                                    发行周期：{{ $newspaper->cycle }}<br>
+                                                    发行量：{{ $newspaper->circulation }}<br>
+                                                    版面：{{ $newspaper->page }}<br>
+                                                    国家或地区：{{ $newspaper->country }}<br>
+                                                    版本：{{ $newspaper->version }}<br>
                                                     媒体描述：{{ $newspaper->detail }}
                                                 </p>
                                             </div>

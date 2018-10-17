@@ -63,7 +63,16 @@
                                         <div class="tab-content padding-top-clear padding-bottom-clear">
                                             <div class="tab-pane fade in active" id="h2tab1">
                                                 <p style="line-height: 32px;margin-top: 32px;">
-                                                    频道介绍：{!! str_replace(PHP_EOL, '<br />', $television->detail) !!}
+                                                    电视频道：{{ $television->channel }} <br />
+                                                    频道介绍：{!! str_replace(PHP_EOL, '<br />', $television->detail) !!} <br />
+                                                    展现形式：{{ $television->form }} <br />
+                                                    覆盖地区：{{ $television->area }} <br />
+                                                    语言：{{ $television->language }} <br />
+                                                    类别：{{ $television->category }} <br />
+                                                    所属电视台：{{ $television->station }} <br />
+                                                    广告时长：{{ $television->time }} <br />
+                                                    国家或地区：{{ $television->country }} <br />
+                                                    热门节目：{{ $television->program }}
                                                 </p>
                                             </div>
                                         </div>
