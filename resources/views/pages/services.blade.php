@@ -63,7 +63,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="space hidden-lg hidden-md"></div>
-                            <img class="animated fadeInUpSmall" src="{{ asset('images/services1.jpg') }}" alt="创意策略">
+                            <img class="animated fadeInUpSmall" src="{{ asset('images/services1.jpg') }}" alt="创意策略" style="max-width: 100%;">
                         </div>
                     </div>
                     <div class="space"></div>
@@ -95,7 +95,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="space hidden-lg hidden-md"></div>
-                            <img class="animated fadeInUpSmall" src="{{ asset('images/services2.jpg') }}" alt="公共关系">
+                            <img class="animated fadeInUpSmall" src="{{ asset('images/services2.jpg') }}" alt="公共关系" style="max-width: 100%">
                         </div>
                         <div class="col-md-6" style="margin-top: 40px;">
                             <div class="box-style-4 left animated fadeInUpSmall">
@@ -190,7 +190,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="space hidden-lg hidden-md"></div>
-                            <img class="animated fadeInUpSmall" src="{{ asset('images/services3.jpg') }}" alt="媒体投放">
+                            <img class="animated fadeInUpSmall" src="{{ asset('images/services3.jpg') }}" alt="媒体投放" style="max-width: 100%">
                         </div>
                     </div>
                     <div class="space"></div>
