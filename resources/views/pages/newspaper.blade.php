@@ -121,7 +121,7 @@
                                     <div class="overlay-container" style="height: 485px;">
                                         @if($newspaper->newspaperResourceImgs->count() > 0)
                                             <img src="{{ $newspaper->newspaperResourceImgs[0]->url }}"
-                                                 alt="{{ $newspaper->name }}">
+                                                 alt="{{ $newspaper->name }}" style="min-width: 100%">
                                         @else
                                             <img src="{{ asset('images/2.jpg') }}" alt="{{ $newspaper->name }}">
                                         @endif

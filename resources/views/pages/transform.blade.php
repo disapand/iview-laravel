@@ -108,7 +108,7 @@
                                 <div class="listing-item">
                                     <div class="overlay-container" style="height: 245px;">
                                         @if($transform->transformResourceImgs->count() > 0)
-                                            <img src="{{ $transform->transformResourceImgs[0]->url }}" alt="{{ $transform->name }}">
+                                            <img src="{{ $transform->transformResourceImgs[0]->url }}" alt="{{ $transform->name }}" style="min-width: 100%">
                                         @else
                                             <img src="{{ asset('images/4.jpg') }}" alt="{{ $transform->name }}">
                                         @endif

@@ -31,7 +31,7 @@
                             <article class="clearfix blogpost">
                                 @if($about->imgs->count() > 0)
                                     <div class="overlay-container">
-                                        <img src="{{ $about->imgs[0]->url }}" alt="{{ $about->tag }}">
+                                        <img src="{{ $about->imgs[0]->url }}" alt="{{ $about->tag }}" style="max-width: 100%;">
                                         <div class="overlay">
                                             <div class="overlay-links">
                                                 <a href="{{ route('about.show', [$about->id]) }}"><i class="fa fa-link"></i></a>

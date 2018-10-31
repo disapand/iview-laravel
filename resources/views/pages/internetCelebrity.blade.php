@@ -126,7 +126,7 @@
                                 <div class="listing-item">
                                     <div class="overlay-container" style="height: 365px;">
                                         @if($internetCelebrity->Imgs->count() > 0)
-                                            <img src="{{ $internetCelebrity->Imgs[0]->url }}" alt="{{ $internetCelebrity->name }}">
+                                            <img src="{{ $internetCelebrity->Imgs[0]->url }}" alt="{{ $internetCelebrity->name }}" style="min-width: 100%">
                                         @else
                                             <img src="{{ asset('images/5.jpg') }}" alt="{{ $internetCelebrity->name }}">
                                         @endif

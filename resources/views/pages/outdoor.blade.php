@@ -108,7 +108,7 @@
                                 <div class="listing-item">
                                     <div class="overlay-container" style="height: 275px;">
                                         @if($outdoor->outdoorResourceImgs->count() > 0)
-                                            <img src="{{ $outdoor->outdoorResourceImgs[0]->url }}" alt="{{ $outdoor->name }}">
+                                            <img src="{{ $outdoor->outdoorResourceImgs[0]->url }}" alt="{{ $outdoor->name }}" style="min-width: 100%">
                                         @else
                                             <img src="{{ asset('images/3.jpg') }}" alt="{{ $outdoor->name }}">
                                         @endif

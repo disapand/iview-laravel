@@ -116,7 +116,7 @@
                                 <div class="listing-item">
                                     <div class="overlay-container" style="height: 245px;">
                                         @if($television->televisionResourcesImgs->count() > 0)
-                                            <img src="{{ $television->televisionResourcesImgs[0]->url }}" alt="{{ $television->channel }}">
+                                            <img src="{{ $television->televisionResourcesImgs[0]->url }}" alt="{{ $television->channel }}" style="min-width: 100%">
                                         @else
                                             <img src="{{ asset('images/1.jpg') }}" alt="{{ $television->channel }}">
                                         @endif

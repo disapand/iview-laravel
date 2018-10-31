@@ -108,7 +108,7 @@
                                 <div class="listing-item">
                                     <div class="overlay-container" style="height: 365px;">
                                         @if($online->onlineResourceImgs->count() > 0)
-                                            <img src="{{ $online->onlineResourceImgs[0]->url }}" alt="{{ $online->name }}">
+                                            <img src="{{ $online->onlineResourceImgs[0]->url }}" alt="{{ $online->name }}" style="min-width: 100%">
                                         @else
                                             <img src="{{ asset('images/6.jpg') }}" alt="{{ $online->name }}">
                                         @endif

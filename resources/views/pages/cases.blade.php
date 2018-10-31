@@ -48,7 +48,7 @@
                                 <div class="image-box">
                                     <div class="overlay-container" style="height: 245px;">
                                         @if($case->Imgs->count() > 0)
-                                            <img src="{{ $case->Imgs[0]->url }}" alt="{{ $case->title }}">
+                                            <img src="{{ $case->Imgs[0]->url }}" alt="{{ $case->title }}" style="min-width: 100%">
                                         @endif
                                         <a href="{{ route('cases.show', [$case->id]) }}" class="overlay small">
                                             <i class="fa fa-link"></i>
