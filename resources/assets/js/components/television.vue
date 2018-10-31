@@ -147,10 +147,46 @@
                 this.tvs = response.data.data
                 this.loading = false
                 this.total = response.data.meta.pagination.total
+
+                if (this.$route.params.currentPage == undefined || this.$route.params.currentPage == 1) {
+                    // alert('currentPage未定义或者值为1')
+                } else if (this.total < this.$route.params.currentPage) {
+                    // alert('currentPage大于总页数')
+                    let uri
+                    if (this.condition && this.search) {
+                        uri = 'http://www.zetin.cn/api/tv/' + this.condition + '/' + this.search + '?page=' + this.total
+                    } else {
+                        uri = 'http://www.zetin.cn/api/tv?page=' + this.total
+                    }
+                    this.$ajax.get(uri).then((response) => {
+                        this.tvs = response.data.data
+                        this.loading = false
+                        this.currentPage = this.total
+                    }).catch((error) => {
+                        console.log('换页出错', error);
+                    })
+                } else {
+                    // alert('currentPage值正常')
+                    let uri
+                    if (this.condition && this.search) {
+                        uri = 'http://www.zetin.cn/api/tv/' + this.condition + '/' + this.search + '?page=' + this.$route.params.currentPage
+                    } else {
+                        uri = 'http://www.zetin.cn/api/tv?page=' + this.$route.params.currentPage
+                    }
+                    this.$ajax.get(uri).then((response) => {
+                        this.tvs = response.data.data
+                        this.loading = false
+                        this.currentPage = this.$route.params.currentPage
+                    }).catch((error) => {
+                        console.log('换页出错', error);
+                    })
+                }
+
             }).catch((error) => {
                 this.$Message.error('电视资源列表加载出错，请稍后重试');
                 console.log('电视资源列表加载出错:', error);
             })
+
         },
         mounted() {
         },
@@ -159,7 +195,7 @@
                 this.$router.push('tv_item')
             },
             show(row, index) {
-                this.$router.push({'name': 'tv_item', params: {id: row.id}})
+                this.$router.push({'name': 'tv_item', params: {id: row.id, currentPage: this.currentPage}})
             },
             remove(row, index) {
                 this.$ajax.delete('http://www.zetin.cn/api/tv/' + row.id).then((response) => {

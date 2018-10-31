@@ -121,7 +121,7 @@
                 this.$router.push('dynamic_item')
             },
             show(row, index) {
-                this.$router.push({'name': 'dynamic_item', params: {id: row.id}})
+                this.$router.push({'name': 'dynamic_item', params: {id: row.id, currentPage: this.currentPage}})
             },
             remove(row, index) {
                 this.$ajax.delete('http://www.zetin.cn/api/dynamic/' + row.id).then((response) => {

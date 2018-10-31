@@ -84,6 +84,7 @@
                 canDel: true,
                 spinShow: true,
                 content: '',
+                currentPage: 1,
                 dynamic: {
                     id: '',
                     title:'',
@@ -110,6 +111,7 @@
         created() {
             if (this.$route.params.id) {
                 this.$ajax.get('http://www.zetin.cn/api/dynamic/' + this.$route.params.id + '?include=Imgs').then((response) => {
+                    this.currentPage = this.$route.params.currentPage
                     console.log('获取资源', response)
                     this.dynamic = response.data
                     this.spinShow = false

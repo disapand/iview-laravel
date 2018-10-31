@@ -139,15 +139,20 @@
             }
         },
         created() {
-            this.$ajax.get('http://www.zetin.cn/api/online').then((response) => {
-                console.log('拉取资源列表', response);
-                this.online = response.data.data
-                this.loading = false
-                this.total = response.data.meta.pagination.total
-            }).catch((error) => {
-                this.$Message.error('资源列表加载出错，请稍后重试');
-                console.log('资源列表加载出错:', error);
-            })
+            if (this.$route.params.currentPage == undefined || this.$route.params.currentPage == 1) {
+                this.$ajax.get('http://www.zetin.cn/api/online').then((response) => {
+                    console.log('拉取资源列表', response);
+                    this.online = response.data.data
+                    this.loading = false
+                    this.total = response.data.meta.pagination.total
+                }).catch((error) => {
+                    this.$Message.error('资源列表加载出错，请稍后重试');
+                    console.log('资源列表加载出错:', error);
+                })
+            } else {
+                this.changePage(this.$route.params.currentPage)
+            }
+
         },
         mounted() {
         },
@@ -156,7 +161,7 @@
                 this.$router.push('online_item')
             },
             show(row, index) {
-                this.$router.push({'name': 'online_item', params: {id: row.id}})
+                this.$router.push({'name': 'online_item', params: {id: row.id, currentPage: this.currentPage}})
             },
             remove(row, index) {
                 this.$ajax.delete('http://www.zetin.cn/api/online/' + row.id).then((response) => {
