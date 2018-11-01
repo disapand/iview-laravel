@@ -102,7 +102,7 @@
                             <div class="listing-item">
                                 <div class="overlay-container">
                                     @if($recommend->onlineResourceImgs->count() > 0)
-                                        <img src="{{ $recommend->onlineResourceImgs[0]->url }}" alt="{{ $recommend->name }}">
+                                        <img src="{{ $recommend->onlineResourceImgs[0]->url }}" alt="{{ $recommend->name }}" style="width: 100%;">
                                     @endif
                                     <a href="{{ route('online.show', [$recommend->id]) }}" class="overlay small">
                                         <i class="fa fa-plus"></i>

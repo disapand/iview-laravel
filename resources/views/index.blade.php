@@ -288,7 +288,7 @@
                                 <div class="col-sm-4 isotope-item web-design margin-bottom-clear">
                                     <div class="box-style-1 gray-bg">
                                         <div class="overlay-container">
-                                            <img src="{{ $case->Imgs[0]->url }}" alt="{{ $case->title }}">
+                                            <img src="{{ $case->Imgs[0]->url }}" alt="{{ $case->title }}" style="width: 100%">
                                             <a href="{{ route('cases.show', [$case->id]) }}" class="overlay small">
                                                 <i class="fa fa-plus"></i>
                                                 <span>{{ $case->category }}</span>

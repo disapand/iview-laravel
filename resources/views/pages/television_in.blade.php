@@ -106,7 +106,7 @@
                                     <div class="overlay-container">
                                         @if($recommend->televisionResourcesImgs->count() > 0)
                                             <img src="{{ $recommend->televisionResourcesImgs[0]->url }}"
-                                                 alt="{{ $recommend->channel }}">
+                                                 alt="{{ $recommend->channel }}" style="width: 100%">
                                         @endif
                                         <a href="{{ route('television.show', [$recommend->id]) }}"
                                            class="overlay small">

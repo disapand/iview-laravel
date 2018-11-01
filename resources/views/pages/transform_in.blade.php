@@ -101,7 +101,7 @@
                                     <div class="overlay-container">
                                         @if($recommend->transformResourceImgs->count() > 0)
                                             <img src="{{ $recommend->transformResourceImgs[0]->url }}"
-                                                 alt="{{ $recommend->name }}">
+                                                 alt="{{ $recommend->name }}" style="width: 100%">
                                         @endif
                                         <a href="{{ route('transform.show', [$recommend->id]) }}" class="overlay small">
                                             <i class="fa fa-plus"></i>
