@@ -153,11 +153,15 @@
                     ],
                 },
                 img: '',
+                currentPage: 1
             }
         },
         created() {
             if (this.$route.params.id) {
                 this.$ajax.get('http://www.zetin.cn/api/case/' + this.$route.params.id + '?include=Imgs').then((response) => {
+                    if (this.$route.params.currentPage != undefined) {
+                        this.currentPage = this.$route.params.currentPage
+                    }
                     console.log('获取资源', response)
                     this.Case = response.data
                     this.spinShow = false
@@ -177,7 +181,7 @@
             *   返回上一页的方法
             * */
             back() {
-                this.$router.go(-1)
+                this.$router.push({'name': 'case', params: {currentPage: this.currentPage}})
             },
             deleteImg(id) {
                 this.$Modal.confirm({

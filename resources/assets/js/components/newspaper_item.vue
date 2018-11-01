@@ -262,6 +262,7 @@
                 edit: '创建资源',
                 canDel: true,
                 img: '',
+                currentPage: 1
             }
         },
         methods: {
@@ -269,7 +270,7 @@
             *   返回上一页的方法
             * */
             back() {
-                this.$router.go(-1)
+                this.$router.push({'name': 'newspaper', params: {currentPage: this.currentPage}})
             },
             /*
             *   删除图片的方法，需要传入删除图的id，同时从后台返回数据更新imgList
@@ -412,6 +413,9 @@
             * */
             if (this.$route.params.id) {
                 this.$ajax.get('http://www.zetin.cn/api/newspaper/' + this.$route.params.id + '?include=newspaperResourceImgs').then((response) => {
+                    if (this.$route.params.currentPage != undefined) {
+                        this.currentPage = this.$route.params.currentPage
+                    }
                     this.newspaper = response.data
                     this.spinShow = false
                     this.edit = '提交修改'

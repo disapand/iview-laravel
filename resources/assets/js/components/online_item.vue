@@ -387,7 +387,9 @@
             * */
             if (this.$route.params.id) {
                 this.$ajax.get('http://www.zetin.cn/api/online/' + this.$route.params.id + '?include=onlineResourceImgs').then((response) => {
-                    this.currentPage = this.$route.params.currentPage
+                    if (this.$route.params.currentPage != undefined) {
+                        this.currentPage = this.$route.params.currentPage
+                    }
                     this.online = response.data
                     this.spinShow = false
                     this.edit = '提交修改'

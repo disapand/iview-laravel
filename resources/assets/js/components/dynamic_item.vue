@@ -106,11 +106,15 @@
                     ]
                 },
                 img: '',
+                currentPage: 1,
             }
         },
         created() {
             if (this.$route.params.id) {
                 this.$ajax.get('http://www.zetin.cn/api/dynamic/' + this.$route.params.id + '?include=Imgs').then((response) => {
+                    if (this.$route.params.currentPage != undefined) {
+                        this.currentPage = this.$route.params.currentPage
+                    }
                     this.currentPage = this.$route.params.currentPage
                     console.log('获取资源', response)
                     this.dynamic = response.data
@@ -131,7 +135,7 @@
             *   返回上一页的方法
             * */
             back() {
-                this.$router.go(-1)
+                this.$router.push({'name': 'dynamic', params: {currentPage: this.currentPage}})
             },
             deleteImg(id) {
                 this.$Modal.confirm({

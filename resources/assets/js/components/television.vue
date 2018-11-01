@@ -144,13 +144,13 @@
         created() {
             this.$ajax.get('http://www.zetin.cn/api/tv').then((response) => {
                 console.log('拉取电视资源列表', response);
-                this.tvs = response.data.data
-                this.loading = false
                 this.total = response.data.meta.pagination.total
 
+                //参数不存在当前页码，或者当前页码为1时
                 if (this.$route.params.currentPage == undefined || this.$route.params.currentPage == 1) {
-                    // alert('currentPage未定义或者值为1')
-                } else if (this.total < this.$route.params.currentPage) {
+                    this.tvs = response.data.data
+                    this.loading = false
+                } else if (this.total < this.$route.params.currentPage) {//当页面参数存在， 切值大于总页数时
                     // alert('currentPage大于总页数')
                     let uri
                     if (this.condition && this.search) {
@@ -165,7 +165,7 @@
                     }).catch((error) => {
                         console.log('换页出错', error);
                     })
-                } else {
+                } else {//页面参数正常
                     // alert('currentPage值正常')
                     let uri
                     if (this.condition && this.search) {

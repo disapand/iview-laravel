@@ -39,7 +39,7 @@
                      :loading="loading"></i-table>
         </div>
         <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize"
-              :class-name="pageClass" show-elevator ></page>
+              :class-name="pageClass" show-elevator></page>
     </div>
 </template>
 
@@ -154,9 +154,44 @@
         created() {
             this.$ajax.get('http://www.zetin.cn/api/transform').then((response) => {
                 console.log('拉取交通资源列表', response);
-                this.transform = response.data.data
-                this.loading = false
                 this.total = response.data.meta.pagination.total
+
+                //参数不存在当前页码，或者当前页码为1时
+                if (this.$route.params.currentPage == undefined || this.$route.params.currentPage == 1) {
+                    this.transform = response.data.data
+                    this.loading = false
+                } else if (this.total < this.$route.params.currentPage) {//当页面参数存在， 切值大于总页数时
+                    // alert('currentPage大于总页数')
+                    let uri
+                    if (this.condition && this.search) {
+                        uri = 'http://www.zetin.cn/api/transform/' + this.condition + '/' + this.search + '?page=' + this.total
+                    } else {
+                        uri = 'http://www.zetin.cn/api/transform?page=' + this.total
+                    }
+                    this.$ajax.get(uri).then((response) => {
+                        this.transform = response.data.data
+                        this.loading = false
+                        this.currentPage = this.total
+                    }).catch((error) => {
+                        console.log('换页出错', error);
+                    })
+                } else {//页面参数正常
+                    // alert('currentPage值正常')
+                    let uri
+                    if (this.condition && this.search) {
+                        uri = 'http://www.zetin.cn/api/transform/' + this.condition + '/' + this.search + '?page=' + this.$route.params.currentPage
+                    } else {
+                        uri = 'http://www.zetin.cn/api/transform?page=' + this.$route.params.currentPage
+                    }
+                    this.$ajax.get(uri).then((response) => {
+                        this.transform = response.data.data
+                        this.loading = false
+                        this.currentPage = this.$route.params.currentPage
+                    }).catch((error) => {
+                        console.log('换页出错', error);
+                    })
+                }
+
             }).catch((error) => {
                 this.$Message.error('交通资源列表加载出错，请稍后重试');
                 console.log('交通资源列表加载出错:', error);
@@ -169,7 +204,7 @@
                 this.$router.push('transform_item')
             },
             show(row, index) {
-                this.$router.push({'name': 'transform_item', params: {id: row.id}})
+                this.$router.push({'name': 'transform_item', params: {id: row.id, currentPage: this.currentPage}})
             },
             remove(row, index) {
                 this.$ajax.delete('http://www.zetin.cn/api/transform/' + row.id).then((response) => {

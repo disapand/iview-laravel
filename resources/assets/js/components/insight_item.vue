@@ -79,11 +79,15 @@
                         {required: true, message: '请输入内容', trigger: 'blur'}
                     ]
                 },
+                currentPage: 1
             }
         },
         created() {
             if (this.$route.params.id) {
                 this.$ajax.get('http://www.zetin.cn/api/insight/' + this.$route.params.id + '?include=Imgs').then((response) => {
+                    if (this.$route.params.currentPage != undefined) {
+                        this.currentPage = this.$route.params.currentPage
+                    }
                     console.log('获取资源', response)
                     this.insight = response.data
                     this.spinShow = false
@@ -103,7 +107,7 @@
             *   返回上一页的方法
             * */
             back() {
-                this.$router.go(-1)
+                this.$router.push({'name': 'insight', params: {currentPage: this.currentPage}})
             },
             updateInsight() {
                 this.$refs['insight'].validate((valid) => {
