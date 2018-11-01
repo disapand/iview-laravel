@@ -23,7 +23,7 @@
                                  data-bgrepeat="no-repeat">
 
                             <!-- LAYER NR. 1 -->
-                            <div class="tp-caption very_large_text sfl tp-resizeme"
+                            <div class="tp-caption large_text sfl tp-resizeme"
                                  data-x="center"
                                  data-y="70"
                                  data-speed="600"
@@ -65,7 +65,7 @@
                                  data-bgrepeat="no-repeat">
 
                             <!-- LAYER NR. 1 -->
-                            <div class="tp-caption very_large_text sfl tp-resizeme"
+                            <div class="tp-caption large_text sfl tp-resizeme"
                                  data-x="center"
                                  data-y="70"
                                  data-speed="600"
@@ -107,7 +107,7 @@
                                  data-bgrepeat="no-repeat">
 
                             <!-- LAYER NR. 1 -->
-                            <div class="tp-caption very_large_text sfl tp-resizeme"
+                            <div class="tp-caption large_text sfl tp-resizeme"
                                  data-x="center"
                                  data-y="70"
                                  data-speed="600"
