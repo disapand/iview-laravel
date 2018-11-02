@@ -89,7 +89,7 @@
             }
         },
         created() {
-            this.$ajax.get('http://www.zetin.cn/api/dashboard')
+            this.$ajax.get('https://www.zetin.cn/api/dashboard')
                 .then((res) => {
                     console.log('返回数据', res.data)
                     this.dataList = res.data
