@@ -39,7 +39,7 @@
             authorization() {
                 this.$refs['user'].validate((valid) => {
                     if (valid) {
-                        this.$ajax.post('http://www.zetin.cn/api/authorizations', this.user).then( (res) => {
+                        this.$ajax.post('https://www.zetin.cn/api/authorizations', this.user).then( (res) => {
                             localStorage.setItem('access_token', res.data.access_token)
                             localStorage.setItem('token_type', res.data.token_type)
                             localStorage.setItem('expires_in', res.data.expires_in)
@@ -70,7 +70,7 @@
     .bg {
         width: 100%;
         height: 100%;
-        background: url("http://www.zetin.cn/images/login_bg.jpg") center no-repeat;
+        background: url("https://www.zetin.cn/images/login_bg.jpg") center no-repeat;
     }
 
     .md-form {
