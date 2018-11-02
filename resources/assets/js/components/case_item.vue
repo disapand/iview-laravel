@@ -69,7 +69,7 @@
                 <form-item>
                     <upload multiple type="drag"
                             name="img"
-                            action="http://www.zetin.cn/api/caseImg"
+                            action="https://www.zetin.cn/api/caseImg"
                             :on-success="imgSuccess"
                             :on-error="imgError"
                             :data="Case"
@@ -158,7 +158,7 @@
         },
         created() {
             if (this.$route.params.id) {
-                this.$ajax.get('http://www.zetin.cn/api/case/' + this.$route.params.id + '?include=Imgs').then((response) => {
+                this.$ajax.get('https://www.zetin.cn/api/case/' + this.$route.params.id + '?include=Imgs').then((response) => {
                     if (this.$route.params.currentPage != undefined) {
                         this.currentPage = this.$route.params.currentPage
                     }
@@ -191,7 +191,7 @@
                     *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                     * */
                     onOk: () => {
-                        this.$ajax.delete('http://www.zetin.cn/api/caseImg/' + id).then((response) => {
+                        this.$ajax.delete('https://www.zetin.cn/api/caseImg/' + id).then((response) => {
                             this.$Message.info('图片删除完成')
                             if (response.data.data) {
                                 this.Case.Imgs.data = response.data.data
@@ -217,7 +217,7 @@
                         return h('div', [
                             h('upload', {
                                 props: {
-                                    action: 'http://www.zetin.cn/api/caseImgUpdate',
+                                    action: 'https://www.zetin.cn/api/caseImgUpdate',
                                     type: 'drag',
                                     name: 'img',
                                     data: this.img,
@@ -287,7 +287,7 @@
             updateCase() {
                 this.$refs['Case'].validate((valid) => {
                     if (valid) {
-                        this.$ajax.post('http://www.zetin.cn/api/case', this.Case).then((response) => {
+                        this.$ajax.post('https://www.zetin.cn/api/case', this.Case).then((response) => {
                             console.log(response.data)
                             this.$Message.info('资源编辑成功')
                         }).catch((error) => {
@@ -303,7 +303,7 @@
            *   根据当前电视的id删除电视资源，删除完成后返回上一页
            * */
             deleteCase(id) {
-                this.$ajax.delete('http://www.zetin.cn/api/case/' + id).then((response) => {
+                this.$ajax.delete('https://www.zetin.cn/api/case/' + id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.$router.go(-1)
                 }).catch((error) => {
