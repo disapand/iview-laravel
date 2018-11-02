@@ -147,7 +147,7 @@
                     case '1-3':
                         this.$router.push('/transform');
                         break;
-                    case '1-4':
+                    case '1-4':``
                         this.$router.push('/internet');
                         break;
                     case '1-5':
