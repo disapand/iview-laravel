@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://www.zetin.cn'),
+    'url' => env('APP_URL', 'https://www.zetin.cn'),
 
     /*
     |--------------------------------------------------------------------------
