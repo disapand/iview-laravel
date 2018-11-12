@@ -45,7 +45,7 @@
             },
             serverUrl: {
                 type: String,
-                default: 'http://www.zetin.cn/api/otherImg',
+                default: 'https://www.zetin.cn/api/otherImg',
             }
         },
         data() {
