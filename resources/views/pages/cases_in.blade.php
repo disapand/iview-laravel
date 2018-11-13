@@ -104,9 +104,11 @@
                         @foreach($recommends as $recommend)
                             <div class="image-box object-non-visible" data-animation-effect="fadeInLeft"
                                  data-effect-delay="{{ $loop->remaining * 100 }}">
-                                <div class="overlay-container" style="height: 175px;">
-                                    @if($recommend->Imgs->count() > 0)
-                                        <img src="{{ $recommend->Imgs[0]->url }}" alt="{{ $recommend->title }}" style="width: 100%">
+                                @if($recommend->Imgs->count() > 0)
+                                <div class="overlay-container" style="height: 175px;background-image: url('{{ $recommend->Imgs[0]->url }}');
+                                        background-position: top center;background-size: cover">
+                                    @else
+                                        <div class="overlay-container" style="height: 175px;">
                                     @endif
                                     <a href="{{ route('cases.show', [$recommend->id]) }}" class="overlay small">
                                         <i class="fa fa-link"></i>

@@ -2,7 +2,7 @@
 
 @section('title')
     Zetin 案例
-@stop
+    @stop
 @section('content')
     <!-- main-container start -->
     <!-- ================ -->
@@ -42,39 +42,37 @@
                         @foreach($cases as $case)
                             @if($case->category === '3C电子产品')
                                 <div class="col-sm-6 col-md-4 isotope-item 3c }}">
+                            @else
+                                <div class="col-sm-6 col-md-4 isotope-item {{ \App\Handlers\Tools::pinyin1($case->category) }}">
+                            @endif
+                                <div class="image-box">
+                                    @if($case->Imgs->count() > 0)
+                                    <div class="overlay-container" style="height: 245px;background-image: url('{{ $case->Imgs[0]->url }}');
+                                            background-position: top center;background-size: cover;">
                                     @else
-                                        <div class="col-sm-6 col-md-4 isotope-item {{ \App\Handlers\Tools::pinyin1($case->category) }}">
-                                            @endif
-                                            <div class="image-box">
-                                                @if($case->Imgs->count() > 0)
-                                                    <div class="overlay-container"
-                                                         style="height: 245px;background-image: url(' {{ $case->Imgs[0]->url }} ');background-position: center;background-size: cover">
-                                                        @else
-                                                            <div class="overlay-container" style="height: 245px;">
-                                                                @endif
-                                                                <a href="{{ route('cases.show', [$case->id]) }}"
-                                                                   class="overlay small">
-                                                                    <i class="fa fa-link"></i>
-                                                                    <span>{{ $case->category }}</span>
-                                                                </a>
-                                                            </div>
-                                                            <a href="{{ route('cases.show', [$case->id]) }}"
-                                                               class="btn btn-light-gray btn-lg btn-block">{{ $case->title }}</a>
-                                                    </div>
-                                            </div>
-                                            @endforeach
-                                        </div>
-                                        <!-- portfolio items end -->
-
-                                        <!-- pagination start -->
-                                    {{--{{ $cases->links() }}--}}
-                                    <!-- pagination end -->
-
+                                    <div class="overlay-container" style="height: 245px;">
+                                    @endif
+                                        <a href="{{ route('cases.show', [$case->id]) }}" class="overlay small">
+                                            <i class="fa fa-link"></i>
+                                            <span>{{ $case->category }}</span>
+                                        </a>
+                                    </div>
+                                    <a href="{{ route('cases.show', [$case->id]) }}" class="btn btn-light-gray btn-lg btn-block">{{ $case->title }}</a>
                                 </div>
-                                <!-- main end -->
-
+                            </div>
+                        @endforeach
                     </div>
+                    <!-- portfolio items end -->
+
+                    <!-- pagination start -->
+                    {{--{{ $cases->links() }}--}}
+                    <!-- pagination end -->
+
                 </div>
+                <!-- main end -->
+
+            </div>
+        </div>
     </section>
     <!-- main-container end -->
-@stop
+    @stop
