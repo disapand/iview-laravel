@@ -12,3 +12,5 @@ yarn-error.log
 .env
 public/js/app.js
 public/uploads
+public/css/app.css
+public/js/app.js
