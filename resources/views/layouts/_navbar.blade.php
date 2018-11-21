@@ -77,9 +77,9 @@
                                             </li>
                                             <!-- mega-menu start -->
                                             <li class="dropdown">
-                                                <a href="" class="dropdown-toggle" data-toggle="dropdown"
-                                                   style="cursor: default;">案例</a>
-                                                <ul class="dropdown-menu">
+                                                <a href="{{ route('cases') }}" class="dropdown-toggle" data-toggle="dropdown"
+                                                   >案例</a>
+                                               <!-- <ul class="dropdown-menu">
                                                     <li><a href="{{ route('cases') }}"><i class="icon-right-open"></i>全部</a>
                                                     </li>
                                                     <li><a href="#"><i class="icon-right-open"></i>游戏</a></li>
@@ -90,7 +90,7 @@
                                                     <li><a href="#"><i class="icon-right-open"></i>3C电子产品</a></li>
                                                     <li><a href="#"><i class="icon-right-open"></i>快销品</a></li>
                                                     <li><a href="#"><i class="icon-right-open"></i>其他</a></li>
-                                                </ul>
+                                                </ul> -->
                                             </li>
                                             <!-- mega-menu end -->
                                             <li class="dropdown">
