@@ -80,7 +80,7 @@
                     {
                         'title': '类别',
                         'key': 'category',
-                        width: 80
+                        width: 100
                     },
                     {
                         'title': '所属电视台',
