@@ -397,7 +397,7 @@
                     if (this.$route.params.currentPage != undefined) {
                         this.currentPage = this.$route.params.currentPage
                     }
-                    alert('curentpage:' +  this.currentPage)
+                    // alert('curentpage:' +  this.currentPage)
                     console.log('获取资源', response)
                     this.internet = response.data
                     this.spinShow = false
