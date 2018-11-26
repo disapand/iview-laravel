@@ -161,7 +161,7 @@
                     this.internet = response.data.data
                     this.loading = false
                 } else if (this.total < this.$route.params.currentPage) {//当页面参数存在， 切值大于总页数时
-                    // alert('currentPage大于总页数')
+                    alert('currentPage大于总页数')
                     let uri
                     if (this.condition && this.search) {
                         uri = 'https://www.zetin.cn/api/internet/' + this.condition + '/' + this.search + '?page=' + this.total
@@ -176,7 +176,7 @@
                         console.log('换页出错', error);
                     })
                 } else {//页面参数正常
-                    // alert('currentPage值正常')
+                    alert('currentPage值正常')
                     let uri
                     if (this.condition && this.search) {
                         uri = 'https://www.zetin.cn/api/internet/' + this.condition + '/' + this.search + '?page=' + this.$route.params.currentPage
