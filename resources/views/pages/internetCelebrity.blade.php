@@ -39,7 +39,8 @@
                             <div class="form-group">
                                 <label>国家或地区</label>
                                 <select class="form-control" name="country">
-                                    <option selected="selected">美国</option>
+                                    <option selected="selected">全部</option>
+                                    <option>美国</option>
                                     <option>加拿大</option>
                                     <option>英国</option>
                                     <option>法国</option>
@@ -78,7 +79,8 @@
                             <div class="form-group">
                                 <label>类别</label>
                                 <select class="form-control" name="category">
-                                    <option selected="selected">财经</option>
+                                    <option selected="selected">全部</option>
+                                    <option>财经</option>
                                     <option>体育</option>
                                     <option>时尚</option>
                                     <option>科技</option>
@@ -102,7 +104,8 @@
                             <div class="form-group">
                                 <label>平台</label>
                                 <select class="form-control" name="platform">
-                                    <option selected="selected">YouTube</option>
+                                    <option selected="selected">全部</option>
+                                    <option>YouTube</option>
                                     <option>Facebook</option>
                                     <option>Instagram</option>
                                     <option>Twitter</option>
@@ -128,7 +131,7 @@
                                         @if($internetCelebrity->Imgs->count() > 0)
                                             <img src="{{ $internetCelebrity->Imgs[0]->url }}" alt="{{ $internetCelebrity->name }}" style="min-width: 100%">
                                         @else
-                                            <img src="{{ asset('images/5.jpg') }}" alt="{{ $internetCelebrity->name }}">
+                                            <img src="{{ asset('images/default.jpg') }}" alt="{{ $internetCelebrity->name }}">
                                         @endif
                                         <a href="{{ route('internetCelebrity.show', [$internetCelebrity->id]) }}" class="overlay small">
                                             <i class="fa fa-plus"></i>

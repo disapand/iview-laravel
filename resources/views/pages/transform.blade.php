@@ -39,7 +39,8 @@
                             <div class="form-group">
                                 <label>国家或地区</label>
                                 <select class="form-control" name="country">
-                                    <option selected="selected">美国</option>
+                                    <option selected="selected">全部</option>
+                                    <option>美国</option>
                                     <option>加拿大</option>
                                     <option>英国</option>
                                     <option>法国</option>
@@ -78,7 +79,8 @@
                             <div class="form-group">
                                 <label>类别</label>
                                 <select class="form-control" name="category">
-                                    <option selected="selected">巴士</option>
+                                    <option selected="selected">全部</option>
+                                    <option>巴士</option>
                                     <option>地铁</option>
                                     <option>轻轨</option>
                                     <option>船舶</option>
@@ -90,7 +92,8 @@
                             <div class="form-group">
                                 <label>形式</label>
                                 <select class="form-control" name="form">
-                                    <option selected="selected">静态</option>
+                                    <option selected="selected">全部</option>
+                                    <option>静态</option>
                                     <option>灯箱</option>
                                     <option>数码</option>
                                 </select>
@@ -110,7 +113,7 @@
                                         @if($transform->transformResourceImgs->count() > 0)
                                             <img src="{{ $transform->transformResourceImgs[0]->url }}" alt="{{ $transform->name }}" style="min-width: 100%">
                                         @else
-                                            <img src="{{ asset('images/4.jpg') }}" alt="{{ $transform->name }}">
+                                            <img src="{{ asset('images/default.jpg') }}" alt="{{ $transform->name }}">
                                         @endif
                                         <a href="{{ route('transform.show', [$transform->id]) }}" class="overlay small">
                                             <i class="fa fa-plus"></i>

@@ -33,7 +33,7 @@
                 <div class="main col-md-12">
 
                     <div class="sorting-filters">
-                        <form class="form-inline" action="" method="post" id="search">
+                        <form class="form-inline" action="{{ route('television.search') }}" method="post" id="search">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label>国家或地区</label>
@@ -121,7 +121,7 @@
                                         @if($television->televisionResourcesImgs->count() > 0)
                                             <img src="{{ $television->televisionResourcesImgs[0]->url }}" alt="{{ $television->channel }}" style="min-width: 100%">
                                         @else
-                                            <img src="{{ asset('images/1.jpg') }}" alt="{{ $television->channel }}">
+                                            <img src="{{ asset('images/default.jpg') }}" alt="{{ $television->channel }}">
                                         @endif
                                         <a href="{{ route('television.show', [$television->id]) }}" class="overlay small">
                                             <i class="fa fa-plus"></i>

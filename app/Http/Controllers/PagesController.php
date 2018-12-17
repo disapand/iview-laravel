@@ -106,8 +106,17 @@ class PagesController extends Controller
     public function televisionSearch(Request $request)
     {
         $data = $request->toArray();
-        $televisions = televisionResources::where('country', $data['country'])->where('category', $data['category'])
-            ->where('form', $data['form'])->orderBy('id', 'desc')->paginate(9);
+        if ($data['country'] == '全部') {
+            $data['country'] = '%';
+        }
+        if ($data['category'] == '全部') {
+            $data['category'] = '%';
+        }
+        if ($data['form'] == '全部') {
+            $data['form'] = '%';
+        }
+        $televisions = televisionResources::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
+            ->where('form', 'like', $data['form'])->orderBy('id', 'desc')->paginate(9);
         return view('pages.television', compact('televisions'));
     }
 
@@ -126,8 +135,17 @@ class PagesController extends Controller
     public function outdoorSearch(Request $request)
     {
         $data = $request->toArray();
-        $outdoors = outdoorResource::where('country', $data['country'])->where('category', $data['category'])
-            ->where('form', $data['form'])->orderBy('id', 'desc')->paginate(9);
+        if ($data['country'] == '全部') {
+            $data['country'] = '%';
+        }
+        if ($data['category'] == '全部') {
+            $data['category'] = '%';
+        }
+        if ($data['form'] == '全部') {
+            $data['form'] = '%';
+        }
+        $outdoors = outdoorResource::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
+            ->where('form', 'like', $data['form'])->orderBy('id', 'desc')->paginate(9);
         return view('pages.outdoor', compact('outdoors'));
     }
 
@@ -146,8 +164,17 @@ class PagesController extends Controller
     public function transformSearch(Request $request)
     {
         $data = $request->toArray();
-        $transforms = transformResource::where('country', $data['country'])->where('category', $data['category'])
-            ->where('form', $data['form'])->orderBy('id', 'desc')->paginate(9);
+        if ($data['country'] == '全部') {
+            $data['country'] = '%';
+        }
+        if ($data['category'] == '全部') {
+            $data['category'] = '%';
+        }
+        if ($data['form'] == '全部') {
+            $data['form'] = '%';
+        }
+        $transforms = transformResource::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
+            ->where('form', 'like', $data['form'])->orderBy('id', 'desc')->paginate(9);
         return view('pages.transform', compact('transforms'));
     }
 
@@ -166,8 +193,17 @@ class PagesController extends Controller
     public function onlineSearch(Request $request)
     {
         $data = $request->toArray();
-        $onlines = onlineResource::where('country', $data['country'])->where('category', $data['category'])
-            ->where('form', $data['form'])->orderBy('id', 'desc')->paginate(9);
+        if ($data['country'] == '全部') {
+            $data['country'] = '%';
+        }
+        if ($data['category'] == '全部') {
+            $data['category'] = '%';
+        }
+        if ($data['form'] == '全部') {
+            $data['form'] = '%';
+        }
+        $onlines = onlineResource::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
+            ->where('form', 'like', $data['form'])->orderBy('id', 'desc')->paginate(9);
         return view('pages.online', compact('onlines'));
 
     }
@@ -193,10 +229,22 @@ class PagesController extends Controller
     public function internetCelebritySearch(Request $request)
     {
         $category = $request->category;
-        $internetCelebrities = internetcelebrityResource::where('country', $request->country)->where('platform', $request->platform)
-            ->wherehas('categories', function ($q) use ($category) {
-                $q->where('name', $category);
-            })->orderBy('id', 'desc')->paginate(9);
+        if ($request->country == '全部') {
+            $request->country = '%';
+        }
+        if ($request->platform == '全部') {
+            $request->platform = '%';
+        }
+        if ($category == '全部') {
+            $internetCelebrities = internetcelebrityResource::where('country', 'like', $request->country)->where('platform', 'like', $request->platform)
+                ->orderBy('id', 'desc')->paginate(9);
+        } else {
+            $internetCelebrities = internetcelebrityResource::where('country', 'like', $request->country)->where('platform', 'like', $request->platform)
+                ->wherehas('categories', function ($q) use ($category) {
+                    $q->where('name', 'like', $category);
+                })->orderBy('id', 'desc')->paginate(9);
+        }
+
         return view('pages.internetCelebrity', compact('internetCelebrities'));
     }
 

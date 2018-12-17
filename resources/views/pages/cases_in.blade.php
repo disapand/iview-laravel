@@ -108,7 +108,8 @@
                                 <div class="overlay-container" style="height: 175px;background-image: url('{{ $recommend->Imgs[0]->url }}');
                                         background-position: top center;background-size: cover">
                                     @else
-                                        <div class="overlay-container" style="height: 175px;">
+                                        <div class="overlay-container" style="height: 175px;background-image: url('{{ asset('images/default.jpg')  }}');
+                                                background-position: center center;background-size: cover">
                                     @endif
                                     <a href="{{ route('cases.show', [$recommend->id]) }}" class="overlay small">
                                         <i class="fa fa-link"></i>

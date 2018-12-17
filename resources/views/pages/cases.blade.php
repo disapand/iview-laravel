@@ -50,7 +50,8 @@
                                     <div class="overlay-container" style="height: 245px;background-image: url('{{ $case->Imgs[0]->url }}');
                                             background-position: top center;background-size: cover;">
                                     @else
-                                    <div class="overlay-container" style="height: 245px;">
+                                    <div class="overlay-container" style="height: 245px;background-image: url('{{ asset("images/default.jpg") }}');
+                                            background-position: center center;background-size: cover;">
                                     @endif
                                         <a href="{{ route('cases.show', [$case->id]) }}" class="overlay small">
                                             <i class="fa fa-link"></i>

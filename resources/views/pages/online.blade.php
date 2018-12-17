@@ -39,7 +39,8 @@
                             <div class="form-group">
                                 <label>国家或地区</label>
                                 <select class="form-control" name="country">
-                                    <option selected="selected">美国</option>
+                                    <option selected="selected">全部</option>
+                                    <option>美国</option>
                                     <option>加拿大</option>
                                     <option>英国</option>
                                     <option>法国</option>
@@ -78,7 +79,8 @@
                             <div class="form-group">
                                 <label>类别</label>
                                 <select class="form-control" name="category">
-                                    <option selected="selected">网站</option>
+                                    <option selected="selected">全部</option>
+                                    <option>网站</option>
                                     <option>APP</option>
                                     <option>社交媒体</option>
                                 </select>
@@ -86,7 +88,8 @@
                             <div class="form-group">
                                 <label>形式</label>
                                 <select class="form-control" name="form">
-                                    <option selected="selected">横幅广告</option>
+                                    <option selected="selected">全部</option>
+                                    <option>横幅广告</option>
                                     <option>开屏广告</option>
                                     <option>弹出广告</option>
                                     <option>信息流广告</option>
@@ -110,7 +113,7 @@
                                         @if($online->onlineResourceImgs->count() > 0)
                                             <img src="{{ $online->onlineResourceImgs[0]->url }}" alt="{{ $online->name }}" style="min-width: 100%">
                                         @else
-                                            <img src="{{ asset('images/6.jpg') }}" alt="{{ $online->name }}">
+                                            <img src="{{ asset('images/default.jpg') }}" alt="{{ $online->name }}">
                                         @endif
                                         <a href="{{ route('online.show', [$online->id]) }}" class="overlay small">
                                             <i class="fa fa-plus"></i>

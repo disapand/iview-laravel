@@ -38,7 +38,8 @@
                             <div class="form-group">
                                 <label>国家或地区</label>
                                 <select class="form-control" name="country">
-                                    <option selected="selected">美国</option>
+                                    <option selected="selected">全部</option>
+                                    <option>美国</option>
                                     <option>加拿大</option>
                                     <option>英国</option>
                                     <option>法国</option>
@@ -77,7 +78,8 @@
                             <div class="form-group">
                                 <label>类别</label>
                                 <select class="form-control" name="category">
-                                    <option selected="selected">机场</option>
+                                    <option selected="selected">全部</option>
+                                    <option>机场</option>
                                     <option>楼宇</option>
                                     <option>街道</option>
                                     <option>地铁站</option>
@@ -90,7 +92,8 @@
                             <div class="form-group">
                                 <label>形式</label>
                                 <select class="form-control" name="form">
-                                    <option selected="selected">静态</option>
+                                    <option selected="selected">全部</option>
+                                    <option>静态</option>
                                     <option>灯箱</option>
                                     <option>数码</option>
                                 </select>
@@ -110,7 +113,7 @@
                                         @if($outdoor->outdoorResourceImgs->count() > 0)
                                             <img src="{{ $outdoor->outdoorResourceImgs[0]->url }}" alt="{{ $outdoor->name }}" style="min-width: 100%">
                                         @else
-                                            <img src="{{ asset('images/3.jpg') }}" alt="{{ $outdoor->name }}">
+                                            <img src="{{ asset('images/default.jpg.jpg') }}" alt="{{ $outdoor->name }}">
                                         @endif
                                         <a href="{{ route('outdoor.show', [$outdoor->id]) }}" class="overlay small">
                                             <i class="fa fa-plus"></i>
