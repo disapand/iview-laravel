@@ -73,7 +73,7 @@
                                     <div class="col-md-3 col-sm-6">
                                         <div class="box-style-1 gray-bg team-member" style="text-align: left;">
                                             <div class="overlay-container">
-                                                <img src="{{ $dynamic->Imgs[0]->url }}" alt="{{ $dynamic->title }}">
+                                                <img src="{{ $dynamic->Imgs[0]->url }}" alt="{{ $dynamic->title }}" style="width:100%">
                                             </div>
                                             <a href="{{ route('about.show', [$dynamic->id]) }}"><h3 style="font-size: 16px;">{{ $dynamic->title }}</h3></a>
                                             {{ $dynamic->updated_at->format('Y.m.d') }}
