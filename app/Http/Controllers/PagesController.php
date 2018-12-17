@@ -77,8 +77,17 @@ class PagesController extends Controller
     public function newspaperSearch(Request $request)
     {
         $data = $request->toArray();
-        $newspapers = newspaperResource::where('country', $data['country'])->where('category', $data['category'])
-            ->where('form', $data['form'])->orderBy('id', 'desc')->paginate(9);
+        if ($data['country'] == '全部') {
+            $data['country'] = '%';
+        }
+        if ($data['category'] == '全部') {
+            $data['category'] = '%';
+        }
+        if ($data['form'] == '全部') {
+            $data['form'] = '%';
+        }
+        $newspapers = newspaperResource::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
+            ->where('form', 'like', $data['form'])->orderBy('id', 'desc')->paginate(9);
         return view('pages.newspaper', compact('newspapers'));
     }
 

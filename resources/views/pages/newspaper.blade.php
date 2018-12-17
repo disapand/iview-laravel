@@ -39,7 +39,8 @@
                             <div class="form-group">
                                 <label>国家或地区</label>
                                 <select class="form-control" name="country">
-                                    <option selected="selected">美国</option>
+                                    <option selected="selected">全部</option>
+                                    <option >美国</option>
                                     <option>加拿大</option>
                                     <option>英国</option>
                                     <option>法国</option>
@@ -78,7 +79,8 @@
                             <div class="form-group">
                                 <label>类别</label>
                                 <select class="form-control" name="category">
-                                    <option selected="selected">综合新闻</option>
+                                    <option selected="selected">全部</option>
+                                    <option >综合新闻</option>
                                     <option>财经</option>
                                     <option>体育</option>
                                     <option>时尚</option>
@@ -103,7 +105,9 @@
                             <div class="form-group">
                                 <label>形式</label>
                                 <select class="form-control" name="form">
-                                    <option selected="selected">报纸</option>
+
+                                    <option selected="selected">全部</option>
+                                    <option>报纸</option>
                                     <option>杂志</option>
                                 </select>
                             </div>
