@@ -127,7 +127,7 @@
                                             <img src="{{ $newspaper->newspaperResourceImgs[0]->url }}"
                                                  alt="{{ $newspaper->name }}" style="min-width: 100%">
                                         @else
-                                            <img src="{{ asset('images/default.jpg') }}" alt="{{ $newspaper->name }}">
+                                            <img src="{{ asset('images/default1000.jpg') }}" alt="{{ $newspaper->name }}">
                                         @endif
                                         <a href="{{ route('newspaper.show', [$newspaper->id]) }}" class="overlay small">
                                             <i class="fa fa-plus"></i>

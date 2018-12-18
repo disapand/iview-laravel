@@ -113,7 +113,7 @@
                                         @if($transform->transformResourceImgs->count() > 0)
                                             <img src="{{ $transform->transformResourceImgs[0]->url }}" alt="{{ $transform->name }}" style="min-width: 100%">
                                         @else
-                                            <img src="{{ asset('images/default.jpg') }}" alt="{{ $transform->name }}">
+                                            <img src="{{ asset('images/default500.jpg') }}" alt="{{ $transform->name }}">
                                         @endif
                                         <a href="{{ route('transform.show', [$transform->id]) }}" class="overlay small">
                                             <i class="fa fa-plus"></i>

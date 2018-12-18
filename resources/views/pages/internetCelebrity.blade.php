@@ -131,7 +131,7 @@
                                         @if($internetCelebrity->Imgs->count() > 0)
                                             <img src="{{ $internetCelebrity->Imgs[0]->url }}" alt="{{ $internetCelebrity->name }}" style="min-width: 100%">
                                         @else
-                                            <img src="{{ asset('images/default.jpg') }}" alt="{{ $internetCelebrity->name }}">
+                                            <img src="{{ asset('images/default750.jpg') }}" alt="{{ $internetCelebrity->name }}">
                                         @endif
                                         <a href="{{ route('internetCelebrity.show', [$internetCelebrity->id]) }}" class="overlay small">
                                             <i class="fa fa-plus"></i>

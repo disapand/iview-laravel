@@ -121,7 +121,7 @@
                                         @if($television->televisionResourcesImgs->count() > 0)
                                             <img src="{{ $television->televisionResourcesImgs[0]->url }}" alt="{{ $television->channel }}" style="min-width: 100%">
                                         @else
-                                            <img src="{{ asset('images/default.jpg') }}" alt="{{ $television->channel }}">
+                                            <img src="{{ asset('images/default500.jpg') }}" alt="{{ $television->channel }}">
                                         @endif
                                         <a href="{{ route('television.show', [$television->id]) }}" class="overlay small">
                                             <i class="fa fa-plus"></i>

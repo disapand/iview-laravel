@@ -113,7 +113,7 @@
                                         @if($online->onlineResourceImgs->count() > 0)
                                             <img src="{{ $online->onlineResourceImgs[0]->url }}" alt="{{ $online->name }}" style="min-width: 100%">
                                         @else
-                                            <img src="{{ asset('images/default.jpg') }}" alt="{{ $online->name }}">
+                                            <img src="{{ asset('images/default750.jpg') }}" alt="{{ $online->name }}">
                                         @endif
                                         <a href="{{ route('online.show', [$online->id]) }}" class="overlay small">
                                             <i class="fa fa-plus"></i>

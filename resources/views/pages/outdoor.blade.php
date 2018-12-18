@@ -113,7 +113,7 @@
                                         @if($outdoor->outdoorResourceImgs->count() > 0)
                                             <img src="{{ $outdoor->outdoorResourceImgs[0]->url }}" alt="{{ $outdoor->name }}" style="min-width: 100%">
                                         @else
-                                            <img src="{{ asset('images/default.jpg.jpg') }}" alt="{{ $outdoor->name }}">
+                                            <img src="{{ asset('images/default563.jpg') }}" alt="{{ $outdoor->name }}">
                                         @endif
                                         <a href="{{ route('outdoor.show', [$outdoor->id]) }}" class="overlay small">
                                             <i class="fa fa-plus"></i>
