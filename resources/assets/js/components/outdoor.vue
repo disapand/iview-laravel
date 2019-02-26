@@ -18,6 +18,7 @@
             <Button type="ghost" icon="android-list" shape="circle" v-if="all" @click="showAll">显示全部</Button>
             <button-group style="float: right;">
                 <i-button type="success" icon="android-add-circle" @click="addOutdoorItem">添加资源</i-button>
+                <i-button type="info" icon="eye" @click="previewListPage">预览列表页</i-button>
                 <i-button type="warning" icon="ios-upload" @click="isImport = true">批量导入资源</i-button>
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
                     <Upload
@@ -33,9 +34,27 @@
                 </Modal>
             </button-group>
         </div>
+        <div style="margin: 20px 0">
+            <Button @click="handleSelectAll(true)">全选</Button>
+            <Button @click="handleSelectAll(false)" v-if="actionButton">取消</Button>
+            <Button @click="cancelSelection()" type="warning" v-if="actionButton">取消发布选中</Button>
+            <Button @click="publishSelection()" type="success" v-if="actionButton">发布选中</Button>
+            <poptip confirm v-if="actionButton" title="确认要删除选中项目吗？删除后不可恢复" @on-ok="deleteSelection" ok-text="删除">
+                <Button type="error" >删除选中</Button>
+            </poptip>
+        </div>
         <div>
-            <i-table border :columns="col" :data="outdoor" stripe :highlight-row=false
+            <i-table ref="outdoor" border :columns="col" :data="outdoor" stripe :highlight-row=false @on-selection-change="selectedChange"
                      :loading="loading"></i-table>
+        </div>
+        <div style="margin: 20px 0">
+            <Button @click="handleSelectAll(true)">全选</Button>
+            <Button @click="handleSelectAll(false)" v-if="actionButton">取消</Button>
+            <Button @click="cancelSelection()" type="warning" v-if="actionButton">取消发布选中</Button>
+            <Button @click="publishSelection()" type="success" v-if="actionButton">发布选中</Button>
+            <poptip confirm v-if="actionButton" title="确认要删除选中项目吗？删除后不可恢复" @on-ok="deleteSelection" ok-text="删除">
+                <Button type="error" >删除选中</Button>
+            </poptip>
         </div>
         <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize"
               :class-name="pageClass" show-elevator>
@@ -58,10 +77,14 @@
                 isImport: false,
                 col: [
                     {
-                        'title': '编号',
-                        'key': 'id',
+                        type: 'selection',
+                        width: 60,
+                        align: 'center'
+                    },
+                    {
+                        type: 'index',
+                        title: '序号',
                         'width': 80,
-                        'sortable': true,
                         'align': 'center'
                     },
                     {
@@ -121,6 +144,36 @@
                                         }
                                     }
                                 }, '查看详情'),
+                                h('i-button', {
+                                    props: {
+                                        type: 'info',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '8px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.previewItem(params.row.id)
+                                        }
+                                    }
+                                }, '预览页面'),
+                                h('i-button', {
+                                    props: {
+                                        type: params.row.isuse ? 'warning' : 'success',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '8px'
+                                    },
+                                    disabled: true,
+                                    long: true,
+                                    on: {
+                                        click: () => {
+                                            this.publishOrCancel( params )
+                                        }
+                                    }
+                                }, params.row.isuse ? '取消发布' : '发布页面'),
                                 h('poptip', {
                                     props: {
                                         confirm: true,
@@ -142,9 +195,12 @@
                                 ])
                             ])
                         },
+                        minWidth: 250
                     },
                 ],
                 outdoor: [],
+                selectedList: [],
+                actionButton: false
             }
         },
         created() {
@@ -258,6 +314,104 @@
                 this.isImport = false
                 this.$Message.info('导入完成')
                 this.total = response.meta.pagination.total
+            },
+            selectedChange ( selection ) {
+                if ( selection.length != 0 ) {
+                    this.actionButton = true
+                } else {
+                    this.actionButton = false
+                }
+
+                let tmp = []
+                for ( let i = 0; i < selection.length; i ++) {
+                    tmp.push( selection[i].id )
+                }
+                this.selectedList = tmp
+            },
+            deleteSelection() {
+                this.$Loading.start()
+                this.$ajax.delete(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
+                    '/api/deleteSelectionOutdoor/' + this.selectedList.join('-') )
+                    .then( (response) => {
+                        this.outdoor = response.data.data
+                        this.total = response.data.meta.pagination.total
+                        this.$Message.success('批量删除完成')
+                        this.$Loading.finish()
+                    })
+                    .catch( (error) => {
+                        console.log('批量删除户外资源出错：', error)
+                        this.$Message.error('批量删除异常')
+                        this.$Loading.error()
+                    })
+            },
+            handleSelectAll ( status ) {
+                this.$refs.outdoor.selectAll(status)
+            },
+            previewItem ( id ) {
+                window.open(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
+                    '/outdoor/' + id, '_blank')
+            },
+            publishOrCancel( params ) {
+                this.$Loading.start()
+                this.$ajax.get(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
+                    '/api/publishOutdoor/' + params.row.id )
+                    .then( (response) => {
+                        params.row.isuse = ! params.row.isuse
+                        this.$Message.success('发布/取消发布资源成功')
+                        this.$Loading.finish()
+                    })
+                    .catch( (error) => {
+                        console.log('发布/取消发布资源出错：', error)
+                        this.$Message.error('发布/取消发布资源异常')
+                        this.$Loading.error()
+                    })
+            },
+            cancelSelection () {
+                this.$Loading.start()
+                this.$ajax.get(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
+                    '/api/cancelSelectionOutdoor/' + this.selectedList.join('-') )
+                    .then( (response) => {
+                        for( let i = 0; i < this.selectedList.length; i ++) {
+                            for ( let j = 0; j < this.outdoor.length; j ++) {
+                                if (this.outdoor[j].id == this.selectedList[i]) {
+                                    this.outdoor[j].isuse = false
+                                    break
+                                }
+                            }
+                        }
+                        this.$Message.success('批量取消发布成功')
+                        this.$Loading.finish()
+                    })
+                    .catch( (error) => {
+                        console.log('批量取消发布户外资源出错：', error)
+                        this.$Message.error('批量取消发布异常')
+                        this.$Loading.error()
+                    })
+            },
+            publishSelection () {
+                this.$Loading.start()
+                this.$ajax.get(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
+                    '/api/publishedSelectionOutdoor/' + this.selectedList.join('-') )
+                    .then( (response) => {
+                        for( let i = 0; i < this.selectedList.length; i ++) {
+                            for ( let j = 0; j < this.outdoor.length; j ++) {
+                                if (this.outdoor[j].id == this.selectedList[i]) {
+                                    this.outdoor[j].isuse = true
+                                    break
+                                }
+                            }
+                        }
+                        this.$Message.success('批量发布成功')
+                        this.$Loading.finish()
+                    })
+                    .catch( (error) => {
+                        console.log('批量发布户外资源出错：', error)
+                        this.$Message.error('批量发布异常')
+                        this.$Loading.error()
+                    })
+            },
+            previewListPage () {
+                window.open(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) + '/outdoorPreview')
             }
         }
     }

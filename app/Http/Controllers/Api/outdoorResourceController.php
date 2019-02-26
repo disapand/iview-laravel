@@ -42,7 +42,18 @@ class outdoorResourceController extends Controller
     public function delete(outdoorResource $outdoor) {
         $outdoor->delete();
         outdoorResourceImgs::whereOutdoorResourcesId($outdoor->id)->delete();
-        return $this->response->paginator(outdoorResource::paginate(15), new outdoorResourceTransformer());
+        return $this->response->paginator(outdoorResource::orderBy('id', 'desc')->paginate(15), new outdoorResourceTransformer());
+    }
+
+    public function deleteSelection( $list )
+    {
+        $deleteList = explode('-', $list);
+        foreach ( $deleteList as $id ) {
+            $outdoor = outdoorResource::find($id);
+            $outdoor->delete();
+            outdoorResourceImgs::whereOutdoorResourcesId($id)->delete();
+        }
+        return $this->response->paginator(outdoorResource::orderBy('id', 'desc')->paginate(15), new outdoorResourceTransformer());
     }
 
     public function query($condition, $query) {
@@ -63,6 +74,33 @@ class outdoorResourceController extends Controller
         } catch (\Exception $e) {
             return $e;
         }
+    }
+
+    public function publish(outdoorResource $outdoor)
+    {
+        $published = $outdoor->isuse ? true : false;
+        $outdoor->update(['isuse' => ! $published]);
+        return 'success';
+    }
+
+    public function cancelSelection($list)
+    {
+        $cancelList = explode('-', $list);
+        foreach ($cancelList as $id) {
+            $outdoor = outdoorResource::find($id);
+            $outdoor->update(['isuse' => false]);
+        }
+        return 'success';
+    }
+
+    public function publishedSelection($list)
+    {
+        $publishedList = explode('-', $list);
+        foreach ($publishedList as $id) {
+            $outdoor = outdoorResource::find($id);
+            $outdoor->update(['isuse' => true]);
+        }
+        return 'success';
     }
 
 }

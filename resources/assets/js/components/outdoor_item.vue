@@ -81,10 +81,10 @@
                     <i-input type="textarea" v-model="outdoor.detail" placeholder="" :autosize="{minRows: 5}"/>
                 </form-item>
 
-                <form-item label="是否有效">
+                <form-item label="是否发布">
                     <i-switch v-model="outdoor.isuse" size="large">
-                        <span slot="open">有效</span>
-                        <span slot="close">无效</span>
+                        <span slot="open">是</span>
+                        <span slot="close">否</span>
                     </i-switch>
                 </form-item>
 
@@ -236,7 +236,7 @@
                     outdoorResourceImgs: {
                         data: []
                     },
-                    isuse: true,
+                    isuse: false,
                 },
                 outdoorRules: {
                     city: [

@@ -36,6 +36,7 @@ Route::group(['middleware' => 'uv'], function () {
     Route::post('/television', 'PagesController@televisionSearch')->name('television.search');
 
     Route::get('/outdoor', 'PagesController@outdoor')->name('outdoor');
+    Route::get('/outdoorPreview', 'PagesController@outdoorPreview')->name('outdoor.preview');
     Route::get('/outdoor/{outdoor}', 'PagesController@outdoorShow')->name('outdoor.show');
     Route::post('/outdoor', 'PagesController@outdoorSearch')->name('outdoor.search');
 

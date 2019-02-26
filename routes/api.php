@@ -42,9 +42,13 @@ $api->version('v1', [
 
     $api->get('outdoor', 'outdoorResourceController@index')->name('api.outdoor.index');
     $api->get('outdoor/{outdoor}', 'outdoorResourceController@show')->name('api.outdoor.show');
+    $api->get('publishOutdoor/{outdoor}', 'outdoorResourceController@publish')->name('api.outdoor.publish');
+    $api->get('cancelSelectionOutdoor/{outdoor}', 'outdoorResourceController@cancelSelection')->name('api.outdoor.cancelSelection');
+    $api->get('publishedSelectionOutdoor/{outdoor}', 'outdoorResourceController@publishedSelection')->name('api.outdoor.publishedSelection');
     $api->get('outdoor/{condition?}/{query?}', 'outdoorResourceController@query')->name('api.outdoor.query');
     $api->post('outdoor', 'outdoorResourceController@update')->name('api.outdoor.update');
     $api->delete('outdoor/{outdoor}', 'outdoorResourceController@delete')->name('api.outdoor.delete');
+    $api->delete('deleteSelectionOutdoor/{outdoor}', 'outdoorResourceController@deleteSelection')->name('api.outdoor.deleteSelection');
     $api->post('outdoorImg', 'outdoorResourceImgController@store')->name('api.outdoorImg.store');
     $api->delete('outdoorImg/{img}', 'outdoorResourceImgController@delete')->name('api.outdoorImg.delete');
     $api->post('outdoorImgUpdate', 'outdoorResourceImgController@update')->name('api.outdoorImg.delete');

@@ -128,6 +128,12 @@ class PagesController extends Controller
 
     public function outdoor()
     {
+        $outdoors = outdoorResource::with('outdoorResourceImgs')->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
+        return view('pages.outdoor', compact('outdoors'));
+    }
+
+    public function outdoorPreview()
+    {
         $outdoors = outdoorResource::with('outdoorResourceImgs')->orderBy('id', 'desc')->paginate(9);
         return view('pages.outdoor', compact('outdoors'));
     }
