@@ -202,7 +202,7 @@
                     televisionResourcesImgs: {
                         data: []
                     },
-                    isuse: true,
+                    isuse: false,
                 },
                 tvRules: {
                     channel: [

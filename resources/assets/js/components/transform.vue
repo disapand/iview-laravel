@@ -18,7 +18,7 @@
             <Button type="ghost" icon="android-list" shape="circle" v-if="all" @click="showAll">显示全部</Button>
             <button-group style="float: right;">
                 <i-button type="success" icon="android-add-circle" @click="addTransformItem">添加资源</i-button>
-                <i-button type="info" icon="eye" @click="addTransformItem">预览列表页</i-button>
+                <i-button type="info" icon="eye" @click="previewListPage">预览列表页</i-button>
                 <!-- <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button> -->
                 <i-button type="warning" icon="ios-upload" @click="isImport = true">批量导入资源</i-button>
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
@@ -35,14 +35,25 @@
                 </Modal>
             </button-group>
         </div>
+        <div style="margin: 20px 0">
+            <Button @click="handleSelectAll(true)">全选</Button>
+            <Button @click="handleSelectAll(false)" v-if="actionButton">取消</Button>
+            <Button @click="cancelSelection()" type="warning" v-if="actionButton">取消发布选中</Button>
+            <Button @click="publishSelection()" type="success" v-if="actionButton">发布选中</Button>
+            <poptip confirm v-if="actionButton" title="确认要删除选中项目吗？删除后不可恢复" @on-ok="deleteSelection" ok-text="删除">
+                <Button type="error" >删除选中</Button>
+            </poptip>
+        </div>
         <div>
             <i-table ref="transforms" border :columns="col" :data="transform" stripe :highlight-row=false @on-selection-change="selected"
                      :loading="loading"></i-table>
         </div>
         <div style="margin: 20px 0">
             <Button @click="handleSelectAll(true)">全选</Button>
-            <Button @click="handleSelectAll(false)">取消</Button>
-            <poptip confirm v-if="deleteAll" title="确认要删除选中项目吗？删除后不可恢复" @on-ok="deleteSelection" ok-text="删除">
+            <Button @click="handleSelectAll(false)" v-if="actionButton">取消</Button>
+            <Button @click="cancelSelection()" type="warning" v-if="actionButton">取消发布选中</Button>
+            <Button @click="publishSelection()" type="success" v-if="actionButton">发布选中</Button>
+            <poptip confirm v-if="actionButton" title="确认要删除选中项目吗？删除后不可恢复" @on-ok="deleteSelection" ok-text="删除">
                 <Button type="error" >删除选中</Button>
             </poptip>
         </div>
@@ -71,11 +82,10 @@
                         align: 'center'
                     },
                     {
-                        'title': '编号',
-                        'key': 'id',
-                        'width': 80,
-                        'sortable': true,
-                        'align': 'center'
+                        type: 'index',
+                        width: 80,
+                        align: 'center',
+                        title: '序号'
                     },
                     {
                         'title': '城市',
@@ -148,13 +158,13 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.handleRouter(params.row.id)
+                                            this.previewItem(params.row.id)
                                         }
                                     }
                                 }, '预览页面'),
                                 h('i-button', {
                                     props: {
-                                        type: 'success',
+                                        type: params.row.isuse ? 'warning' : 'success',
                                         size: 'small'
                                     },
                                     style: {
@@ -164,10 +174,10 @@
                                     long: true,
                                     on: {
                                         click: () => {
-
+                                            this.publishOrCancel( params )
                                         }
                                     }
-                                }, '发布页面'),
+                                }, params.row.isuse ? '取消发布' : '发布页面'),
                                 h('poptip', {
                                     props: {
                                         confirm: true,
@@ -189,11 +199,12 @@
                                 ])
                             ])
                         },
+                        minWidth: 250
                     },
                 ],
                 transform: [],
-                deleteList: '',
-                deleteAll: false
+                selectedList: '',
+                actionButton: false
             }
         },
         created() {
@@ -312,17 +323,103 @@
                 this.$Message.info('导入成功')
                 this.total = response.meta.pagination.total
             },
-            selected () {
+            selected ( selection ) {
+                if ( selection.length != 0 ) {
+                    this.actionButton = true
+                } else {
+                    this.actionButton = false
+                }
 
+                let tmp = []
+                for ( let i = 0; i < selection.length; i ++ ) {
+                    tmp.push( selection[i].id )
+                }
+                this.selectedList = tmp
             },
             handleSelectAll(status) {
                 this.$refs.transforms.selectAll( status )
             },
             deleteSelection() {
-
+                this.$Loading.start()
+                this.$ajax.delete(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
+                    '/api/deleteSelectionTransform/' + this.selectedList.join('-') )
+                    .then( (response) => {
+                        this.transform = response.data.data
+                        this.total = response.data.meta.pagination.total
+                        this.$Message.success('批量删除完成')
+                        this.$Loading.finish()
+                    })
+                    .catch( (error) => {
+                        console.log('批量删除交通资源出错：', error)
+                        this.$Message.error('批量删除交通资源异常')
+                        this.$Loading.error()
+                    })
             },
-            handleRouter (id) {
-
+            previewItem ( id ) {
+                window.open(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
+                    '/transform/' + id, '_blank')
+            },
+            publishOrCancel ( params ) {
+                this.$Loading.start()
+                this.$ajax.get(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
+                    '/api/publishedTransform/' + params.row.id )
+                    .then( (response) => {
+                        params.row.isuse = ! params.row.isuse
+                        this.$Message.success('发布/取消发布资源成功')
+                        this.$Loading.finish()
+                    })
+                    .catch( (error) => {
+                        console.log('发布/取消发布资源出错：', error)
+                        this.$Message.error('发布/取消发布资源异常')
+                        this.$Loading.error()
+                    })
+            },
+            cancelSelection () {
+                this.$Loading.start()
+                this.$ajax.get(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
+                    '/api/cancelSelectionTransform/' + this.selectedList.join('-') )
+                    .then( (response) => {
+                        for( let i = 0; i < this.selectedList.length; i ++) {
+                            for ( let j = 0; j < this.transform.length; j ++) {
+                                if (this.transform[j].id == this.selectedList[i]) {
+                                    this.transform[j].isuse = false
+                                    break
+                                }
+                            }
+                        }
+                        this.$Message.success('批量取消发布成功')
+                        this.$Loading.finish()
+                    })
+                    .catch( (error) => {
+                        console.log('批量取消发布交通资源出错：', error)
+                        this.$Message.error('批量取消发布异常')
+                        this.$Loading.error()
+                    })
+            },
+            publishSelection () {
+                this.$Loading.start()
+                this.$ajax.get(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
+                    '/api/publishedSelectionTransform/' + this.selectedList.join('-') )
+                    .then( (response) => {
+                        for( let i = 0; i < this.selectedList.length; i ++) {
+                            for ( let j = 0; j < this.transform.length; j ++) {
+                                if (this.transform[j].id == this.selectedList[i]) {
+                                    this.transform[j].isuse = true
+                                    break
+                                }
+                            }
+                        }
+                        this.$Message.success('批量发布成功')
+                        this.$Loading.finish()
+                    })
+                    .catch( (error) => {
+                        console.log('批量发布交通资源出错：', error)
+                        this.$Message.error('批量发布异常')
+                        this.$Loading.error()
+                    })
+            },
+            previewListPage () {
+                window.open(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) + '/transformPreview')
             }
         }
     }

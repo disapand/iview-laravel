@@ -157,6 +157,12 @@ class PagesController extends Controller
 
     public function transform()
     {
+        $transforms = transformResource::with('transformResourceImgs')->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
+        return view('pages.transform', compact('transforms'));
+    }
+
+    public function transformPreview()
+    {
         $transforms = transformResource::with('transformResourceImgs')->orderBy('id', 'desc')->paginate(9);
         return view('pages.transform', compact('transforms'));
     }

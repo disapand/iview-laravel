@@ -40,6 +40,7 @@ Route::group(['middleware' => 'uv'], function () {
     Route::post('/outdoor', 'PagesController@outdoorSearch')->name('outdoor.search');
 
     Route::get('/transform', 'PagesController@transform')->name('transform');
+    Route::get('/transformPreview', 'PagesController@transformPreview')->name('transform.preview');
     Route::get('/transform/{transform}', 'PagesController@transformShow')->name('transform.show');
     Route::post('/transform', 'PagesController@transformSearch')->name('transform.search');
 

@@ -99,7 +99,18 @@ class transformController extends Controller
     {
         $transform->delete();
         transformResourceImg::whereTransformResourcesId($transform->id)->delete();
-        return $this->response->paginator(transformResource::paginate(15), new transformResourceTransformer());
+        return $this->response->paginator(transformResource::orderBy('id', 'desc')->paginate(15), new transformResourceTransformer());
+    }
+
+    public function deleteSelectionTransform($list)
+    {
+        $deleteList = explode('-', $list);
+        foreach ($deleteList as $delete) {
+            $transform = transformResource::find($delete);
+            $transform->delete();
+            transformResourceImg::whereTransformResourcesId($delete)->delete();
+        }
+        return $this->response->paginator(transformResource::orderBy('id', 'desc')->paginate(15), new transformResourceTransformer());
     }
 
     public function query($condition, $query) {
@@ -120,6 +131,33 @@ class transformController extends Controller
         } catch (\Exception $e) {
             return $e;
         }
+    }
+
+    public function published(transformResource $transform)
+    {
+        $pulished = $transform->isuse ? true : false;
+        $transform->update(['isuse' => ! $pulished]);
+        return 'success';
+    }
+
+    public function publishedSelection($list)
+    {
+        $publishList = explode('-', $list);
+        foreach ($publishList as $id) {
+            $transform = transformResource::find($id);
+            $transform->update(['isuse' => true]);
+        }
+        return 'success';
+    }
+
+    public function cancelSelection($list)
+    {
+        $publishList = explode('-', $list);
+        foreach ($publishList as $id) {
+            $transform = transformResource::find($id);
+            $transform->update(['isuse' => false]);
+        }
+        return 'success';
     }
 
 }

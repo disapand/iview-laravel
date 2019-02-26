@@ -18,7 +18,7 @@
             <Button type="ghost" icon="android-list" shape="circle" v-if="all" @click="showAll">显示全部</Button>
             <button-group style="float: right;">
                 <i-button type="success" icon="android-add-circle" @click="addTVItem">添加资源</i-button>
-                <i-button type="info" icon="eye" @click="preview">预览列表页</i-button>
+                <i-button type="info" icon="eye" @click="previewListPage">预览列表页</i-button>
                 <!-- <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button> -->
                 <i-button type="warning" icon="ios-upload" @click="isImport = true">批量导入资源</i-button>
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
@@ -339,7 +339,6 @@
                         this.tvs = response.data.data
                         this.total = response.data.meta.pagination.total
                         this.$Message.success('批量删除完成')
-                        this.deleteAll = false
                         this.$Loading.finish()
                     })
                     .catch( (error) => {
@@ -386,14 +385,12 @@
                         this.$Message.error('批量发布异常')
                         this.$Loading.error()
                     })
-                this.deleteAll = false
             },
             handleUsrNone() {
                 this.$Loading.start()
                 this.$ajax.get(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
                     '/api/tvUseNone/' + this.deleteList.join('-'))
                     .then( (response) => {
-                        console.log(response)
                         for( let i = 0; i < this.deleteList.length; i ++) {
                             for ( let j = 0; j < this.tvs.length; j ++) {
                                 if (this.tvs[j].id == this.deleteList[i]) {
@@ -406,13 +403,12 @@
                         this.$Loading.finish()
                     } )
                     .catch( (error) => {
-                        console.log('批量取消发布资源出错：', error)
+                        console.log('批量取消发布电视资源出错：', error)
                         this.$Message.error('批量取消发布异常')
                         this.$Loading.error()
                     })
-                this.deleteAll = false
             },
-            preview () {
+            previewListPage () {
                 window.open(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) + '/televisionPreview')
             }
         }

@@ -53,8 +53,12 @@ $api->version('v1', [
     $api->get('transform', 'transformController@index')->name('api.transform.index');
     $api->post('transform', 'transformController@store')->name('api.transform.store');
     $api->get('transform/{transform}', 'transformController@show')->name('api.transform.show');
+    $api->get('publishedTransform/{transform}', 'transformController@published')->name('api.transform.published');
+    $api->get('publishedSelectionTransform/{transform}', 'transformController@publishedSelection')->name('api.transform.publishedSelection');
+    $api->get('cancelSelectionTransform/{transform}', 'transformController@cancelSelection')->name('api.transform.cancelSelection');
     $api->get('transform/{condition?}/{query?}', 'transformController@query')->name('api.transform.query');
     $api->delete('transform/{transform}', 'transformController@destroy')->name('api.transform.show');
+    $api->delete('deleteSelectionTransform/{transform}', 'transformController@deleteSelectionTransform')->name('api.transform.deleteSelection');
     $api->post('transformImg', 'transformImgsController@create')->name('api.transformImg.create');
     $api->delete('transformImg/{img}', 'transformImgsController@destroy')->name('api.transformImg.destroy');
     $api->post('transformImgUpdate', 'transformImgsController@update')->name('api.transformImg.update');
