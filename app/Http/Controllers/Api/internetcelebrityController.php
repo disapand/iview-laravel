@@ -114,11 +114,24 @@ class internetcelebrityController extends Controller
             $internet->categories()->detach();
             $internet->delete();
             internetcelebrityResourceImgs::whereInternetcelebrityResourcesId($internet->id)->delete();
-            return $this->response->paginator(internetcelebrityResource::where([])->orderBy('id', 'desc')->paginate(15),
+            return $this->response->paginator(internetcelebrityResource::orderBy('id', 'desc')->paginate(15),
                 new internetcelebrityResourcTransformer());
         } catch (\Exception $e) {
             return $e;
         }
+    }
+
+    public function deleteSelection($list)
+    {
+        $deleteList = explode('-', $list);
+        foreach ($deleteList as $id) {
+            $internet = internetcelebrityResource::find($id);
+            $internet->categories()->detach();
+            $internet->delete();
+            internetcelebrityResourceImgs::whereInternetcelebrityResourcesId($internet->id)->delete();
+        }
+        return $this->response->paginator(internetcelebrityResource::orderBy('id', 'desc')->paginate(15),
+            new internetcelebrityResourcTransformer());
     }
 
     public function query($condition = '', $query = '') {
@@ -150,6 +163,33 @@ class internetcelebrityController extends Controller
         } catch (\Exception $e) {
             return $e;
         }
+    }
+
+    public function publish(internetcelebrityResource $internet)
+    {
+        $published = $internet->isuse ? true : false;
+        $internet->update(['isuse' => ! $published]);
+        return 'success';
+    }
+
+    public function cancelSelection($list)
+    {
+        $cancelList = explode('-', $list);
+        foreach ($cancelList as $id) {
+            $internet = internetcelebrityResource::find($id);
+            $internet->update(['isuse' => false]);
+        }
+        return 'success';
+    }
+
+    public function publishedSelection($list)
+    {
+        $cancelList = explode('-', $list);
+        foreach ($cancelList as $id) {
+            $internet = internetcelebrityResource::find($id);
+            $internet->update(['isuse' => true]);
+        }
+        return 'success';
     }
 
 }

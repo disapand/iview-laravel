@@ -89,10 +89,14 @@ $api->version('v1', [
     $api->post('importOnline', 'onlineResourceController@importOnline')->name('api.online.import');
 
     $api->get('internet', 'internetcelebrityController@index')->name('api.internet.index');
+    $api->get('publishInternet/{internet}', 'internetcelebrityController@publish')->name('api.internet.publish');
+    $api->get('cancelSelectionInternet/{internet}', 'internetcelebrityController@cancelSelection')->name('api.internet.cancelSelection');
+    $api->get('publishedSelectionInternet/{internet}', 'internetcelebrityController@publishedSelection')->name('api.internet.publishedSelection');
     $api->post('internet', 'internetcelebrityController@store')->name('api.internet.store');
     $api->get('internet/{internet}', 'internetcelebrityController@show')->name('api.internet.show');
     $api->get('internet/{condition?}/{query?}', 'internetcelebrityController@query')->name('api.internet.query');
     $api->delete('internet/{internet}', 'internetcelebrityController@destroy')->name('api.internet.destroy');
+    $api->delete('deleteSelectionInternet/{internet}', 'internetcelebrityController@deleteSelection')->name('api.internet.deleteSelection');
     $api->post('internetImg', 'internetcelebrityResourceImgsController@store')->name('api.internetImg.store');
     $api->post('internetImgUpdate', 'internetcelebrityResourceImgsController@update')->name('api.internetImg.update');
     $api->delete('internetImg/{img}', 'internetcelebrityResourceImgsController@destroy')->name('api.internetImg.destroy');

@@ -84,8 +84,8 @@
                     {
                         type: 'index',
                         title: '序号',
-                        'width': 80,
-                        'align': 'center'
+                        width: 80,
+                        align: 'center'
                     },
                     {
                         'title': '城市',

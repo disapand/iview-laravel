@@ -50,6 +50,7 @@ Route::group(['middleware' => 'uv'], function () {
     Route::post('/online', 'PagesController@onlineSearch')->name('online.search');
 
     Route::get('/internetCelebrity', 'PagesController@internetCelebrity')->name('internetCelebrity');
+    Route::get('/internetPreview', 'PagesController@internetPreview')->name('internetCelebrity.preview');
     Route::get('/internetCelebrity/{internetCelebrity}', 'PagesController@internetCelebrityShow')->name('internetCelebrity.show');
     Route::post('/internetCelebrity', 'PagesController@internetCelebritySearch')->name('internetCelebrity.search');
 
