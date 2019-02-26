@@ -35,6 +35,10 @@ $api->version('v1', [
     $api->get('recommendTv', 'TelevisionResourcesController@recommendTv')->name('api.tv.recommend');
     $api->post('importTv', 'TelevisionResourcesController@importTv')->name('api.tv.import');
     $api->delete('tv/{tv}', 'TelevisionResourcesController@delete')->name('api.tv.delete');
+    $api->delete('tvs/{list}', 'TelevisionResourcesController@deleteSelection')->name('api.tv.deleteSelection');
+    $api->get('tvUse/{tv}', 'TelevisionResourcesController@tvUse')->name('api.tv.use');
+    $api->get('tvUseAll/{tv}', 'TelevisionResourcesController@tvUseAll')->name('api.tv.useAll');
+    $api->get('tvUseNone/{tv}', 'TelevisionResourcesController@tvUseNone')->name('api.tv.useNone');
 
     $api->get('outdoor', 'outdoorResourceController@index')->name('api.outdoor.index');
     $api->get('outdoor/{outdoor}', 'outdoorResourceController@show')->name('api.outdoor.show');

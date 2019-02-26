@@ -93,6 +93,12 @@ class PagesController extends Controller
 
     public function television()
     {
+        $televisions = televisionResources::with('televisionResourcesImgs')->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
+        return view('pages.television', compact('televisions'));
+    }
+
+    public function televisionPreview()
+    {
         $televisions = televisionResources::with('televisionResourcesImgs')->orderBy('id', 'desc')->paginate(9);
         return view('pages.television', compact('televisions'));
     }

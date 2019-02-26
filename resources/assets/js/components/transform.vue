@@ -18,6 +18,7 @@
             <Button type="ghost" icon="android-list" shape="circle" v-if="all" @click="showAll">显示全部</Button>
             <button-group style="float: right;">
                 <i-button type="success" icon="android-add-circle" @click="addTransformItem">添加资源</i-button>
+                <i-button type="info" icon="eye" @click="addTransformItem">预览列表页</i-button>
                 <!-- <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button> -->
                 <i-button type="warning" icon="ios-upload" @click="isImport = true">批量导入资源</i-button>
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
@@ -35,8 +36,15 @@
             </button-group>
         </div>
         <div>
-            <i-table border :columns="col" :data="transform" stripe :highlight-row=false
+            <i-table ref="transforms" border :columns="col" :data="transform" stripe :highlight-row=false @on-selection-change="selected"
                      :loading="loading"></i-table>
+        </div>
+        <div style="margin: 20px 0">
+            <Button @click="handleSelectAll(true)">全选</Button>
+            <Button @click="handleSelectAll(false)">取消</Button>
+            <poptip confirm v-if="deleteAll" title="确认要删除选中项目吗？删除后不可恢复" @on-ok="deleteSelection" ok-text="删除">
+                <Button type="error" >删除选中</Button>
+            </poptip>
         </div>
         <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize"
               :class-name="pageClass" show-elevator></page>
@@ -57,6 +65,11 @@
                 isImport: false,
                 all: false,
                 col: [
+                    {
+                        type: 'selection',
+                        width: 60,
+                        align: 'center'
+                    },
                     {
                         'title': '编号',
                         'key': 'id',
@@ -125,6 +138,36 @@
                                         }
                                     }
                                 }, '查看详情'),
+                                h('i-button', {
+                                    props: {
+                                        type: 'info',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '8px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.handleRouter(params.row.id)
+                                        }
+                                    }
+                                }, '预览页面'),
+                                h('i-button', {
+                                    props: {
+                                        type: 'success',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '8px'
+                                    },
+                                    disabled: true,
+                                    long: true,
+                                    on: {
+                                        click: () => {
+
+                                        }
+                                    }
+                                }, '发布页面'),
                                 h('poptip', {
                                     props: {
                                         confirm: true,
@@ -149,6 +192,8 @@
                     },
                 ],
                 transform: [],
+                deleteList: '',
+                deleteAll: false
             }
         },
         created() {
@@ -266,6 +311,18 @@
                 this.isImport = false
                 this.$Message.info('导入成功')
                 this.total = response.meta.pagination.total
+            },
+            selected () {
+
+            },
+            handleSelectAll(status) {
+                this.$refs.transforms.selectAll( status )
+            },
+            deleteSelection() {
+
+            },
+            handleRouter (id) {
+
             }
         }
     }

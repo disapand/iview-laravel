@@ -36,6 +36,21 @@ class TelevisionResourcesController extends Controller
         }
     }
 
+    public function deleteSelection($list)
+    {
+        $tmp = explode('-', $list);
+        foreach ($tmp as $t) {
+            $tv = televisionResources::find($t);
+            if($tv->delete()) {
+                $imgs = $tv->televisionResourcesImgs;
+                foreach ($imgs as $img) {
+                    $img->delete();
+                }
+            }
+        }
+        return $this->response->paginator(televisionResources::orderBy('id', 'desc') -> paginate(15), new televisionResourcesTransformer());
+    }
+
     public function store(televisionResourcesRequest $request) {
 
         $data = [
@@ -78,7 +93,7 @@ class TelevisionResourcesController extends Controller
         $tvs = televisionResources::where($condition, 'like', "%$query%")->paginate();
         return $this->response->paginator($tvs, new televisionResourcesTransformer());
     }
-    
+
     public function importTv(Request $request, ExcelUploadHandler $uploader) {
         /*
          *  上传excel文件，并保存到服务器
@@ -114,6 +129,31 @@ class TelevisionResourcesController extends Controller
             ->paginate(15);
 
         return $this->response->paginator($tvs, new televisionResourcesTransformer());
+    }
+
+    public function tvUse(televisionResources $tv)
+    {
+        $b = $tv->isuse ? true : false ;
+        $tv->update(['isuse' => ! $b]);
+        return $tv;
+    }
+
+    public function tvUseAll( $list ) {
+        $t = explode('-', $list);
+        foreach ($t as $tmp) {
+            $tv = televisionResources::find($tmp);
+            $tv->update(['isuse' => true]);
+        }
+        return 'success!';
+    }
+
+    public function tvUseNone( $list ) {
+        $t = explode('-', $list);
+        foreach ($t as $tmp) {
+            $tv = televisionResources::find($tmp);
+            $tv->update(['isuse' => false]);
+        }
+        return 'success!';
     }
 
 }
