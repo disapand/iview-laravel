@@ -27,6 +27,7 @@ Route::group(['middleware' => 'uv'], function () {
     Route::get('/services', 'PagesController@services')->name('services');
 
     Route::get('/newspaper', 'PagesController@newspaper')->name('newspaper');
+    Route::get('/newspaperPreview', 'PagesController@newspaperPreview')->name('newspaper.preview');
     Route::get('/newspaper/{newspaper}', 'PagesController@newspaperShow')->name('newspaper.show');
     Route::post('/newspaper', 'PagesController@newspaperSearch')->name('newspaper.search');
 
@@ -46,6 +47,7 @@ Route::group(['middleware' => 'uv'], function () {
     Route::post('/transform', 'PagesController@transformSearch')->name('transform.search');
 
     Route::get('/online', 'PagesController@online')->name('online');
+    Route::get('/onlinePreview', 'PagesController@onlinePreview')->name('online.preview');
     Route::get('/online/{online}', 'PagesController@onlineShow')->name('online.show');
     Route::post('/online', 'PagesController@onlineSearch')->name('online.search');
 

@@ -81,10 +81,10 @@
                     <i-input v-model="newspaper.version" placeholder="" clearable/>
                 </form-item>
 
-                <form-item label="是否有效">
+                <form-item label="是否发布">
                     <i-switch v-model="newspaper.isuse" size="large">
-                        <span slot="open">有效</span>
-                        <span slot="close">无效</span>
+                        <span slot="open">是</span>
+                        <span slot="close">否</span>
                     </i-switch>
                 </form-item>
 
@@ -221,7 +221,7 @@
                     newspaperResourceImgs: {
                         data: []
                     },
-                    isuse: true,
+                    isuse: false,
                 },
                 newspaperRules: {
                     name: [

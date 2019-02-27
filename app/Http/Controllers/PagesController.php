@@ -64,6 +64,12 @@ class PagesController extends Controller
 
     public function newspaper()
     {
+        $newspapers = newspaperResource::with('newspaperResourceImgs')->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
+        return view('pages.newspaper', compact('newspapers'));
+    }
+
+    public function newspaperPreview()
+    {
         $newspapers = newspaperResource::with('newspaperResourceImgs')->orderBy('id', 'desc')->paginate(9);
         return view('pages.newspaper', compact('newspapers'));
     }
@@ -197,6 +203,11 @@ class PagesController extends Controller
     }
 
     public function online()
+    {
+        $onlines = onlineResource::with('onlineResourceImgs')->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
+        return view('pages.online', compact('onlines'));
+    }
+    public function onlinePreview()
     {
         $onlines = onlineResource::with('onlineResourceImgs')->orderBy('id', 'desc')->paginate(9);
         return view('pages.online', compact('onlines'));

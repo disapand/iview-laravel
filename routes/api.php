@@ -69,20 +69,28 @@ $api->version('v1', [
     $api->post('importTransform', 'transformController@importTransform')->name('api.transform.import');
 
     $api->get('newspaper', 'newspapperResourceController@index')->name('api.newspaper.index');
+    $api->get('publishNewspaper/{newspaper}', 'newspapperResourceController@publish')->name('api.newspaper.publish');
+    $api->get('cancelSelectionNewspaper/{newspaper}', 'newspapperResourceController@cancelSelection')->name('api.newspaper.cancelSelection');
+    $api->get('publishedSelectionNewspaper/{newspaper}', 'newspapperResourceController@publishedSelection')->name('api.newspaper.publishedSelection');
     $api->post('newspaper', 'newspapperResourceController@store')->name('api.newspaper.store');
     $api->get('newspaper/{newspaper}', 'newspapperResourceController@show')->name('api.newspaper.show');
     $api->get('newspaper/{condition?}/{query?}', 'newspapperResourceController@query')->name('api.newspaper.query');
     $api->delete('newspaper/{newspaper}', 'newspapperResourceController@destroy')->name('api.newspaper.destroy');
+    $api->delete('deleteSelectionNewspaper/{newspaper}', 'newspapperResourceController@deleteSelection')->name('api.newspaper.deleteSelection');
     $api->post('newspaperImg', 'newspapperResourceImsController@store')->name('api.newspaperImg.store');
     $api->post('newspaperImgUpdate', 'newspapperResourceImsController@update')->name('api.newspaperImg.update');
     $api->delete('newspaperImg/{img}', 'newspapperResourceImsController@destroy')->name('api.newspaperImg.destroy');
     $api->post('importNewspaper', 'newspapperResourceController@importNewspaper')->name('api.newspaper.import');
 
     $api->get('online', 'onlineResourceController@index')->name('api.online.index');
+    $api->get('publishOnline/{online}', 'onlineResourceController@publish')->name('api.online.publish');
+    $api->get('cancelSelectionOnline/{online}', 'onlineResourceController@cancelSelection')->name('api.online.cancelSelection');
+    $api->get('publishedSelectionOnline/{online}', 'onlineResourceController@publishedSelection')->name('api.online.publishedSelection');
     $api->post('online', 'onlineResourceController@store')->name('api.online.store');
     $api->get('online/{online}', 'onlineResourceController@show')->name('api.online.show');
     $api->get('online/{condition?}/{query?}', 'onlineResourceController@query')->name('api.online.query');
     $api->delete('online/{online}', 'onlineResourceController@destroy')->name('api.online.destroy');
+    $api->delete('deleteSelectionOnline/{online}', 'onlineResourceController@deleteSelection')->name('api.online.deleteSelection');
     $api->post('onlineImg', 'onlineResourceImgsController@store')->name('api.onlineImg.store');
     $api->post('onlineImgUpdate', 'onlineResourceImgsController@update')->name('api.onlineImg.update');
     $api->delete('onlineImg/{img}', 'onlineResourceImgsController@destroy')->name('api.onlineImg.destroy');

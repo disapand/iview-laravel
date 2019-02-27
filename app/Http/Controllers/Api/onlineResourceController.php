@@ -104,7 +104,18 @@ class onlineResourceController extends Controller
     {
         $online->delete();
         onlineResourceImgs::whereOnlineResourcesId($online->id)->delete();
-        return $this->response->paginator(onlineResource::where([])->paginate(15), new onlineResourceTransformer());
+        return $this->response->paginator(onlineResource::orderBy('id', 'desc')->paginate(15), new onlineResourceTransformer());
+    }
+
+    public function deleteSelection( $list )
+    {
+        $deleteList = explode('-', $list);
+        foreach ($deleteList as $id) {
+            $online = onlineResource::find($id);
+            $online->delete();
+            onlineResourceImgs::whereOnlineResourcesId($id)->delete();
+        }
+        return $this->response->paginator(onlineResource::orderBy('id', 'desc')->paginate(15), new onlineResourceTransformer());
     }
 
     public function query($condition, $query) {
@@ -124,6 +135,33 @@ class onlineResourceController extends Controller
         } catch (\Exception $e) {
             return $e;
         }
+    }
+
+    public function publish(onlineResource $online)
+    {
+        $published = $online->isuse ? true : false;
+        $online->update(['isuse' => ! $published]);
+        return 'success';
+    }
+
+    public function cancelSelection($list)
+    {
+        $cancelList = explode('-', $list);
+        foreach ($cancelList as $id) {
+            $online = onlineResource::find($id);
+            $online->update(['isuse' => false]);
+        }
+        return 'success';
+    }
+
+    public function publishedSelection($list)
+    {
+        $cancelList = explode('-', $list);
+        foreach ($cancelList as $id) {
+            $online = onlineResource::find($id);
+            $online->update(['isuse' => true]);
+        }
+        return 'success';
     }
 
 }

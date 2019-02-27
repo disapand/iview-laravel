@@ -100,7 +100,18 @@ class newspapperResourceController extends Controller
     {
         $newspaper->delete();
         newspaperResourceImg::whereNewspaperResourcesId($newspaper->id)->delete();
-        return $this->response->paginator(newspaperResource::where([])->paginate(15), new newspaperResourceTransformer());
+        return $this->response->paginator(newspaperResource::orderBy('id', 'desc')->paginate(15), new newspaperResourceTransformer());
+    }
+
+    public function deleteSelection( $list )
+    {
+        $deleteList = explode('-', $list);
+        foreach ($deleteList as $id) {
+            $newspaper = newspaperResource::find($id);
+            $newspaper->delete();
+            newspaperResourceImg::whereNewspaperResourcesId($id)->delete();
+        }
+        return $this->response->paginator(newspaperResource::orderBy('id', 'desc')->paginate(15), new newspaperResourceTransformer());
     }
 
     public function query($condition, $query) {
@@ -121,6 +132,33 @@ class newspapperResourceController extends Controller
             return $e;
         }
 
+    }
+
+    public function publish(newspaperResource $newspaper)
+    {
+        $published = $newspaper->isuse ? true : false;
+        $newspaper->update(['isuse' => ! $published]);
+        return 'success';
+    }
+
+    public function cancelSelection($list)
+    {
+        $cancelList = explode('-', $list);
+        foreach ($cancelList as $id) {
+            $newspaper = newspaperResource::find($id);
+            $newspaper->update(['isuse' => false]);
+        }
+        return 'success';
+    }
+
+    public function publishedSelection($list)
+    {
+        $cancelList = explode('-', $list);
+        foreach ($cancelList as $id) {
+            $newspaper = newspaperResource::find($id);
+            $newspaper->update(['isuse' => true]);
+        }
+        return 'success';
     }
 
 }

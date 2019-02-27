@@ -206,8 +206,6 @@
             }
         },
         created() {
-
-
             this.$ajax.get('https://www.zetin.cn/api/internet').then((response) => {
                 console.log('拉取资源列表', response);
                 this.total = response.data.meta.pagination.total
