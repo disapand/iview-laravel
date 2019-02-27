@@ -102,11 +102,23 @@ class CaseController extends Controller
         try {
             $caseResource->delete();
             CaseImg::whereCaseResourcesId($caseResource->id)->delete();
-            return $this->response->paginator(CaseResource::where([])->orderBy('id', 'desc')->paginate(),
+            return $this->response->paginator(CaseResource::orderBy('id', 'desc')->paginate(),
                 new CaseResourceTransformer());
         } catch (\Exception $e) {
             return $e;
         }
+    }
+
+    public function deleteSelection($list)
+    {
+        $deleteList = explode('-', $list);
+        foreach ($deleteList as $id) {
+            $case = CaseResource::find($id);
+            $case->delete();
+            CaseImg::whereCaseResourcesId($id)->delete();
+        }
+        return $this->response->paginator(CaseResource::orderBy('id', 'desc')->paginate(),
+            new CaseResourceTransformer());
     }
 
     public function query($condition, $query) {

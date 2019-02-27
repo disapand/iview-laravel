@@ -14,9 +14,23 @@
                 <!-- <i-button type="info" icon="ios-download" @click="exportTv">导出资源</i-button> -->
             </button-group>
         </div>
+        <div style="margin: 20px 0">
+            <Button @click="handleSelectAll(true)">全选</Button>
+            <Button @click="handleSelectAll(false)" v-if="actionButton">取消</Button>
+            <poptip confirm v-if="actionButton" title="确认要删除选中项目吗？删除后不可恢复" @on-ok="deleteSelection" ok-text="删除">
+                <Button type="error" >删除选中</Button>
+            </poptip>
+        </div>
         <div>
-            <i-table border :columns="col" :data="Case" stripe :highlight-row=false
+            <i-table ref="case" border :columns="col" :data="Case" stripe :highlight-row=false @on-selection-change="selectedChange"
                      :loading="loading"></i-table>
+        </div>
+        <div style="margin: 20px 0">
+            <Button @click="handleSelectAll(true)">全选</Button>
+            <Button @click="handleSelectAll(false)" v-if="actionButton">取消</Button>
+            <poptip confirm v-if="actionButton" title="确认要删除选中项目吗？删除后不可恢复" @on-ok="deleteSelection" ok-text="删除">
+                <Button type="error" >删除选中</Button>
+            </poptip>
         </div>
         <page :total="total" show-total @on-change="changePage" :current="currentPage" :page-size="pageSize"
               :class-name="pageClass" show-elevator></page>
@@ -38,11 +52,15 @@
                 isImport: false,
                 col: [
                     {
-                        'title': '编号',
-                        'key': 'id',
-                        'width': 80,
-                        'sortable': true,
-                        'align': 'center'
+                        type: 'selection',
+                        width: 60,
+                        align: 'center'
+                    },
+                    {
+                        type: 'index',
+                        title: '序号',
+                        width: 80,
+                        align: 'center'
                     },
                     {
                         'title': '标题',
@@ -112,6 +130,8 @@
                     },
                 ],
                 Case: [],
+                selectedList: [],
+                actionButton: false
             }
         },
         created() {
@@ -233,6 +253,38 @@
                 if (this.total / this.pageSize > 1) {
                     this.cansee = true
                 }
+            },
+            selectedChange ( selection ) {
+                if ( selection.length != 0 ) {
+                    this.actionButton = true
+                } else {
+                    this.actionButton = false
+                }
+
+                let tmp = []
+                for ( let i = 0; i < selection.length; i ++) {
+                    tmp.push( selection[i].id )
+                }
+                this.selectedList = tmp
+            },
+            handleSelectAll ( status ) {
+                this.$refs.case.selectAll(status)
+            },
+            deleteSelection() {
+                this.$Loading.start()
+                this.$ajax.delete(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
+                    '/api/deleteSelectionCase/' + this.selectedList.join('-') )
+                    .then( (response) => {
+                        this.Case = response.data.data
+                        this.total = response.data.meta.pagination.total
+                        this.$Message.success('批量删除完成')
+                        this.$Loading.finish()
+                    })
+                    .catch( (error) => {
+                        console.log('批量删除案例出错：', error)
+                        this.$Message.error('批量删除异常')
+                        this.$Loading.error()
+                    })
             }
         }
     }

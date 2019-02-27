@@ -101,11 +101,24 @@ class dynamicController extends Controller
     {
         try{
             $dynamic->delete();
-            return $this->response->paginator(dynamic::where([])->orderBy('id', 'desc')->paginate(),
+            dynamicImg::whereDynamicId($dynamic->id)->delete();
+            return $this->response->paginator(dynamic::orderBy('id', 'desc')->paginate(),
                 new dynamicTransformer());
         } catch (\Exception $e) {
             return $e;
         }
+    }
+
+    public function deleteSelection($list)
+    {
+        $deleteList = explode('-', $list);
+        foreach ($deleteList as $id) {
+            $dynamic = dynamic::find($id);
+            $dynamic->delete();
+            dynamicImg::whereDynamicId($id)->delete();
+        }
+        return $this->response->paginator(dynamic::orderBy('id', 'desc')->paginate(),
+        new dynamicTransformer());
     }
 
     public function query($condition, $query)

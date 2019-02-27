@@ -92,11 +92,22 @@ class insightController extends Controller
     {
         try {
             $insight->delete();
-            return $this->response->paginator(insight::where([])->orderBy('id', 'desc')->paginate(),
+            return $this->response->paginator(insight::orderBy('id', 'desc')->paginate(),
                 new insightTransformer());
         } catch (\Exception $e) {
             return $e;
         }
+    }
+
+    public function deleteSelection($list)
+    {
+        $deleteList = explode('-', $list);
+        foreach ($deleteList as $id) {
+            $insight = insight::find($id);
+            $insight->delete();
+        }
+        return $this->response->paginator(insight::orderBy('id', 'desc')->paginate(),
+            new insightTransformer());
     }
 
     public function query($condition, $query) {
