@@ -410,7 +410,7 @@
             },
             previewItem ( id ) {
                 window.open(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
-                    '/internetCelebrity/' + id, '_blank')
+                    '/internetCelebrityPreview/' + id, '_blank')
             },
             previewListPage () {
                 window.open(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) + '/internetPreview')

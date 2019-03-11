@@ -349,7 +349,7 @@
             },
             previewItem ( id ) {
                 window.open(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
-                    '/outdoor/' + id, '_blank')
+                    '/outdoorPreview/' + id, '_blank')
             },
             publishOrCancel( params ) {
                 this.$Loading.start()

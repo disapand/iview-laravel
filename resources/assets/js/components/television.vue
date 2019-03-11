@@ -329,7 +329,7 @@
             },
             handleRouter(id) {
                 window.open( window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
-                    '/television/' + id, '_blank')
+                    '/televisionPreview/' + id, '_blank')
             },
             deleteSelection () {
                 this.$Loading.start()

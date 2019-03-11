@@ -357,7 +357,7 @@
             },
             previewItem ( id ) {
                 window.open(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
-                    '/transform/' + id, '_blank')
+                    '/transformPreview/' + id, '_blank')
             },
             publishOrCancel ( params ) {
                 this.$Loading.start()

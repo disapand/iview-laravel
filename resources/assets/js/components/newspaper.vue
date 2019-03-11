@@ -418,7 +418,7 @@
             },
             previewItem ( id ) {
                 window.open(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) +
-                    '/newspaper/' + id, '_blank')
+                    '/newspaperPreview/' + id, '_blank')
             },
             previewListPage () {
                 window.open(window.location.href.substring(0, window.location.href.indexOf(window.location.pathname)) + '/newspaperPreview')

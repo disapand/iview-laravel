@@ -71,13 +71,19 @@ class PagesController extends Controller
     public function newspaperPreview()
     {
         $newspapers = newspaperResource::with('newspaperResourceImgs')->orderBy('id', 'desc')->paginate(9);
-        return view('pages.newspaper', compact('newspapers'));
+        return view('pages.preview.newspaper_preview', compact('newspapers'));
     }
 
     public function newspaperShow(newspaperResource $newspaper)
     {
         $recommends = newspaperResource::where('id', '<>', $newspaper->id)->with('newspaperResourceImgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.newspaper_in', compact('newspaper', 'recommends'));
+    }
+
+    public function newspaperShowPreview(newspaperResource $newspaper)
+    {
+        $recommends = newspaperResource::where('id', '<>', $newspaper->id)->with('newspaperResourceImgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.preview.newspaper_in_preview', compact('newspaper', 'recommends'));
     }
 
     public function newspaperSearch(Request $request)
@@ -106,13 +112,19 @@ class PagesController extends Controller
     public function televisionPreview()
     {
         $televisions = televisionResources::with('televisionResourcesImgs')->orderBy('id', 'desc')->paginate(9);
-        return view('pages.television', compact('televisions'));
+        return view('pages.preview.television_preview', compact('televisions'));
     }
 
     public function televisionShow(televisionResources $television)
     {
         $recommends = televisionResources::where('id', '<>', $television->id)->with('televisionResourcesImgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.television_in', compact('television', 'recommends'));
+    }
+
+    public function televisionShowPreview(televisionResources $television)
+    {
+        $recommends = televisionResources::where('id', '<>', $television->id)->with('televisionResourcesImgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.preview.television_in_priview', compact('television', 'recommends'));
     }
 
     public function televisionSearch(Request $request)
@@ -141,13 +153,19 @@ class PagesController extends Controller
     public function outdoorPreview()
     {
         $outdoors = outdoorResource::with('outdoorResourceImgs')->orderBy('id', 'desc')->paginate(9);
-        return view('pages.outdoor', compact('outdoors'));
+        return view('pages.preview.outdoor_preview', compact('outdoors'));
     }
 
     public function outdoorShow(outdoorResource $outdoor)
     {
         $recommends = outdoorResource::where('id', '<>', $outdoor->id)->with('outdoorResourceImgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.outdoor_in', compact('outdoor', 'recommends'));
+    }
+
+    public function outdoorShowPreview(outdoorResource $outdoor)
+    {
+        $recommends = outdoorResource::where('id', '<>', $outdoor->id)->with('outdoorResourceImgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.preview.outdoor_in_preivew', compact('outdoor', 'recommends'));
     }
 
     public function outdoorSearch(Request $request)
@@ -176,13 +194,19 @@ class PagesController extends Controller
     public function transformPreview()
     {
         $transforms = transformResource::with('transformResourceImgs')->orderBy('id', 'desc')->paginate(9);
-        return view('pages.transform', compact('transforms'));
+        return view('pages.preview.transform_preview', compact('transforms'));
     }
 
     public function transformShow(transformResource $transform)
     {
         $recommends = transformResource::where('id', '<>', $transform->id)->with('transformResourceImgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.transform_in', compact('transform', 'recommends'));
+    }
+
+    public function transformShowPreview(transformResource $transform)
+    {
+        $recommends = transformResource::where('id', '<>', $transform->id)->with('transformResourceImgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.preview.transform_in_preview', compact('transform', 'recommends'));
     }
 
     public function transformSearch(Request $request)
@@ -210,13 +234,19 @@ class PagesController extends Controller
     public function onlinePreview()
     {
         $onlines = onlineResource::with('onlineResourceImgs')->orderBy('id', 'desc')->paginate(9);
-        return view('pages.online', compact('onlines'));
+        return view('pages.preview.online_preview', compact('onlines'));
     }
 
     public function onlineShow(onlineResource $online)
     {
         $recommends = onlineResource::where('id', '<>', $online->id)->with('onlineResourceImgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.online_in', compact('online', 'recommends'));
+    }
+
+    public function onlineShowPreview(onlineResource $online)
+    {
+        $recommends = onlineResource::where('id', '<>', $online->id)->with('onlineResourceImgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.preview.online_in_preview', compact('online', 'recommends'));
     }
 
     public function onlineSearch(Request $request)
@@ -246,7 +276,7 @@ class PagesController extends Controller
     public function internetPreview()
     {
         $internetCelebrities = internetcelebrityResource::with(['Imgs', 'categories'])->orderBy('id', 'desc')->paginate(9);
-        return view('pages.internetCelebrity', compact('internetCelebrities'));
+        return view('pages.preview.internetCelebrity_preview', compact('internetCelebrities'));
     }
 
     public function internetCelebrityShow(internetcelebrityResource $internetCelebrity)
@@ -259,6 +289,18 @@ class PagesController extends Controller
         $categories = implode(',', $arr);
         $recommends = internetcelebrityResource::where('id', '<>', $internetCelebrity->id)->with('Imgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.internetCelebrity_in', compact('internetCelebrity', 'categories', 'recommends'));
+    }
+
+    public function internetCelebrityShowPreview(internetcelebrityResource $internetCelebrity)
+    {
+        $tmp = $internetCelebrity->categories;
+        $arr = [];
+        foreach ($tmp as $t) {
+            array_push($arr, $t['name']);
+        }
+        $categories = implode(',', $arr);
+        $recommends = internetcelebrityResource::where('id', '<>', $internetCelebrity->id)->with('Imgs')->orderBy('id', 'desc')->take(4)->get();
+        return view('pages.preview.internetCelebrity_in_preveiw', compact('internetCelebrity', 'categories', 'recommends'));
     }
 
     public function internetCelebritySearch(Request $request)
