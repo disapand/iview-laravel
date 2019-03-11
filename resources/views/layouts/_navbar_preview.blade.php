@@ -48,7 +48,7 @@
                                     </div>
                                     <!-- Collect the nav links, forms, and other content for toggling -->
                                     <div class="collapse navbar-collapse" id="navbar-collapse-1">
-                                        <ul class="nav navbar-nav" style="margin-left: 50%;">
+                                        <ul class="nav navbar-nav pull-right">
                                             <!-- mega-menu start -->
                                             <li class="dropdown">
                                                 <a href="" class="dropdown-toggle" data-toggle="dropdown"
