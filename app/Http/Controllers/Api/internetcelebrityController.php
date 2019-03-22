@@ -156,8 +156,15 @@ class internetcelebrityController extends Controller
             $result = $uploader->save($excel, 'internet');
 
             $data = Excel::load($result['path'], function ($reader){})->get();
-
-            internetcelebrityResource::insert($data->toArray());
+            foreach ($data as $item) {
+                $categories = explode(',', $item['category']);
+                unset($item['category']);
+                $internet = internetcelebrityResource::create($item->toArray());
+                foreach ($categories as $category) {
+                    $internet->categories()->attach(internetcelebrityResourceCategory::whereName($category)
+                        ->get(['id'])->first()['id']);
+                }
+            }
             return $this->response->paginator(internetcelebrityResource::where([])->orderBy('id', 'desc')->paginate(15),
                 new internetcelebrityResourcTransformer());
         } catch (\Exception $e) {
