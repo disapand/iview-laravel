@@ -125,7 +125,7 @@
                         </p>
                     </div>
                     <div class="intro-item col-sm-3">
-                        <img src=".{{ asset('images/english/images/globalization.png')  }}" alt="" class="item-img">
+                        <img src="{{ asset('images/english/images/globalization.png')  }}" alt="" class="item-img">
                         <h3 class="sub-title">Globalization</h3>
                         <p class="intro-detail">
                             Offices in Hong Kong, Jakarta, New Delhi, Moscow, Los Angeles, and London.
