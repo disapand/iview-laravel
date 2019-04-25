@@ -11,8 +11,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css')  }}">
-    <link rel="stylesheet" href="{{ asset('css/index.css')  }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     <title>ZETIN MEDIA GROUP</title>
 </head>
 
@@ -44,7 +44,7 @@
                                             style="font-size: 14px; font-weight: 700; text-indent: 5px; letter-spacing: 3.5px;">
                                         <a href="javascript:void(0);" style="color: #999;text-decoration: none;cursor:
                         default;">ENGLISH</a>&nbsp;|
-                                        <a href="{{  route('home') }}" style="color: #000;text-decoration: none;">中文版</a>
+                                        <a href="{{ route('home') }}" style="color: #000;text-decoration: none;">中文版</a>
                                     </div>
                                 </div>
                                 <ul class="nav navbar-nav" id="nav">
@@ -118,21 +118,21 @@
                 </h3>
                 <div class="row">
                     <div class="intro-item col-sm-3">
-                        <img src="{{ asset('images/english/images/team.png')  }}" alt="" class="item-img">
+                        <img src="{{ asset('images/english/images/team.png') }}" alt="" class="item-img">
                         <h3 class="sub-title">Team</h3>
                         <p class="intro-detail">
                             45 high-quality employees from all over the world.
                         </p>
                     </div>
                     <div class="intro-item col-sm-3">
-                        <img src="{{ asset('images/english/images/globalization.png')  }}" alt="" class="item-img">
+                        <img src="{{ asset('images/english/images/globalization.png') }}" alt="" class="item-img">
                         <h3 class="sub-title">Globalization</h3>
                         <p class="intro-detail">
                             Offices in Hong Kong, Jakarta, New Delhi, Moscow, Los Angeles, and London.
                         </p>
                     </div>
                     <div class="intro-item col-sm-3">
-                        <img src="{{ asset('images/english/images/professional.png')  }}" alt="" class="item-img">
+                        <img src="{{ asset('images/english/images/professional.png') }}" alt="" class="item-img">
                         <h3 class="sub-title">Professional</h3>
                         <p class="intro-detail">
                             Focus on brand promotion in the sea, expert staff, who have more than 10 years’ experience in the
@@ -343,8 +343,8 @@
                 <div class="flex-wrapper" id="clients2" style="padding-bottom: 50px;">
                     <div class="image"><img src="{{ asset('images/english/images/gunsofboom.png') }}" alt=""></div>
                     <div class="image"><img src="{{ asset('images/english/images/hainan.png') }}" alt=""></div>
-                    <div class="image"><img src="{{ asset('images/english/images/oneplus.png') }}" alt=""></div>
                     <div class="image"><img src="{{ asset('images/english/images/UCNews.png') }}" alt=""></div>
+                    <div class="image"><img src="{{ asset('images/english/images/oneplus.png') }}" alt=""></div>
                     <div class="image"><img src="{{ asset('images/english/images/dalian.jpg') }}" alt=""></div>
                     <div class="image"><img src="{{ asset('images/english/images/xender.jpg') }}" alt=""></div>
                     <div class="image"><img src="{{ asset('images/english/images/king.jpg') }}" alt=""></div>
