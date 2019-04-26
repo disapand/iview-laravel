@@ -40,20 +40,19 @@
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:30px;">
                                 <div class="img-container">
                                     <img src="{{ asset('images/english/images/logo.png') }}" alt="">
-                                    <div
-                                            style="font-size: 14px; font-weight: 700; text-indent: 5px; letter-spacing: 3.5px;">
+                                    <div style="font-size: 14px; font-weight: 700; text-indent: 5px; letter-spacing: 3.5px;">
                                         <a href="javascript:void(0);" style="color: #999;text-decoration: none;cursor:
                         default;">ENGLISH</a>&nbsp;|
                                         <a href="{{ route('home') }}" style="color: #000;text-decoration: none;">中文版</a>
                                     </div>
                                 </div>
                                 <ul class="nav navbar-nav" id="nav">
-
-                                    <li><a class="nav-about nav-active" style="font-weight:bold;"> ABOUT US </a></li>
-                                    <li><a class="nav-res" style="font-weight:bold;"> RESOURCES </a></li>
-                                    <li><a class="nav-compagin" style="font-weight:bold;"> COMPAGIN </a></li>
-                                    <li><a class="nav-clients" style="font-weight:bold;"> CLIENTS </a></li>
-                                    <li><a class="nav-contact" style="font-weight:bold;"> Contact </a></li>
+                                    <li><a class="nav-about" style="font-weight:bold;cursor:pointer;"> ABOUT US </a></li>
+                                    <li><a class="nav-res" style="font-weight:bold;cursor:pointer;"> RESOURCES </a></li>
+                                    <li><a class="nav-service" style="font-weight:bold;cursor:pointer;"> SERVICES </a></li>
+                                    <li><a class="nav-compagin" style="font-weight:bold;cursor:pointer;"> CAMPAIGN </a></li>
+                                    <li><a class="nav-clients" style="font-weight:bold;cursor:pointer;"> CLIENTS </a></li>
+                                    <li><a class="nav-contact" style="font-weight:bold;cursor:pointer;"> CONTACT </a></li>
                                 </ul>
                             </div>
                             <div class="text">
@@ -162,8 +161,8 @@
                         interactive advertising marketing service provider that internationalize Chinese products by both branding
                         and performance marketing.
                     </p>
-                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">More About Us</button>
+                    <button type="button" class="btn btn-danger dropdown-toggle more-about-us" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">More About Us</button>
                 </div>
                 <div class="col-lg-6 resource-images ">
                     <div class="flex-resource-image"><img src="{{ asset('images/english/images/PrintMedia.png') }}" alt="">
@@ -189,7 +188,7 @@
         </div>
 
         <div class="services-container body-section-wrapper">
-            <h1 class="service-tittle">
+            <h1 class="service-tittle" id="service">
                 SERVICES
             </h1>
             <div class="gallery">
@@ -246,7 +245,7 @@
                     </div>
 
                     <div class="flex-slide influnce">
-                        <div class="flex-title">Influencers Agentr</div>
+                        <div class="flex-title">Influencers Agent</div>
                         <div class="flex-about">
                             <p>We have wide and close connection to Influencers all around the world. Key Opinion Leaders
                                 (KOL),
@@ -268,53 +267,53 @@
                 <div class="campagin-gallery">
                     <div class="campagin-gallery-image">
                         <div class="text-wrapper">
-                            <h4>Oneplus——India——Flagship Store Opening Ceremony</h4>
+                            <h4>Oneplus<br> India <br> Flagship Store Opening Ceremony</h4>
                             <h6>Packing Oneplus flagship store into a New Year’s gift, making a stir on the most prosperous street
                                 in Bangalore</h6>
                         </div>
                     </div>
                     <div class="campagin-gallery-image">
                         <div class="text-wrapper">
-                            <h4>Metisu——Europe,America——KOL Promotion</h4>
+                            <h4>Metisu <br> Europe,America <br>KOL Promotion</h4>
                             <h6>A collection of 100 European and American fashion influencers, promote the brand on social media
                             </h6>
                         </div>
                     </div>
                     <div class="campagin-gallery-image">
                         <div class="text-wrapper">
-                            <h4>Airbnb——China——Daily Public Relations Activities</h4>
+                            <h4>Airbnb <br>China <br>Daily Public Relations Activities</h4>
                             <h6>Chinese localization promotion for a international brand</h6>
                         </div>
                     </div>
                     <div class="campagin-gallery-image">
                         <div class="text-wrapper">
-                            <h4>Film Dominator——New York——Nasdaq Digital Boards</h4>
+                            <h4>Film Dominator <br>New York <br>Nasdaq Digital Boards</h4>
                             <h6>Chinese film unveiled at the crossroads of the world</h6>
                         </div>
                     </div>
                     <div class="campagin-gallery-image">
                         <div class="text-wrapper">
-                            <h4>Music APP——Poland——OOH</h4>
+                            <h4>Music APP <br>Poland <br>OOH</h4>
                             <h6>OOH advertising in subway to echance brand awareness</h6>
                         </div>
                     </div>
                     <div class="campagin-gallery-image">
                         <div class="text-wrapper">
-                            <h4>Sichuan Tourism Development Commission——Italy,Poland,Czech Republic ——OOH</h4>
+                            <h4>Sichuan Tourism Development Commission<br>Italy,Poland,Czech Republic <br>OOH</h4>
                             <h6>Bus advertising, the image of the Hometown of Pandas Shuttles through the streets of Europe
                             </h6>
                         </div>
                     </div>
                     <div class="campagin-gallery-image">
                         <div class="text-wrapper">
-                            <h4>Hainan Tourism Development Commission——Russia——OOH+Magazine+Online Advertising</h4>
+                            <h4>Hainan Tourism Development Commission<br>Russia<br>OOH+Magazine+Online Advertising</h4>
                             <h6>Integrate media resources, optimize the plan to enhance Hainan's tourism image online and offline
                             </h6>
                         </div>
                     </div>
                     <div class="campagin-gallery-image">
                         <div class="text-wrapper">
-                            <h4>UC news——India——TV Integration in news programs</h4>
+                            <h4>UC news<br>India<br>TV Integration in news programs</h4>
                             <h6>The deep integration in the most influential Hindi news programs in India has made UC news quickly
                                 localized, and its
                                 brand awareness and reputation have increased dramatically.</h6>
@@ -362,33 +361,36 @@
     <div class="container">
         <h1 class="title san">CONTACT US</h1>
         <div class="row">
-            <div class="col-md-4">
-                <div class="col-md-12 directory-item">
+            <div class="col-md-4 nav" style="text-align:left; padding-left:150px;">
+                <div class="col-md-12 directory-item nav-about" style="cursor:pointer;">
                     ABOUT US
                     <img src="{{ asset('images/english/images/arrow.png') }}" alt="" style="margin-left: 3px; color: rgba(255, 255, 255, 0.6);;">
                 </div>
-                <div class="col-md-12 directory-item">
-                    ABOUT US
+                <div class="col-md-12 directory-item nav-res" style="cursor:pointer;">
+                    RESOURCES
                     <img src="{{ asset('images/english/images/arrow.png') }}" alt="" style="margin-left: 3px; color: rgba(255, 255, 255, 0.6);;">
                 </div>
-                <div class="col-md-12 directory-item">
-                    ABOUT US
+                <div class="col-md-12 directory-item nav-service" style="cursor:pointer;">
+                    SERVICES
                     <img src="{{ asset('images/english/images/arrow.png') }}" alt="" style="margin-left: 3px; color: rgba(255, 255, 255, 0.6);;">
                 </div>
-                <div class="col-md-12 directory-item">
-                    ABOUT US
+                <div class="col-md-12 directory-item nav-compagin" style="cursor:pointer;">
+                    CAMPAIGN
                     <img src="{{ asset('images/english/images/arrow.png') }}" alt="" style="margin-left: 3px; color: rgba(255, 255, 255, 0.6);;">
                 </div>
-                <div class="col-md-12 directory-item">
-                    ABOUT US
+                <div class="col-md-12 directory-item nav-clients" style="cursor:pointer;">
+                    CLIENTS
+                    <img src="{{ asset('images/english/images/arrow.png') }}" alt="" style="margin-left: 3px; color: rgba(255, 255, 255, 0.6);;">
+                </div>
+                <div class="col-md-12 directory-item nav-contact" style="cursor:pointer;">
+                    CONTACT
                     <img src="{{ asset('images/english/images/arrow.png') }}" alt="" style="margin-left: 3px; color: rgba(255, 255, 255, 0.6);;">
                 </div>
             </div>
 
             <div class="col-md-4 contact-info">
                 <p class="address">
-                    Building B Ruichuang Center,
-                </p>
+                    Building B Ruichuang Center,</p>
                 <p class="address"> Wangjing East Road,</p>
                 <p class="address"> Chaoyang District,</p>
                 <p class="address"> Beijing, 100102,</p>
@@ -396,16 +398,32 @@
                 <p class="mail">info@zetin.cn</p>
 
                 <div class="social-media col-md-12">
-                    <div class="col-lg-2"><img src="{{ asset('images/english/images/Facebook.png') }}" alt=""></div>
-                    <div class="col-lg-2"><img src="{{ asset('images/english/images/Ins.png') }}" alt=""></div>
-                    <div class="col-lg-2"><img src="{{ asset('images/english/images/Pinterest.png') }}" alt=""></div>
-                    <div class="col-lg-2"><img src="{{ asset('images/english/images/YouTube.png') }}" alt=""></div>
+                    <div class="col-lg-2">
+                        <a href="https://www.facebook.com/zetinmediagroup/?modal=admin_todo_tour">
+                            <img src="{{ asset('images/english/images/Facebook.png') }}" alt="">
+                        </a>
+                    </div>
+                    <div class="col-lg-2">
+                        <a href="https://www.instagram.com/zetinmedia/">
+                            <img src="{{ asset('images/english/images/Ins.png') }}" alt="">
+                        </a>
+                    </div>
+                    <div class="col-lg-2">
+                        <a href="https://weibo.com/u/6343057097">
+                            <img src="{{ asset('images/english/images/weibo.png') }}" alt="">
+                        </a>
+                    </div>
+                    <div class="col-lg-2">
+                        <a href="https://open.weixin.qq.com/qr/code?username=ZetinMedia">
+                            <img src="{{ asset('images/english/images/weixin.png') }}" alt="">
+                        </a>
+                    </div>
                 </div>
 
 
             </div>
 
-            <div class="location-map col-md-4">
+            <div class="location-map col-md-6">
                 <img src="{{ asset('images/english/images/map.png') }}" alt="">
             </div>
         </div>
@@ -416,28 +434,34 @@
 <script>
 
     function scrollToElment(el) {
-        const { y } = el.getBoundingClientRect()
-        window.scrollTo(0, y)
+        $('html,body').animate({ scrollTop: $(el).offset().top }, 500)
     }
 
     const selectById = id => document.querySelector(`#${id}`)
-    document.getElementById('nav').addEventListener('click', (ev) => {
-        const className = ev.target.className
+
+    const handleNavClick = (ev) => {
+        const className = ev.target.className.match(/nav(\-).*/g)[0]
+
         const dic = {
             'nav-about': 'about',
             'nav-res': 'resource',
             'nav-compagin': 'compagin',
             'nav-clients': 'clients',
-            'nav-contact': 'contact'
+            'nav-contact': 'contact',
+            'nav-service': 'service',
         }
+
         if (dic[className]) {
             const el = selectById(dic[className])
             scrollToElment(el)
         } else {
             console.log(`not found el in dict : #${className}`)
         }
-    })
+    }
 
+    document.getElementById('nav').addEventListener('click', handleNavClick)
+    document.getElementsByClassName('nav')[1].addEventListener('click', handleNavClick)
+    document.getElementsByClassName('more-about-us')[0].addEventListener('click', () => scrollToElment(selectById('service')))
     var clients1 = document.querySelector('#clients1')
     var clients2 = document.querySelector('#clients2')
     clients2.addEventListener('scroll', e => {
@@ -450,8 +474,8 @@
         console.log(e.wheelDelta)
         clients2.scrollLeft = clients1.scrollLeft = clients2.scrollLeft += (delta < 0 ? 1 : -1) * 80;
     }
-    $(clients2).bind('mousewheel DOMMouseScroll',onwheel)
-    $(clients1).bind('mousewheel DOMMouseScroll',onwheel)
+    $(clients2).bind('mousewheel DOMMouseScroll', onwheel)
+    $(clients1).bind('mousewheel DOMMouseScroll', onwheel)
 
 </script>
 
