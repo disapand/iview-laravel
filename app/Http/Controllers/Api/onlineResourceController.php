@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Handlers\ExcelUploadHandler;
+use App\Imports\ResourceImport;
+use App\Models\count;
 use App\Models\onlineResource;
 use App\Models\onlineResourceImgs;
 use App\Transformers\onlineResourceTransformer;
 use App\Transformers\outdoorResourceTransformer;
+use ClassesWithParents\E;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -125,11 +128,40 @@ class onlineResourceController extends Controller
 
     public function importOnline(Request $request, ExcelUploadHandler $uploader) {
         try {
-            $excel = $request->file('excel');
-            $result = $uploader->save($excel, 'online');
-
-            $data = Excel::load($result['path'], function ($reader){})->get();
-            onlineResource::insert($data->toArray());
+            $data = Excel::toArray(new ResourceImport(), $request->file('excel'));
+            unset($data[0][0]);
+            $excel = array();
+            foreach ($data[0] as $item) {
+                $t = [
+                    'name' => $item[0],
+                    'category' => $item[1],
+                    'form' => $item[2],
+                    'detail' => $item[3],
+                    'area' => $item[4],
+                    'language' => $item[5],
+                    'platform' => $item[6],
+                    'company' => $item[7],
+                    'pv' => $item[8],
+                    'uv' => $item[9],
+                    'minimum_buy' => $item[10],
+                    'format' => $item[11],
+                    'media_price' => $item[12],
+                    'price' => $item[13],
+                    'contributor' => $item[14],
+                    'link' => $item[15],
+                    'country' => $item[16],
+                    'requirements' => $item[17],
+                    'isuse' => $item[18],
+                ];
+                array_push($excel, $t);
+            }
+//            return  $data;
+//            $excel = $request->file('excel');
+//            $result = $uploader->save($excel, 'online');
+//
+//            $data = Excel::load($result['path'], function ($reader){})->get();
+//            return $data;
+            onlineResource::insert($excel);
             return $this->response->paginator(onlineResource::where([])->orderBy('id', 'desc')->paginate(15),
                 new onlineResourceTransformer());
         } catch (\Exception $e) {

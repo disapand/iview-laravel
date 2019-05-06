@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Handlers\ExcelUploadHandler;
 use App\Http\Requests\Api\televisionResourcesRequest;
+use App\Imports\ResourceImport;
 use App\Models\televisionResources;
 use App\Models\televisionResourcesImg;
 use App\Transformers\televisionResourcesTransformer;
@@ -95,21 +96,34 @@ class TelevisionResourcesController extends Controller
     }
 
     public function importTv(Request $request, ExcelUploadHandler $uploader) {
-        /*
-         *  上传excel文件，并保存到服务器
-         * */
-        $excel = $request->file('excel');
-        $result = $uploader->save($excel, 'television');
 
-        /*
-         *  从上传的文件中获取数据
-         * */
-        $data = Excel::load($result['path'], function ($reader){})->get();
-        /*
-         *  将获取到的数据存入数据库
-         * */
+        $data = Excel::toArray(new ResourceImport(), $request->file('excel'));
+        unset($data[0][0]);
+        $excel = array();
+        foreach ($data[0] as $item) {
+            $t = [
+                'channel' => $item[0],
+                'form' => $item[1],
+                'detail' => $item[2],
+                'area' => $item[3],
+                'language' => $item[4],
+                'category' => $item[5],
+                'station' => $item[6],
+                'minimum_buy' => $item[7],
+                'time' => $item[8],
+                'company' => $item[9],
+                'contributor' => $item[10],
+                'price' => $item[11],
+                'country' => $item[12],
+                'program' => $item[13],
+                'requirements' => $item[14],
+                'isuse' => $item[15],
+            ];
+            array_push($excel, $t);
+        }
+
         try {
-            televisionResources::insert($data->toArray());
+            televisionResources::insert($excel);
         } catch (\Exception $e) {
             return $e;
         }

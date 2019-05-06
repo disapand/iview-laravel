@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Handlers\ExcelUploadHandler;
+use App\Imports\ResourceImport;
 use App\Models\transformResource;
 use App\Models\transformResourceImg;
 use App\Transformers\transformResourceTransformer;
@@ -120,11 +121,40 @@ class transformController extends Controller
 
     public function importTransform(Request $request, ExcelUploadHandler $uploader) {
         try {
-            $excel = $request->file('excel');
-            $result = $uploader->save($excel, 'transform');
+            $data = Excel::toArray(new ResourceImport(), $request->file('excel'));
+            unset($data[0][0]);
+            $excel = array();
+            foreach ($data[0] as $item) {
+                $t = [
+                    'city' => $item[0],
+                    'form' => $item[1],
+                    'unit_num' => $item[2],
+                    'position' => $item[3],
+                    'language' => $item[4],
+                    'category' => $item[5],
+                    'area' => $item[6],
+                    'sov' => $item[7],
+                    'visitor' => $item[8],
+                    'traffic' => $item[9],
+                    'minimum_buy' => $item[10],
+                    'format' => $item[11],
+                    'number' => $item[12],
+                    'time' => $item[13],
+                    'media_price' => $item[14],
+                    'price' => $item[15],
+                    'total_num' => $item[16],
+                    'company' => $item[17],
+                    'contributor' => $item[18],
+                    'detail' => $item[19],
+                    'country' => $item[20],
+                    'name' => $item[21],
+                    'requirements' => $item[22],
+                    'isuse' => $item[23],
+                ];
+                array_push($excel, $t);
+            }
 
-            $data = Excel::load($result['path'])->get();
-            transformResource::insert($data->toArray());
+            transformResource::insert($excel);
 
             return $this->response->paginator(transformResource::where([])->orderBy('id', 'desc')->paginate(15),
                 new transformResourceTransformer());

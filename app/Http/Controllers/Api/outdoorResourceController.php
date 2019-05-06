@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Handlers\ExcelUploadHandler;
+use App\Imports\ResourceImport;
 use App\Models\outdoorResource;
 use App\Models\outdoorResourceImgs;
 use App\Transformers\outdoorResourceImgsTransformer;
@@ -63,12 +64,38 @@ class outdoorResourceController extends Controller
 
     public function importOutdoor(Request $request, ExcelUploadHandler $uploader){
         try{
-            $excel = $request->file('excel');
-            $result = $uploader->save($excel, 'outdoor');
-
-            $data = Excel::load($result['path'])->get();
-
-            outdoorResource::insert($data->toArray());
+            $data = Excel::toArray(new ResourceImport(), $request->file('excel'));
+            unset($data[0][0]);
+            $excel = array();
+            foreach ($data[0] as $datum) {
+                $t = [
+                    'city' => $datum[0],
+                    'form' => $datum[1],
+                    'unit_num' => $datum[2],
+                    'language' => $datum[3],
+                    'category' => $datum[4],
+                    'property' => $datum[5],
+                    'SOV' => $datum[6],
+                    'visitor' => $datum[7],
+                    'traffic' => $datum[8],
+                    'minimum_buy' => $datum[9],
+                    'format' => $datum[10],
+                    'number' => $datum[11],
+                    'time' => $datum[12],
+                    'media_price' => $datum[13],
+                    'price' => $datum[14],
+                    'total_num' => $datum[15],
+                    'company' => $datum[16],
+                    'contributor' => $datum[17],
+                    'detail' => $datum[18],
+                    'country' => $datum[19],
+                    'name' => $datum[20],
+                    'requirements' => $datum[21],
+                    'isuse' => $datum[22]
+                ];
+                array_push($excel, $t);
+            }
+            outdoorResource::insert($excel);
             return $this->response->paginator(outdoorResource::where([])->orderBy('id', 'desc')->paginate(15),
                 new outdoorResourceTransformer());
         } catch (\Exception $e) {

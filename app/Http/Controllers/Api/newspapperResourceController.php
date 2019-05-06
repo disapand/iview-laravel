@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Handlers\ExcelUploadHandler;
+use App\Imports\ResourceImport;
 use App\Models\newspaperResource;
 use App\Models\newspaperResourceImg;
 use App\Transformers\newspaperResourceTransformer;
@@ -121,11 +122,36 @@ class newspapperResourceController extends Controller
 
     public function importNewspaper(Request $request, ExcelUploadHandler $uploader) {
         try {
-            $excel = $request->file('excel');
-            $result = $uploader->save($excel, 'newspaper');
-
-            $data = Excel::load($result['path'], function ($reader){})->get();
-            newspaperResource::insert($data->toArray());
+            $data = Excel::toArray(new ResourceImport(), $request->file('excel'));
+            unset($data[0][0]);
+            $excel = array();
+            foreach ($data[0] as $datum) {
+                $t = [
+                    'name' => $datum[0],
+                    'form' => $datum[1],
+                    'ad_form' => $datum[2],
+                    'detail' => $datum[3],
+                    'area' => $datum[4],
+                    'language' => $datum[5],
+                    'category' => $datum[6],
+                    'company' => $datum[7],
+                    'minimum_buy' => $datum[8],
+                    'format' => $datum[9],
+                    'cycle' => $datum[10],
+                    'media_price' => $datum[11],
+                    'price' => $datum[12],
+                    'circulation' => $datum[13],
+                    'company' => $datum[14],
+                    'contributor' => $datum[15],
+                    'page' => $datum[16],
+                    'country' => $datum[17],
+                    'version' => $datum[18],
+                    'requirements' => $datum[19],
+                    'isuse' => $datum[20]
+                ];
+                array_push($excel, $t);
+            }
+            newspaperResource::insert($excel);
             return $this->response->paginator(newspaperResource::where([])->orderBy('id', 'desc')->paginate(15),
                 new newspaperResourceTransformer());
         } catch (\Exception $e) {

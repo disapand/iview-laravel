@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Handlers\ExcelUploadHandler;
+use App\Imports\ResourceImport;
 use App\Models\internetcelebrityResource;
 use App\Models\internetcelebrityResourceCategory;
 use App\Models\internetcelebrityResourceImgs;
@@ -152,14 +153,32 @@ class internetcelebrityController extends Controller
     public function importInternet(Request $request, ExcelUploadHandler $uploader)
     {
         try {
-            $excel = $request->file('excel');
-            $result = $uploader->save($excel, 'internet');
-
-            $data = Excel::load($result['path'], function ($reader){})->get();
-            foreach ($data as $item) {
-                $categories = explode(',', $item['category']);
-                unset($item['category']);
-                $internet = internetcelebrityResource::create($item->toArray());
+            ini_set('memory_limit', '2000M');
+            $data = Excel::toArray(new ResourceImport(), $request->file('excel'));
+            unset($data[0][0]);
+            foreach ($data[0] as $item) {
+                $t = [
+                    'name' => $item[0],
+                    'platform' => $item[1],
+                    'ad_form' => $item[2],
+                    'category' => $item[3],
+                    'detail' => $item[4],
+                    'area' => $item[5],
+                    'language' => $item[6],
+                    'fans' => $item[7],
+                    'media_price' => $item[8],
+                    'price' => $item[9],
+                    'company' => $item[10],
+                    'contributor' => $item[11],
+                    'advantage' => $item[12],
+                    'country' => $item[13],
+                    'cooperation' => $item[14],
+                    'requirements' => $item[15],
+                    'isuse' => $item[16],
+                ];
+                $categories = explode(',', $t['category']);
+                unset($t['category']);
+                $internet = internetcelebrityResource::create($t);
                 foreach ($categories as $category) {
                     $internet->categories()->attach(internetcelebrityResourceCategory::whereName($category)
                         ->get(['id'])->first()['id']);
