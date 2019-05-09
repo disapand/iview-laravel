@@ -26,6 +26,13 @@
                         <radio label="Vk"></radio>
                         <radio label="Pinterest"></radio>
                         <radio label="Blog"></radio>
+                        <radio label="微信"></radio>
+                        <radio label="微博"></radio>
+                        <radio label="小红书"></radio>
+                        <radio label="抖音"></radio>
+                        <radio label="今日头条"></radio>
+                        <radio label="花椒"></radio>
+                        <radio label="映客"></radio>
                     </radio-group>
                 </form-item>
 
