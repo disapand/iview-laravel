@@ -116,7 +116,7 @@
                                     <option>Blog</option>
                                     <option>微信</option>
                                     <option>微博</option>
-                                    <option>小红><option>
+                                    <option>小红书</option>
                                     <option>抖音</option>
                                     <option>今日</option>
                                     <option>花椒</option>
