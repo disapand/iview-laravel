@@ -57,7 +57,6 @@ class DashboardController extends Controller
         $dynamic_3 = dynamic::whereBetween('updated_at', [Carbon::parse('4 day ago'), Carbon::parse('3 days ago')])->count();
         $dynamic_2 = dynamic::whereBetween('updated_at', [Carbon::parse('5 day ago'), Carbon::parse('4 days ago')])->count();
         $dynamic_1 = dynamic::whereBetween('updated_at', [Carbon::parse('6 day ago'), Carbon::parse('5 days ago')])->count();
-
         $uv = count::where('updated_at', '>=', Carbon::parse('today'))->count();
         $pv = count::where('updated_at', '>=', Carbon::parse('today'))->select('host')->distinct()->get()->count();
         $uv1 = count::whereBetween('updated_at', [Carbon::parse('1 days ago'), Carbon::parse('today')])->count();
@@ -79,7 +78,8 @@ class DashboardController extends Controller
         $pv6 = count::whereBetween('updated_at', [Carbon::parse('6 days ago'), Carbon::parse('5 days ago')])->select('host')
             ->distinct()->get()->count();
 
-        $uv_count = count::all()->count();
+        //$uv_count = count::all()->count();
+        $uv_count = count::where([])->count();
         $pv_count = count::select('host')->distinct()->get()->count();
 
         return $this->response->array(compact('televisons', 'onlines', 'outdoors', 'transforms', 'internetCelebrities', 'case_3c', 'case_app', 'case_game',
