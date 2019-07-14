@@ -76,7 +76,7 @@ class PagesController extends Controller
 
     public function newspaperShow(newspaperResource $newspaper)
     {
-        $recommends = newspaperResource::where('id', '<>', $newspaper->id)->with('newspaperResourceImgs')->orderBy('id', 'desc')->take(4)->get();
+        $recommends = newspaperResource::where('id', '<>', $newspaper->id)->where('isuse', true)->with('newspaperResourceImgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.newspaper_in', compact('newspaper', 'recommends'));
     }
 
@@ -99,7 +99,7 @@ class PagesController extends Controller
             $data['form'] = '%';
         }
         $newspapers = newspaperResource::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
-            ->where('form', 'like', $data['form'])->orderBy('id', 'desc')->paginate(9);
+            ->where('form', 'like', $data['form'])->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
         return view('pages.newspaper', compact('newspapers'));
     }
 
@@ -117,7 +117,7 @@ class PagesController extends Controller
 
     public function televisionShow(televisionResources $television)
     {
-        $recommends = televisionResources::where('id', '<>', $television->id)->with('televisionResourcesImgs')->orderBy('id', 'desc')->take(4)->get();
+        $recommends = televisionResources::where('id', '<>', $television->id)->where('isuse', true)->with('televisionResourcesImgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.television_in', compact('television', 'recommends'));
     }
 
@@ -140,7 +140,7 @@ class PagesController extends Controller
             $data['form'] = '%';
         }
         $televisions = televisionResources::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
-            ->where('form', 'like', $data['form'])->orderBy('id', 'desc')->paginate(9);
+            ->where('form', 'like', $data['form'])->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
         return view('pages.television', compact('televisions'));
     }
 
@@ -158,7 +158,7 @@ class PagesController extends Controller
 
     public function outdoorShow(outdoorResource $outdoor)
     {
-        $recommends = outdoorResource::where('id', '<>', $outdoor->id)->with('outdoorResourceImgs')->orderBy('id', 'desc')->take(4)->get();
+        $recommends = outdoorResource::where('id', '<>', $outdoor->id)->where('isuse', true)->with('outdoorResourceImgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.outdoor_in', compact('outdoor', 'recommends'));
     }
 
@@ -181,7 +181,7 @@ class PagesController extends Controller
             $data['form'] = '%';
         }
         $outdoors = outdoorResource::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
-            ->where('form', 'like', $data['form'])->orderBy('id', 'desc')->paginate(9);
+            ->where('form', 'like', $data['form'])->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
         return view('pages.outdoor', compact('outdoors'));
     }
 
@@ -199,7 +199,7 @@ class PagesController extends Controller
 
     public function transformShow(transformResource $transform)
     {
-        $recommends = transformResource::where('id', '<>', $transform->id)->with('transformResourceImgs')->orderBy('id', 'desc')->take(4)->get();
+        $recommends = transformResource::where('id', '<>', $transform->id)->where('isuse', true)->with('transformResourceImgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.transform_in', compact('transform', 'recommends'));
     }
 
@@ -222,7 +222,7 @@ class PagesController extends Controller
             $data['form'] = '%';
         }
         $transforms = transformResource::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
-            ->where('form', 'like', $data['form'])->orderBy('id', 'desc')->paginate(9);
+            ->where('form', 'like', $data['form'])->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
         return view('pages.transform', compact('transforms'));
     }
 
@@ -239,7 +239,7 @@ class PagesController extends Controller
 
     public function onlineShow(onlineResource $online)
     {
-        $recommends = onlineResource::where('id', '<>', $online->id)->with('onlineResourceImgs')->orderBy('id', 'desc')->take(4)->get();
+        $recommends = onlineResource::where('id', '<>', $online->id)->where('isuse', true)->with('onlineResourceImgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.online_in', compact('online', 'recommends'));
     }
 
@@ -262,7 +262,7 @@ class PagesController extends Controller
             $data['form'] = '%';
         }
         $onlines = onlineResource::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
-            ->where('form', 'like', $data['form'])->orderBy('id', 'desc')->paginate(9);
+            ->where('form', 'like', $data['form'])->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
         return view('pages.online', compact('onlines'));
 
     }
@@ -287,7 +287,7 @@ class PagesController extends Controller
             array_push($arr, $t['name']);
         }
         $categories = implode(',', $arr);
-        $recommends = internetcelebrityResource::where('id', '<>', $internetCelebrity->id)->with('Imgs')->orderBy('id', 'desc')->take(4)->get();
+        $recommends = internetcelebrityResource::where('id', '<>', $internetCelebrity->id)->where('isuse', true)->with('Imgs')->orderBy('id', 'desc')->take(4)->get();
         return view('pages.internetCelebrity_in', compact('internetCelebrity', 'categories', 'recommends'));
     }
 
@@ -314,12 +314,12 @@ class PagesController extends Controller
         }
         if ($category == '全部') {
             $internetCelebrities = internetcelebrityResource::where('country', 'like', $request->country)->where('platform', 'like', $request->platform)
-                ->orderBy('id', 'desc')->paginate(9);
+                ->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
         } else {
             $internetCelebrities = internetcelebrityResource::where('country', 'like', $request->country)->where('platform', 'like', $request->platform)
                 ->wherehas('categories', function ($q) use ($category) {
                     $q->where('name', 'like', $category);
-                })->orderBy('id', 'desc')->paginate(9);
+                })->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
         }
 
         return view('pages.internetCelebrity', compact('internetCelebrities'));
