@@ -472,16 +472,16 @@
     }
 
     .img-list:hover .img-list-cover {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .img-list-cover .ivu-icon {
         font-size: 3em;
-        margin-left: 25px;
+        margin: 0 25px;
         color: #fff;
         cursor: pointer;
-        margin-top: 50%;
-        transform: translateY(-50%);
     }
 
     .ivu-radio-group-button .ivu-radio-wrapper {

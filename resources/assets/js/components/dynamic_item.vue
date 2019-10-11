@@ -302,15 +302,15 @@
     }
 
     .img-list:hover .img-list-cover {
-        display: inline-block;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .img-list-cover .ivu-icon {
         font-size: 3em;
-        margin-left: 25px;
+        margin: 0 25px;
         color: #fff;
-        margin-top: 50%;
-        transform: translateY(-50%);
         cursor: pointer;
     }
 

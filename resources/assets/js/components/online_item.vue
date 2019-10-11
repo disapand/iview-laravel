@@ -441,7 +441,9 @@
     }
 
     .img-list:hover .img-list-cover {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .img-list-cover .ivu-icon {
