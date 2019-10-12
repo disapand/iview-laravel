@@ -157,7 +157,7 @@
                 <form-item>
                     <upload multiple type="drag"
                             name="img"
-                            action="https://www.zetin.cn/api/internetImg"
+                            action="https://iview-laravel.test/api/internetImg"
                             :on-success="imgSuccess"
                             :on-error="imgError"
                             :data="internet"
@@ -271,7 +271,7 @@
                     *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                     * */
                     onOk: () => {
-                        this.$ajax.delete('https://www.zetin.cn/api/internetImg/' + id).then((response) => {
+                        this.$ajax.delete('https://iview-laravel.test/api/internetImg/' + id).then((response) => {
                             this.$Message.info('图片删除完成')
                             if (response.data.data) {
                                 this.internet.Imgs.data = response.data.data
@@ -297,7 +297,7 @@
                         return h('div', [
                             h('upload', {
                                 props: {
-                                    action: 'https://www.zetin.cn/api/internetImgUpdate',
+                                    action: 'https://iview-laravel.test/api/internetImgUpdate',
                                     type: 'drag',
                                     name: 'img',
                                     data: this.img,
@@ -334,7 +334,7 @@
             *   根据当前电视的id删除电视资源，删除完成后返回上一页
             * */
             deleteInternet(id) {
-                this.$ajax.delete('https://www.zetin.cn/api/internet/' + id).then((response) => {
+                this.$ajax.delete('https://iview-laravel.test/api/internet/' + id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.$router.go(-1)
                 }).catch((error) => {
@@ -348,7 +348,8 @@
             updateInternet() {
                 this.$refs['internet'].validate((valid) => {
                     if (valid) {
-                        this.$ajax.post('https://www.zetin.cn/api/internet', this.internet).then((response) => {
+                        this.internet.userid = this.$store.state.user.id
+                        this.$ajax.post('https://iview-laravel.test/api/internet', this.internet).then((response) => {
                             console.log(response.data)
                             this.$Message.info('资源编辑成功')
                         }).catch((error) => {
@@ -400,7 +401,7 @@
             *   根据传过来的id获取对应的televisionResources
             * */
             if (this.$route.params.id) {
-                this.$ajax.get('https://www.zetin.cn/api/internet/' + this.$route.params.id + '?include=Imgs').then((response) => {
+                this.$ajax.get('https://iview-laravel.test/api/internet/' + this.$route.params.id + '?include=Imgs').then((response) => {
                     if (this.$route.params.currentPage != undefined) {
                         this.currentPage = this.$route.params.currentPage
                     }

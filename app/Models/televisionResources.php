@@ -68,7 +68,7 @@ class televisionResources extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'channel', 'form', 'detail', 'area', 'language', 'category', 'station', 'minimum_buy', 'time', 'company',
-        'contributor', 'price', 'country', 'program', 'image', 'requirements', 'isuse',
+        'contributor', 'price', 'country', 'program', 'image', 'requirements', 'isuse', 'userid'
     ];
 
     public function televisionResourcesImgs()

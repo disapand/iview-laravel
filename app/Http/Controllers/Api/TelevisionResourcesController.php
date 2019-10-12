@@ -8,6 +8,7 @@ use App\Imports\ResourceImport;
 use App\Models\televisionResources;
 use App\Models\televisionResourcesImg;
 use App\Transformers\televisionResourcesTransformer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -68,6 +69,7 @@ class TelevisionResourcesController extends Controller
             'contributor' => $request->contributor ? : '*',
             'price' => $request->price ? : '0',
             'requirements' => $request->requirements ? : '*',
+            'userid' => $request->userid,
             'program' => $request->program,
             'country' => $request->country,
             'isuse' => $request->isuse,
@@ -170,4 +172,11 @@ class TelevisionResourcesController extends Controller
         return 'success!';
     }
 
+    public function getTotals($userid)
+    {
+        $count =  televisionResources::where('userid', $userid)
+            ->where('updated_at', '>=', Carbon::parse('7 days ago'))
+            ->get()->count();
+        return $count;
+    }
 }

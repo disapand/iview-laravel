@@ -39,6 +39,9 @@ $api->version('v1', [
     $api->get('tvUse/{tv}', 'TelevisionResourcesController@tvUse')->name('api.tv.use');
     $api->get('tvUseAll/{tv}', 'TelevisionResourcesController@tvUseAll')->name('api.tv.useAll');
     $api->get('tvUseNone/{tv}', 'TelevisionResourcesController@tvUseNone')->name('api.tv.useNone');
+    $api->get('tvTest', 'TelevisionResourcesController@Testinfo')->name('api.tv.test');
+    $api->get('countTelevison/{userid}', 'TelevisionResourcesController@getTotals')->name('api.tv.count');
+
 
     $api->get('outdoor', 'outdoorResourceController@index')->name('api.outdoor.index');
     $api->get('outdoor/{outdoor}', 'outdoorResourceController@show')->name('api.outdoor.show');
@@ -81,6 +84,7 @@ $api->version('v1', [
     $api->post('newspaperImgUpdate', 'newspapperResourceImsController@update')->name('api.newspaperImg.update');
     $api->delete('newspaperImg/{img}', 'newspapperResourceImsController@destroy')->name('api.newspaperImg.destroy');
     $api->post('importNewspaper', 'newspapperResourceController@importNewspaper')->name('api.newspaper.import');
+    $api->get('countNewspaper/{userid}', 'newspapperResourceController@getTotal')->name('api.newspaper.count');
 
     $api->get('online', 'onlineResourceController@index')->name('api.online.index');
     $api->get('publishOnline/{online}', 'onlineResourceController@publish')->name('api.online.publish');

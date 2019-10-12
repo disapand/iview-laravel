@@ -115,10 +115,11 @@
             this.$store.commit('updateAccessToken')
             this.$store.commit('updateTokenType')
             this.$store.commit('updateExpiresIn')
-            this.$ajax.get('https://www.zetin.cn/api/user', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
+            this.$ajax.get('https://iview-laravel.test/api/user', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
                 .then((res) => {
                     console.log('用户登录', res)
                     this.user = res.data
+                    this.$store.commit('setUser', res.data)
                 })
                 .catch((error) => {
                     console.log(error)
@@ -171,7 +172,7 @@
                 }
             },
             logout() {
-                this.$ajax.delete('https://www.zetin.cn/api/authorizations/current', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
+                this.$ajax.delete('https://iview-laravel.test/api/authorizations/current', {headers: {Authorization: this.$store.state.token_type + ' ' + this.$store.state.access_token}})
                     .then((res) => {
                         localStorage.clear()
                         this.$router.push('login')

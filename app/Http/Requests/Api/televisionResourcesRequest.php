@@ -35,7 +35,7 @@ class televisionResourcesRequest extends FormRequest
             'language' => 'required',
             'category' => [
                 'required',
-                'in:综合,新闻,财经,体育,娱乐,时尚,科技,其他,生活,文史,军事,旅游,八卦,音乐,电影,少儿,艺术,汽车,健康',
+                'in:综合新闻,新闻,财经,体育,娱乐,时尚,科技,其他,生活,文史,军事,旅游,八卦,音乐,电影,少儿,艺术,汽车,健康',
             ],
             'station' => 'required',
             'time' => 'required',

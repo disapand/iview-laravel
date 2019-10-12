@@ -23,7 +23,7 @@
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
                     <Upload
                             type="drag"
-                            action="https://www.zetin.cn/api/importOnline"
+                            action="https://iview-laravel.test/api/importOnline"
                             :on-success="importSuccess"
                             name="excel">
                         <div style="padding: 20px 0">
@@ -196,7 +196,7 @@
         },
         created() {
             if (this.$route.params.currentPage == undefined || this.$route.params.currentPage == 1) {
-                this.$ajax.get('https://www.zetin.cn/api/online').then((response) => {
+                this.$ajax.get('https://iview-laravel.test/api/online').then((response) => {
                     console.log('拉取资源列表', response);
                     this.total = response.data.meta.pagination.total
 
@@ -208,9 +208,9 @@
                         // alert('currentPage大于总页数')
                         let uri
                         if (this.condition && this.search) {
-                            uri = 'https://www.zetin.cn/api/online/' + this.condition + '/' + this.search + '?page=' + this.total
+                            uri = 'https://iview-laravel.test/api/online/' + this.condition + '/' + this.search + '?page=' + this.total
                         } else {
-                            uri = 'https://www.zetin.cn/api/online?page=' + this.total
+                            uri = 'https://iview-laravel.test/api/online?page=' + this.total
                         }
                         this.$ajax.get(uri).then((response) => {
                             this.online = response.data.data
@@ -223,9 +223,9 @@
                         // alert('currentPage值正常')
                         let uri
                         if (this.condition && this.search) {
-                            uri = 'https://www.zetin.cn/api/online/' + this.condition + '/' + this.search + '?page=' + this.$route.params.currentPage
+                            uri = 'https://iview-laravel.test/api/online/' + this.condition + '/' + this.search + '?page=' + this.$route.params.currentPage
                         } else {
-                            uri = 'https://www.zetin.cn/api/online?page=' + this.$route.params.currentPage
+                            uri = 'https://iview-laravel.test/api/online?page=' + this.$route.params.currentPage
                         }
                         this.$ajax.get(uri).then((response) => {
                             this.online = response.data.data
@@ -255,7 +255,7 @@
                 this.$router.push({'name': 'online_item', params: {id: row.id, currentPage: this.currentPage}})
             },
             remove(row, index) {
-                this.$ajax.delete('https://www.zetin.cn/api/online/' + row.id).then((response) => {
+                this.$ajax.delete('https://iview-laravel.test/api/online/' + row.id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.online.splice(index, 1)
                     this.total = response.data.meta.pagination.total
@@ -268,9 +268,9 @@
                 this.currentPage = index
                 let uri
                 if (this.condition && this.search) {
-                    uri = 'https://www.zetin.cn/api/online/' + this.condition + '/' + this.search + '?page=' + index
+                    uri = 'https://iview-laravel.test/api/online/' + this.condition + '/' + this.search + '?page=' + index
                 } else {
-                    uri = 'https://www.zetin.cn/api/online?page=' + index
+                    uri = 'https://iview-laravel.test/api/online?page=' + index
                 }
                 this.$ajax.get(uri).then((response) => {
                     this.online = response.data.data
@@ -285,7 +285,7 @@
                     this.$Message.error('请输入查询条件')
                     return false
                 }
-                this.$ajax.get('https://www.zetin.cn/api/online/' + this.condition + '/' + this.search).then((response) => {
+                this.$ajax.get('https://iview-laravel.test/api/online/' + this.condition + '/' + this.search).then((response) => {
                     this.online = response.data.data
                     this.total = response.data.data.length
                     this.cansee = false
@@ -298,7 +298,7 @@
                 this.all = false
                 this.currentPage = 1
                 this.search = ''
-                this.$ajax.get('https://www.zetin.cn/api/online').then((response) => {
+                this.$ajax.get('https://iview-laravel.test/api/online').then((response) => {
                     console.log('拉取资源列表', response);
                     this.online = response.data.data
                     this.loading = false

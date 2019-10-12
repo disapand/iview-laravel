@@ -141,7 +141,7 @@
                 <form-item>
                     <upload multiple type="drag"
                             name="img"
-                            action="https://www.zetin.cn/api/onlineImg"
+                            action="https://iview-laravel.test/api/onlineImg"
                             :on-success="imgSuccess"
                             :on-error="imgError"
                             :data="online"
@@ -257,7 +257,7 @@
                     *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                     * */
                     onOk: () => {
-                        this.$ajax.delete('https://www.zetin.cn/api/onlineImg/' + id).then((response) => {
+                        this.$ajax.delete('https://iview-laravel.test/api/onlineImg/' + id).then((response) => {
                             this.$Message.info('图片删除完成')
                             if (response.data.data) {
                                 this.online.onlineResourceImgs.data = response.data.data
@@ -283,7 +283,7 @@
                         return h('div', [
                             h('upload', {
                                 props: {
-                                    action: 'https://www.zetin.cn/api/onlineImgUpdate',
+                                    action: 'https://iview-laravel.test/api/onlineImgUpdate',
                                     type: 'drag',
                                     name: 'img',
                                     data: this.img,
@@ -320,7 +320,7 @@
             *   根据当前电视的id删除电视资源，删除完成后返回上一页
             * */
             deleteOnline(id) {
-                this.$ajax.delete('https://www.zetin.cn/api/online/' + id).then((response) => {
+                this.$ajax.delete('https://iview-laravel.test/api/online/' + id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.$router.go(-1)
                 }).catch((error) => {
@@ -334,7 +334,8 @@
             updateOnline() {
                 this.$refs['online'].validate((valid) => {
                     if (valid) {
-                        this.$ajax.post('https://www.zetin.cn/api/online', this.online).then((response) => {
+                        this.online.userid = this.$store.state.user.id
+                        this.$ajax.post('https://iview-laravel.test/api/online', this.online).then((response) => {
                             console.log(response.data)
                             this.$Message.info('资源编辑成功')
                         }).catch((error) => {
@@ -386,7 +387,7 @@
             *   根据传过来的id获取对应的televisionResources
             * */
             if (this.$route.params.id) {
-                this.$ajax.get('https://www.zetin.cn/api/online/' + this.$route.params.id + '?include=onlineResourceImgs').then((response) => {
+                this.$ajax.get('https://iview-laravel.test/api/online/' + this.$route.params.id + '?include=onlineResourceImgs').then((response) => {
                     if (this.$route.params.currentPage != undefined) {
                         this.currentPage = this.$route.params.currentPage
                     }

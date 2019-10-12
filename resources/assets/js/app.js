@@ -38,6 +38,7 @@ const store = new Vuex.Store( {
         access_token: '',
         token_type: '',
         expires_in: '',
+        user: {},
     },
     mutations: {
         updateAccessToken(state) {
@@ -48,6 +49,9 @@ const store = new Vuex.Store( {
         },
         updateExpiresIn(state) {
             state.expires_in = localStorage.getItem('expires_in')
+        },
+        setUser(state, user) {
+            state.user = user
         }
     }
 })
