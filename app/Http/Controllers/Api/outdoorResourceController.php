@@ -8,6 +8,7 @@ use App\Models\outdoorResource;
 use App\Models\outdoorResourceImgs;
 use App\Transformers\outdoorResourceImgsTransformer;
 use App\Transformers\outdoorResourceTransformer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -128,6 +129,15 @@ class outdoorResourceController extends Controller
             $outdoor->update(['isuse' => true]);
         }
         return 'success';
+    }
+
+    public function getTotals($userid)
+    {
+        $lastWeek = [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()];
+        $lastWeekCount =  outdoorResource::where('userid', $userid)
+            ->whereBetween('updated_at', $lastWeek)->count();
+        $monthCount = outdoorResource::whereMonth('updated_at', Carbon::now()->month)->count();
+        return [$lastWeekCount, $monthCount];
     }
 
 }

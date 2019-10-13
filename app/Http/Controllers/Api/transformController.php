@@ -7,6 +7,7 @@ use App\Imports\ResourceImport;
 use App\Models\transformResource;
 use App\Models\transformResourceImg;
 use App\Transformers\transformResourceTransformer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -188,6 +189,15 @@ class transformController extends Controller
             $transform->update(['isuse' => false]);
         }
         return 'success';
+    }
+
+    public function getTotals($userid)
+    {
+        $lastWeek = [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()];
+        $lastWeekCount =  transformResource::where('userid', $userid)
+            ->whereBetween('updated_at', $lastWeek)->count();
+        $monthCount = transformResource::whereMonth('updated_at', Carbon::now()->month)->count();
+        return [$lastWeekCount, $monthCount];
     }
 
 }

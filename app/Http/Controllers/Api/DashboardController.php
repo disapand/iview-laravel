@@ -22,7 +22,7 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($userid)
     {
         $televisons = televisionResources::all()->count();
         $onlines = onlineResource::all()->count();
@@ -82,11 +82,48 @@ class DashboardController extends Controller
         $uv_count = count::where([])->count();
         $pv_count = count::select('host')->distinct()->get()->count();
 
+        /**
+         * 统计资源上传数量
+         */
+        $lastWeek = [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()];
+        $thisWeek = [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()];
+        //  纸媒资源统计
+        $lastWeekNewspaper = newspaperResource::whereBetween('updated_at', $lastWeek)
+            ->where('userid', $userid)->count();
+        $thisWeekNewspaper = newspaperResource::whereBetween('updated_at', $thisWeek)
+            ->where('userid', $userid)->count();
+        //  户外资源统计
+        $lastWeekOutdoor = outdoorResource::whereBetween('updated_at', $lastWeek)
+            ->where('userid', $userid)->count();
+        $thisWeekOutdoor = outdoorResource::whereBetween('updated_at', $thisWeek)
+            ->where('userid', $userid)->count();
+        //  线上资源统计
+        $lastWeekOnline = onlineResource::whereBetween('updated_at', $lastWeek)
+            ->where('userid', $userid)->count();
+        $thisWeekOnline = onlineResource::whereBetween('updated_at', $thisWeek)
+            ->where('userid', $userid)->count();
+        //  网红资源统计
+        $lastWeekInternet = internetcelebrityResource::whereBetween('updated_at', $lastWeek)
+            ->where('userid', $userid)->count();
+        $thisWeekInternet = internetcelebrityResource::whereBetween('updated_at', $thisWeek)
+            ->where('userid', $userid)->count();
+        //  交通资源统计
+        $lastWeekTransform = transformResource::whereBetween('updated_at', $lastWeek)
+            ->where('userid', $userid)->count();
+        $thisWeekTransform = transformResource::whereBetween('updated_at', $thisWeek)
+            ->where('userid', $userid)->count();
+        //  电视资源统计
+        $lastWeekTelevision = televisionResources::whereBetween('updated_at', $lastWeek)
+            ->where('userid', $userid)->count();
+        $thisWeekTelevision = televisionResources::whereBetween('updated_at', $thisWeek)
+            ->where('userid', $userid)->count();
+
         return $this->response->array(compact('televisons', 'onlines', 'outdoors', 'transforms', 'internetCelebrities', 'case_3c', 'case_app', 'case_game',
             'case_kxp', 'case_lv', 'case_other', 'case_shop', 'insights', 'insight_cw', 'insight_cy', 'insight_ds', 'insight_lv', 'insight_mt', 'insight_pp',
             'insight_sc', 'insight_sz', 'insight_xfz', 'insight_yx', 'newspapers', 'cases', 'dynamics', 'dynamic_1', 'dynamic_2', 'dynamic_3', 'dynamic_4',
             'dynamic_5', 'dynamic_6', 'dynamic_7', 'uv', 'pv', 'uv1', 'uv2', 'uv3', 'uv4', 'uv5', 'uv6', 'pv1', 'pv2', 'pv3', 'pv4', 'pv5', 'pv6',
-            'uv_count', 'pv_count'));
+            'uv_count', 'pv_count', 'lastWeekInternet', 'lastWeekNewspaper', 'lastWeekOnline', 'lastWeekOutdoor', 'lastWeekTelevision', 'lastWeekTransform',
+        'thisWeekInternet', 'thisWeekNewspaper', 'thisWeekOnline', 'thisWeekOutdoor', 'thisWeekTelevision', 'thisWeekTransform'));
     }
 
     /**

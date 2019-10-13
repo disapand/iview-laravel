@@ -56,6 +56,8 @@ $api->version('v1', [
     $api->delete('outdoorImg/{img}', 'outdoorResourceImgController@delete')->name('api.outdoorImg.delete');
     $api->post('outdoorImgUpdate', 'outdoorResourceImgController@update')->name('api.outdoorImg.delete');
     $api->post('importOutdoor', 'outdoorResourceController@importOutdoor')->name('api.outdoor.import');
+    $api->get('countOutdoor/{userid}', 'outdoorResourceController@getTotals')->name('api.outdoor.count');
+
 
     $api->get('transform', 'transformController@index')->name('api.transform.index');
     $api->post('transform', 'transformController@store')->name('api.transform.store');
@@ -70,6 +72,8 @@ $api->version('v1', [
     $api->delete('transformImg/{img}', 'transformImgsController@destroy')->name('api.transformImg.destroy');
     $api->post('transformImgUpdate', 'transformImgsController@update')->name('api.transformImg.update');
     $api->post('importTransform', 'transformController@importTransform')->name('api.transform.import');
+    $api->get('countTransform/{userid}', 'transformController@getTotals')->name('api.transform.count');
+
 
     $api->get('newspaper', 'newspapperResourceController@index')->name('api.newspaper.index');
     $api->get('publishNewspaper/{newspaper}', 'newspapperResourceController@publish')->name('api.newspaper.publish');
@@ -99,6 +103,8 @@ $api->version('v1', [
     $api->post('onlineImgUpdate', 'onlineResourceImgsController@update')->name('api.onlineImg.update');
     $api->delete('onlineImg/{img}', 'onlineResourceImgsController@destroy')->name('api.onlineImg.destroy');
     $api->post('importOnline', 'onlineResourceController@importOnline')->name('api.online.import');
+    $api->get('countOnline/{userid}', 'countOnline@getTotals')->name('api.online.count');
+
 
     $api->get('internet', 'internetcelebrityController@index')->name('api.internet.index');
     $api->get('publishInternet/{internet}', 'internetcelebrityController@publish')->name('api.internet.publish');
@@ -113,6 +119,8 @@ $api->version('v1', [
     $api->post('internetImgUpdate', 'internetcelebrityResourceImgsController@update')->name('api.internetImg.update');
     $api->delete('internetImg/{img}', 'internetcelebrityResourceImgsController@destroy')->name('api.internetImg.destroy');
     $api->post('importInternet', 'internetcelebrityController@importInternet')->name('api.internet.import');
+    $api->get('countInternet/{userid}', 'internetcelebrityController@getTotals')->name('api.internet.count');
+
 
     $api->get('case', 'CaseController@index')->name('api.case.index');
     $api->post('case', 'CaseController@store')->name('api.case.store');
@@ -152,7 +160,7 @@ $api->version('v1', [
     $api->post('user', 'UserController@update')->name('api.user.update');
     $api->post('isuse', 'UserController@isuse')->name('api.user.isuse');
 
-    $api->get('dashboard', 'DashboardController@index')->name('api.dashboard.index');
+    $api->get('dashboard/{userid}', 'DashboardController@index')->name('api.dashboard.index');
 
     $api->group(['middleware' => 'api.auth'], function ($api) {
 

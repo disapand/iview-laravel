@@ -18,6 +18,24 @@
             </div>
         </Card>
 
+        <Card style="width: 40%; display: inline-block;margin: 1% 4%;">
+            <p slot="title">
+                <Icon type="navicon-round"></Icon>
+                资源上传数量统计
+            </p>
+            <div style="text-align: center">
+                <span class="total">合计：</span>
+                <router-link to="/television" class="num" style="color: #2d8cf0;">{{ this.dataList.lastWeekInternet +
+                    this.dataList.lastWeekNewspaper + this.dataList.lastWeekOnline
+                    + this.dataList.lastWeekOutdoor + this.dataList.lastWeekTelevision + this.dataList.lastWeekTransform }}
+                </router-link>
+                <br/>
+                <div class="echarts-container" id="zytj">
+                    <Spin fix v-if="loading"></Spin>
+                </div>
+            </div>
+        </Card>
+
         <Card style="width: 40%; vertical-align: top; display: inline-block;margin: 1% 4%;">
             <p slot="title">
                 <Icon type="eye"></Icon>
@@ -89,7 +107,7 @@
             }
         },
         created() {
-            this.$ajax.get('https://iview-laravel.test/api/dashboard')
+            this.$ajax.get('https://iview-laravel.test/api/dashboard/' + this.$store.state.user.id)
                 .then((res) => {
                     console.log('返回数据', res.data)
                     this.dataList = res.data
@@ -263,6 +281,30 @@
                             }
                         },
                     ]
+                })
+
+                let zytj = this.$echarts.init(document.getElementById('zytj'))
+                zytj.setOption({
+                    title: {
+                        text: '上传资源数量统计'
+                    },
+                    legend: {
+                        data: ['资源数量']
+                    },
+                    tooltip: {},
+                    xAxis: {
+                        data: ['报刊杂志', '电视媒体', '户外媒体', '交通媒体', '线上媒体', '网络红人']
+                    },
+                    series: [{
+                        name: '资源数量',
+                        type: 'bar',
+                        // data: [this.dataList.lastWeekNewspaper, this.dataList.lastWeekTelevision, this.dataList.lastWeekOutdoor,
+                        //     this.dataList.lastWeekTransform, this.dataList.lastWeekOnline, this.dataList.lastWeekInternet]
+                        data:[1, 2, 3, 5, 6, 7]
+                    }],
+                    itemStyle: {
+                        color: '#2d8cf0'
+                    }
                 })
             }
         }

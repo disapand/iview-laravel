@@ -9,6 +9,7 @@ use App\Models\onlineResource;
 use App\Models\onlineResourceImgs;
 use App\Transformers\onlineResourceTransformer;
 use App\Transformers\outdoorResourceTransformer;
+use Carbon\Carbon;
 use ClassesWithParents\E;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -194,6 +195,15 @@ class onlineResourceController extends Controller
             $online->update(['isuse' => true]);
         }
         return 'success';
+    }
+
+    public function getTotals($userid)
+    {
+        $lastWeek = [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()];
+        $lastWeekCount =  onlineResource::where('userid', $userid)
+            ->whereBetween('updated_at', $lastWeek)->count();
+        $monthCount = onlineResource::whereMonth('updated_at', Carbon::now()->month)->count();
+        return [$lastWeekCount, $monthCount];
     }
 
 }

@@ -7558,10 +7558,10 @@ namespace Illuminate\Support\Facades {
          * 
          * Suppose this request is instantiated from /mysite on localhost:
          * 
-         *  * http://www.zetin.cn/mysite              returns an empty string
-         *  * http://www.zetin.cn/mysite/about        returns '/about'
-         *  * http://www.zetin.cn/mysite/enco%20ded   returns '/enco%20ded'
-         *  * http://www.zetin.cn/mysite/about?var=1  returns '/about'
+         *  * http://iview-laravel.test/mysite              returns an empty string
+         *  * http://iview-laravel.test/mysite/about        returns '/about'
+         *  * http://iview-laravel.test/mysite/enco%20ded   returns '/enco%20ded'
+         *  * http://iview-laravel.test/mysite/about?var=1  returns '/about'
          *
          * @return string The raw path (i.e. not urldecoded)
          * @static 
@@ -7577,10 +7577,10 @@ namespace Illuminate\Support\Facades {
          * 
          * Suppose that an index.php file instantiates this request object:
          * 
-         *  * http://www.zetin.cn/index.php         returns an empty string
-         *  * http://www.zetin.cn/index.php/page    returns an empty string
-         *  * http://www.zetin.cn/web/index.php     returns '/web'
-         *  * http://www.zetin.cn/we%20b/index.php  returns '/we%20b'
+         *  * http://iview-laravel.test/index.php         returns an empty string
+         *  * http://iview-laravel.test/index.php/page    returns an empty string
+         *  * http://iview-laravel.test/web/index.php     returns '/web'
+         *  * http://iview-laravel.test/we%20b/index.php  returns '/we%20b'
          *
          * @return string The raw path (i.e. not urldecoded)
          * @static 

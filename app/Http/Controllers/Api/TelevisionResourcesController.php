@@ -174,9 +174,10 @@ class TelevisionResourcesController extends Controller
 
     public function getTotals($userid)
     {
-        $count =  televisionResources::where('userid', $userid)
-            ->where('updated_at', '>=', Carbon::parse('7 days ago'))
-            ->get()->count();
-        return $count;
+        $lastWeek = [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()];
+        $lastWeekCount =  televisionResources::where('userid', $userid)
+            ->whereBetween('updated_at', $lastWeek)->count();
+        $monthCount = televisionResources::whereMonth('updated_at', Carbon::now()->month)->count();
+        return [$lastWeekCount, $monthCount];
     }
 }

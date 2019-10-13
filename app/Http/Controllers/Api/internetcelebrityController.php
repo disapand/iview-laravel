@@ -8,6 +8,7 @@ use App\Models\internetcelebrityResource;
 use App\Models\internetcelebrityResourceCategory;
 use App\Models\internetcelebrityResourceImgs;
 use App\Transformers\internetcelebrityResourcTransformer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -216,6 +217,15 @@ class internetcelebrityController extends Controller
             $internet->update(['isuse' => true]);
         }
         return 'success';
+    }
+
+    public function getTotals($userid)
+    {
+        $lastWeek = [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()];
+        $lastWeekCount =  internetcelebrityResource::where('userid', $userid)
+            ->whereBetween('updated_at', $lastWeek)->count();
+        $monthCount = internetcelebrityResource::whereMonth('updated_at', Carbon::now()->month)->count();
+        return [$lastWeekCount, $monthCount];
     }
 
 }

@@ -34,7 +34,7 @@
                 </Modal>
             </button-group>
         </div>
-        <div style="margin: 20px 0">
+        <div style="margin: 20px 0; display: flex; align-items: center">
             <Button @click="handleSelectAll(true)">全选</Button>
             <Button @click="handleSelectAll(false)" v-if="actionButton">取消</Button>
             <Button @click="cancelSelection()" type="warning" v-if="actionButton">取消发布选中</Button>
@@ -42,6 +42,11 @@
             <poptip confirm v-if="actionButton" title="确认要删除选中项目吗？删除后不可恢复" @on-ok="deleteSelection" ok-text="删除">
                 <Button type="error" >删除选中</Button>
             </poptip>
+
+            <div style="margin-left: 50px">
+                <span>上周上传<span style="font-size: 1.5em; font-weight: bold; padding: 0 5px">{{ count[0] }}</span>条资源</span>
+                <span style="margin-left: 20px">本月上传<span style="font-size: 1.5em; font-weight: bold; padding: 0 5px">{{ count[1] }}</span>条资源</span>
+            </div>
         </div>
         <div>
             <i-table ref="newspaper" border :columns="col" :data="newspaper" stripe :highlight-row=false @on-selection-change="selectedChange"
@@ -73,6 +78,7 @@
                 pageClass: 'page',
                 condition: 'form',
                 search: '',
+                count: [0, 0],
                 isImport: false,
                 col: [
                     {
@@ -258,6 +264,16 @@
             })
         },
         mounted() {
+            setTimeout( () => {
+                this.$ajax.get('https://iview-laravel.test/api/countNewspaper/' + this.$store.state.user.id)
+                    .then(res => {
+                        console.log(res)
+                        this.count = res.data
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }, 1500)
         },
         methods: {
             addNewspaperItem() {

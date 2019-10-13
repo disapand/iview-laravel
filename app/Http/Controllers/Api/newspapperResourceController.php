@@ -7,6 +7,7 @@ use App\Imports\ResourceImport;
 use App\Models\newspaperResource;
 use App\Models\newspaperResourceImg;
 use App\Transformers\newspaperResourceTransformer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -185,6 +186,15 @@ class newspapperResourceController extends Controller
             $newspaper->update(['isuse' => true]);
         }
         return 'success';
+    }
+
+    public function getTotals($userid)
+    {
+        $lastWeek = [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()];
+        $lastWeekCount =  newspaperResource::where('userid', $userid)
+            ->whereBetween('updated_at', $lastWeek)->count();
+        $monthCount = newspaperResource::whereMonth('updated_at', Carbon::now()->month)->count();
+        return [$lastWeekCount, $monthCount];
     }
 
 }
