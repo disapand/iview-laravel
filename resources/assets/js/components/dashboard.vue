@@ -283,10 +283,33 @@
                     ]
                 })
 
+                // let zytj = this.$echarts.init(document.getElementById('zytj'))
+                // zytj.setOption({
+                //     title: {
+                //         text: '上传资源数量统计'
+                //     },
+                //     legend: {
+                //         data: ['资源数量']
+                //     },
+                //     tooltip: {},
+                //     xAxis: {
+                //         data: ['报刊杂志', '电视媒体', '户外媒体', '交通媒体', '线上媒体', '网络红人']
+                //     },
+                //     series: [{
+                //         name: '资源数量',
+                //         type: 'bar',
+                //         // data: [this.dataList.lastWeekNewspaper, this.dataList.lastWeekTelevision, this.dataList.lastWeekOutdoor,
+                //         //     this.dataList.lastWeekTransform, this.dataList.lastWeekOnline, this.dataList.lastWeekInternet]
+                //         data:[1, 2, 3, 5, 6, 7]
+                //     }],
+                //     itemStyle: {
+                //         color: '#2d8cf0'
+                //     }
+                // })
                 let zytj = this.$echarts.init(document.getElementById('zytj'))
                 zytj.setOption({
                     title: {
-                        text: '上传资源数量统计'
+                        text: '上周上传资源数量统计'
                     },
                     legend: {
                         data: ['资源数量']
@@ -295,12 +318,12 @@
                     xAxis: {
                         data: ['报刊杂志', '电视媒体', '户外媒体', '交通媒体', '线上媒体', '网络红人']
                     },
+                    yAxis: {},
                     series: [{
                         name: '资源数量',
                         type: 'bar',
-                        // data: [this.dataList.lastWeekNewspaper, this.dataList.lastWeekTelevision, this.dataList.lastWeekOutdoor,
-                        //     this.dataList.lastWeekTransform, this.dataList.lastWeekOnline, this.dataList.lastWeekInternet]
-                        data:[1, 2, 3, 5, 6, 7]
+                        data: [this.dataList.lastWeekNewspaper, this.dataList.lastWeekTelevision, this.dataList.lastWeekOutdoor,
+                            this.dataList.lastWeekTransform, this.dataList.lastWeekOnline, this.dataList.lastWeekInternet]
                     }],
                     itemStyle: {
                         color: '#2d8cf0'
