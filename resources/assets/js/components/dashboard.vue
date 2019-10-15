@@ -107,20 +107,22 @@
             }
         },
         created() {
-            this.$ajax.get('https://iview-laravel.test/api/dashboard/' + this.$store.state.user.id)
-                .then((res) => {
-                    console.log('返回数据', res.data)
-                    this.dataList = res.data
-                    this.draw()
-                    this.loading = true
-                })
-                .catch((err) => {
 
-                })
         },
         mounted() {
+            setTimeout( () => {
+                console.log(this.$store.state.user, '看看用户信息有没有')
+                this.$ajax.get('https://iview-laravel.test/api/dashboard/' + this.$store.state.user.id)
+                    .then((res) => {
+                        console.log('返回数据', res.data)
+                        this.dataList = res.data
+                        this.draw()
+                        this.loading = true
+                    })
+                    .catch((err) => {
 
-
+                    })
+            }, 1000)
         },
         methods: {
             getDay(day) {

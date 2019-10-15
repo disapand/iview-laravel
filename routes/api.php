@@ -167,6 +167,10 @@ $api->version('v1', [
         $api->get('user', 'UserController@me')->name('api.user.show');
 
     });
+
+    $api->get('members', 'MemberController@index')->name('api.get.members');
+    $api->post('member', 'MemberController@store')->name('api.add.member');
+    $api->delete('member/{member}', 'MemberController@delete')->name('api.delete.member');
 });
 
 $api->version('v2', function ($api) {
