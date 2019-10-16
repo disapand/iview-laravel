@@ -24,7 +24,7 @@
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
                     <Upload
                             type="drag"
-                            action="https://iview-laravel.test/api/importTv"
+                            action="https://www.zetin.cn/api/importTv"
                             :on-success="importSuccess"
                             name="excel">
                         <div style="padding: 20px 0">
@@ -205,7 +205,7 @@
             }
         },
         created() {
-            this.$ajax.get('https://iview-laravel.test/api/tv').then((response) => {
+            this.$ajax.get('https://www.zetin.cn/api/tv').then((response) => {
                 console.log('拉取电视资源列表', response);
                 this.total = response.data.meta.pagination.total
 
@@ -217,9 +217,9 @@
                     // alert('currentPage大于总页数')
                     let uri
                     if (this.condition && this.search) {
-                        uri = 'https://iview-laravel.test/api/tv/' + this.condition + '/' + this.search + '?page=' + this.total
+                        uri = 'https://www.zetin.cn/api/tv/' + this.condition + '/' + this.search + '?page=' + this.total
                     } else {
-                        uri = 'https://iview-laravel.test/api/tv?page=' + this.total
+                        uri = 'https://www.zetin.cn/api/tv?page=' + this.total
                     }
                     this.$ajax.get(uri).then((response) => {
                         this.tvs = response.data.data
@@ -232,9 +232,9 @@
                     // alert('currentPage值正常')
                     let uri
                     if (this.condition && this.search) {
-                        uri = 'https://iview-laravel.test/api/tv/' + this.condition + '/' + this.search + '?page=' + this.$route.params.currentPage
+                        uri = 'https://www.zetin.cn/api/tv/' + this.condition + '/' + this.search + '?page=' + this.$route.params.currentPage
                     } else {
-                        uri = 'https://iview-laravel.test/api/tv?page=' + this.$route.params.currentPage
+                        uri = 'https://www.zetin.cn/api/tv?page=' + this.$route.params.currentPage
                     }
                     this.$ajax.get(uri).then((response) => {
                         this.tvs = response.data.data
@@ -253,7 +253,7 @@
         },
         mounted() {
             setTimeout( () => {
-                this.$ajax.get('https://iview-laravel.test/api/countTelevison/' + this.$store.state.user.id)
+                this.$ajax.get('https://www.zetin.cn/api/countTelevison/' + this.$store.state.user.id)
                     .then(res => {
                         console.log(res)
                         this.count = res.data
@@ -271,7 +271,7 @@
                 this.$router.push({'name': 'tv_item', params: {id: row.id, currentPage: this.currentPage}})
             },
             remove(row, index) {
-                this.$ajax.delete('https://iview-laravel.test/api/tv/' + row.id).then((response) => {
+                this.$ajax.delete('https://www.zetin.cn/api/tv/' + row.id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.tvs.splice(index, 1)
                     this.total = response.data.meta.pagination.total
@@ -284,9 +284,9 @@
                 this.currentPage = index
                 let uri
                 if (this.condition && this.search) {
-                    uri = 'https://iview-laravel.test/api/tv/' + this.condition + '/' + this.search + '?page=' + index
+                    uri = 'https://www.zetin.cn/api/tv/' + this.condition + '/' + this.search + '?page=' + index
                 } else {
-                    uri = 'https://iview-laravel.test/api/tv?page=' + index
+                    uri = 'https://www.zetin.cn/api/tv?page=' + index
                 }
                 this.$ajax.get(uri).then((response) => {
                     this.tvs = response.data.data
@@ -300,7 +300,7 @@
                     this.$Message.error('请输入查询条件')
                     return false
                 }
-                this.$ajax.get('https://iview-laravel.test/api/tv/' + this.condition + '/' + this.search).then((response) => {
+                this.$ajax.get('https://www.zetin.cn/api/tv/' + this.condition + '/' + this.search).then((response) => {
                     this.tvs = response.data.data
                     this.total = response.data.meta.pagination.total
                     this.all = true
@@ -312,7 +312,7 @@
                 this.all = false
                 this.search = ''
                 this.currentPage = 1
-                this.$ajax.get('https://iview-laravel.test/api/tv').then((response) => {
+                this.$ajax.get('https://www.zetin.cn/api/tv').then((response) => {
                     console.log('拉取电视资源列表', response);
                     this.tvs = response.data.data
                     this.total = response.data.meta.pagination.total

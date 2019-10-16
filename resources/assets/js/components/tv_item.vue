@@ -142,7 +142,7 @@
                 <form-item>
                     <upload multiple type="drag"
                             name="img"
-                            action="https://iview-laravel.test/api/img"
+                            action="https://www.zetin.cn/api/img"
                             :on-success="imgSuccess"
                             :on-error="imgError"
                             :data="tv"
@@ -261,7 +261,7 @@
                     *   确定删除的后从服务器删除对应的图片，并返回删除后的图片列表
                     * */
                     onOk: () => {
-                        this.$ajax.delete('https://iview-laravel.test/api/img/' + id).then((response) => {
+                        this.$ajax.delete('https://www.zetin.cn/api/img/' + id).then((response) => {
                             console.log(response)
                             this.$Message.info('图片删除完成')
                             if (response.data.data) {
@@ -288,7 +288,7 @@
                         return h('div', [
                             h('upload', {
                                 props: {
-                                    action: 'https://iview-laravel.test/api/img',
+                                    action: 'https://www.zetin.cn/api/img',
                                     type: 'drag',
                                     name: 'img',
                                     data: this.img,
@@ -325,7 +325,7 @@
             *   根据当前电视的id删除电视资源，删除完成后返回上一页
             * */
             deleteTv(id) {
-                this.$ajax.delete('https://iview-laravel.test/api/tv/' + id).then((response) => {
+                this.$ajax.delete('https://www.zetin.cn/api/tv/' + id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.$router.go(-1)
                 }).catch((error) => {
@@ -342,7 +342,7 @@
                     if (valid) {
                         this.tv.userid = this.$store.state.user.id
                         console.log(this.tv)
-                        this.$ajax.post('https://iview-laravel.test/api/tv', this.tv).then((response) => {
+                        this.$ajax.post('https://www.zetin.cn/api/tv', this.tv).then((response) => {
                             console.log(response)
                             this.$Message.info('资源编辑成功')
                         }).catch((error) => {
@@ -394,7 +394,7 @@
             *   根据传过来的id获取对应的televisionResources
             * */
             if (this.$route.params.id) {
-                this.$ajax.get('https://iview-laravel.test/api/tv/' + this.$route.params.id + '?include=televisionResourcesImgs').then((response) => {
+                this.$ajax.get('https://www.zetin.cn/api/tv/' + this.$route.params.id + '?include=televisionResourcesImgs').then((response) => {
                     if (this.$route.params.currentPage != undefined) {
                         this.currentPage = this.$route.params.currentPage
                     }

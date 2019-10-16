@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://iview-laravel.test'),
+    'url' => env('APP_URL', 'https://www.zetin.cn'),
 
     /*
     |--------------------------------------------------------------------------

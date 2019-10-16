@@ -135,7 +135,7 @@
             }
         },
         created() {
-            this.$ajax.get('https://iview-laravel.test/api/case').then((response) => {
+            this.$ajax.get('https://www.zetin.cn/api/case').then((response) => {
                 console.log('拉取资源列表', response);
                 this.total = response.data.meta.pagination.total
 
@@ -147,9 +147,9 @@
                     // alert('currentPage大于总页数')
                     let uri
                     if (this.condition && this.search) {
-                        uri = 'https://iview-laravel.test/api/case/' + this.condition + '/' + this.search + '?page=' + this.total
+                        uri = 'https://www.zetin.cn/api/case/' + this.condition + '/' + this.search + '?page=' + this.total
                     } else {
-                        uri = 'https://iview-laravel.test/api/case?page=' + this.total
+                        uri = 'https://www.zetin.cn/api/case?page=' + this.total
                     }
                     this.$ajax.get(uri).then((response) => {
                         this.Case = response.data.data
@@ -162,9 +162,9 @@
                     // alert('currentPage值正常')
                     let uri
                     if (this.condition && this.search) {
-                        uri = 'https://iview-laravel.test/api/case/' + this.condition + '/' + this.search + '?page=' + this.$route.params.currentPage
+                        uri = 'https://www.zetin.cn/api/case/' + this.condition + '/' + this.search + '?page=' + this.$route.params.currentPage
                     } else {
-                        uri = 'https://iview-laravel.test/api/case?page=' + this.$route.params.currentPage
+                        uri = 'https://www.zetin.cn/api/case?page=' + this.$route.params.currentPage
                     }
                     this.$ajax.get(uri).then((response) => {
                         this.Case = response.data.data
@@ -188,7 +188,7 @@
                 this.$router.push({'name': 'case_item', params: {id: row.id, currentPage: this.currentPage}})
             },
             remove(row, index) {
-                this.$ajax.delete('https://iview-laravel.test/api/case/' + row.id).then((response) => {
+                this.$ajax.delete('https://www.zetin.cn/api/case/' + row.id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.Case.splice(index, 1)
                     this.total = response.data.meta.pagination.total
@@ -204,9 +204,9 @@
                 this.currentPage = index
                 let uri
                 if (this.condition && this.search) {
-                    uri = 'https://iview-laravel.test/api/case/' + this.condition + '/' + this.search + '?page=' + index
+                    uri = 'https://www.zetin.cn/api/case/' + this.condition + '/' + this.search + '?page=' + index
                 } else {
-                    uri = 'https://iview-laravel.test/api/case?page=' + index
+                    uri = 'https://www.zetin.cn/api/case?page=' + index
                 }
                 this.$ajax.get(uri).then((response) => {
                     console.log('换页', response);
@@ -221,7 +221,7 @@
                     this.$Message.error('请输入查询条件')
                     return false
                 }
-                this.$ajax.get('https://iview-laravel.test/api/case/' + this.condition + '/' + this.search).then((response) => {
+                this.$ajax.get('https://www.zetin.cn/api/case/' + this.condition + '/' + this.search).then((response) => {
                     this.Case = response.data.data
                     this.total = response.data.meta.pagination.total
                     this.all = true
@@ -234,7 +234,7 @@
                 this.all = false
                 this.search = ''
                 this.currentPage = 1
-                this.$ajax.get('https://iview-laravel.test/api/case').then((response) => {
+                this.$ajax.get('https://www.zetin.cn/api/case').then((response) => {
                     console.log('拉取资源列表', response);
                     this.Case = response.data.data
                     this.loading = false

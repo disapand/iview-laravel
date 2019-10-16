@@ -24,7 +24,7 @@
                 <Modal v-model="isImport" title="选择上传的excel文件" okText="完成">
                     <Upload
                             type="drag"
-                            action="https://iview-laravel.test/api/importTransform"
+                            action="https://www.zetin.cn/api/importTransform"
                             :on-success="importSuccess"
                             name="excel">
                         <div style="padding: 20px 0">
@@ -214,7 +214,7 @@
             }
         },
         created() {
-            this.$ajax.get('https://iview-laravel.test/api/transform').then((response) => {
+            this.$ajax.get('https://www.zetin.cn/api/transform').then((response) => {
                 console.log('拉取交通资源列表', response);
                 this.total = response.data.meta.pagination.total
 
@@ -226,9 +226,9 @@
                     // alert('currentPage大于总页数')
                     let uri
                     if (this.condition && this.search) {
-                        uri = 'https://iview-laravel.test/api/transform/' + this.condition + '/' + this.search + '?page=' + this.total
+                        uri = 'https://www.zetin.cn/api/transform/' + this.condition + '/' + this.search + '?page=' + this.total
                     } else {
-                        uri = 'https://iview-laravel.test/api/transform?page=' + this.total
+                        uri = 'https://www.zetin.cn/api/transform?page=' + this.total
                     }
                     this.$ajax.get(uri).then((response) => {
                         this.transform = response.data.data
@@ -241,9 +241,9 @@
                     // alert('currentPage值正常')
                     let uri
                     if (this.condition && this.search) {
-                        uri = 'https://iview-laravel.test/api/transform/' + this.condition + '/' + this.search + '?page=' + this.$route.params.currentPage
+                        uri = 'https://www.zetin.cn/api/transform/' + this.condition + '/' + this.search + '?page=' + this.$route.params.currentPage
                     } else {
-                        uri = 'https://iview-laravel.test/api/transform?page=' + this.$route.params.currentPage
+                        uri = 'https://www.zetin.cn/api/transform?page=' + this.$route.params.currentPage
                     }
                     this.$ajax.get(uri).then((response) => {
                         this.transform = response.data.data
@@ -261,7 +261,7 @@
         },
         mounted() {
             setTimeout( () => {
-                this.$ajax.get('https://iview-laravel.test/api/countTransform/' + this.$store.state.user.id)
+                this.$ajax.get('https://www.zetin.cn/api/countTransform/' + this.$store.state.user.id)
                     .then(res => {
                         console.log(res)
                         this.count = res.data
@@ -279,7 +279,7 @@
                 this.$router.push({'name': 'transform_item', params: {id: row.id, currentPage: this.currentPage}})
             },
             remove(row, index) {
-                this.$ajax.delete('https://iview-laravel.test/api/transform/' + row.id).then((response) => {
+                this.$ajax.delete('https://www.zetin.cn/api/transform/' + row.id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.transform.splice(index, 1)
                     this.total = response.data.meta.pagination.total
@@ -292,9 +292,9 @@
                 this.currentPage = index
                 let uri
                 if (this.condition && this.search) {
-                    uri = 'https://iview-laravel.test/api/transform/' + this.condition + '/' + this.search + '?page=' + index
+                    uri = 'https://www.zetin.cn/api/transform/' + this.condition + '/' + this.search + '?page=' + index
                 } else {
-                    uri = 'https://iview-laravel.test/api/transform?page=' + index
+                    uri = 'https://www.zetin.cn/api/transform?page=' + index
                 }
                 this.$ajax.get(uri).then((response) => {
                     console.log('换页', response);
@@ -308,7 +308,7 @@
                 this.all = false
                 this.search = ''
                 this.currentPage = 1
-                this.$ajax.get('https://iview-laravel.test/api/transform').then((response) => {
+                this.$ajax.get('https://www.zetin.cn/api/transform').then((response) => {
                     console.log('拉取资源列表', response);
                     this.transform = response.data.data
                     this.loading = false
@@ -323,7 +323,7 @@
                     this.$Message.error('请输入查询条件')
                     return false
                 }
-                this.$ajax.get('https://iview-laravel.test/api/transform/' + this.condition + '/' + this.search).then((response) => {
+                this.$ajax.get('https://www.zetin.cn/api/transform/' + this.condition + '/' + this.search).then((response) => {
                     this.transform = response.data.data
                     this.total = response.data.meta.pagination.total
                     this.all = true

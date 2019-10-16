@@ -45,7 +45,7 @@
             },
             serverUrl: {
                 type: String,
-                default: 'https://iview-laravel.test/api/otherImg',
+                default: 'https://www.zetin.cn/api/otherImg',
             }
         },
         data() {

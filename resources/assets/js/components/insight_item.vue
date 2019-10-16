@@ -84,7 +84,7 @@
         },
         created() {
             if (this.$route.params.id) {
-                this.$ajax.get('https://iview-laravel.test/api/insight/' + this.$route.params.id + '?include=Imgs').then((response) => {
+                this.$ajax.get('https://www.zetin.cn/api/insight/' + this.$route.params.id + '?include=Imgs').then((response) => {
                     if (this.$route.params.currentPage != undefined) {
                         this.currentPage = this.$route.params.currentPage
                     }
@@ -112,7 +112,7 @@
             updateInsight() {
                 this.$refs['insight'].validate((valid) => {
                     if (valid) {
-                        this.$ajax.post('https://iview-laravel.test/api/insight', this.insight).then((response) => {
+                        this.$ajax.post('https://www.zetin.cn/api/insight', this.insight).then((response) => {
                             console.log(response.data)
                             this.$Message.info('资源编辑成功')
                         }).catch((error) => {
@@ -128,7 +128,7 @@
            *   根据当前电视的id删除电视资源，删除完成后返回上一页
            * */
             deleteInsight(id) {
-                this.$ajax.delete('https://iview-laravel.test/api/insight/' + id).then((response) => {
+                this.$ajax.delete('https://www.zetin.cn/api/insight/' + id).then((response) => {
                     this.$Message.info('删除资源成功')
                     this.$router.go(-1)
                 }).catch((error) => {

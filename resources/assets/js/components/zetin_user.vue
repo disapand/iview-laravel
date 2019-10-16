@@ -191,7 +191,7 @@
             }
         },
         created() {
-            this.$ajax.get('https://iview-laravel.test/api/users').then((response) => {
+            this.$ajax.get('https://www.zetin.cn/api/users').then((response) => {
                 console.log('拉取用户列表', response);
                 this.users = response.data.data
                 this.loading = false
@@ -209,7 +209,7 @@
                 this.edit = false
             },
             remove(row, index) {
-                this.$ajax.delete('https://iview-laravel.test/api/user/' + row.id).then((response) => {
+                this.$ajax.delete('https://www.zetin.cn/api/user/' + row.id).then((response) => {
                     this.$Message.info('删除成功')
                     this.users = response.data.data
                     this.total = response.data.meta.pagination.total
@@ -219,7 +219,7 @@
                 })
             },
             isuseUser(user, isuse) {
-                this.$ajax.post('https://iview-laravel.test/api/isuse', user)
+                this.$ajax.post('https://www.zetin.cn/api/isuse', user)
                     .then( (res) => {
                         console.log(res)
                         this.users = res.data.data
@@ -232,9 +232,9 @@
                 this.currentPage = index
                 let uri
                 if (this.condition && this.search) {
-                    uri = 'https://iview-laravel.test/api/users/' + this.condition + '/' + this.search + '?page=' + index
+                    uri = 'https://www.zetin.cn/api/users/' + this.condition + '/' + this.search + '?page=' + index
                 } else {
-                    uri = 'https://iview-laravel.test/api/users?page=' + index
+                    uri = 'https://www.zetin.cn/api/users?page=' + index
                 }
                 this.$ajax.get(uri).then((response) => {
                     console.log('换页', response);
@@ -248,7 +248,7 @@
                 this.all = false
                 this.search = ''
                 this.currentPage = 1
-                this.$ajax.get('https://iview-laravel.test/api/users').then((response) => {
+                this.$ajax.get('https://www.zetin.cn/api/users').then((response) => {
                     console.log('拉取资源列表', response);
                     this.transform = response.data.data
                     this.loading = false
@@ -263,7 +263,7 @@
                     this.$Message.error('请输入查询条件')
                     return false
                 }
-                this.$ajax.get('https://iview-laravel.test/api/user/' + this.condition + '/' + this.query).then((response) => {
+                this.$ajax.get('https://www.zetin.cn/api/user/' + this.condition + '/' + this.query).then((response) => {
                     this.transform = response.data.data
                     this.total = response.data.meta.pagination.total
                     this.all = true
@@ -280,7 +280,7 @@
                 this.$refs['user'].validate( (valid) => {
                     if (valid) {
                         if (this.user.password === this.user.password_confirm || this.user.password_new === this.user.password_confirm) {
-                            this.$ajax.post('https://iview-laravel.test/api/user', this.user)
+                            this.$ajax.post('https://www.zetin.cn/api/user', this.user)
                                 .then( (res) => {
                                     console.log('用户信息修改成功', res)
                                     this.$Modal.success({
