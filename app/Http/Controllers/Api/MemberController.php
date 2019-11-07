@@ -10,8 +10,8 @@ class MemberController extends Controller
 {
     public function index()
     {
-        $member = Member::all();
-        return $this->response->collection($member, new MemberTransformer());
+        $member = Member::where([])->orderby('id')->paginate(10);
+        return $this->response->paginator($member, new MemberTransformer());
     }
 
     public function store(Request $request)
@@ -42,5 +42,27 @@ class MemberController extends Controller
         } catch (Exception $exception) {
             return json_encode(['删除失败' => $exception]);
         }
+    }
+
+    public function login(Request $request)
+    {
+        return '登录成功';
+    }
+
+    public function use(Member $member)
+    {
+        $isuse = $member->isuse;
+        if ($isuse == 0) {
+            $newUse = 1;
+        } else {
+            $newUse = 0;
+        }
+        $member->update(['isuse' => $newUse]);
+        return $this->response->noContent();
+    }
+
+    public function show(Member $member)
+    {
+        return $member;
     }
 }

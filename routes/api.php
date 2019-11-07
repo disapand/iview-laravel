@@ -162,15 +162,18 @@ $api->version('v1', [
 
     $api->get('dashboard/{userid}', 'DashboardController@index')->name('api.dashboard.index');
 
+    $api->get('members', 'MemberController@index')->name('api.get.members');
+    $api->get('member/{member}', 'MemberController@show')->name('api.get.members');
+    $api->get('useMember/{member}', 'MemberController@use')->name('api.use.member');
+    $api->post('member', 'MemberController@store')->name('api.add.member');
+    $api->delete('member/{member}', 'MemberController@delete')->name('api.delete.member');
+    $api->post('loginMember', 'MemberController@login')->name('api.login.member');
+
     $api->group(['middleware' => 'api.auth'], function ($api) {
 
         $api->get('user', 'UserController@me')->name('api.user.show');
 
     });
-
-    $api->get('members', 'MemberController@index')->name('api.get.members');
-    $api->post('member', 'MemberController@store')->name('api.add.member');
-    $api->delete('member/{member}', 'MemberController@delete')->name('api.delete.member');
 });
 
 $api->version('v2', function ($api) {

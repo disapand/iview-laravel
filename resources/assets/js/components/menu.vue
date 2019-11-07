@@ -90,6 +90,10 @@
                             <Icon type="ios-people"></Icon>
                             用户管理
                         </MenuItem>
+                        <MenuItem name="6">
+                            <Icon type="android-people"></Icon>
+                            会员管理
+                        </MenuItem>
                     </Menu>
                 </Sider>
                 <!--
@@ -169,6 +173,11 @@
                     case '5':
                         this.$router.push('/user');
                         break;
+                    case '6':
+                        this.$router.push('/member');
+                        break;
+                    default:
+                        break
                 }
             },
             logout() {

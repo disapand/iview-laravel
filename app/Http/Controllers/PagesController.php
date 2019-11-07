@@ -100,6 +100,11 @@ class PagesController extends Controller
         }
         $newspapers = newspaperResource::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
             ->where('form', 'like', $data['form'])->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
+        $newspapers->appends(array(
+            'country' => $data['country'],
+            'category' => $data['category'],
+            'form' => $data['form'],
+        ));
         return view('pages.newspaper', compact('newspapers'));
     }
 
@@ -141,6 +146,11 @@ class PagesController extends Controller
         }
         $televisions = televisionResources::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
             ->where('form', 'like', $data['form'])->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
+        $televisions->appends(array(
+            'country' => $data['country'],
+            'category' => $data['category'],
+            'form' => $data['form']
+        ));
         return view('pages.television', compact('televisions'));
     }
 
@@ -182,6 +192,11 @@ class PagesController extends Controller
         }
         $outdoors = outdoorResource::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
             ->where('form', 'like', $data['form'])->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
+        $outdoors->appends(array(
+            'country' => $data['country'],
+            'category' => $data['category'],
+            'form' => $data['form']
+        ));
         return view('pages.outdoor', compact('outdoors'));
     }
 
@@ -223,6 +238,11 @@ class PagesController extends Controller
         }
         $transforms = transformResource::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
             ->where('form', 'like', $data['form'])->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
+        $transforms->appends(array(
+            'country' => $data['country'],
+            'category' => $data['category'],
+            'form' => $data['form']
+        ));
         return view('pages.transform', compact('transforms'));
     }
 
@@ -263,6 +283,11 @@ class PagesController extends Controller
         }
         $onlines = onlineResource::where('country', 'like', $data['country'])->where('category', 'like', $data['category'])
             ->where('form', 'like', $data['form'])->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
+        $onlines->appends(array(
+            'country' => $data['country'],
+            'category' => $data['category'],
+            'form' => $data['form']
+        ));
         return view('pages.online', compact('onlines'));
 
     }
@@ -321,6 +346,12 @@ class PagesController extends Controller
                     $q->where('name', 'like', $category);
                 })->where('isuse', true)->orderBy('id', 'desc')->paginate(9);
         }
+
+        $internetCelebrities->appends(array(
+            'country' => $request->country,
+            'category' => $category,
+            'platform' => $request->platform
+        ));
 
         return view('pages.internetCelebrity', compact('internetCelebrities'));
     }

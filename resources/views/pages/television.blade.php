@@ -33,11 +33,11 @@
                 <div class="main col-md-12">
 
                     <div class="sorting-filters">
-                        <form class="form-inline" action="{{ route('television.search') }}" method="post" id="search">
-                            {{ csrf_field() }}
+                        <form class="form-inline" action="{{ route('television.search') }}" method="get" id="search">
+{{--                            {{ csrf_field() }}--}}
                             <div class="form-group">
                                 <label>国家或地区</label>
-                                <select class="form-control" name="country">
+                                <select class="form-control country-selected" name="country">
                                     <option selected="selected">全部</option>
                                     <option>美国</option>
                                     <option>加拿大</option>
@@ -77,7 +77,7 @@
                             </div>
                             <div class="form-group">
                                 <label>类别</label>
-                                <select class="form-control" name="category">
+                                <select class="form-control category-selected" name="category">
                                     <option selected="selected">全部</option>
                                     <option>综合新闻</option>
                                     <option>财经</option>
@@ -101,13 +101,13 @@
                             </div>
                             <div class="form-group">
                                 <label>形式</label>
-                                <select class="form-control" name="form">
+                                <select class="form-control form-selected" name="form">
                                     <option selected="selected">全部</option>
                                     <option>TVC</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <a href="javascript:void(0);" class="btn btn-default" onclick="$('#search').submit()">开始搜索</a>
+                                <a href="javascript:void(0);" class="btn btn-default" onclick="submit()">开始搜索</a>
                             </div>
                         </form>
                     </div>
@@ -151,3 +151,22 @@
     </section>
     <!-- main-container end -->
     @stop
+@section('script')
+    <script>
+
+        if(!window.location.href.includes('Search')) {
+            $.session.clear()
+        }
+
+        $('.country-selected').val($.session.get('country') || '全部')
+        $('.category-selected').val($.session.get('category') || '全部')
+        $('.form-selected').val($.session.get('form') || '全部')
+
+        function submit() {
+            $('#search').submit()
+            $.session.set('country', $('.country-selected').val())
+            $.session.set('category', $('.category-selected').val())
+            $.session.set('form', $('.form-selected').val())
+        }
+    </script>
+@stop

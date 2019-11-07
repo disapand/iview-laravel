@@ -104,14 +104,11 @@
             return {
                 dataList: '',
                 loading: true,
+                user: {}
             }
-        },
-        created() {
-
         },
         mounted() {
             setTimeout( () => {
-                console.log(this.$store.state.user, '看看用户信息有没有')
                 this.$ajax.get('https://www.zetin.cn/api/dashboard/' + this.$store.state.user.id)
                     .then((res) => {
                         console.log('返回数据', res.data)
@@ -122,7 +119,7 @@
                     .catch((err) => {
 
                     })
-            }, 1000)
+            }, 1500)
         },
         methods: {
             getDay(day) {
@@ -311,7 +308,7 @@
                 let zytj = this.$echarts.init(document.getElementById('zytj'))
                 zytj.setOption({
                     title: {
-                        text: '上周上传资源数量统计'
+                        text: '上周上传资源数量'
                     },
                     legend: {
                         data: ['资源数量']

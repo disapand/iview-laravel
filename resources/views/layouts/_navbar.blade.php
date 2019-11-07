@@ -117,6 +117,23 @@
                                                     </li>
                                                 </ul>
                                             </li>
+                                            @if(Auth::guard('member')->check())
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                                       style="cursor:default;">个人中心</a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="{{ route('member') }}"><i class="icon-right-open"></i>个人信息</a>
+                                                        </li>
+                                                        <li><a href="{{ route('logout') }}"><i class="icon-right-open"></i>登出</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            @else
+                                                <li class="dropdown">
+                                                    <a href="{{ route('login') }}" class="dropdown-toggle"
+                                                       data-toggle="dropdown">登录</a>
+                                                </li>
+                                            @endif
                                         </ul>
                                     </div>
                                 </div>

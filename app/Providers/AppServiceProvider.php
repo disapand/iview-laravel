@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Observers\MemberObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //强制使用https
         \URL::forceScheme('https');
+        \App\Models\Member::observe(MemberObserver::class);
     }
 
     /**

@@ -22,6 +22,7 @@ import dynamic_item from '../components/dynamic_item.vue';
 import login from '../components/login.vue'
 import zetinUser from '../components/zetin_user.vue'
 import dashboard from '../components/dashboard.vue'
+import member from '../components/member'
 
 Vue.use(vueRouter);
 
@@ -159,6 +160,12 @@ const routes = [
                 name: 'user',
                 meta: {title: 'zetin 用户管理'},
                 component: zetinUser,
+            },
+            {
+                path: '/member',
+                name: 'member',
+                meta: {title: 'zetin 会员管理'},
+                component: member,
             },
         ]
     },

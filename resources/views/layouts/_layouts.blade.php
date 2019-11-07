@@ -39,6 +39,7 @@
 
     <!-- Custom css -->
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    @yield('style')
 </head>
 <body>
 
@@ -51,6 +52,23 @@
 <div class="page-wrapper">
 
     @include('layouts._navbar')
+
+    @if(Auth::guard('member')->check() && !Auth::guard('member')->user()->verified && !Request::is('email_verification_required'))
+        <div class="bg-danger">
+            <div style="padding: 20px 0;text-align: center">
+                您的账号还没有激活，部分功能将无法正常使用，请
+                <a href="{{ route('email_verification_required') }}">前往激活</a>
+                您的账号
+            </div>
+        </div>
+    @endif
+    @if(Auth::guard('member')->check() && Auth::guard('member')->user()->phone == '' && Auth::guard('member')->user()->company == '' && !Request::is('member'))
+        <div class="bg-warning">
+            <div style="padding: 20px 0;text-align: center">
+                账号资料没有完善，请 <a href="{{ route('member') }}">前往</a> 完善您的账号资料
+            </div>
+        </div>
+    @endif
 
     @yield('content')
 
@@ -84,6 +102,7 @@
 
 <!-- Count To javascript -->
 <script type="text/javascript" src="{{ asset('plugins/jquery.countTo.js') }}"></script>
+<script type="text/javascript" src="{{ asset('plugins/jquery.session.js') }}"></script>
 
 <!-- Parallax javascript -->
 <script src="{{ asset('plugins/jquery.parallax-1.1.3.js') }}"></script>
