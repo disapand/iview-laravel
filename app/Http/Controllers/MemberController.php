@@ -165,12 +165,13 @@ class MemberController extends Controller
 
         $this->validate($request, [
             'name' => 'bail|required',
-            'phone' => 'required',
+            'phone' => 'required|regex:/^1[34578][0-9]{9}$/',
             'company' => 'required',
             'address' => 'nullable'
         ], [
             'name.required' => '请输入联系人信息',
             'phone.required' => '请输入联系电话',
+            'phone.regex' => '您输入的电话号码格式有误',
             'company.required' => '请输入公司'
         ]);
 

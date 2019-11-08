@@ -163,9 +163,12 @@
     <div id="app">
         <form class="login-panel" method="POST" action="{{ route('loginMember') }}" @submit="login">
             {{ csrf_field() }}
-            <h1 class="login-title">Login</h1>
-            <input type="text" v-model="email" placeholder="Email" class="login-input" name="email">
-            <input type="password" v-model="password" placeholder="Password" class="login-input" name="password">
+            <div class="login-title">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+            </div>
+            <input type="text" v-model="email" placeholder="请输入您的账号" class="login-input" name="email" autocomplete="off">
+            <input type="password" v-model="password" placeholder="请输入您的密码" class="login-input" name="password" autocomplete="new-password">
+            <input type="password" style="display: none">
             <button class="login-btn" type="submit">登  录</button>
             <span class="register-btn" @click="register">还没有账号？点此注册 >>></span>
             <span class="login-error" :class="err ? 'login-has-error' : ''">@{{ err }}</span>

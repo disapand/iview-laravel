@@ -118,9 +118,12 @@
                                                 </ul>
                                             </li>
                                             @if(Auth::guard('member')->check())
-                                                <li class="dropdown">
+                                                <li class="dropdown person">
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                       style="cursor:default;">个人中心</a>
+                                                       style="cursor:default;">
+                                                        <span class="glyphicon glyphicon-user"></span>
+                                                        个人中心
+                                                    </a>
                                                     <ul class="dropdown-menu">
                                                         <li><a href="{{ route('member') }}"><i class="icon-right-open"></i>个人信息</a>
                                                         </li>
@@ -129,9 +132,11 @@
                                                     </ul>
                                                 </li>
                                             @else
-                                                <li class="dropdown">
-                                                    <a href="{{ route('login') }}" class="dropdown-toggle"
-                                                       data-toggle="dropdown">登录</a>
+                                                <li class="dropdown person">
+                                                    <a href="{{ route('login') }}" class="dropdown-toggle" data-toggle="dropdown">
+                                                        <span class="glyphicon glyphicon-user"></span>
+                                                        登录
+                                                    </a>
                                                 </li>
                                             @endif
                                         </ul>

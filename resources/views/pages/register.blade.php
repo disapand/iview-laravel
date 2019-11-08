@@ -159,12 +159,13 @@
     <div id="app">
         <form class="login-panel" method="POST" action="{{ route('store') }}">
             {{ csrf_field() }}
-            <h1 class="login-title">Register</h1>
-            <input type="text" v-model="email" placeholder="Email" class="login-input" name="email">
-            <input type="password" v-model="password" placeholder="Password" class="login-input" name="password">
-            <input type="password" v-model="confirmPassword" placeholder="Confirm Password" class="login-input" name="confirmPassword">
+            <div class="login-title" style="font-size: 1.5em">注册</div>
+            <input type="text" v-model="email" placeholder="请输入邮箱" class="login-input" name="email" autocomplete="off">
+            <input type="password" v-model="password" placeholder="请输入密码" class="login-input" name="password" autocomplete="new-password">
+            <input type="password" style="display: none">
+            <input type="password" v-model="confirmPassword" placeholder="再次输入密码" class="login-input" name="confirmPassword">
             <div class="code">
-                <input type="text" v-model="code" placeholder="Verification Code" class="login-input" style="width: 100px" name="captcha">
+                <input type="text" v-model="code" placeholder="填写验证码" class="login-input" style="width: 100px" name="captcha">
                 <img class="code-img" src="{{ captcha_src("flat") }}" onclick="this.src='/captcha/flat?' + Math.random()" title="点击图片更换验证码" alt="">
             </div>
             <button class="login-btn">注  册</button>
