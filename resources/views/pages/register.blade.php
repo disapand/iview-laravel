@@ -185,7 +185,8 @@
             data: {
                 err: '',
                 email: '',
-                password: ''
+                password: '',
+                confirmPassword: ''
             },
             methods: {
                 login() {
