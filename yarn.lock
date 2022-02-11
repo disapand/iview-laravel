@@ -258,6 +258,10 @@ async-foreach@^0.1.3:
   version "0.1.3"
   resolved "http://registry.npm.taobao.org/async-foreach/download/async-foreach-0.1.3.tgz#36121f845c0578172de419a97dbeb1d16ec34542"
 
+async-validator@^1.8.2:
+  version "1.12.2"
+  resolved "https://registry.yarnpkg.com/async-validator/-/async-validator-1.12.2.tgz#beae671e7174d2938b7b4b69d2fb7e722b7fd72c"
+
 async@^1.5.2:
   version "1.5.2"
   resolved "http://registry.npm.taobao.org/async/download/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
@@ -306,9 +310,9 @@ aws4@^1.2.1:
   version "1.7.0"
   resolved "http://registry.npm.taobao.org/aws4/download/aws4-1.7.0.tgz#d4d0e9b9dbfca77bf08eeb0a8a471550fe39e289"
 
-axios@^0.17:
+axios@^0.17.1:
   version "0.17.1"
-  resolved "http://registry.npm.taobao.org/axios/download/axios-0.17.1.tgz#2d8e3e5d0bdbd7327f91bc814f5c57660f81824d"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.17.1.tgz#2d8e3e5d0bdbd7327f91bc814f5c57660f81824d"
   dependencies:
     follow-redirects "^1.2.5"
     is-buffer "^1.1.5"
@@ -824,6 +828,10 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
+batch-processor@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/batch-processor/-/batch-processor-1.0.0.tgz#75c95c32b748e0850d10c2b168f6bdbe9891ace8"
+
 batch@0.6.1:
   version "0.6.1"
   resolved "http://registry.npm.taobao.org/batch/download/batch-0.6.1.tgz#dc34314f4e679318093fc760272525f94bf25c16"
@@ -1313,8 +1321,8 @@ chokidar@^2.0.0, chokidar@^2.0.2:
     fsevents "^1.2.2"
 
 chownr@^1.0.1:
-  version "1.0.1"
-  resolved "http://registry.npm.taobao.org/chownr/download/chownr-1.0.1.tgz#e2a75042a9551908bebd25b8523d5f9769d79181"
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.4.tgz#6fc9d7b42d32a583596337666e7d08084da2cc6b"
 
 cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   version "1.0.4"
@@ -2005,6 +2013,10 @@ deep-extend@^0.6.0:
   version "0.6.0"
   resolved "http://registry.npm.taobao.org/deep-extend/download/deep-extend-0.6.0.tgz#c4fa7c95404a17a9c3e8ca7e1537312b736330ac"
 
+deepmerge@^2.1.0:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.2.1.tgz#5d3ff22a01c00f645405a2fbc17d0778a1801170"
+
 define-properties@^1.1.2:
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/define-properties/download/define-properties-1.1.2.tgz#83a73f2fea569898fb737193c8f873caf6d45c94"
@@ -2227,6 +2239,12 @@ ee-first@1.1.1:
 electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.30, electron-to-chromium@^1.3.47:
   version "1.3.50"
   resolved "http://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.50.tgz#7438b76f92b41b919f3fbdd350fbd0757dacddf7"
+
+element-resize-detector@^1.1.14:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/element-resize-detector/-/element-resize-detector-1.2.4.tgz#3e6c5982dd77508b5fa7e6d5c02170e26325c9b1"
+  dependencies:
+    batch-processor "1.0.0"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -3964,6 +3982,19 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
+iview@^2.14.3:
+  version "2.14.3"
+  resolved "https://registry.yarnpkg.com/iview/-/iview-2.14.3.tgz#0f32a450f956cce2ac60a4df5a6eba30816a0708"
+  dependencies:
+    async-validator "^1.8.2"
+    deepmerge "^2.1.0"
+    element-resize-detector "^1.1.14"
+    js-calendar "^1.2.3"
+    lodash.throttle "^4.1.1"
+    popper.js "^1.14.1"
+    tinycolor2 "^1.4.1"
+    v-click-outside-x "^3.0.0"
+
 jquery@^3.2:
   version "3.3.1"
   resolved "http://registry.npm.taobao.org/jquery/download/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
@@ -3971,6 +4002,10 @@ jquery@^3.2:
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.4.5"
   resolved "http://registry.npm.taobao.org/js-base64/download/js-base64-2.4.5.tgz#e293cd3c7c82f070d700fc7a1ca0a2e69f101f92"
+
+js-calendar@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/js-calendar/-/js-calendar-1.2.3.tgz#a583b0644b4e695ba394f344d103dbcc7a7a7d3e"
 
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
@@ -4341,6 +4376,10 @@ lodash.templatesettings@^3.0.0:
   dependencies:
     lodash._reinterpolate "^3.0.0"
     lodash.escape "^3.0.0"
+
+lodash.throttle@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
 
 lodash.uniq@^4.5.0:
   version "4.5.0"
@@ -5279,6 +5318,10 @@ pngquant-bin@^4.0.0:
     bin-wrapper "^3.0.0"
     execa "^0.10.0"
     logalot "^2.0.0"
+
+popper.js@^1.14.1:
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
 
 portfinder@^1.0.9:
   version "1.0.13"
@@ -6818,6 +6861,10 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
+tinycolor2@^1.4.1:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.2.tgz#3f6a4d1071ad07676d7fa472e1fac40a719d8803"
+
 to-absolute-glob@^0.1.1:
   version "0.1.1"
   resolved "http://registry.npm.taobao.org/to-absolute-glob/download/to-absolute-glob-0.1.1.tgz#1cdfa472a9ef50c239ee66999b662ca0eb39937f"
@@ -7116,6 +7163,10 @@ uuid@^3.0.0, uuid@^3.0.1:
   version "3.3.0"
   resolved "http://registry.npm.taobao.org/uuid/download/uuid-3.3.0.tgz#b237147804881d7b86f40a7ff8f590f15c37de32"
 
+v-click-outside-x@^3.0.0:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/v-click-outside-x/-/v-click-outside-x-3.7.1.tgz#aa03eaa0e41e44cb5207dcf86c2d9f0dd64084c1"
+
 vali-date@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/vali-date/download/vali-date-1.0.0.tgz#1b904a59609fb328ef078138420934f6b86709a6"
@@ -7222,6 +7273,10 @@ vue-loader@^13.0.5:
     vue-hot-reload-api "^2.2.0"
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.6.0"
+
+vue-router@^3.0.1:
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.5.3.tgz#041048053e336829d05dafacf6a8fb669a2e7999"
 
 vue-style-loader@^3.0.0:
   version "3.1.2"
